@@ -1,0 +1,44 @@
+:root {
+  /* Brand colors */
+  --navy: #1b2b4b;
+  --navy-dark: #14213d;
+  --navy-btn: #1c2e52;
+  --blue: #2563eb;
+  --blue-bright: #2e63ff;
+  --yellow: #f9b233;
+  --yellow-deep: #ffc107;
+  --orange: #f97316;
+  --green: #22c55e;
+  --purple: #8b5cf6;
+  --pink: #ec4899;
+
+  /* Text */
+  --text-heading: #1b2b4b;
+  --text-body: #5a6b87;
+  --text-muted: #8a97ab;
+
+  /* Surfaces */
+  --bg-white: #ffffff;
+  --bg-light: #f5f7fb;
+  --bg-card: #ffffff;
+
+  /* Icon tints */
+  --tint-blue: #e3ecff;
+  --tint-green: #dcf7e5;
+  --tint-orange: #ffefd6;
+  --tint-purple: #ede9fe;
+  --tint-pink: #fde7f1;
+
+  /* Shadows */
+  --shadow-card: 0 6px 24px rgba(27, 43, 75, 0.07);
+  --shadow-card-hover: 0 12px 32px rgba(27, 43, 75, 0.12);
+  --shadow-soft: 0 4px 16px rgba(27, 43, 75, 0.06);
+
+  /* Radii */
+  --radius-card: 16px;
+  --radius-pill: 999px;
+
+  /* Layout */
+  --container: 1290px;
+  --font: 'Poppins', -apple-system, 'Segoe UI', Roboto, sans-serif;
+}

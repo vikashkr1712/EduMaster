@@ -1,0 +1,139 @@
+.testimonials {
+  background: var(--bg-light);
+  padding: 40px 0 90px;
+}
+
+.testimonials-inner {
+  display: grid;
+  grid-template-columns: 0.9fr 2.1fr;
+  gap: 44px;
+  align-items: start;
+}
+
+.testimonials-intro .section-badge {
+  margin-bottom: 20px;
+}
+
+.testimonials-intro .section-title {
+  font-size: 34px;
+  margin-bottom: 16px;
+}
+
+.t-blue {
+  color: var(--blue);
+}
+
+.testimonials-intro .section-sub {
+  font-size: 15.5px;
+  line-height: 1.7;
+  margin-bottom: 30px;
+}
+
+.testimonials-avatars {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.t-avatar-row {
+  display: flex;
+  align-items: center;
+}
+
+.t-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2.5px solid #fff;
+  margin-left: -10px;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.t-avatar:first-child {
+  margin-left: 0;
+}
+
+.t-avatar-plus {
+  background: var(--blue);
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 11;
+}
+
+.t-avatar-note {
+  font-size: 13.5px;
+  color: var(--text-body);
+}
+
+.testimonials-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 26px;
+}
+
+.t-card {
+  background: var(--bg-white);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: 30px 28px 26px;
+  display: flex;
+  flex-direction: column;
+}
+
+.t-quote {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 22px;
+}
+
+.t-text {
+  font-size: 15px;
+  line-height: 1.75;
+  color: #45566f;
+  margin-bottom: 26px;
+  flex: 1;
+}
+
+.t-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.t-person {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.t-person > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.t-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.t-role {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.t-stars {
+  display: flex;
+  gap: 2px;
+}

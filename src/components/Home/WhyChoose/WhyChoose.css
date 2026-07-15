@@ -1,0 +1,81 @@
+.whychoose {
+  background: var(--bg-white);
+  padding: 90px 0;
+}
+
+.whychoose-inner {
+  display: grid;
+  grid-template-columns: 1fr 1.05fr;
+  align-items: center;
+  gap: 40px;
+}
+
+.whychoose-badge {
+  margin-bottom: 26px;
+}
+
+.whychoose-title {
+  font-size: 52px;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.18;
+  margin-bottom: 22px;
+  letter-spacing: -0.01em;
+}
+
+.whychoose-title span {
+  color: var(--blue);
+}
+
+.whychoose-text {
+  font-size: 16.5px;
+  line-height: 1.7;
+  max-width: 440px;
+  margin-bottom: 42px;
+}
+
+.whychoose-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 36px 28px;
+}
+
+.wc-feature {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.wc-feature-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.wc-feature h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+
+.wc-feature p {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--text-body);
+}
+
+.whychoose-illustration {
+  display: flex;
+  justify-content: center;
+}
+
+.whychoose-illustration-svg {
+  width: 100%;
+  max-width: 660px;
+  height: auto;
+}
