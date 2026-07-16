@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react'
 import './Navbar.css'
 
 function LogoMark() {
@@ -16,8 +17,20 @@ function LogoMark() {
 const links = ['Home', 'Courses', 'Programs', 'Testimonials', 'About Us', 'Contact']
 
 export default function Navbar() {
+  const [open, setOpen] = useState(false)
+  const rootRef = useRef(null)
+
+  useEffect(() => {
+    if (!open) return
+    const onOutside = (e) => {
+      if (rootRef.current && !rootRef.current.contains(e.target)) setOpen(false)
+    }
+    document.addEventListener('pointerdown', onOutside)
+    return () => document.removeEventListener('pointerdown', onOutside)
+  }, [open])
+
   return (
-    <header className="navbar">
+    <header className="navbar" ref={rootRef}>
       <div className="container navbar-inner">
         <a href="#" className="navbar-brand">
           <LogoMark />
@@ -38,6 +51,29 @@ export default function Navbar() {
         </nav>
 
         <div className="navbar-actions">
+          <button className="btn-login">Login</button>
+          <button className="btn-signup">Sign Up</button>
+        </div>
+
+        <button
+          className={`navbar-burger${open ? ' is-open' : ''}`}
+          aria-label="Toggle navigation menu"
+          aria-expanded={open}
+          onClick={() => setOpen(!open)}
+        >
+          <span />
+          <span />
+          <span />
+        </button>
+      </div>
+
+      <div className={`navbar-menu${open ? ' open' : ''}`}>
+        {links.map((link, i) => (
+          <a key={link} href="#" className={i === 0 ? 'active' : ''} onClick={() => setOpen(false)}>
+            {link}
+          </a>
+        ))}
+        <div className="navbar-menu-actions">
           <button className="btn-login">Login</button>
           <button className="btn-signup">Sign Up</button>
         </div>

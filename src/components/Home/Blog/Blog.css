@@ -77,6 +77,13 @@
   height: auto;
 }
 
+.blog-media img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 300 / 130;
+  object-fit: contain;
+}
+
 .blog-body {
   padding: 18px 22px 22px;
 }

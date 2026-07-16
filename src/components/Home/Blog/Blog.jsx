@@ -1,8 +1,8 @@
 import './Blog.css'
-import BlogIllustration1 from '../../../svg/BlogIllustration1.jsx'
+import blogFrontendSvg from '../../../svg/svg_latest_article_insights_left.svg'
 import BlogIllustration2 from '../../../svg/BlogIllustration2.jsx'
-import BlogIllustration3 from '../../../svg/BlogIllustration3.jsx'
-import BlogIllustration4 from '../../../svg/BlogIllustration4.jsx'
+import blogCloudSvg from '../../../svg/svg_latest_article_insights_why_cloud.svg'
+import blogDataScienceSvg from '../../../svg/svg_latest_article_insights_right.svg'
 
 function CalendarIcon() {
   return (
@@ -24,7 +24,9 @@ function ClockSmallIcon() {
 
 const posts = [
   {
-    illustration: <BlogIllustration1 />,
+    illustration: (
+      <img src={blogFrontendSvg} alt="Frontend developer working on laptop" />
+    ),
     category: 'Web Development',
     title: '10 Tips to Become a Better Frontend Developer',
     date: 'May 15, 2024',
@@ -38,14 +40,18 @@ const posts = [
     read: '6 min read',
   },
   {
-    illustration: <BlogIllustration3 />,
+    illustration: (
+      <img src={blogCloudSvg} alt="Cloud computing with upload and database" />
+    ),
     category: 'Career',
     title: 'Why Cloud Computing Skills Are in High Demand',
     date: 'May 5, 2024',
     read: '4 min read',
   },
   {
-    illustration: <BlogIllustration4 />,
+    illustration: (
+      <img src={blogDataScienceSvg} alt="Data scientist analyzing charts" />
+    ),
     category: 'Data Science',
     title: 'Top Data Science Tools You Should Learn in 2024',
     date: 'Apr 28, 2024',

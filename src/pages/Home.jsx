@@ -26,11 +26,11 @@ export default function Home() {
       <WhyChoose />
       <JoinCTA />
       <Partners />
-      <Subscribe />
       <TestimonialCarousel />
       <AchievementBar />
       <Blog />
       <CTA />
+      <Subscribe />
       <Footer />
     </>
   )

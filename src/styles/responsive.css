@@ -1,0 +1,503 @@
+/* ============================================================
+   Responsive styles — tablet & mobile
+   Breakpoints: 1200px / 992px / 768px / 560px
+   ============================================================ */
+
+/* ---------------- ≤ 1200px (small desktop / large tablet) ---------------- */
+@media (max-width: 1200px) {
+  /* Hero: tighten so both columns breathe */
+  .hero-title {
+    font-size: 42px;
+  }
+
+  .hero-text {
+    font-size: 17px;
+    margin-bottom: 36px;
+  }
+
+  .hero-stats {
+    gap: 36px;
+    margin-bottom: 40px;
+  }
+
+  /* Why Choose: smaller title, 3 → 2 feature columns */
+  .whychoose-title {
+    font-size: 42px;
+  }
+
+  .whychoose-text {
+    margin-bottom: 34px;
+  }
+
+  .whychoose-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px 24px;
+  }
+
+  /* Testimonials: intro on top, cards below */
+  .testimonials-inner {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  /* Testimonial carousel: 4 → 2 cards */
+  .tcarousel-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Blog: 4 → 2 cards */
+  .blog-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Footer: 5 → 3 columns */
+  .footer-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ---------------- ≤ 992px (tablet) ---------------- */
+@media (max-width: 992px) {
+  .section-title {
+    font-size: 34px;
+  }
+
+  /* --- Hero: stack content above illustration --- */
+  .hero {
+    padding: 32px 0 56px;
+  }
+
+  .hero-inner {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .hero-title {
+    font-size: 40px;
+  }
+
+  .hero-stats {
+    flex-wrap: wrap;
+    gap: 28px 40px;
+    margin-bottom: 40px;
+  }
+
+  .hero-illustration-svg {
+    width: 100%;
+    max-width: 560px;
+  }
+
+  /* --- Features: 4 → 2 --- */
+  .features-card {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 32px 30px;
+  }
+
+  /* --- Courses: 3 → 2 --- */
+  .courses {
+    padding: 60px 0 56px;
+  }
+
+  .courses-title {
+    font-size: 36px;
+  }
+
+  .courses-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px;
+    padding: 0 44px;
+  }
+
+  .courses-arrow {
+    width: 44px;
+    height: 44px;
+  }
+
+  /* --- Stats / Achievement bars: 5 → 3, drop dividers --- */
+  .statsbar-card,
+  .achievebar-card {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px 16px;
+    padding: 30px 24px;
+  }
+
+  .statsbar-item.has-divider,
+  .achievebar-item.has-divider {
+    border-left: none;
+  }
+
+  /* --- Testimonials cards: 3 → 2 --- */
+  .testimonials {
+    padding: 32px 0 64px;
+  }
+
+  .testimonials-cards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  /* --- Why Choose: stack, illustration below --- */
+  .whychoose {
+    padding: 60px 0;
+  }
+
+  .whychoose-inner {
+    grid-template-columns: 1fr;
+    gap: 44px;
+  }
+
+  .whychoose-title {
+    font-size: 38px;
+  }
+
+  .whychoose-illustration-svg {
+    max-width: 560px;
+  }
+
+  /* --- Join CTA: stack & center --- */
+  .joincta-card {
+    flex-direction: column;
+    text-align: center;
+    gap: 26px;
+    padding: 36px 28px;
+  }
+
+  .joincta-copy p {
+    margin: 0 auto;
+  }
+
+  /* --- Partners: wrap logos --- */
+  .partners-row {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 28px 44px;
+    padding: 0;
+  }
+
+  /* --- Subscribe: stack --- */
+  .subscribe {
+    padding: 10px 0 56px;
+  }
+
+  .subscribe-card {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 22px;
+    padding: 28px 26px;
+  }
+
+  .subscribe-form input {
+    width: auto;
+    flex: 1;
+    min-width: 0;
+  }
+
+  /* --- Testimonial carousel arrows inside edge --- */
+  .tcarousel-grid {
+    padding: 0 36px;
+  }
+
+  .tcarousel-arrow-left {
+    left: -8px;
+  }
+
+  .tcarousel-arrow-right {
+    right: -8px;
+  }
+
+  /* --- CTA banner: stack & center --- */
+  .cta-banner {
+    flex-direction: column;
+    text-align: center;
+    gap: 24px;
+    padding: 32px 26px;
+  }
+
+  .cta-left {
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  /* --- Footer: 3 → 2 columns --- */
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ---------------- ≤ 768px (small tablet / large phone) ---------------- */
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 29px;
+  }
+
+  /* --- Hero --- */
+  .hero-title {
+    font-size: 34px;
+  }
+
+  .hero-text {
+    font-size: 16px;
+    margin-bottom: 36px;
+  }
+
+  /* --- Courses: 2 → 1, arrows removed --- */
+  .courses-grid {
+    grid-template-columns: 1fr;
+    padding: 0;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .courses-arrow {
+    display: none;
+  }
+
+  .courses-title {
+    font-size: 30px;
+  }
+
+  /* --- Testimonials: 2 → 1 --- */
+  .testimonials-cards {
+    grid-template-columns: 1fr;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .testimonials-intro .section-title {
+    font-size: 29px;
+  }
+
+  /* --- Why Choose feature grid: 3 → 2 --- */
+  .whychoose-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px 22px;
+  }
+
+  .whychoose-title {
+    font-size: 32px;
+  }
+
+  /* --- Testimonial carousel: 2 → 1, arrows removed --- */
+  .tcarousel {
+    padding: 56px 0 40px;
+  }
+
+  .tcarousel-grid {
+    grid-template-columns: 1fr;
+    padding: 0;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .tcarousel-arrow {
+    display: none;
+  }
+
+  .tcarousel-head .section-title {
+    font-size: 29px;
+  }
+
+  /* --- Blog: heading stacks, link below title --- */
+  .blog-head {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .blog-viewall {
+    position: static;
+  }
+
+  .blog-title {
+    font-size: 28px;
+  }
+
+  /* --- Footer --- */
+  .footer {
+    padding: 48px 0 0;
+  }
+
+  .footer-grid {
+    gap: 34px 28px;
+  }
+}
+
+/* ---------------- ≤ 560px (phone) ---------------- */
+@media (max-width: 560px) {
+  .container {
+    padding: 0 18px;
+  }
+
+  .section-title {
+    font-size: 25px;
+  }
+
+  /* --- Navbar --- */
+  .navbar-inner {
+    height: 72px;
+  }
+
+  /* --- Hero --- */
+  .hero {
+    padding: 24px 0 48px;
+  }
+
+  .hero-title {
+    font-size: 29px;
+  }
+
+  .hero-badge {
+    font-size: 13px;
+    padding: 9px 16px;
+    margin-bottom: 22px;
+  }
+
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px 16px;
+  }
+
+  .hero-stat-icon {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 10px;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btn-explore,
+  .btn-demo {
+    justify-content: center;
+  }
+
+  /* --- Features: 2 → 1 --- */
+  .features-card {
+    grid-template-columns: 1fr;
+    padding: 26px 22px;
+  }
+
+  /* --- Stats / Achievement bars: 3 → 2, left aligned --- */
+  .statsbar-card,
+  .achievebar-card {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px 12px;
+    padding: 26px 20px;
+  }
+
+  .statsbar-item,
+  .achievebar-item {
+    justify-content: flex-start;
+  }
+
+  .statsbar-icon,
+  .achievebar-icon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .statsbar-value,
+  .achievebar-value {
+    font-size: 19px;
+  }
+
+  .statsbar-label,
+  .achievebar-label {
+    font-size: 13px;
+  }
+
+  /* --- Why Choose feature grid: 2 → 1 --- */
+  .whychoose-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .whychoose-title {
+    font-size: 27px;
+  }
+
+  /* --- Join CTA --- */
+  .joincta-copy h2 {
+    font-size: 24px;
+  }
+
+  .trophy-illustration-svg {
+    width: 160px;
+  }
+
+  /* --- Partners --- */
+  .partners-row {
+    gap: 20px 30px;
+  }
+
+  .partner-logo svg {
+    transform: scale(0.85);
+  }
+
+  .logo-google,
+  .logo-ibm {
+    font-size: 27px;
+  }
+
+  .logo-microsoft,
+  .logo-amazon,
+  .logo-deloitte,
+  .logo-accenture {
+    font-size: 23px;
+  }
+
+  .logo-accenture::after {
+    right: 34px;
+  }
+
+  /* --- Subscribe: form stacks --- */
+  .subscribe-card {
+    padding: 24px 20px;
+  }
+
+  .subscribe-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btn-subscribe {
+    width: 100%;
+  }
+
+  /* --- Blog: 2 → 1 --- */
+  .blog-grid {
+    grid-template-columns: 1fr;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .blog-title {
+    font-size: 24px;
+  }
+
+  /* --- CTA --- */
+  .cta-copy h2 {
+    font-size: 22px;
+  }
+
+  .btn-startlearning {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* --- Footer: 2 → 1 column --- */
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .footer-newsletter form {
+    flex-direction: column;
+  }
+
+  .footer-newsletter button {
+    width: 100%;
+  }
+}
