@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { NavLink, Link } from 'react-router-dom'
 import './Navbar.css'
 
 function LogoMark() {
@@ -14,7 +15,14 @@ function LogoMark() {
   )
 }
 
-const links = ['Home', 'Courses', 'Programs', 'Testimonials', 'About Us', 'Contact']
+const links = [
+  { label: 'Home', to: '/' },
+  { label: 'Courses', to: '/courses' },
+  { label: 'Programs', to: '#' },
+  { label: 'Testimonials', to: '#' },
+  { label: 'About Us', to: '#' },
+  { label: 'Contact', to: '#' },
+]
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
@@ -43,11 +51,17 @@ export default function Navbar() {
         </a>
 
         <nav className="navbar-links">
-          {links.map((link, i) => (
-            <a key={link} href="#" className={i === 0 ? 'active' : ''}>
-              {link}
-            </a>
-          ))}
+          {links.map((link) =>
+            link.to === '#' ? (
+              <a key={link.label} href="#">
+                {link.label}
+              </a>
+            ) : (
+              <NavLink key={link.label} to={link.to} end={link.to === '/'}>
+                {link.label}
+              </NavLink>
+            )
+          )}
         </nav>
 
         <div className="navbar-actions">
@@ -68,11 +82,22 @@ export default function Navbar() {
       </div>
 
       <div className={`navbar-menu${open ? ' open' : ''}`}>
-        {links.map((link, i) => (
-          <a key={link} href="#" className={i === 0 ? 'active' : ''} onClick={() => setOpen(false)}>
-            {link}
-          </a>
-        ))}
+        {links.map((link) =>
+          link.to === '#' ? (
+            <a key={link.label} href="#" onClick={() => setOpen(false)}>
+              {link.label}
+            </a>
+          ) : (
+            <NavLink
+              key={link.label}
+              to={link.to}
+              end={link.to === '/'}
+              onClick={() => setOpen(false)}
+            >
+              {link.label}
+            </NavLink>
+          )
+        )}
         <div className="navbar-menu-actions">
           <button className="btn-login">Login</button>
           <button className="btn-signup">Sign Up</button>
