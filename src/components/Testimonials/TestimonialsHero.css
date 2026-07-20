@@ -1,0 +1,249 @@
+.thero {
+  background: #f9fafd;
+  padding: 34px 0 0;
+  overflow: hidden;
+}
+
+.thero-inner {
+  display: grid;
+  grid-template-columns: 1fr 1.05fr;
+  grid-template-areas:
+    'badge svg'
+    'title svg'
+    'text svg'
+    'actions svg';
+  align-content: center;
+  column-gap: 24px;
+}
+
+.thero-badge {
+  grid-area: badge;
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  background: #e3ecff;
+  color: var(--blue);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 9px 20px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 26px;
+}
+
+.thero-title {
+  grid-area: title;
+  font-size: 49px;
+  line-height: 1.16;
+  font-weight: 700;
+  color: var(--navy);
+  letter-spacing: -0.01em;
+  margin-bottom: 24px;
+}
+
+.thero-title span {
+  color: var(--yellow);
+}
+
+.thero-text {
+  grid-area: text;
+  font-size: 18px;
+  line-height: 1.65;
+  color: var(--text-body);
+  max-width: 540px;
+  margin-bottom: 40px;
+}
+
+.thero-actions {
+  grid-area: actions;
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  margin-bottom: 40px;
+}
+
+.thero-btn-explore {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--blue);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 16px 32px;
+  border-radius: var(--radius-pill);
+  transition: background 0.2s;
+}
+
+.thero-btn-explore:hover {
+  background: #1d4ed8;
+}
+
+.thero-btn-video {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: transparent;
+  color: var(--navy);
+  font-size: 16px;
+  font-weight: 500;
+  padding: 14px 0;
+  transition: opacity 0.2s;
+}
+
+.thero-btn-video:hover {
+  opacity: 0.75;
+}
+
+.thero-illustration {
+  grid-area: svg;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 0;
+  animation: thero-float 6s ease-in-out infinite;
+}
+
+.svg-testimonials-inline {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 700px;
+}
+
+@keyframes thero-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .thero-illustration {
+    animation: none;
+  }
+}
+
+/* ---------------- tablet ---------------- */
+@media (max-width: 1024px) {
+  .thero-title {
+    font-size: 40px;
+  }
+
+  .thero-text {
+    font-size: 16.5px;
+  }
+}
+
+/* stack: content centered on top, illustration below */
+@media (max-width: 900px) {
+  .thero-inner {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'badge'
+      'title'
+      'text'
+      'actions'
+      'svg';
+    column-gap: 0;
+    text-align: center;
+  }
+
+  .thero-badge {
+    justify-self: center;
+  }
+
+  .thero-title {
+    font-size: 34px;
+  }
+
+  .thero-text {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .thero-actions {
+    justify-content: center;
+    margin-bottom: 12px;
+  }
+
+  .thero-btn-explore {
+    padding: 14px 26px;
+    font-size: 15px;
+  }
+
+  .thero-btn-video {
+    font-size: 15px;
+  }
+
+  .thero-illustration {
+    margin-top: 12px;
+  }
+
+  .svg-testimonials-inline {
+    max-width: 560px;
+  }
+}
+
+/* ---------------- mobile ---------------- */
+@media (max-width: 576px) {
+  .thero {
+    padding-top: 26px;
+  }
+
+  .thero-badge {
+    font-size: 11.5px;
+    padding: 8px 16px;
+    margin-bottom: 20px;
+  }
+
+  .thero-title {
+    font-size: 32px;
+    margin-bottom: 10px;
+  }
+
+  .thero-text {
+    font-size: 15px;
+    max-width: none;
+    margin-top: 12px;
+    margin-bottom: 26px;
+  }
+
+  .thero-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+    margin-bottom: 34px;
+  }
+
+  .thero-btn-explore {
+    justify-content: center;
+    padding: 15px 26px;
+  }
+
+  .thero-btn-video {
+    justify-content: center;
+    border: 1.5px solid var(--blue);
+    color: var(--blue);
+    border-radius: var(--radius-pill);
+    padding: 12px 26px;
+  }
+
+  .thero-illustration {
+    margin-top: 0;
+  }
+
+  .svg-testimonials-inline {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 360px) {
+  .thero-title {
+    font-size: 28px;
+  }
+}

@@ -1,22 +1,22 @@
-import './JoinCTA.css'
-import TrophyIllustration from '../../../assets/svg/common/TrophyIllustration.jsx'
+import './TestimonialsCTA.css'
+import TrophyIllustration from '../../assets/svg/common/TrophyIllustration.jsx'
 
-export default function JoinCTA() {
+export default function TestimonialsCTA() {
   return (
-    <section className="joincta">
+    <section className="tcta">
       <div className="container">
-        <div className="joincta-card">
-          <div className="joincta-trophy">
+        <div className="tcta-card">
+          <div className="tcta-trophy">
             <TrophyIllustration />
           </div>
-          <div className="joincta-copy">
+          <div className="tcta-copy">
             <h2>Join Thousands of Successful Learners</h2>
             <p>
-              Start your learning journey today and gain the skills you need to achieve your
-              dreams.
+              Start your learning journey today and achieve your goals with the support of
+              world-class instructors.
             </p>
           </div>
-          <button className="btn-getstarted">
+          <button className="tcta-btn">
             Get Started Now
             <svg width="17" height="17" viewBox="0 0 24 24" fill="none">
               <path

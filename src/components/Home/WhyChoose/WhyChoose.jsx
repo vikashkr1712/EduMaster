@@ -1,5 +1,5 @@
 import './WhyChoose.css'
-import whyChooseIllustration from '../../../svg/svg_why_choose_us_hero_section.svg'
+import WhyChooseIllustration from '../../../assets/svg/home/WhyChooseIllustration.jsx'
 
 function StarBadgeIcon() {
   return (
@@ -147,11 +147,7 @@ export default function WhyChoose() {
         </div>
 
         <div className="whychoose-illustration">
-          <img
-            src={whyChooseIllustration}
-            alt="Female student learning online at her desk"
-            className="whychoose-illustration-svg"
-          />
+          <WhyChooseIllustration className="whychoose-illustration-svg" />
         </div>
       </div>
     </section>

@@ -1,5 +1,5 @@
 import './TestimonialCarousel.css'
-import Avatar from '../../../svg/Avatar.jsx'
+import Avatar from '../../../assets/svg/common/Avatar.jsx'
 
 function ChatBadgeIcon() {
   return (

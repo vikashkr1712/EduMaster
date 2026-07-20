@@ -1,5 +1,5 @@
 import './HeroSection.css'
-import ProgramsHero from '../../svg/ProgramsHero.jsx'
+import ProgramsHero from '../../assets/svg/programs/ProgramsHero.jsx'
 
 function ArrowIcon() {
   return (

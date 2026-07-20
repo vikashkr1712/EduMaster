@@ -19,7 +19,7 @@ const links = [
   { label: 'Home', to: '/' },
   { label: 'Courses', to: '/courses' },
   { label: 'Programs', to: '/programs' },
-  { label: 'Testimonials', to: '#' },
+  { label: 'Testimonials', to: '/testimonials' },
   { label: 'About Us', to: '#' },
   { label: 'Contact', to: '#' },
 ]

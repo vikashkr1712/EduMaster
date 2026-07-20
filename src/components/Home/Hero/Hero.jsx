@@ -1,5 +1,5 @@
 import './Hero.css'
-import heroIllustration from '../../../svg/svg_hero.svg'
+import HeroIllustration from '../../../assets/svg/home/HeroIllustration.jsx'
 
 function RocketIcon() {
   return (
@@ -119,11 +119,7 @@ export default function Hero() {
         </div>
 
         <div className="hero-illustration">
-          <img
-            src={heroIllustration}
-            alt="Student learning online with courses and certifications"
-            className="hero-illustration-svg"
-          />
+          <HeroIllustration className="hero-illustration-svg" />
         </div>
       </div>
     </section>

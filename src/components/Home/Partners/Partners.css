@@ -21,56 +21,92 @@
   padding: 0 30px;
 }
 
+/* Full brand colors at rest; lift + pop on hover */
 .partner-logo {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  color: #8b93a1;
-  opacity: 0.9;
-  filter: grayscale(1);
   user-select: none;
   white-space: nowrap;
+  cursor: default;
+  transition: transform 0.25s ease, filter 0.25s ease;
+}
+
+.partner-logo:hover {
+  transform: translateY(-3px) scale(1.06);
+  filter: drop-shadow(0 6px 14px rgba(27, 43, 75, 0.18));
 }
 
 .logo-google {
   font-size: 34px;
   font-weight: 600;
   letter-spacing: -0.02em;
-  color: #9aa1ad;
+}
+
+.logo-google span {
+  display: inline-block;
 }
 
 .logo-microsoft {
   font-size: 27px;
   font-weight: 600;
-  color: #9aa1ad;
+  color: #737373;
 }
 
 .logo-amazon {
   font-size: 30px;
   font-weight: 700;
   letter-spacing: -0.03em;
-  color: #9aa1ad;
+  color: #232f3e;
 }
 
+.amazon-word {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 9px;
+}
+
+.amazon-smile {
+  position: absolute;
+  left: 4px;
+  bottom: 0;
+  width: 92%;
+  height: auto;
+}
+
+/* IBM: horizontal-stripe wordmark via gradient-clipped text */
 .logo-ibm {
   font-family: Georgia, 'Times New Roman', serif;
   font-size: 34px;
   font-weight: 800;
   letter-spacing: 0.04em;
-  color: #9aa1ad;
+  color: transparent;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    #1f70c1 0,
+    #1f70c1 2.6px,
+    transparent 2.6px,
+    transparent 4.6px
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
 }
 
 .logo-deloitte {
   font-size: 29px;
   font-weight: 700;
-  color: #8b93a1;
+  color: #2b2d31;
+}
+
+.deloitte-dot {
+  color: #86bc25;
 }
 
 .logo-accenture {
   font-size: 29px;
   font-weight: 500;
   letter-spacing: 0.01em;
-  color: #9aa1ad;
+  color: #4b4f58;
   position: relative;
 }
 
@@ -79,7 +115,7 @@
   position: absolute;
   top: 2px;
   right: 42px;
-  border-left: 9px solid #9aa1ad;
+  border-left: 9px solid #a100ff;
   border-top: 5px solid transparent;
   border-bottom: 5px solid transparent;
 }

@@ -77,7 +77,8 @@
   height: auto;
 }
 
-.blog-media img {
+.blog-media img,
+.blog-media svg {
   display: block;
   width: 100%;
   aspect-ratio: 300 / 130;

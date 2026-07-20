@@ -1,5 +1,5 @@
 import './CoursesHero.css'
-import SVGCourse from '../../assets/svg/svg_course.jsx'
+import SVGCourse from '../../assets/svg/courses/svg_course.jsx'
 import CoursesStats from './CoursesStats.jsx'
 
 function SearchIcon() {

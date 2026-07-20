@@ -1,0 +1,101 @@
+.tcta {
+  background: var(--bg-white);
+  padding: 16px 0 56px;
+}
+
+.tcta-card {
+  background: #fdf4e0;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  gap: 44px;
+  padding: 36px 56px 36px 44px;
+}
+
+.tcta-trophy {
+  flex-shrink: 0;
+}
+
+.tcta-trophy .trophy-illustration-svg {
+  width: 200px;
+  height: auto;
+}
+
+.tcta-copy {
+  flex: 1;
+}
+
+.tcta-copy h2 {
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 14px;
+}
+
+.tcta-copy p {
+  font-size: 16.5px;
+  line-height: 1.65;
+  color: var(--text-body);
+  max-width: 480px;
+}
+
+.tcta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--blue);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 17px 34px;
+  border-radius: 12px;
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+
+.tcta-btn:hover {
+  background: #1d4ed8;
+}
+
+/* ---------------- tablet ---------------- */
+@media (max-width: 1024px) {
+  .tcta-card {
+    gap: 28px;
+    padding: 30px 36px;
+  }
+
+  .tcta-trophy .trophy-illustration-svg {
+    width: 150px;
+  }
+
+  .tcta-copy h2 {
+    font-size: 25px;
+  }
+
+  .tcta-copy p {
+    font-size: 15.5px;
+  }
+}
+
+/* ---------------- mobile: stacked ---------------- */
+@media (max-width: 700px) {
+  .tcta-card {
+    flex-direction: column;
+    text-align: center;
+    gap: 22px;
+    padding: 30px 22px;
+  }
+
+  .tcta-copy p {
+    max-width: none;
+  }
+
+  .tcta-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .tcta-trophy .trophy-illustration-svg {
+    width: 140px;
+  }
+}

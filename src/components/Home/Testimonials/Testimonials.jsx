@@ -1,5 +1,5 @@
 import './Testimonials.css'
-import Avatar from '../../../svg/Avatar.jsx'
+import Avatar from '../../../assets/svg/common/Avatar.jsx'
 
 function QuoteIcon({ color }) {
   return (

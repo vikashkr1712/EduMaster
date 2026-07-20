@@ -1,8 +1,8 @@
 import './Courses.css'
-import CourseIllustration1 from '../../../svg/CourseIllustration1.jsx'
-import CourseIllustration2 from '../../../svg/CourseIllustration2.jsx'
-import CourseIllustration3 from '../../../svg/CourseIllustration3.jsx'
-import Avatar from '../../../svg/Avatar.jsx'
+import CourseIllustration1 from '../../../assets/svg/home/CourseIllustration1.jsx'
+import CourseIllustration2 from '../../../assets/svg/home/CourseIllustration2.jsx'
+import CourseIllustration3 from '../../../assets/svg/home/CourseIllustration3.jsx'
+import Avatar from '../../../assets/svg/common/Avatar.jsx'
 
 function HeartIcon() {
   return (

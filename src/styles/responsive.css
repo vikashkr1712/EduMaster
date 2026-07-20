@@ -355,6 +355,12 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 24px 16px;
+    justify-items: center;
+  }
+
+  .hero-stat {
+    align-items: center;
+    text-align: center;
   }
 
   .hero-stat-icon {
@@ -408,10 +414,19 @@
     font-size: 13px;
   }
 
-  /* --- Why Choose feature grid: 2 → 1 --- */
+  /* --- Why Choose feature grid: 2 → 1, centered --- */
   .whychoose-grid {
     grid-template-columns: 1fr;
     gap: 24px;
+  }
+
+  .wc-feature {
+    align-items: center;
+    text-align: center;
+  }
+
+  .wc-feature p {
+    max-width: 300px;
   }
 
   .whychoose-title {
