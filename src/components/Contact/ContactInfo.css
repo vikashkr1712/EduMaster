@@ -1,0 +1,237 @@
+.cinfo {
+  background: var(--bg-light);
+  padding: 60px 0 28px;
+}
+
+.cinfo-inner {
+  display: grid;
+  grid-template-columns: 1fr 1.06fr;
+  gap: 40px;
+  align-items: start;
+}
+
+.cinfo-title {
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 10px;
+}
+
+.cinfo-title span {
+  color: var(--yellow);
+}
+
+.cinfo-subtitle {
+  font-size: 14.5px;
+  color: var(--text-body);
+  margin-bottom: 28px;
+}
+
+.cinfo-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.cinfo-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  background: var(--bg-card);
+  border-radius: var(--radius-card);
+  padding: 22px 18px;
+  box-shadow: var(--shadow-soft);
+  transition: box-shadow 0.25s, transform 0.25s;
+}
+
+.cinfo-card:hover {
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-3px);
+}
+
+.cinfo-card-icon {
+  flex: 0 0 auto;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cinfo-card-blue .cinfo-card-icon {
+  background: var(--tint-blue);
+}
+
+.cinfo-card-green .cinfo-card-icon {
+  background: var(--tint-green);
+}
+
+.cinfo-card-purple .cinfo-card-icon {
+  background: var(--tint-purple);
+}
+
+.cinfo-card-orange .cinfo-card-icon {
+  background: var(--tint-orange);
+}
+
+.cinfo-card-body {
+  min-width: 0;
+}
+
+.cinfo-card-body h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 7px;
+}
+
+.cinfo-card-body p {
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--text-body);
+  overflow-wrap: break-word;
+}
+
+/* ---- form card ---- */
+.cinfo-form-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-soft);
+  padding: 32px 30px 30px;
+}
+
+.cinfo-form-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+
+.cinfo-form-subtitle {
+  font-size: 14px;
+  color: var(--text-body);
+  margin-bottom: 24px;
+}
+
+.cinfo-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cinfo-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.cinfo-form input,
+.cinfo-form textarea {
+  width: 100%;
+  font-family: var(--font);
+  font-size: 14px;
+  color: var(--navy);
+  background: #fff;
+  border: 1.5px solid #e2e7f0;
+  border-radius: 10px;
+  padding: 13px 16px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  resize: vertical;
+}
+
+.cinfo-form input::placeholder,
+.cinfo-form textarea::placeholder {
+  color: var(--text-muted);
+}
+
+.cinfo-form input:focus,
+.cinfo-form textarea:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.cinfo-form-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  background: var(--blue-bright);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 15px 20px;
+  border-radius: 10px;
+  margin-top: 4px;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.cinfo-form-btn:hover {
+  background: #1f4fd6;
+  transform: translateY(-1px);
+}
+
+/* ---- tablet ---- */
+@media (max-width: 1024px) {
+  .cinfo {
+    padding-top: 48px;
+  }
+
+  .cinfo-inner {
+    gap: 26px;
+  }
+
+  .cinfo-cards {
+    gap: 16px;
+  }
+
+  .cinfo-card {
+    padding: 20px 16px;
+  }
+}
+
+/* ---- mobile ---- */
+@media (max-width: 900px) {
+  .cinfo {
+    padding: 36px 0 20px;
+  }
+
+  .cinfo-inner {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .cinfo-left {
+    background: var(--bg-card);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-soft);
+    padding: 26px 20px;
+  }
+
+  .cinfo-card {
+    box-shadow: 0 2px 10px rgba(27, 43, 75, 0.06);
+    border: 1px solid #eef1f7;
+  }
+
+  .cinfo-form-card {
+    padding: 26px 20px 24px;
+  }
+}
+
+@media (max-width: 560px) {
+  .cinfo-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .cinfo-title {
+    font-size: 26px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cinfo-form-row {
+    grid-template-columns: 1fr;
+  }
+}

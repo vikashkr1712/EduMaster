@@ -96,6 +96,17 @@
   .tstats-item:nth-child(even) {
     border-left: 1px solid #eaeef5;
   }
+
+  /* odd count: center the last stat across both columns; wrap its label
+     to two lines so it mirrors the items above */
+  .tstats-item:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    justify-content: center;
+  }
+
+  .tstats-item:last-child:nth-child(odd) .tstats-copy {
+    max-width: 96px;
+  }
 }
 
 /* ---------------- small mobile: single column ---------------- */

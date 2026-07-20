@@ -1,0 +1,571 @@
+/* ============================================================
+   About Us page — hero, mission, story + why choose, stats
+   ============================================================ */
+
+/* ---------------- hero ---------------- */
+.ahero {
+  background: #f9fafd;
+  padding: 40px 0 0;
+  overflow: hidden;
+}
+
+.ahero-inner {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  grid-template-areas:
+    'badge svg'
+    'title svg'
+    'text svg'
+    'actions svg';
+  align-content: center;
+  column-gap: 30px;
+}
+
+.ahero-badge {
+  grid-area: badge;
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  background: #e3ecff;
+  color: var(--blue);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 9px 20px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 26px;
+}
+
+.ahero-title {
+  grid-area: title;
+  font-size: 46px;
+  line-height: 1.2;
+  font-weight: 700;
+  color: var(--navy);
+  letter-spacing: -0.01em;
+  margin-bottom: 22px;
+}
+
+.ahero-title span {
+  color: var(--yellow);
+}
+
+.ahero-text {
+  grid-area: text;
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--text-body);
+  max-width: 520px;
+  margin-bottom: 34px;
+}
+
+.ahero-actions {
+  grid-area: actions;
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.ahero-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--blue);
+  color: #fff;
+  font-size: 15.5px;
+  font-weight: 500;
+  padding: 15px 32px;
+  border-radius: var(--radius-pill);
+  transition: background 0.2s;
+}
+
+.ahero-btn:hover {
+  background: #1d4ed8;
+}
+
+.ahero-illustration {
+  grid-area: svg;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 0;
+}
+
+.svg-about-hero-inline {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 700px;
+}
+
+/* ---------------- mission cards ---------------- */
+.amission {
+  background: #f9fafd;
+  padding: 34px 0 10px;
+}
+
+.amission-card {
+  background: var(--bg-white);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-soft);
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  padding: 34px 24px;
+}
+
+.amission-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 0 20px;
+}
+
+.amission-item.has-divider {
+  border-left: 1px solid #eaeef5;
+}
+
+.amission-icon {
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.amission-copy h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+
+.amission-copy p {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--text-body);
+}
+
+/* ---------------- story + why choose ---------------- */
+.astory {
+  background: #f9fafd;
+  padding: 44px 0 10px;
+}
+
+.astory-inner {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr 0.92fr;
+  gap: 34px;
+  align-items: center;
+}
+
+.astory-content {
+  min-width: 0;
+}
+
+.astory-badge {
+  display: inline-flex;
+  align-items: center;
+  background: #e3ecff;
+  color: var(--blue);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 8px 18px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 20px;
+}
+
+.astory-title {
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+
+.astory-title::after {
+  content: '';
+  display: block;
+  width: 54px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--yellow);
+  margin-top: 10px;
+}
+
+.astory-text {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--text-body);
+  margin-top: 16px;
+}
+
+.astory-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--blue);
+  color: #fff;
+  font-size: 14.5px;
+  font-weight: 500;
+  padding: 13px 26px;
+  border-radius: var(--radius-pill);
+  margin-top: 26px;
+  transition: background 0.2s;
+}
+
+.astory-btn:hover {
+  background: #1d4ed8;
+}
+
+.astory-illustration {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 0;
+}
+
+.svg-about-story-inline {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 520px;
+}
+
+.awhy-card {
+  background: var(--bg-white);
+  border: 1px solid #e8edf5;
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-soft);
+  padding: 30px 28px;
+}
+
+.awhy-title {
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 20px;
+}
+
+.awhy-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.awhy-list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--navy);
+}
+
+.awhy-list li svg {
+  flex-shrink: 0;
+}
+
+/* ---------------- stats ---------------- */
+.astats {
+  background: #f9fafd;
+  padding: 34px 0 44px;
+}
+
+.astats-card {
+  background: var(--bg-white);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-soft);
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  padding: 32px 20px;
+}
+
+.astats-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+.astats-item.has-divider {
+  border-left: 1px solid #eaeef5;
+}
+
+.astats-icon {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.astats-copy {
+  display: flex;
+  flex-direction: column;
+}
+
+.astats-value {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.2;
+}
+
+.astats-label {
+  font-size: 13.5px;
+  color: var(--text-body);
+}
+
+/* ============================================================
+   Tablet — 768 / 820 / 834 / 1024
+   ============================================================ */
+@media (max-width: 1200px) {
+  .ahero-title {
+    font-size: 40px;
+  }
+
+  .astory-inner {
+    gap: 24px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .ahero-title {
+    font-size: 34px;
+  }
+
+  .ahero-text {
+    font-size: 15.5px;
+    margin-bottom: 28px;
+  }
+
+  .amission-card {
+    padding: 28px 14px;
+  }
+
+  .amission-item {
+    padding: 0 12px;
+    gap: 12px;
+  }
+
+  .amission-icon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .amission-copy h3 {
+    font-size: 15px;
+  }
+
+  .amission-copy p {
+    font-size: 12.5px;
+  }
+
+  .astory-title {
+    font-size: 26px;
+  }
+
+  .astory-text {
+    font-size: 14px;
+  }
+
+  .awhy-card {
+    padding: 24px 20px;
+  }
+
+  .awhy-title {
+    font-size: 17px;
+  }
+
+  .awhy-list li {
+    font-size: 13px;
+  }
+
+  .astats-card {
+    padding: 26px 14px;
+  }
+
+  .astats-item {
+    gap: 10px;
+    padding: 0 6px;
+  }
+
+  .astats-icon {
+    width: 46px;
+    height: 46px;
+  }
+
+  .astats-value {
+    font-size: 18px;
+  }
+
+  .astats-label {
+    font-size: 12.5px;
+  }
+}
+
+/* Below tablet: story stacks — text + illustration, why-choose full width */
+@media (max-width: 900px) {
+  .astory-inner {
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+  }
+
+  .awhy-card {
+    grid-column: 1 / -1;
+  }
+
+  .awhy-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px 24px;
+  }
+
+  .awhy-title {
+    text-align: center;
+  }
+}
+
+/* ---------------- mobile: ≤ 768 mission goes 2×2, centered ---------------- */
+@media (max-width: 768px) {
+  .amission-card {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 26px;
+    padding: 26px 18px;
+  }
+
+  .amission-item {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 12px;
+  }
+
+  .amission-item.has-divider {
+    border-left: none;
+  }
+
+  .amission-item:nth-child(even) {
+    border-left: 1px solid #eaeef5;
+  }
+}
+
+/* ============================================================
+   Mobile — ≤ 576 (375 / 390 / 414 / 430)
+   ============================================================ */
+@media (max-width: 576px) {
+  .ahero {
+    padding-top: 28px;
+  }
+
+  /* stack: badge, title, text, button, illustration full width below */
+  .ahero-inner {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'badge'
+      'title'
+      'text'
+      'actions'
+      'svg';
+    column-gap: 0;
+  }
+
+  .ahero-badge {
+    font-size: 11.5px;
+    padding: 8px 16px;
+    margin-bottom: 20px;
+  }
+
+  .ahero-title {
+    font-size: 28px;
+    margin-bottom: 14px;
+  }
+
+  .ahero-text {
+    font-size: 14.5px;
+    margin-bottom: 26px;
+  }
+
+  .ahero-actions {
+    margin-bottom: 10px;
+  }
+
+  .ahero-btn {
+    padding: 14px 28px;
+  }
+
+  .ahero-illustration {
+    margin-top: 6px;
+  }
+
+  .svg-about-hero-inline {
+    max-width: 100%;
+  }
+
+  .astory {
+    padding-top: 36px;
+  }
+
+  .astory-inner {
+    grid-template-columns: 1fr;
+    gap: 26px;
+  }
+
+  .astory-title {
+    font-size: 24px;
+  }
+
+  .astats {
+    padding-bottom: 36px;
+  }
+
+  .astats-card {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 22px;
+    padding: 26px 16px;
+  }
+
+  .astats-item {
+    flex-direction: column;
+    text-align: center;
+    gap: 8px;
+    padding: 0 8px;
+  }
+
+  .astats-item.has-divider {
+    border-left: none;
+  }
+
+  .astats-item:nth-child(even) {
+    border-left: 1px solid #eaeef5;
+  }
+
+  .astats-item:last-child {
+    grid-column: 1 / -1;
+    border-left: none;
+  }
+}
+
+/* very small phones: mission single column */
+@media (max-width: 400px) {
+  .amission-card {
+    grid-template-columns: 1fr;
+  }
+
+  .amission-item,
+  .amission-item:nth-child(even) {
+    border-left: none;
+  }
+
+  .amission-item.has-divider {
+    border-top: 1px solid #eaeef5;
+    padding-top: 22px;
+  }
+}

@@ -20,8 +20,8 @@ const links = [
   { label: 'Courses', to: '/courses' },
   { label: 'Programs', to: '/programs' },
   { label: 'Testimonials', to: '/testimonials' },
-  { label: 'About Us', to: '#' },
-  { label: 'Contact', to: '#' },
+  { label: 'About Us', to: '/about' },
+  { label: 'Contact', to: '/contact' },
 ]
 
 export default function Navbar() {
