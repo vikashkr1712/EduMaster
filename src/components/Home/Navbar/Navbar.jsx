@@ -18,7 +18,7 @@ function LogoMark() {
 const links = [
   { label: 'Home', to: '/' },
   { label: 'Courses', to: '/courses' },
-  { label: 'Programs', to: '#' },
+  { label: 'Programs', to: '/programs' },
   { label: 'Testimonials', to: '#' },
   { label: 'About Us', to: '#' },
   { label: 'Contact', to: '#' },

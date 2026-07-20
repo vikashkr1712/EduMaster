@@ -1,0 +1,252 @@
+.popular-programs {
+  background: var(--bg-light);
+  padding: 64px 0 70px;
+}
+
+.popular-programs-head {
+  text-align: center;
+  margin-bottom: 44px;
+}
+
+.popular-programs-badge {
+  display: inline-block;
+  background: var(--tint-blue);
+  color: var(--blue);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding: 8px 20px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 18px;
+}
+
+.popular-programs-title {
+  font-size: 33px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 12px;
+}
+
+.popular-programs-title span {
+  position: relative;
+  display: inline-block;
+}
+
+.popular-programs-title span::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 3.5px;
+  border-radius: 2px;
+  background: var(--yellow);
+}
+
+.popular-programs-sub {
+  font-size: 15.5px;
+  color: var(--text-body);
+}
+
+.popular-programs-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+/* ---- program card ---- */
+.pcard {
+  background: var(--bg-card);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.pcard:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.pcard-media {
+  height: 190px;
+}
+
+.pcard-media svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.pcard-body {
+  padding: 24px 26px 26px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.pcard-title {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--navy);
+  margin-bottom: 12px;
+}
+
+.pcard-desc {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--text-body);
+  margin-bottom: 22px;
+  flex: 1;
+}
+
+.pcard-meta {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  border-top: 1px solid #eef1f7;
+  padding-top: 18px;
+}
+
+.pcard-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pcard-meta-icon {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: var(--bg-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pcard-meta-copy {
+  display: flex;
+  flex-direction: column;
+}
+
+.pcard-meta-value {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--navy);
+  line-height: 1.3;
+  white-space: nowrap;
+}
+
+.pcard-reviews {
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.pcard-meta-label {
+  font-size: 11.5px;
+  color: var(--text-muted);
+}
+
+/* ---- view all ---- */
+.popular-programs-cta {
+  display: flex;
+  justify-content: center;
+  margin-top: 44px;
+}
+
+.popular-programs-viewall {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--navy-btn);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 15px 32px;
+  border-radius: var(--radius-pill);
+  transition: background 0.2s;
+}
+
+.popular-programs-viewall:hover {
+  background: var(--navy-dark);
+}
+
+/* ---- tablet ---- */
+@media (max-width: 1024px) {
+  .popular-programs-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .popular-programs-title {
+    font-size: 29px;
+  }
+}
+
+/* ---- mobile ---- */
+@media (max-width: 700px) {
+  .popular-programs {
+    padding: 48px 0 54px;
+  }
+
+  .popular-programs-grid {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .popular-programs-head {
+    margin-bottom: 32px;
+  }
+
+  .popular-programs-title {
+    font-size: 24px;
+  }
+
+  .popular-programs-sub {
+    font-size: 14.5px;
+  }
+
+  .popular-programs-cta {
+    margin-top: 34px;
+  }
+
+  .popular-programs-viewall {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ---- small mobile: keep the 3-cell meta row inside the card ---- */
+@media (max-width: 360px) {
+  .pcard-body {
+    padding: 20px 16px 22px;
+  }
+
+  .pcard-meta {
+    gap: 6px;
+  }
+
+  .pcard-meta-item {
+    gap: 6px;
+    min-width: 0;
+  }
+
+  .pcard-meta-icon {
+    width: 26px;
+    height: 26px;
+    border-radius: 7px;
+  }
+
+  .pcard-meta-value {
+    font-size: 11.5px;
+    white-space: normal;
+  }
+
+  .pcard-meta-label {
+    font-size: 10.5px;
+  }
+}

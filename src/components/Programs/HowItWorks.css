@@ -1,0 +1,158 @@
+.how-it-works {
+  background: var(--bg-white);
+  padding: 64px 0 60px;
+}
+
+.how-it-works-head {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.how-it-works-badge {
+  display: inline-block;
+  background: var(--tint-blue);
+  color: var(--blue);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding: 8px 20px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 18px;
+}
+
+.how-it-works-title {
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.how-it-works-title span {
+  position: relative;
+  display: inline-block;
+}
+
+.how-it-works-title span::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 3.5px;
+  border-radius: 2px;
+  background: var(--yellow);
+}
+
+.how-it-works-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  text-align: center;
+}
+
+.hiw-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hiw-step-top {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.hiw-step-icon {
+  width: 66px;
+  height: 66px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.hiw-connector {
+  position: absolute;
+  top: 50%;
+  left: calc(50% + 33px + 14px);
+  width: calc(100% - 66px - 4px);
+  border-top: 2px dashed #c9d4e5;
+}
+
+.hiw-connector::after {
+  content: '';
+  position: absolute;
+  right: -2px;
+  top: -5px;
+  border: 4px solid transparent;
+  border-left: 6px solid #c9d4e5;
+}
+
+.hiw-step-number {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.hiw-step-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 10px;
+}
+
+.hiw-step-text {
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: var(--text-body);
+  max-width: 220px;
+}
+
+/* ---- tablet ---- */
+@media (max-width: 1024px) {
+  .how-it-works-steps {
+    gap: 16px;
+  }
+
+  .hiw-connector {
+    left: calc(50% + 33px + 8px);
+    width: calc(100% - 66px - 12px);
+  }
+}
+
+/* ---- mobile: vertical timeline ---- */
+@media (max-width: 700px) {
+  .how-it-works {
+    padding: 48px 0 44px;
+  }
+
+  .how-it-works-head {
+    margin-bottom: 36px;
+  }
+
+  .how-it-works-title {
+    font-size: 24px;
+  }
+
+  .how-it-works-steps {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  /* horizontal connector is replaced by a vertical one between steps */
+  .hiw-connector {
+    display: none;
+  }
+
+  .hiw-step:not(:last-child)::after {
+    content: '';
+    display: block;
+    height: 38px;
+    border-left: 2px dashed #c9d4e5;
+    margin: 18px auto;
+  }
+}
