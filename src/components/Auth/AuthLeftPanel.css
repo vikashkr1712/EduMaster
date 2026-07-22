@@ -54,10 +54,6 @@
   grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
 }
 
-.authpage--signup .authpanel-title {
-  min-width: max-content;
-}
-
 .authpanel-badge {
   display: inline-block;
   align-self: flex-start;
@@ -85,6 +81,9 @@
   color: var(--navy);
   letter-spacing: -0.01em;
   margin-bottom: 16px;
+  /* the two heading lines may extend over the illustration's
+     empty top-left area, matching the reference */
+  min-width: max-content;
 }
 
 .authpanel-title .authpanel-hl {
@@ -160,6 +159,14 @@
   transform-origin: 50% 0;
 }
 
+/* the signup panel is taller (four feature rows) — enlarge its
+   illustration more so it reaches the last feature row; growth
+   is biased left/down so the right edge is never clipped */
+.authpage--signup .authpanel-illustration .svg-auth-inline {
+  transform: scale(1.18);
+  transform-origin: 68% 0;
+}
+
 /* ---- icon tints ---- */
 .tint-blue {
   background: var(--tint-blue);
@@ -233,6 +240,16 @@
   .authpanel-title {
     font-size: 33px;
   }
+
+  /* less horizontal room — enlarge the illustration less so it
+     never overlaps the feature list text */
+  .authpanel-illustration .svg-auth-inline {
+    transform: scale(1.04);
+  }
+
+  .authpage--signup .authpanel-illustration .svg-auth-inline {
+    transform: scale(1.14);
+  }
 }
 
 @media (max-width: 1180px) {
@@ -268,6 +285,12 @@
     max-width: 560px;
     transform: none;
   }
+
+  /* signup keeps a moderate enlargement so the scene still
+     reaches its taller feature list */
+  .authpage--signup .authpanel-illustration .svg-auth-inline {
+    transform: scale(1.12);
+  }
 }
 
 @media (max-width: 900px) {
@@ -289,8 +312,20 @@
     gap: 26px;
   }
 
-  .authpanel-illustration .svg-auth-inline {
-    max-width: 540px;
+  /* single column — let the copy use the full panel width so
+     the right side doesn't sit empty */
+  .authpanel-text {
+    max-width: none;
+  }
+
+  .authpanel-feature-text {
+    max-width: none;
+  }
+
+  .authpanel-illustration .svg-auth-inline,
+  .authpage--signup .authpanel-illustration .svg-auth-inline {
+    max-width: 640px;
+    transform: none;
   }
 }
 
