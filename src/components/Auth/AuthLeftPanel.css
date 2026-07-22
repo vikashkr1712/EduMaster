@@ -1,0 +1,208 @@
+.authpanel {
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(150deg, #ffffff 0%, #f6f9ff 45%, #e9f0fc 100%);
+  border-radius: 24px;
+  padding: 34px 40px 36px;
+  min-width: 0;
+  overflow: hidden;
+}
+
+/* ---- brand ---- */
+.authpanel-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  align-self: flex-start;
+}
+
+.authpanel-brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.authpanel-brand-name {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.15;
+}
+
+.authpanel-brand-name span {
+  color: var(--yellow);
+}
+
+.authpanel-brand-tag {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* ---- content + illustration ---- */
+.authpanel-main {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
+  align-items: center;
+  gap: 18px;
+  padding: 26px 0 22px;
+}
+
+.authpanel-badge {
+  display: inline-block;
+  align-self: flex-start;
+  background: #d8e6fb;
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 8px 18px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 22px;
+}
+
+.authpanel-content {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.authpanel-title {
+  font-size: 36px;
+  line-height: 1.28;
+  font-weight: 700;
+  color: var(--navy);
+  letter-spacing: -0.01em;
+  margin-bottom: 16px;
+}
+
+.authpanel-title .authpanel-hl {
+  color: var(--yellow);
+}
+
+.authpanel-text {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--text-body);
+  max-width: 400px;
+  margin-bottom: 30px;
+}
+
+.authpanel-features {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.authpanel-feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.authpanel-feature-icon {
+  flex: 0 0 auto;
+  width: 50px;
+  height: 50px;
+  border-radius: 13px;
+  display: grid;
+  place-items: center;
+}
+
+.authpanel-feature-body {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding-top: 2px;
+}
+
+.authpanel-feature-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.authpanel-feature-text {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-body);
+  max-width: 240px;
+}
+
+.authpanel-illustration {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 0;
+}
+
+.authpanel-illustration .svg-auth-inline {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 640px;
+}
+
+/* ---- icon tints ---- */
+.tint-blue {
+  background: var(--tint-blue);
+  color: var(--blue);
+}
+
+.tint-green {
+  background: var(--tint-green);
+  color: #16a34a;
+}
+
+.tint-orange {
+  background: var(--tint-orange);
+  color: var(--yellow);
+}
+
+.tint-purple {
+  background: var(--tint-purple);
+  color: var(--purple);
+}
+
+/* ---- statistics card ---- */
+.authpanel-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background: var(--bg-white);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-soft);
+  padding: 24px 10px;
+}
+
+.authpanel-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 4px;
+  padding: 0 12px;
+}
+
+.authpanel-stat + .authpanel-stat {
+  border-left: 1px solid #e8edf6;
+}
+
+.authpanel-stat-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  margin-bottom: 8px;
+}
+
+.authpanel-stat-value {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.authpanel-stat-label {
+  font-size: 13.5px;
+  color: var(--text-body);
+}

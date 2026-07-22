@@ -82,6 +82,8 @@
 }
 
 .btn-login {
+  display: inline-block;
+  text-align: center;
   padding: 12px 32px;
   border-radius: var(--radius-pill);
   border: 1.5px solid #e2e7f0;
@@ -97,6 +99,8 @@
 }
 
 .btn-signup {
+  display: inline-block;
+  text-align: center;
   padding: 12px 32px;
   border-radius: var(--radius-pill);
   background: var(--navy-btn);

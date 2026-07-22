@@ -1,5 +1,5 @@
 .chero {
-  background: #eaf0fa;
+  background: var(--bg-white);
   padding: 48px 0 0;
   overflow: hidden;
 }

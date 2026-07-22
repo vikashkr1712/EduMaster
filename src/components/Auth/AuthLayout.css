@@ -1,0 +1,42 @@
+/* Page shell shared by the Login and Signup pages —
+   left illustrated panel + right form card + footer. */
+
+.authpage {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-white);
+  padding: 14px 16px 0;
+}
+
+.authpage-inner {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.18fr) minmax(0, 0.82fr);
+  gap: 40px;
+  align-items: stretch;
+  width: 100%;
+  max-width: 1560px;
+  margin: 0 auto;
+}
+
+.authpage-card-col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 8px;
+  min-width: 0;
+}
+
+/* Signup card sits higher because it is taller */
+.authpage--signup .authpage-card-col {
+  align-items: flex-start;
+  padding-top: 14px;
+}
+
+.authpage-footer {
+  text-align: center;
+  font-size: 14px;
+  color: var(--text-body);
+  padding: 20px 0 22px;
+}

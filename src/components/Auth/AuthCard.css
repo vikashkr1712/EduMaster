@@ -1,0 +1,299 @@
+/* Shared styles for the Login and Signup form cards. */
+
+.authcard {
+  width: 100%;
+  max-width: 560px;
+  background: var(--bg-white);
+  border-radius: 20px;
+  box-shadow: var(--shadow-card);
+  padding: 42px 44px 34px;
+  animation: auth-fade-up 0.5s ease both;
+}
+
+.authcard-title {
+  font-size: 27px;
+  font-weight: 700;
+  color: var(--navy);
+  text-align: center;
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+}
+
+.authcard-sub {
+  font-size: 15px;
+  color: var(--text-body);
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+/* ---- fields ---- */
+.authfield {
+  margin-bottom: 20px;
+}
+
+.authcard--signup .authfield {
+  margin-bottom: 16px;
+}
+
+.authfield-label {
+  display: block;
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+
+.authfield-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.authfield-icon {
+  position: absolute;
+  left: 16px;
+  display: grid;
+  place-items: center;
+  color: var(--text-muted);
+  pointer-events: none;
+  transition: color 0.2s;
+}
+
+.authfield-box:focus-within .authfield-icon {
+  color: var(--blue);
+}
+
+.authfield-box input {
+  width: 100%;
+  height: 52px;
+  border: 1.5px solid #dfe6f1;
+  border-radius: 12px;
+  background: var(--bg-white);
+  font-size: 15px;
+  color: var(--text-heading);
+  padding: 0 48px 0 48px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.authfield-box input::placeholder {
+  color: var(--text-muted);
+}
+
+.authfield-box input:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3.5px rgba(37, 99, 235, 0.12);
+}
+
+.authfield-eye {
+  position: absolute;
+  right: 8px;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  color: var(--text-muted);
+  transition: color 0.2s, background 0.2s;
+}
+
+.authfield-eye:hover,
+.authfield-eye:focus-visible {
+  color: var(--blue);
+  background: #eef3fd;
+}
+
+/* ---- remember / forgot row ---- */
+.authcard-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 2px 0 24px;
+}
+
+.authcard-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 14.5px;
+  color: var(--text-body);
+  cursor: pointer;
+  user-select: none;
+}
+
+.authcard-check input {
+  width: 17px;
+  height: 17px;
+  accent-color: var(--blue);
+  cursor: pointer;
+  flex: 0 0 auto;
+}
+
+.authcard-forgot {
+  font-size: 14.5px;
+  font-weight: 500;
+  color: var(--blue);
+  transition: color 0.2s;
+}
+
+.authcard-forgot:hover {
+  color: #1f4fd6;
+  text-decoration: underline;
+}
+
+/* ---- password rules (signup) ---- */
+.authcard-rules {
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: space-between;
+  gap: 11px 14px;
+  margin: 2px 0 18px;
+}
+
+.authcard-rule {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--text-body);
+  white-space: nowrap;
+}
+
+.authcard-rule svg {
+  flex: 0 0 auto;
+  color: var(--green);
+}
+
+/* ---- terms (signup) ---- */
+.authcard-terms {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.authcard-terms input {
+  margin-top: 2px;
+}
+
+.authcard-terms a {
+  color: var(--blue);
+  font-weight: 500;
+}
+
+.authcard-terms a:hover {
+  text-decoration: underline;
+}
+
+/* ---- submit ---- */
+.authcard-submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  height: 54px;
+  background: linear-gradient(135deg, #2e6bff 0%, var(--blue) 100%);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 12px;
+  box-shadow: 0 8px 18px rgba(37, 99, 235, 0.25);
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+.authcard-submit:hover {
+  background: linear-gradient(135deg, #2257e6 0%, #1f4fd6 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(37, 99, 235, 0.3);
+}
+
+.authcard-submit:active {
+  transform: translateY(0);
+  box-shadow: 0 5px 12px rgba(37, 99, 235, 0.25);
+}
+
+/* ---- divider ---- */
+.authcard-divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 24px 0 20px;
+}
+
+.authcard-divider::before,
+.authcard-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #e4eaf4;
+}
+
+.authcard-divider span {
+  font-size: 14px;
+  color: var(--text-body);
+  white-space: nowrap;
+}
+
+/* ---- social buttons ---- */
+.authcard-social {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.authcard-social-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  height: 52px;
+  background: var(--bg-white);
+  border: 1.5px solid #e2e8f3;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--navy);
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+
+.authcard-social-btn:hover {
+  border-color: #c7d5ef;
+  box-shadow: var(--shadow-soft);
+  transform: translateY(-1px);
+}
+
+.authcard-social-btn svg {
+  flex: 0 0 auto;
+}
+
+/* ---- switch link ---- */
+.authcard-switch {
+  text-align: center;
+  font-size: 14.5px;
+  color: var(--text-body);
+  margin-top: 22px;
+}
+
+.authcard-switch a {
+  color: var(--blue);
+  font-weight: 600;
+  margin-left: 4px;
+}
+
+.authcard-switch a:hover {
+  text-decoration: underline;
+}
+
+@keyframes auth-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

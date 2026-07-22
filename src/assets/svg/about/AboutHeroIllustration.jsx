@@ -21,7 +21,7 @@ export default function AboutHeroIllustration({
       className={className}
       style={style}
     >
-<path fill="#F9FAFD" opacity="1.000000" stroke="none"
+<path fill="#FFFFFF" opacity="1.000000" stroke="none"
 	d="
 M1372.000000,857.000000
 	C914.666687,857.000000 457.833344,857.000000 1.000000,857.000000 

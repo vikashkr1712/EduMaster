@@ -4,7 +4,7 @@
 
 /* ---------------- hero ---------------- */
 .ahero {
-  background: #f9fafd;
+  background: var(--bg-white);
   padding: 40px 0 0;
   overflow: hidden;
 }

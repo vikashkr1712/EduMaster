@@ -76,9 +76,30 @@
   }
 }
 
+/* ---------------- 577–900px: wrap items, drop dividers ---------------- */
+@media (max-width: 900px) {
+  .tstats-card {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 22px 36px;
+    padding: 26px 20px;
+  }
+
+  .tstats-item {
+    justify-content: flex-start;
+    padding: 0;
+  }
+
+  .tstats-item.has-divider {
+    border-left: none;
+  }
+}
+
 /* ---------------- mobile: 2 columns ---------------- */
 @media (max-width: 576px) {
   .tstats-card {
+    display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     row-gap: 24px;
     padding: 26px 16px;

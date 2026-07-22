@@ -237,6 +237,45 @@ export function ProductivityIllustration() {
   )
 }
 
+function JavaScriptIllustration() {
+  return (
+    <svg viewBox="0 0 300 150" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="JavaScript logo badge">
+      <rect width="300" height="150" fill="#FDEBC8" />
+      <rect x="118" y="43" width="64" height="64" rx="12" fill="#F7DF1E" />
+      <text x="150" y="88" textAnchor="middle" fontFamily="Poppins, sans-serif" fontSize="30" fontWeight="700" fill="#1B2B4B">
+        JS
+      </text>
+      <rect x="210" y="58" width="34" height="5" rx="2.5" fill="#E8C687" />
+      <rect x="210" y="70" width="24" height="5" rx="2.5" fill="#E8C687" />
+      <rect x="56" y="76" width="34" height="5" rx="2.5" fill="#E8C687" />
+      <circle cx="70" cy="52" r="5" fill="#F9B233" opacity="0.7" />
+      <circle cx="236" cy="102" r="5" fill="#F9B233" opacity="0.7" />
+    </svg>
+  )
+}
+
+function CloudIllustration() {
+  return (
+    <svg viewBox="0 0 300 150" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cloud computing upload illustration">
+      <rect width="300" height="150" fill="#DCE7FB" />
+      <path
+        d="M108 96c-13 0-23-10-23-22 0-11 8-20 19-22 3-14 15-24 30-24 13 0 24 8 28 19 2-.5 4-.8 6-.8 12 0 22 10 22 22.5S180 96 168 96h-60z"
+        fill="#6D9BF2"
+      />
+      <path
+        d="M120 100c-9 0-16-7-16-16 0-8 6-14 13-15 2-10 11-17 21-17 9 0 17 6 20 14 1.5-.4 3-.6 4.5-.6 8.5 0 15.5 7 15.5 16s-7 18.6-15.5 18.6H120z"
+        fill="#4C82EE"
+        opacity="0.5"
+      />
+      <path d="M150 108V72m0 0l-13 13m13-13l13 13" stroke="#FFFFFF" strokeWidth="7" strokeLinecap="round" strokeLinejoin="round" />
+      <circle cx="62" cy="46" r="5" fill="#FFFFFF" opacity="0.8" />
+      <circle cx="242" cy="58" r="6" fill="#FFFFFF" opacity="0.8" />
+      <rect x="224" y="98" width="30" height="5" rx="2.5" fill="#B9CDF4" />
+      <rect x="46" y="92" width="30" height="5" rx="2.5" fill="#B9CDF4" />
+    </svg>
+  )
+}
+
 const ILLUSTRATIONS = {
   development: DevelopmentIllustration,
   datascience: DataScienceIllustration,
@@ -247,6 +286,8 @@ const ILLUSTRATIONS = {
   react: ReactIllustration,
   ai: AIIllustration,
   productivity: ProductivityIllustration,
+  js: JavaScriptIllustration,
+  cloud: CloudIllustration,
 }
 
 export default function CourseIllustration({ type }) {

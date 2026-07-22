@@ -30,19 +30,19 @@ export default function HeroSection() {
       <div className="container programs-hero-inner">
         <div className="programs-hero-content">
           <h1 className="programs-hero-title">
-            Our Programs
+            Our Events
             <br />
             Designed for <span>Your Success</span>
           </h1>
 
           <p className="programs-hero-text">
-            Choose from expertly designed programs that help you master in-demand skills and
-            accelerate your career growth.
+            Join expertly curated events that help you master in-demand skills and accelerate
+            your career growth.
           </p>
 
           <div className="programs-hero-actions">
             <button className="programs-btn-explore">
-              Explore Programs
+              Explore Events
               <ArrowIcon />
             </button>
             <button className="programs-btn-how">

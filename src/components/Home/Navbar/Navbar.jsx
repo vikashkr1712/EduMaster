@@ -18,7 +18,8 @@ function LogoMark() {
 const links = [
   { label: 'Home', to: '/' },
   { label: 'Courses', to: '/courses' },
-  { label: 'Programs', to: '/programs' },
+  { label: 'Events', to: '/events' },
+  { label: 'Services', to: '/services' },
   { label: 'Testimonials', to: '/testimonials' },
   { label: 'About Us', to: '/about' },
   { label: 'Contact', to: '/contact' },
@@ -65,8 +66,8 @@ export default function Navbar() {
         </nav>
 
         <div className="navbar-actions">
-          <button className="btn-login">Login</button>
-          <button className="btn-signup">Sign Up</button>
+          <Link to="/login" className="btn-login">Login</Link>
+          <Link to="/signup" className="btn-signup">Sign Up</Link>
         </div>
 
         <button
@@ -99,8 +100,12 @@ export default function Navbar() {
           )
         )}
         <div className="navbar-menu-actions">
-          <button className="btn-login">Login</button>
-          <button className="btn-signup">Sign Up</button>
+          <Link to="/login" className="btn-login" onClick={() => setOpen(false)}>
+            Login
+          </Link>
+          <Link to="/signup" className="btn-signup" onClick={() => setOpen(false)}>
+            Sign Up
+          </Link>
         </div>
       </div>
     </header>

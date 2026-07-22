@@ -21,12 +21,12 @@ export default function PopularPrograms() {
     <section className="popular-programs">
       <div className="container">
         <div className="popular-programs-head">
-          <span className="popular-programs-badge">POPULAR PROGRAMS</span>
+          <span className="popular-programs-badge">UPCOMING EVENTS</span>
           <h2 className="popular-programs-title">
-            Explore Our Most <span>Popular</span> Programs
+            Explore Our <span>Upcoming</span> Events
           </h2>
           <p className="popular-programs-sub">
-            Industry-aligned programs to help you upskill and advance your career
+            Industry-aligned events to help you upskill and advance your career
           </p>
         </div>
 
@@ -38,7 +38,7 @@ export default function PopularPrograms() {
 
         <div className="popular-programs-cta">
           <button className="popular-programs-viewall">
-            View All Programs
+            View All Events
             <ArrowIcon />
           </button>
         </div>

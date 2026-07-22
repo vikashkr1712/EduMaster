@@ -59,7 +59,7 @@ export default function ProgramCard({ program }) {
             </span>
             <div className="pcard-meta-copy">
               <span className="pcard-meta-value">{program.duration}</span>
-              <span className="pcard-meta-label">Duration</span>
+              <span className="pcard-meta-label">Event Duration</span>
             </div>
           </div>
 
@@ -69,7 +69,7 @@ export default function ProgramCard({ program }) {
             </span>
             <div className="pcard-meta-copy">
               <span className="pcard-meta-value">{program.courses}</span>
-              <span className="pcard-meta-label">Included</span>
+              <span className="pcard-meta-label">Sessions</span>
             </div>
           </div>
 
