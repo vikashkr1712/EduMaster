@@ -206,3 +206,143 @@
   font-size: 13.5px;
   color: var(--text-body);
 }
+
+/* ---- tablet ---- */
+@media (max-width: 1400px) {
+  .authpanel {
+    padding: 30px 32px 32px;
+  }
+
+  .authpanel-title {
+    font-size: 33px;
+  }
+}
+
+@media (max-width: 1180px) {
+  .authpanel-title {
+    font-size: 29px;
+  }
+
+  .authpanel-main {
+    gap: 14px;
+  }
+
+  .authpanel-features {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .authpanel-title {
+    font-size: 32px;
+  }
+
+  .authpanel-main {
+    gap: 20px;
+    padding: 24px 0 20px;
+  }
+
+  /* illustration scales down slightly but stays centered */
+  .authpanel-illustration .svg-auth-inline {
+    max-width: 520px;
+  }
+}
+
+@media (max-width: 900px) {
+  .authpanel-title {
+    font-size: 30px;
+  }
+
+  .authpanel-illustration .svg-auth-inline {
+    max-width: 460px;
+  }
+}
+
+/* ---- mobile ---- */
+@media (max-width: 640px) {
+  .authpanel {
+    padding: 22px 18px 24px;
+    border-radius: 18px;
+  }
+
+  .authpanel-main {
+    grid-template-columns: 1fr;
+    gap: 26px;
+    padding: 22px 0 20px;
+  }
+
+  .authpanel-badge {
+    margin-bottom: 18px;
+  }
+
+  .authpanel-title {
+    font-size: 28px;
+  }
+
+  .authpanel-text {
+    max-width: none;
+    margin-bottom: 24px;
+  }
+
+  .authpanel-features {
+    gap: 18px;
+  }
+
+  .authpanel-feature-text {
+    max-width: none;
+  }
+
+  .authpanel-illustration .svg-auth-inline {
+    max-width: 460px;
+  }
+
+  /* statistics become a 2x2 grid */
+  .authpanel-stats {
+    grid-template-columns: 1fr 1fr;
+    gap: 22px 0;
+    padding: 22px 6px;
+  }
+
+  .authpanel-stat + .authpanel-stat {
+    border-left: none;
+  }
+
+  .authpanel-stat:nth-child(even) {
+    border-left: 1px solid #e8edf6;
+  }
+}
+
+@media (max-width: 480px) {
+  .authpanel {
+    padding: 20px 16px 22px;
+  }
+
+  .authpanel-title {
+    font-size: 25px;
+  }
+
+  .authpanel-feature-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 11px;
+  }
+
+  .authpanel-stat-value {
+    font-size: 18px;
+  }
+
+  .authpanel-stat-label {
+    font-size: 12.5px;
+  }
+}
+
+@media (max-width: 374px) {
+  .authpanel-title {
+    font-size: 23px;
+  }
+
+  .authpanel-stat-icon {
+    width: 42px;
+    height: 42px;
+  }
+}

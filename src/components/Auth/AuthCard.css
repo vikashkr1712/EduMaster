@@ -287,6 +287,61 @@
   text-decoration: underline;
 }
 
+/* ---- mobile ---- */
+@media (max-width: 640px) {
+  .authcard {
+    max-width: none;
+    border-radius: 16px;
+    padding: 28px 22px 26px;
+  }
+
+  .authcard-title {
+    font-size: 23px;
+  }
+
+  .authcard-sub {
+    font-size: 14px;
+    margin-bottom: 24px;
+  }
+
+  .authcard-rules {
+    grid-template-columns: 1fr;
+    gap: 9px;
+  }
+}
+
+@media (max-width: 480px) {
+  .authcard {
+    padding: 26px 18px 24px;
+  }
+
+  .authcard-row {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  /* social buttons stack on small phones */
+  .authcard-social {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .authfield-box input {
+    height: 50px;
+    font-size: 14.5px;
+    padding: 0 44px 0 44px;
+  }
+
+  .authfield-icon {
+    left: 14px;
+  }
+
+  .authcard-submit {
+    height: 52px;
+    font-size: 15px;
+  }
+}
+
 @keyframes auth-fade-up {
   from {
     opacity: 0;

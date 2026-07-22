@@ -40,3 +40,58 @@
   color: var(--text-body);
   padding: 20px 0 22px;
 }
+
+/* ---- tablet ---- */
+@media (max-width: 1400px) {
+  .authpage-inner {
+    gap: 28px;
+  }
+}
+
+@media (max-width: 1180px) {
+  .authpage-inner {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: 22px;
+  }
+}
+
+/* not enough room for two columns — left content on top,
+   authentication card below */
+@media (max-width: 1024px) {
+  .authpage-inner {
+    grid-template-columns: 1fr;
+    gap: 26px;
+  }
+
+  .authpage-card-col,
+  .authpage--signup .authpage-card-col {
+    padding: 8px 0 0;
+  }
+}
+
+/* ---- mobile ---- */
+@media (max-width: 640px) {
+  .authpage {
+    padding: 10px 12px 0;
+  }
+
+  .authpage-inner {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .authpage-card-col,
+  .authpage--signup .authpage-card-col {
+    padding: 0;
+  }
+
+  .authpage-footer {
+    padding: 18px 0 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .authpage {
+    padding: 8px 10px 0;
+  }
+}
