@@ -1,4 +1,5 @@
 import './Partners.css'
+import { motion, useReducedMotion } from '../motion.jsx'
 
 /**
  * Brand-styled partner wordmarks built from text + tiny inline SVG marks.
@@ -93,15 +94,17 @@ const partnerLogos = [
 ]
 
 export default function Partners() {
+  const reducedMotion = useReducedMotion()
+
   return (
     <section className="partners">
       <div className="container">
-        <p className="partners-heading">Trusted by Learners &amp; Partners</p>
-        <div className="partners-row">
+        <motion.p className="partners-heading" initial={reducedMotion ? false : { opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.5 }} transition={{ duration: 0.45 }}>Trusted by Learners &amp; Partners</motion.p>
+        <motion.div className="partners-row" initial={reducedMotion ? false : { opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, amount: 0.35 }} transition={{ duration: 0.55 }}>
           {partnerLogos.map((Logo, i) => (
             <Logo key={i} />
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   )

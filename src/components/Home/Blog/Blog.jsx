@@ -3,6 +3,7 @@ import BlogFrontendIllustration from '../../../assets/svg/home/BlogFrontendIllus
 import BlogIllustration2 from '../../../assets/svg/home/BlogIllustration2.jsx'
 import BlogCloudIllustration from '../../../assets/svg/home/BlogCloudIllustration.jsx'
 import BlogDataScienceIllustration from '../../../assets/svg/home/BlogDataScienceIllustration.jsx'
+import { motion, stagger, useReducedMotion } from '../motion.jsx'
 
 function CalendarIcon() {
   return (
@@ -54,13 +55,15 @@ const posts = [
 ]
 
 export default function Blog() {
+  const reducedMotion = useReducedMotion()
+
   return (
     <section className="blog">
       <div className="container">
-        <div className="blog-badge-row">
+        <motion.div className="blog-badge-row" initial={reducedMotion ? false : { opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.4 }} transition={{ duration: 0.5 }}>
           <span className="section-badge">From Our Blog</span>
-        </div>
-        <div className="blog-head">
+        </motion.div>
+        <motion.div className="blog-head" initial={reducedMotion ? false : { opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.4 }} transition={{ duration: 0.55, delay: 0.08 }}>
           <h2 className="section-title blog-title">
             Latest <span className="blog-underline">Articles</span> &amp; Insights
           </h2>
@@ -76,11 +79,11 @@ export default function Blog() {
               />
             </svg>
           </a>
-        </div>
+        </motion.div>
 
-        <div className="blog-grid">
+        <motion.div className="blog-grid" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ once: true, amount: 0.12 }} variants={stagger(0.09)}>
           {posts.map((p) => (
-            <article className="blog-card" key={p.title}>
+            <motion.article className="blog-card" key={p.title} variants={{ hidden: { opacity: 0, y: 26 }, visible: { opacity: 1, y: 0 } }} transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }} whileHover={reducedMotion ? undefined : { y: -6 }}>
               <div className="blog-media">{p.illustration}</div>
               <div className="blog-body">
                 <span className="blog-cat">{p.category}</span>
@@ -97,9 +100,9 @@ export default function Blog() {
                   </span>
                 </div>
               </div>
-            </article>
+            </motion.article>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   )

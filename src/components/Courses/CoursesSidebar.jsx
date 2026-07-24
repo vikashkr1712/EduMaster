@@ -1,5 +1,36 @@
 import './CoursesSidebar.css'
+import { useState } from 'react'
 import { categories, levels, priceTypes, ratingOptions } from '../../data/coursesData.js'
+import { motion, useReducedMotion } from '../Home/motion.jsx'
+
+function Chevron() {
+  return (
+    <svg className="cs-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
+function AccordionSection({ title, open, onToggle, last, children }) {
+  const reducedMotion = useReducedMotion()
+  return (
+    <div className={`cs-section${last ? ' cs-section-last' : ''}${open ? '' : ' collapsed'}`}>
+      <h3 className="cs-title" role="button" tabIndex={0} aria-expanded={open} onClick={onToggle} onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && onToggle()}>
+        {title}
+        <Chevron />
+      </h3>
+      <motion.div
+        className="cs-body"
+        initial={false}
+        animate={{ height: open ? 'auto' : 0, opacity: open ? 1 : 0 }}
+        transition={reducedMotion ? { duration: 0 } : { duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+        style={{ overflow: 'hidden' }}
+      >
+        {children}
+      </motion.div>
+    </div>
+  )
+}
 
 /* --- category icons --- */
 function CatIcon({ name }) {
@@ -95,6 +126,9 @@ function Checkbox({ checked, onChange, children }) {
 }
 
 export default function CoursesSidebar({ filters, setFilters, mobileOpen, onClose }) {
+  const [open, setOpen] = useState({ categories: true, level: true, price: true, ratings: true })
+  const toggleSection = (key) => setOpen((o) => ({ ...o, [key]: !o[key] }))
+
   const toggleIn = (key, value) => {
     setFilters((f) => {
       const list = f[key].includes(value) ? f[key].filter((v) => v !== value) : [...f[key], value]
@@ -116,8 +150,7 @@ export default function CoursesSidebar({ filters, setFilters, mobileOpen, onClos
         </div>
 
         {/* Categories */}
-        <div className="cs-section">
-          <h3 className="cs-title">Categories</h3>
+        <AccordionSection title="Categories" open={open.categories} onToggle={() => toggleSection('categories')}>
           <ul className="cs-cats">
             {categories.map((cat) => (
               <li key={cat}>
@@ -131,11 +164,10 @@ export default function CoursesSidebar({ filters, setFilters, mobileOpen, onClos
               </li>
             ))}
           </ul>
-        </div>
+        </AccordionSection>
 
         {/* Level */}
-        <div className="cs-section">
-          <h3 className="cs-title">Level</h3>
+        <AccordionSection title="Level" open={open.level} onToggle={() => toggleSection('level')}>
           <Checkbox
             checked={filters.levels.length === 0}
             onChange={() => setFilters((f) => ({ ...f, levels: [] }))}
@@ -147,11 +179,10 @@ export default function CoursesSidebar({ filters, setFilters, mobileOpen, onClos
               {lv}
             </Checkbox>
           ))}
-        </div>
+        </AccordionSection>
 
         {/* Price */}
-        <div className="cs-section">
-          <h3 className="cs-title">Price</h3>
+        <AccordionSection title="Price" open={open.price} onToggle={() => toggleSection('price')}>
           <Checkbox
             checked={filters.prices.length === 0}
             onChange={() => setFilters((f) => ({ ...f, prices: [] }))}
@@ -163,11 +194,10 @@ export default function CoursesSidebar({ filters, setFilters, mobileOpen, onClos
               {pt}
             </Checkbox>
           ))}
-        </div>
+        </AccordionSection>
 
         {/* Ratings */}
-        <div className="cs-section cs-section-last">
-          <h3 className="cs-title">Ratings</h3>
+        <AccordionSection title="Ratings" open={open.ratings} onToggle={() => toggleSection('ratings')} last>
           {ratingOptions.map((r) => (
             <Checkbox
               key={r.value}
@@ -182,7 +212,7 @@ export default function CoursesSidebar({ filters, setFilters, mobileOpen, onClos
               <span className="cs-rating-label">{r.label}</span>
             </Checkbox>
           ))}
-        </div>
+        </AccordionSection>
       </aside>
     </>
   )

@@ -1,8 +1,8 @@
-// Inline SVG hero illustration for the Programs page.
+// Inline SVG hero illustration for the Events page.
 // Auto-converted from src/svg/svg_programs.svg
 // Do not edit paths by hand.
 
-export default function ProgramsHero() {
+export default function EventsHero() {
   return (
     <svg
       viewBox="0 0 1536 1024"
@@ -11,7 +11,7 @@ export default function ProgramsHero() {
       preserveAspectRatio="xMidYMid meet"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
-      aria-label="Student working on a laptop exploring learning programs"
+      aria-label="Student working on a laptop exploring learning events"
       className="svg-programs-inline"
     >
       <path fill="#FEFEFE"

@@ -1,13 +1,14 @@
 import { useMemo, useState, useEffect } from 'react'
-import Navbar from '../components/Home/Navbar/Navbar.jsx'
-import Footer from '../components/Home/Footer/Footer.jsx'
-import CoursesHero from '../components/Courses/CoursesHero.jsx'
-import CoursesSidebar from '../components/Courses/CoursesSidebar.jsx'
-import CourseGrid from '../components/Courses/CourseGrid.jsx'
-import CoursesPagination from '../components/Courses/CoursesPagination.jsx'
-import RequestCourseBanner from '../components/Courses/RequestCourseBanner.jsx'
-import { courses, sortOptions, COURSES_PER_PAGE } from '../data/coursesData.js'
-import '../components/Courses/CoursesPage.css'
+import Navbar from '../../components/Home/Navbar/Navbar.jsx'
+import Footer from '../../components/Home/Footer/Footer.jsx'
+import CoursesHero from '../../components/Courses/CoursesHero.jsx'
+import CoursesSidebar from '../../components/Courses/CoursesSidebar.jsx'
+import CourseGrid from '../../components/Courses/CourseGrid.jsx'
+import CoursesPagination from '../../components/Courses/CoursesPagination.jsx'
+import RequestCourseBanner from '../../components/Courses/RequestCourseBanner.jsx'
+import { courses, sortOptions, COURSES_PER_PAGE } from '../../data/coursesData.js'
+import './CoursesPage.css'
+import './CoursesMotion.css'
 
 function FilterIcon() {
   return (

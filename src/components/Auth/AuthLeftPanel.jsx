@@ -1,7 +1,9 @@
 import './AuthLeftPanel.css'
+import './AuthMotion.css'
 import { Link } from 'react-router-dom'
 import { AuthTileIcon } from './AuthIcons.jsx'
 import { authStats } from '../../data/authData.js'
+import { CountUp } from '../Home/motion.jsx'
 
 function LogoMark() {
   return (
@@ -61,7 +63,7 @@ export default function AuthLeftPanel({ badge, title, description, features, ill
             <span className={`authpanel-stat-icon tint-${stat.tint}`}>
               <AuthTileIcon name={stat.icon} />
             </span>
-            <span className="authpanel-stat-value">{stat.value}</span>
+            <span className="authpanel-stat-value"><CountUp value={stat.value} /></span>
             <span className="authpanel-stat-label">{stat.label}</span>
           </div>
         ))}

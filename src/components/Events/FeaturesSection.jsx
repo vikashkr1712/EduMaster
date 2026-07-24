@@ -1,5 +1,5 @@
 import './FeaturesSection.css'
-import { programFeatures } from '../../data/programsData.js'
+import { eventFeatures } from '../../data/eventsData.js'
 
 function GradCapIcon() {
   return (
@@ -64,7 +64,7 @@ export default function FeaturesSection() {
     <section className="programs-features">
       <div className="container">
         <div className="programs-features-card">
-          {programFeatures.map((f) => (
+          {eventFeatures.map((f) => (
             <div className="programs-feature-item" key={f.key}>
               <span className="programs-feature-icon" style={{ background: f.tint }}>
                 {ICONS[f.key]}

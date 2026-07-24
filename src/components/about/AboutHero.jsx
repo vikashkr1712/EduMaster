@@ -34,7 +34,7 @@ export default function AboutHero() {
 
         <div className="ahero-actions">
           <button className="ahero-btn">
-            Our Programs
+            Our Events
             <ArrowIcon />
           </button>
         </div>

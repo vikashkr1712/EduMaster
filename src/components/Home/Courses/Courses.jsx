@@ -3,6 +3,7 @@ import CourseIllustration1 from '../../../assets/svg/home/CourseIllustration1.js
 import CourseIllustration2 from '../../../assets/svg/home/CourseIllustration2.jsx'
 import CourseIllustration3 from '../../../assets/svg/home/CourseIllustration3.jsx'
 import Avatar from '../../../assets/svg/common/Avatar.jsx'
+import { motion, stagger, useReducedMotion } from '../motion.jsx'
 
 function HeartIcon() {
   return (
@@ -96,10 +97,12 @@ const courses = [
 ]
 
 export default function Courses() {
+  const reducedMotion = useReducedMotion()
+
   return (
     <section className="courses">
       <div className="container">
-        <div className="courses-head">
+        <motion.div className="courses-head" initial={reducedMotion ? false : { opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.55 }}>
           <span className="section-badge">Popular Courses</span>
           <h2 className="section-title courses-title">
             Explore Our Most <span className="hl-highlight">Popular</span> Courses
@@ -107,16 +110,16 @@ export default function Courses() {
           <p className="section-sub">
             Learn in-demand skills from industry experts and advance your career
           </p>
-        </div>
+        </motion.div>
 
         <div className="courses-slider">
           <button className="courses-arrow courses-arrow-left" aria-label="Previous courses">
             <ArrowNav dir="left" />
           </button>
 
-          <div className="courses-grid">
+          <motion.div className="courses-grid" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ once: true, amount: 0.15 }} variants={stagger(0.1)}>
             {courses.map((c) => (
-              <article className="course-card" key={c.title}>
+              <motion.article className="course-card" key={c.title} variants={{ hidden: { opacity: 0, y: 26 }, visible: { opacity: 1, y: 0 } }} transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }} whileHover={reducedMotion ? undefined : { y: -7 }}>
                 <div className="course-media">{c.illustration}</div>
                 <div className="course-body">
                   <div className="course-topline">
@@ -146,9 +149,9 @@ export default function Courses() {
                     <span className="course-oldprice">{c.oldPrice}</span>
                   </div>
                 </div>
-              </article>
+              </motion.article>
             ))}
-          </div>
+          </motion.div>
 
           <button className="courses-arrow courses-arrow-right" aria-label="Next courses">
             <ArrowNav dir="right" />

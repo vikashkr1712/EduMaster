@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import './PopularCoursesRow.css'
-import '../Courses/CoursesPage.css'
+import '../../pages/Courses/CoursesPage.css'
 import CourseCard from '../Courses/CourseCard.jsx'
 import { popularServiceCourses } from '../../data/servicesData.js'
 

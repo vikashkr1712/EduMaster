@@ -1,5 +1,5 @@
 import './HowItWorks.css'
-import { howItWorksSteps } from '../../data/programsData.js'
+import { howItWorksSteps } from '../../data/eventsData.js'
 
 function BrowseIcon() {
   return (

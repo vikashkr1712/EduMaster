@@ -1,5 +1,5 @@
 import './StatsSection.css'
-import { programStats } from '../../data/programsData.js'
+import { eventStats } from '../../data/eventsData.js'
 
 function StudentsIcon() {
   return (
@@ -76,7 +76,7 @@ export default function StatsSection() {
     <section className="programs-stats">
       <div className="container">
         <div className="programs-stats-card">
-          {programStats.map((s, i) => (
+          {eventStats.map((s, i) => (
             <div className={`programs-stats-item${i > 0 ? ' has-divider' : ''}`} key={s.key}>
               <span className="programs-stats-icon" style={{ background: s.tint }}>
                 {ICONS[s.key]}

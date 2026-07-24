@@ -1,5 +1,7 @@
 import './TestimonialCarousel.css'
+import { useState } from 'react'
 import Avatar from '../../../assets/svg/common/Avatar.jsx'
+import { motion, stagger, useReducedMotion } from '../motion.jsx'
 
 function ChatBadgeIcon() {
   return (
@@ -84,10 +86,16 @@ const reviews = [
 ]
 
 export default function TestimonialCarousel() {
+  const reducedMotion = useReducedMotion()
+  const [offset, setOffset] = useState(0)
+  const count = reviews.length
+  const ordered = [...reviews.slice(offset), ...reviews.slice(0, offset)]
+  const shift = (dir) => setOffset((o) => (o + dir + count) % count)
+
   return (
     <section className="tcarousel">
       <div className="container">
-        <div className="tcarousel-head">
+        <motion.div className="tcarousel-head" initial={reducedMotion ? false : { opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.35 }} transition={{ duration: 0.55 }}>
           <span className="section-badge">
             <ChatBadgeIcon /> Testimonials
           </span>
@@ -95,16 +103,23 @@ export default function TestimonialCarousel() {
             Loved by <span className="hl-underline">Learners</span> Worldwide
           </h2>
           <p className="section-sub">Real stories from real learners who transformed their careers.</p>
-        </div>
+        </motion.div>
 
         <div className="tcarousel-slider">
-          <button className="tcarousel-arrow tcarousel-arrow-left" aria-label="Previous testimonials">
+          <button className="tcarousel-arrow tcarousel-arrow-left" aria-label="Previous testimonials" onClick={() => shift(-1)}>
             <ArrowNav dir="left" />
           </button>
 
-          <div className="tcarousel-grid">
-            {reviews.map((r) => (
-              <article className="tc-card" key={r.name}>
+          <motion.div className="tcarousel-grid" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ once: true, amount: 0.15 }} variants={stagger(0.08)}>
+            {ordered.map((r) => (
+              <motion.article
+                className="tc-card"
+                key={r.name}
+                layout={!reducedMotion}
+                variants={{ hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0 } }}
+                transition={{ duration: 0.5, layout: { type: 'spring', stiffness: 280, damping: 30 } }}
+                whileHover={reducedMotion ? undefined : { y: -5 }}
+              >
                 <div className="tc-topline">
                   <StarRow />
                   <QuoteMark />
@@ -121,19 +136,19 @@ export default function TestimonialCarousel() {
                     </span>
                   </div>
                 </div>
-              </article>
+              </motion.article>
             ))}
-          </div>
+          </motion.div>
 
-          <button className="tcarousel-arrow tcarousel-arrow-right" aria-label="Next testimonials">
+          <button className="tcarousel-arrow tcarousel-arrow-right" aria-label="Next testimonials" onClick={() => shift(1)}>
             <ArrowNav dir="right" />
           </button>
         </div>
 
         <div className="tcarousel-dots">
-          <span className="dot active" />
-          <span className="dot" />
-          <span className="dot" />
+          {[0, 1, 2].map((i) => (
+            <span className={`dot${offset % 3 === i ? ' active' : ''}`} key={i} onClick={() => setOffset(i)} />
+          ))}
         </div>
       </div>
     </section>

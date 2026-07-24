@@ -1,4 +1,5 @@
 import './StatsBar.css'
+import { CountUp, motion, stagger, useReducedMotion } from '../motion.jsx'
 
 function PeopleIcon() {
   return (
@@ -62,22 +63,24 @@ const stats = [
 ]
 
 export default function StatsBar() {
+  const reducedMotion = useReducedMotion()
+
   return (
     <section className="statsbar">
       <div className="container">
-        <div className="statsbar-card">
+        <motion.div className="statsbar-card" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ once: true, amount: 0.35 }} variants={stagger(0.05)}>
           {stats.map((s, i) => (
-            <div className={`statsbar-item${i > 0 ? ' has-divider' : ''}`} key={s.label}>
+            <motion.div className={`statsbar-item${i > 0 ? ' has-divider' : ''}`} key={s.label} variants={{ hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0 } }} transition={{ duration: 0.45 }}>
               <span className="statsbar-icon" style={{ background: s.tint }}>
                 {s.icon}
               </span>
               <div className="statsbar-copy">
-                <span className="statsbar-value">{s.value}</span>
+                <span className="statsbar-value"><CountUp value={s.value} /></span>
                 <span className="statsbar-label">{s.label}</span>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   )

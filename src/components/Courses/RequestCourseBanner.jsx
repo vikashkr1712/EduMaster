@@ -1,8 +1,11 @@
+import { Reveal } from '../Home/motion.jsx'
+
 export default function RequestCourseBanner() {
   return (
     <section className="request-banner-wrap">
       <div className="container">
-        <div className="request-banner">
+        <Reveal>
+          <div className="request-banner">
           <div className="request-banner-left">
             <span className="request-banner-art" aria-hidden="true">
               <svg width="120" height="86" viewBox="0 0 120 86" fill="none">
@@ -34,7 +37,8 @@ export default function RequestCourseBanner() {
               <path d="M4 12h16m0 0l-6-6m6 6l-6 6" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </button>
-        </div>
+          </div>
+        </Reveal>
       </div>
     </section>
   )

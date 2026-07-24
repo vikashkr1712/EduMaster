@@ -1,4 +1,5 @@
 import './Footer.css'
+import { motion, stagger, useReducedMotion } from '../motion.jsx'
 
 function FooterLogo() {
   return (
@@ -52,7 +53,7 @@ function YoutubeIcon() {
   )
 }
 
-const quickLinks = ['Home', 'Courses', 'Programs', 'About Us', 'Contact Us']
+const quickLinks = ['Home', 'Courses', 'Events', 'About Us', 'Contact Us']
 const categories = ['Development', 'Data Science', 'Design', 'Business', 'Marketing']
 const resources = ['Blog', 'Help Center', 'FAQs', 'Privacy Policy', 'Terms & Conditions']
 
@@ -65,11 +66,13 @@ const socials = [
 ]
 
 export default function Footer() {
+  const reducedMotion = useReducedMotion()
+
   return (
     <footer className="footer">
       <div className="container">
-        <div className="footer-grid">
-          <div className="footer-brand">
+        <motion.div className="footer-grid" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ once: true, amount: 0.15 }} variants={stagger(0.08)}>
+          <motion.div className="footer-brand" variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} transition={{ duration: 0.55 }}>
             <a href="#" className="footer-logo">
               <FooterLogo />
               <span className="footer-logo-text">
@@ -82,14 +85,14 @@ export default function Footer() {
             </p>
             <div className="footer-socials">
               {socials.map((s) => (
-                <a href="#" key={s.label} aria-label={s.label} className="footer-social">
+                <motion.a href="#" key={s.label} aria-label={s.label} className="footer-social" whileHover={reducedMotion ? undefined : { scale: 1.12, y: -2 }} whileTap={{ scale: 0.94 }}>
                   {s.icon}
-                </a>
+                </motion.a>
               ))}
             </div>
-          </div>
+          </motion.div>
 
-          <div className="footer-col">
+          <motion.div className="footer-col" variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} transition={{ duration: 0.55 }}>
             <h4>Quick Links</h4>
             <ul>
               {quickLinks.map((l) => (
@@ -98,9 +101,9 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
-          </div>
+          </motion.div>
 
-          <div className="footer-col">
+          <motion.div className="footer-col" variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} transition={{ duration: 0.55 }}>
             <h4>Categories</h4>
             <ul>
               {categories.map((l) => (
@@ -109,9 +112,9 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
-          </div>
+          </motion.div>
 
-          <div className="footer-col">
+          <motion.div className="footer-col" variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} transition={{ duration: 0.55 }}>
             <h4>Resources</h4>
             <ul>
               {resources.map((l) => (
@@ -120,17 +123,17 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
-          </div>
+          </motion.div>
 
-          <div className="footer-newsletter">
+          <motion.div className="footer-newsletter" variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} transition={{ duration: 0.55 }}>
             <h4>Subscribe to Our Newsletter</h4>
             <p>Get the latest updates on new courses and offers.</p>
             <form onSubmit={(e) => e.preventDefault()}>
               <input type="email" placeholder="Enter your email" />
               <button type="submit">Subscribe</button>
             </form>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         <div className="footer-bottom">© 2024 EduMaster. All rights reserved.</div>
       </div>

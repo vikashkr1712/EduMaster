@@ -1,4 +1,5 @@
 import CourseIllustration from '../Courses/CourseIllustrations.jsx'
+import { fadeUp, motion } from '../Home/motion.jsx'
 
 function CalendarIcon() {
   return (
@@ -41,16 +42,16 @@ function StarIcon() {
   )
 }
 
-export default function ProgramCard({ program }) {
+export default function EventCard({ event }) {
   return (
-    <article className="pcard">
+    <motion.article className="pcard" variants={fadeUp} transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}>
       <div className="pcard-media">
-        <CourseIllustration type={program.imageType} />
+        <CourseIllustration type={event.imageType} />
       </div>
 
       <div className="pcard-body">
-        <h3 className="pcard-title">{program.title}</h3>
-        <p className="pcard-desc">{program.description}</p>
+        <h3 className="pcard-title">{event.title}</h3>
+        <p className="pcard-desc">{event.description}</p>
 
         <div className="pcard-meta">
           <div className="pcard-meta-item">
@@ -58,7 +59,7 @@ export default function ProgramCard({ program }) {
               <CalendarIcon />
             </span>
             <div className="pcard-meta-copy">
-              <span className="pcard-meta-value">{program.duration}</span>
+              <span className="pcard-meta-value">{event.duration}</span>
               <span className="pcard-meta-label">Event Duration</span>
             </div>
           </div>
@@ -68,7 +69,7 @@ export default function ProgramCard({ program }) {
               <CoursesIcon />
             </span>
             <div className="pcard-meta-copy">
-              <span className="pcard-meta-value">{program.courses}</span>
+              <span className="pcard-meta-value">{event.courses}</span>
               <span className="pcard-meta-label">Sessions</span>
             </div>
           </div>
@@ -79,13 +80,13 @@ export default function ProgramCard({ program }) {
             </span>
             <div className="pcard-meta-copy">
               <span className="pcard-meta-value">
-                {program.rating} <span className="pcard-reviews">({program.reviews})</span>
+                {event.rating} <span className="pcard-reviews">({event.reviews})</span>
               </span>
               <span className="pcard-meta-label">Rating</span>
             </div>
           </div>
         </div>
       </div>
-    </article>
+    </motion.article>
   )
 }

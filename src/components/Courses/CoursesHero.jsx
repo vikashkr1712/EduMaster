@@ -1,6 +1,7 @@
 import './CoursesHero.css'
 import SVGCourse from '../../assets/svg/courses/svg_course.jsx'
 import CoursesStats from './CoursesStats.jsx'
+import { fadeUp, motion, stagger, useReducedMotion } from '../Home/motion.jsx'
 
 function SearchIcon() {
   return (
@@ -12,17 +13,31 @@ function SearchIcon() {
 }
 
 export default function CoursesHero({ search, onSearch }) {
+  const reducedMotion = useReducedMotion()
+
   return (
     <section className="courses-hero">
       <div className="container courses-hero-inner">
-        <div className="courses-hero-content">
-          <h1 className="courses-hero-title">Explore Our Courses</h1>
-          <p className="courses-hero-text">
+        <motion.div
+          className="courses-hero-content"
+          initial={reducedMotion ? false : 'hidden'}
+          animate="visible"
+          variants={stagger(0.08)}
+        >
+          <motion.h1 className="courses-hero-title" variants={fadeUp} transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}>
+            Explore Our Courses
+          </motion.h1>
+          <motion.p className="courses-hero-text" variants={fadeUp} transition={{ duration: 0.5 }}>
             Choose from our wide range of industry-relevant courses designed to help you gain
             skills and advance your career.
-          </p>
+          </motion.p>
 
-          <form className="courses-hero-search" onSubmit={(e) => e.preventDefault()}>
+          <motion.form
+            className="courses-hero-search"
+            variants={fadeUp}
+            transition={{ duration: 0.5 }}
+            onSubmit={(e) => e.preventDefault()}
+          >
             <input
               type="text"
               placeholder="Search for courses, topics or skills..."
@@ -33,14 +48,21 @@ export default function CoursesHero({ search, onSearch }) {
             <button type="submit" className="courses-hero-search-btn" aria-label="Search">
               <SearchIcon />
             </button>
-          </form>
+          </motion.form>
 
-          <CoursesStats />
-        </div>
+          <motion.div variants={fadeUp} transition={{ duration: 0.5 }}>
+            <CoursesStats />
+          </motion.div>
+        </motion.div>
 
-        <div className="courses-hero-illustration">
+        <motion.div
+          className="courses-hero-illustration"
+          initial={reducedMotion ? false : { opacity: 0, x: 28 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+        >
           <SVGCourse />
-        </div>
+        </motion.div>
       </div>
     </section>
   )

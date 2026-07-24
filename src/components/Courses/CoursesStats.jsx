@@ -1,4 +1,5 @@
 import './CoursesStats.css'
+import { CountUp } from '../Home/motion.jsx'
 
 function BookIcon() {
   return (
@@ -59,7 +60,7 @@ export default function CoursesStats() {
             {s.icon}
           </span>
           <span className="courses-stat-copy">
-            <span className="courses-stat-top">{s.top}</span>
+            <span className="courses-stat-top"><CountUp value={s.top} /></span>
             <span className="courses-stat-bottom">{s.bottom}</span>
           </span>
         </div>

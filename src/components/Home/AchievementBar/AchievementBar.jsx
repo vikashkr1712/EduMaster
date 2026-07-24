@@ -1,4 +1,5 @@
 import './AchievementBar.css'
+import { CountUp, fadeUp, motion, stagger, useReducedMotion } from '../motion.jsx'
 
 function LearnersIcon() {
   return (
@@ -59,22 +60,35 @@ const items = [
 ]
 
 export default function AchievementBar() {
+  const reducedMotion = useReducedMotion()
+
   return (
     <section className="achievebar">
       <div className="container">
-        <div className="achievebar-card">
+        <motion.div
+          className="achievebar-card"
+          initial={reducedMotion ? false : 'hidden'}
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          variants={stagger()}
+        >
           {items.map((s, i) => (
-            <div className={`achievebar-item${i > 0 ? ' has-divider' : ''}`} key={s.label}>
+            <motion.div
+              className={`achievebar-item${i > 0 ? ' has-divider' : ''}`}
+              key={s.label}
+              variants={fadeUp}
+              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            >
               <span className="achievebar-icon" style={{ background: s.tint }}>
                 {s.icon}
               </span>
               <div className="achievebar-copy">
-                <span className="achievebar-value">{s.value}</span>
+                <span className="achievebar-value"><CountUp value={s.value} /></span>
                 <span className="achievebar-label">{s.label}</span>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   )

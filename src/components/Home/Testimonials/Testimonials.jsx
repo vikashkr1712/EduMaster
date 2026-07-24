@@ -1,5 +1,6 @@
 import './Testimonials.css'
 import Avatar from '../../../assets/svg/common/Avatar.jsx'
+import { motion, stagger, useReducedMotion } from '../motion.jsx'
 
 function QuoteIcon({ color }) {
   return (
@@ -52,10 +53,12 @@ const testimonials = [
 ]
 
 export default function Testimonials() {
+  const reducedMotion = useReducedMotion()
+
   return (
     <section className="testimonials">
       <div className="container testimonials-inner">
-        <div className="testimonials-intro">
+        <motion.div className="testimonials-intro" initial={reducedMotion ? false : { opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.25 }} transition={{ duration: 0.55 }}>
           <span className="section-badge">Testimonials</span>
           <h2 className="section-title">
             What Our <span className="t-blue hl-underline">Learners</span> Say
@@ -74,14 +77,14 @@ export default function Testimonials() {
             </div>
             <span className="t-avatar-note">Join 50,000+ happy learners</span>
           </div>
-        </div>
+        </motion.div>
 
-        <div className="testimonials-cards">
+        <motion.div className="testimonials-cards" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={stagger(0.08)}>
           {testimonials.map((t) => (
-            <article className="t-card" key={t.name}>
-              <span className="t-quote" style={{ background: t.quoteTint }}>
+            <motion.article className="t-card" key={t.name} variants={{ hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0 } }} transition={{ duration: 0.5 }} whileHover={reducedMotion ? undefined : { y: -5 }}>
+              <motion.span className="t-quote" style={{ background: t.quoteTint }} initial={reducedMotion ? false : { rotate: -12, scale: 0.8 }} whileInView={{ rotate: -5, scale: 1 }} viewport={{ once: true }} transition={{ delay: 0.18, type: 'spring', stiffness: 260, damping: 18 }}>
                 <QuoteIcon color={t.quoteColor} />
-              </span>
+              </motion.span>
               <p className="t-text">{t.text}</p>
               <div className="t-footer">
                 <div className="t-person">
@@ -93,9 +96,9 @@ export default function Testimonials() {
                 </div>
                 <StarRow />
               </div>
-            </article>
+            </motion.article>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   )

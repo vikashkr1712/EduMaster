@@ -1,5 +1,6 @@
 import './Hero.css'
 import HeroIllustration from '../../../assets/svg/home/HeroIllustration.jsx'
+import { CountUp, MagneticButton, motion, stagger, useReducedMotion } from '../motion.jsx'
 
 function RocketIcon() {
   return (
@@ -64,39 +65,46 @@ const stats = [
 ]
 
 export default function Hero() {
+  const reducedMotion = useReducedMotion()
+
   return (
     <section className="hero">
       <div className="container hero-inner">
-        <div className="hero-content">
-          <span className="hero-badge">
+        <motion.div
+          className="hero-content"
+          initial={reducedMotion ? false : 'hidden'}
+          animate="visible"
+          variants={stagger(0.12)}
+        >
+          <motion.span className="hero-badge" variants={{ hidden: { opacity: 0, y: 14 }, visible: { opacity: 1, y: 0 } }} transition={{ duration: 0.5 }}>
             <RocketIcon /> Learn From Anywhere, Anytime
-          </span>
+          </motion.span>
 
-          <h1 className="hero-title">
+          <motion.h1 className="hero-title" variants={{ hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0 } }} transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}>
             Unlock Your Potential
             <br />
             With <span>Quality Education</span>
-          </h1>
+          </motion.h1>
 
-          <p className="hero-text">
+          <motion.p className="hero-text" variants={{ hidden: { opacity: 0, y: 18 }, visible: { opacity: 1, y: 0 } }} transition={{ duration: 0.55 }}>
             Discover industry-leading courses taught by experts and gain skills that help you grow
             your career.
-          </p>
+          </motion.p>
 
-          <div className="hero-stats">
+          <motion.div className="hero-stats" variants={stagger()}>
             {stats.map((s) => (
-              <div className="hero-stat" key={s.bottom}>
+              <motion.div className="hero-stat" key={s.bottom} variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0 } }} transition={{ duration: 0.45 }}>
                 <span className="hero-stat-icon" style={{ background: s.tint }}>
                   {s.icon}
                 </span>
-                <span className="hero-stat-top">{s.top}</span>
+                <span className="hero-stat-top"><CountUp value={s.top} /></span>
                 <span className="hero-stat-bottom">{s.bottom}</span>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
 
-          <div className="hero-actions">
-            <button className="btn-explore">
+          <motion.div className="hero-actions" variants={{ hidden: { opacity: 0, scale: 0.96 }, visible: { opacity: 1, scale: 1 } }} transition={{ duration: 0.5 }}>
+            <MagneticButton className="btn-explore">
               Explore Courses
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
                 <path
@@ -107,20 +115,20 @@ export default function Hero() {
                   strokeLinejoin="round"
                 />
               </svg>
-            </button>
-            <button className="btn-demo">
+            </MagneticButton>
+            <MagneticButton className="btn-demo">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
                 <circle cx="12" cy="12" r="10" fill="#1B2B4B" />
                 <path d="M10 8.5l5.5 3.5-5.5 3.5v-7z" fill="#fff" />
               </svg>
               Watch Demo
-            </button>
-          </div>
-        </div>
+            </MagneticButton>
+          </motion.div>
+        </motion.div>
 
-        <div className="hero-illustration">
+        <motion.div className="hero-illustration" initial={reducedMotion ? false : { opacity: 0, x: 28 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}>
           <HeroIllustration className="hero-illustration-svg" />
-        </div>
+        </motion.div>
       </div>
     </section>
   )

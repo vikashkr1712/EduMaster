@@ -1,0 +1,77 @@
+/* Motion layer for the auth pages (Login + Signup) — transform/opacity only.
+   Entrance animations use backwards fill so no inline/fill transform lingers
+   to block hover transforms defined in AuthCard.css. */
+
+.authpanel-brand { animation: auth-drop 0.55s cubic-bezier(0.22, 1, 0.36, 1) backwards; }
+.authpanel-badge { animation: auth-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.05s backwards; }
+.authpanel-title { animation: auth-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.12s backwards; }
+.authpanel-text { animation: auth-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.2s backwards; }
+
+.authpanel-feature { animation: auth-up 0.45s cubic-bezier(0.22, 1, 0.36, 1) backwards; }
+.authpanel-feature:nth-child(1) { animation-delay: 0.28s; }
+.authpanel-feature:nth-child(2) { animation-delay: 0.36s; }
+.authpanel-feature:nth-child(3) { animation-delay: 0.44s; }
+.authpanel-feature:nth-child(4) { animation-delay: 0.52s; }
+.authpanel-feature:nth-child(5) { animation-delay: 0.6s; }
+
+.authpanel-illustration { animation: auth-fade 0.8s ease 0.25s backwards; }
+.authpanel-illustration svg { transform-origin: center; animation: auth-float 6s ease-in-out infinite; }
+
+.authpanel-stat { animation: auth-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) backwards; }
+.authpanel-stat:nth-child(1) { animation-delay: 0.45s; }
+.authpanel-stat:nth-child(2) { animation-delay: 0.53s; }
+.authpanel-stat:nth-child(3) { animation-delay: 0.61s; }
+.authpanel-stat:nth-child(4) { animation-delay: 0.69s; }
+.authpanel-stat-icon { animation: auth-stat-float 3.8s ease-in-out infinite; }
+.authpanel-stat:nth-child(2) .authpanel-stat-icon { animation-delay: -0.7s; }
+.authpanel-stat:nth-child(3) .authpanel-stat-icon { animation-delay: -1.4s; }
+.authpanel-stat:nth-child(4) .authpanel-stat-icon { animation-delay: -2.1s; }
+
+/* submit button gradient shine sweep */
+.authcard-submit { position: relative; overflow: hidden; }
+.authcard-submit::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(105deg, transparent 0%, rgba(255, 255, 255, 0.22) 50%, transparent 100%);
+  transform: translateX(-160%) skewX(-12deg);
+  pointer-events: none;
+}
+.authcard-submit:hover::before { animation: auth-shine 0.7s ease; }
+.authcard-submit:active { transform: scale(0.98); }
+
+/* validation state hooks: add .is-error / .is-success to .authfield-box */
+.authfield-box.is-error { animation: auth-shake 0.4s ease; }
+.authfield-box.is-success { animation: auth-pop 0.35s ease; }
+
+.authcard-social-btn svg { transition: transform 0.2s ease; }
+.authcard-social-btn:hover svg { transform: scale(1.12); }
+.authfield-eye { transition: transform 0.18s ease, color 0.2s, background 0.2s; }
+.authfield-eye:hover { transform: scale(1.1); }
+
+@keyframes auth-up { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+@keyframes auth-drop { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: none; } }
+@keyframes auth-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes auth-float { 0%, 100% { transform: translate3d(0, 0, 0); } 50% { transform: translate3d(0, -9px, 0); } }
+@keyframes auth-stat-float { 0%, 100% { transform: translate3d(0, 0, 0); } 50% { transform: translate3d(0, -3px, 0); } }
+@keyframes auth-shine { to { transform: translateX(320%) skewX(-12deg); } }
+@keyframes auth-shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(5px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(3px); }
+}
+@keyframes auth-pop { 0% { transform: scale(1); } 45% { transform: scale(1.02); } 100% { transform: scale(1); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .authpanel-brand, .authpanel-badge, .authpanel-title, .authpanel-text,
+  .authpanel-feature, .authpanel-illustration, .authpanel-illustration svg,
+  .authpanel-stat, .authpanel-stat-icon,
+  .authcard-submit:hover::before,
+  .authfield-box.is-error, .authfield-box.is-success { animation: none !important; }
+  .authcard-social-btn svg, .authfield-eye { transition-duration: 0.01ms !important; }
+}

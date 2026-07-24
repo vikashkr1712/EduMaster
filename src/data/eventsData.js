@@ -1,7 +1,7 @@
-// Data for the Programs page — popular programs grid, features strip,
+// Data for the Events page — popular events grid, features strip,
 // how-it-works steps and the stats bar.
 
-export const programFeatures = [
+export const eventFeatures = [
   {
     key: 'industry',
     tint: 'var(--tint-blue)',
@@ -28,7 +28,7 @@ export const programFeatures = [
   },
 ]
 
-export const popularPrograms = [
+export const popularEvents = [
   {
     id: 1,
     imageType: 'development',
@@ -119,7 +119,7 @@ export const howItWorksSteps = [
   },
 ]
 
-export const programStats = [
+export const eventStats = [
   { key: 'students', tint: 'var(--tint-blue)', value: '50,000+', label: 'Active Students' },
   { key: 'courses', tint: 'var(--tint-green)', value: '1,200+', label: 'Expert Courses' },
   { key: 'instructors', tint: 'var(--tint-orange)', value: '300+', label: 'Expert Instructors' },

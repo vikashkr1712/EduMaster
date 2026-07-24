@@ -1,5 +1,6 @@
 import './WhyChoose.css'
 import WhyChooseIllustration from '../../../assets/svg/home/WhyChooseIllustration.jsx'
+import { motion, stagger, useReducedMotion } from '../motion.jsx'
 
 function StarBadgeIcon() {
   return (
@@ -113,27 +114,31 @@ const features = [
   },
 ]
 
+const fadeItem = { hidden: { opacity: 0, y: 22 }, visible: { opacity: 1, y: 0 } }
+
 export default function WhyChoose() {
+  const reducedMotion = useReducedMotion()
+
   return (
     <section className="whychoose">
       <div className="container whychoose-inner">
-        <div className="whychoose-content">
-          <span className="section-badge whychoose-badge">
+        <motion.div className="whychoose-content" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ once: true, amount: 0.15 }} variants={stagger(0.08)}>
+          <motion.span className="section-badge whychoose-badge" variants={fadeItem} transition={{ duration: 0.5 }}>
             <StarBadgeIcon /> Why Choose Us
-          </span>
-          <h2 className="whychoose-title">
+          </motion.span>
+          <motion.h2 className="whychoose-title" variants={fadeItem} transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}>
             The Better Way
             <br />
             to <span>Learn Online</span>
-          </h2>
-          <p className="whychoose-text">
+          </motion.h2>
+          <motion.p className="whychoose-text" variants={fadeItem} transition={{ duration: 0.5 }}>
             We combine quality content, expert instruction, and flexible learning to help you
             achieve your goals.
-          </p>
+          </motion.p>
 
-          <div className="whychoose-grid">
+          <motion.div className="whychoose-grid" variants={stagger(0.07)}>
             {features.map((f) => (
-              <div className="wc-feature" key={f.title}>
+              <motion.div className="wc-feature" key={f.title} variants={fadeItem} transition={{ duration: 0.45 }} whileHover={reducedMotion ? undefined : { y: -4 }}>
                 <span className="wc-feature-icon" style={{ background: f.tint }}>
                   {f.icon}
                 </span>
@@ -141,14 +146,14 @@ export default function WhyChoose() {
                   <h3>{f.title}</h3>
                   <p>{f.text}</p>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
-        <div className="whychoose-illustration">
+        <motion.div className="whychoose-illustration" initial={reducedMotion ? false : { opacity: 0, x: 28 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.25 }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
           <WhyChooseIllustration className="whychoose-illustration-svg" />
-        </div>
+        </motion.div>
       </div>
     </section>
   )

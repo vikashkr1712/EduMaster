@@ -1,0 +1,106 @@
+/* Motion layer for the Courses page — transform/opacity only, layered after CoursesPage.css */
+
+/* hero */
+.courses-hero-illustration svg { transform-origin: center; animation: courses-float 6s ease-in-out infinite; }
+
+/* search focus glow */
+.courses-hero-search { transition: box-shadow 0.25s ease, transform 0.25s ease; }
+.courses-hero-search:focus-within { box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.16), 0 12px 30px rgba(27, 43, 75, 0.14); transform: translateY(-1px); }
+
+/* hero SVG graph — green bars grow from their base after load.
+   Indexes/fills depend on svg_course.jsx path order; regenerate if the SVG is re-exported. */
+.svg-course-inline path { transform-box: fill-box; }
+.svg-course-inline path:nth-of-type(179) { transform-origin: 50% 100%; animation: courses-chart-grow 0.6s 0.3s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.svg-course-inline path:nth-of-type(26) { transform-origin: 50% 100%; animation: courses-chart-grow 0.6s 0.45s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.svg-course-inline path:nth-of-type(24),
+.svg-course-inline path:nth-of-type(39),
+.svg-course-inline path:nth-of-type(44) { transform-origin: 50% 100%; animation: courses-chart-grow 0.6s 0.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.svg-course-inline path:nth-of-type(27),
+.svg-course-inline path:nth-of-type(42),
+.svg-course-inline path:nth-of-type(77) { transform-origin: 50% 100%; animation: courses-chart-grow 0.6s 0.75s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+/* hero SVG data dots — phased shimmer along the dotted arcs */
+.svg-course-inline path[fill="#9AB7FC"],
+.svg-course-inline path[fill="#9FB8FC"],
+.svg-course-inline path[fill="#A4BDFB"] { animation: courses-dot-pulse 2.6s ease-in-out infinite; }
+.svg-course-inline path[fill="#9FB8FC"] { animation-delay: -0.85s; }
+.svg-course-inline path[fill="#A4BDFB"] { animation-delay: -1.7s; }
+.courses-hero-search-btn svg { transition: transform 0.2s ease; }
+.courses-hero-search-btn:hover svg { transform: scale(1.1); }
+.courses-stat-icon { animation: courses-stat-float 3.8s ease-in-out infinite; }
+.courses-stat:nth-child(2) .courses-stat-icon { animation-delay: -0.7s; }
+.courses-stat:nth-child(3) .courses-stat-icon { animation-delay: -1.4s; }
+.courses-stat:nth-child(4) .courses-stat-icon { animation-delay: -2.1s; }
+
+/* course cards */
+.cgrid-reveal { display: flex; }
+.cgrid-reveal .ccard { flex: 1 1 auto; min-width: 0; }
+.ccard-media { overflow: hidden; }
+.ccard-media svg { transform-origin: center; transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1); }
+.ccard:hover .ccard-media svg { transform: scale(1.05); }
+.ccard-wishlist { transition: transform 0.2s ease, background 0.2s; }
+.ccard-wishlist:hover { animation: courses-heart-bounce 0.45s ease; transform: scale(1.12); }
+.ccard-wishlist:active { transform: scale(0.9); }
+.ccard:hover .ccard-rating > svg { animation: courses-star-shimmer 0.7s ease; }
+.ccard-cat { transition: transform 0.2s ease; }
+.ccard:hover .ccard-cat { transform: translateY(-1px); }
+.cgrid-empty { animation: courses-fadein 0.4s ease both; }
+
+/* sidebar */
+.courses-sidebar .cs-section { animation: courses-section-in 0.55s ease both; }
+.courses-sidebar .cs-section:nth-child(2) { animation-delay: 0.05s; }
+.courses-sidebar .cs-section:nth-child(3) { animation-delay: 0.15s; }
+.courses-sidebar .cs-section:nth-child(4) { animation-delay: 0.25s; }
+.courses-sidebar .cs-section:nth-child(5) { animation-delay: 0.35s; }
+.cs-title { display: flex; align-items: center; justify-content: space-between; cursor: pointer; user-select: none; }
+.cs-chevron { transition: transform 0.3s ease; color: var(--navy); }
+.cs-section.collapsed .cs-chevron { transform: rotate(-90deg); }
+.cs-cat { transition: background 0.15s, color 0.15s, transform 0.18s ease; }
+.cs-cat:hover { transform: translateX(3px); }
+.cs-check input:checked + .cs-check-box { animation: courses-pop 0.22s ease; }
+
+/* toolbar + pagination */
+.courses-toolbar { animation: courses-fadein 0.5s ease both; }
+.cpagination { animation: courses-fadein 0.5s 0.1s ease both; }
+.cpage.active { animation: courses-pop 0.25s ease; }
+.courses-filter-btn { transition: transform 0.18s ease, background 0.2s, border-color 0.2s; }
+.courses-filter-btn:hover { transform: translateY(-1px); }
+.cpage { transition: border-color 0.2s, background 0.2s, color 0.2s, transform 0.18s ease; }
+.cpage:hover:not(.active):not(:disabled) { transform: translateY(-2px); }
+.cpage-next svg { transition: transform 0.2s ease; }
+.cpage-next:hover:not(:disabled) svg { transform: translateX(3px); }
+
+/* request banner */
+.request-banner-art { display: inline-flex; animation: courses-float 5.5s ease-in-out infinite; }
+.btn-request { transition: transform 0.2s ease, background 0.2s; }
+.btn-request:hover { transform: translateY(-2px); }
+.btn-request:active { transform: scale(0.97); }
+.btn-request svg { transition: transform 0.2s ease; }
+.btn-request:hover svg { transform: translateX(4px); }
+
+@keyframes courses-float { 0%, 100% { transform: translate3d(0, 0, 0); } 50% { transform: translate3d(0, -9px, 0); } }
+@keyframes courses-stat-float { 0%, 100% { transform: translate3d(0, 0, 0); } 50% { transform: translate3d(0, -4px, 0); } }
+@keyframes courses-star-shimmer { 0%, 100% { transform: scale(1) rotate(0deg); } 50% { transform: scale(1.25) rotate(8deg); } }
+@keyframes courses-pop { 0% { transform: scale(0.7); } 60% { transform: scale(1.15); } 100% { transform: scale(1); } }
+@keyframes courses-fadein { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@keyframes courses-section-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes courses-heart-bounce { 0% { transform: scale(1); } 40% { transform: scale(1.28); } 65% { transform: scale(0.96); } 100% { transform: scale(1.12); } }
+@keyframes courses-chart-grow { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+@keyframes courses-dot-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .courses-hero-illustration svg,
+  .courses-stat-icon,
+  .request-banner-art,
+  .cgrid-empty,
+  .cs-check input:checked + .cs-check-box,
+  .courses-sidebar .cs-section,
+  .courses-toolbar,
+  .cpagination,
+  .cpage.active,
+  .ccard-wishlist:hover,
+  .svg-course-inline path,
+  .ccard:hover .ccard-rating > svg { animation: none !important; }
+  .ccard-media svg, .ccard-wishlist, .ccard-cat, .cs-cat, .cpage, .cpage-next svg, .cs-chevron,
+  .courses-hero-search, .courses-filter-btn, .btn-request, .btn-request svg, .courses-hero-search-btn svg { transition-duration: 0.01ms !important; }
+}

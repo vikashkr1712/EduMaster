@@ -1,5 +1,6 @@
 import './HeroSection.css'
-import ProgramsHero from '../../assets/svg/programs/ProgramsHero.jsx'
+import EventsHero from '../../assets/svg/events/EventsHero.jsx'
+import { fadeUp, motion, stagger, useReducedMotion } from '../Home/motion.jsx'
 
 function ArrowIcon() {
   return (
@@ -25,22 +26,24 @@ function PlayCircleIcon() {
 }
 
 export default function HeroSection() {
+  const reducedMotion = useReducedMotion()
+
   return (
     <section className="programs-hero">
       <div className="container programs-hero-inner">
-        <div className="programs-hero-content">
-          <h1 className="programs-hero-title">
+        <motion.div className="programs-hero-content" initial={reducedMotion ? false : 'hidden'} animate="visible" variants={stagger(0.1)}>
+          <motion.h1 className="programs-hero-title" variants={fadeUp} transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}>
             Our Events
             <br />
             Designed for <span>Your Success</span>
-          </h1>
+          </motion.h1>
 
-          <p className="programs-hero-text">
+          <motion.p className="programs-hero-text" variants={fadeUp} transition={{ duration: 0.5 }}>
             Join expertly curated events that help you master in-demand skills and accelerate
             your career growth.
-          </p>
+          </motion.p>
 
-          <div className="programs-hero-actions">
+          <motion.div className="programs-hero-actions" variants={fadeUp} transition={{ duration: 0.5 }}>
             <button className="programs-btn-explore">
               Explore Events
               <ArrowIcon />
@@ -49,12 +52,12 @@ export default function HeroSection() {
               <PlayCircleIcon />
               How It Works
             </button>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
-        <div className="programs-hero-illustration">
-          <ProgramsHero />
-        </div>
+        <motion.div className="programs-hero-illustration" initial={reducedMotion ? false : { opacity: 0, x: 28 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}>
+          <EventsHero />
+        </motion.div>
       </div>
     </section>
   )
