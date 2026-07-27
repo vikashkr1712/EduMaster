@@ -288,14 +288,15 @@
 
   /* less horizontal room — enlarge the illustration less so it
      never overlaps the feature list text */
-  .authpanel-illustration .svg-auth-inline {
-    transform: scale(1.04, 1.15);
-  }
+ .authpage--login .authpanel-illustration {
+  --illustration-scale-x: 1.25;
+  --illustration-scale-y: 1.60;
+}
 
-  .authpage--signup .authpanel-illustration .svg-auth-inline {
-    transform: scale(1.19, 1.44);
-    transform-origin: 68% 0;
-  }
+.authpage--signup .authpanel-illustration {
+  --illustration-scale-x: 1.38;
+  --illustration-scale-y: 1.75;
+}
 }
 
 @media (max-width: 1180px) {
@@ -327,24 +328,31 @@
     margin: 0;
   }
 
-  .authpanel-illustration .svg-auth-inline {
-    max-width: 560px;
-    transform: scale(1, 1.1);
-    transform-origin: 50% 0;
-  }
+.authpanel-illustration .svg-auth-inline {
+  max-width: 560px;
+}
 
-  /* signup keeps a moderate enlargement so the scene still
-     reaches its taller feature list */
-  .authpage--signup .authpanel-illustration .svg-auth-inline {
-    transform: scale(1.15, 1.38);
-    transform-origin: 68% 0;
-  }
+.authpage--login .authpanel-illustration {
+  --illustration-scale-x: 1.35;
+  --illustration-scale-y: 1.60;
+}
+
+.authpage--signup .authpanel-illustration {
+  --illustration-scale-x: 1.35;
+  --illustration-scale-y: 1.70;
+}
 }
 
 @media (max-width: 900px) {
-  .authpanel-title {
-    font-size: 30px;
-  }
+ .authpage--login .authpanel-illustration {
+  --illustration-scale-x: 1.25;
+  --illustration-scale-y: 1.55;
+}
+
+.authpage--signup .authpanel-illustration {
+  --illustration-scale-x: 1.20;
+  --illustration-scale-y: 1.60;
+}
 
   .authpanel-illustration .svg-auth-inline {
     max-width: 500px;
@@ -370,11 +378,18 @@
     max-width: none;
   }
 
-  .authpanel-illustration .svg-auth-inline,
-  .authpage--signup .authpanel-illustration .svg-auth-inline {
-    max-width: 640px;
-    transform: none;
-  }
+.authpanel-illustration .svg-auth-inline {
+  max-width: 640px;
+}
+
+.authpage--login .authpanel-illustration,
+.authpage--signup .authpanel-illustration {
+  --illustration-scale-x: 1.20;
+  --illustration-scale-y: 1.10;
+
+  --illustration-offset-x: 2px;
+  --illustration-offset-y: 0px;
+}
 }
 
 /* ---- mobile ---- */
@@ -418,9 +433,11 @@
     margin: 0;
   }
 
-  .authpanel-illustration .svg-auth-inline {
-    max-width: 480px;
-  }
+  .authpage--login .authpanel-illustration,
+.authpage--signup .authpanel-illustration {
+  --illustration-scale-x: 1.10;
+  --illustration-scale-y: 1.10;
+}
 
   /* statistics become a 2x2 grid */
   .authpanel-stats {
