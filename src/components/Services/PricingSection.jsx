@@ -17,11 +17,11 @@ export default function PricingSection() {
   return (
     <section className="spricing">
       <div className="container">
-        <motion.div className="spricing-head" initial={reducedMotion ? false : { opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.5 }} transition={{ duration: 0.5 }}>
+        <motion.div className="spricing-head" initial={reducedMotion ? false : { opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ amount: 0.3 }} transition={{ duration: 0.5 }}>
           <span className="spricing-badge">Service Packages</span>
         </motion.div>
 
-        <motion.div className="spricing-grid" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ once: true, amount: 0.15 }} variants={stagger(0.12)}>
+        <motion.div className="spricing-grid" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ amount: 0.2 }} variants={stagger(0.12)}>
           {pricingPlans.map((plan) => (
             <motion.article
               className={`splan${plan.highlighted ? ' splan-highlighted' : ''}`}

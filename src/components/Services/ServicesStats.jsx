@@ -45,7 +45,7 @@ export default function ServicesStats() {
   return (
     <section className="sstats">
       <div className="container">
-        <motion.div className="sstats-card" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={stagger(0.08)}>
+        <motion.div className="sstats-card" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ amount: 0.3 }} variants={stagger(0.08)}>
           {servicesStats.map((s) => (
             <motion.div className="sstats-item" key={s.key} variants={{ hidden: { opacity: 0, y: 18 }, visible: { opacity: 1, y: 0 } }} transition={{ duration: 0.5 }}>
               <span className={`sstats-icon sstats-${s.tint}`}>{ICONS[s.icon]}</span>

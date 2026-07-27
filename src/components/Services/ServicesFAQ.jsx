@@ -20,12 +20,12 @@ export default function ServicesFAQ() {
   return (
     <section className="sfaq">
       <div className="container">
-        <motion.div className="sfaq-head" initial={reducedMotion ? false : { opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.5 }} transition={{ duration: 0.5 }}>
+        <motion.div className="sfaq-head" initial={reducedMotion ? false : { opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ amount: 0.3 }} transition={{ duration: 0.5 }}>
           <span className="sfaq-badge">FAQs</span>
           <h2 className="sfaq-title">Frequently Asked Questions</h2>
         </motion.div>
 
-        <motion.div className="sfaq-grid" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ once: true, amount: 0.1 }} variants={stagger(0.06)}>
+        <motion.div className="sfaq-grid" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ amount: 0.2 }} variants={stagger(0.06)}>
           {servicesFaqs.map((item) => {
             const open = openId === item.id
             return (

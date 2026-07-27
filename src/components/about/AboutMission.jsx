@@ -64,7 +64,7 @@ export default function AboutMission() {
   return (
     <section className="amission">
       <div className="container">
-        <motion.div className="amission-card" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ once: true, amount: 0.25 }} variants={stagger(0.1)}>
+        <motion.div className="amission-card" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ amount: 0.25 }} variants={stagger(0.1)}>
           {missionCards.map((card, i) => (
             <motion.div className={`amission-item${i > 0 ? ' has-divider' : ''}`} key={card.key} variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}>
               <motion.span className="amission-icon" style={{ background: card.tint }} variants={{ hidden: { opacity: 0, scale: 0.55 }, visible: { opacity: 1, scale: 1 } }} transition={{ type: 'spring', stiffness: 260, damping: 16 }}>

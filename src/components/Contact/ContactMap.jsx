@@ -22,11 +22,11 @@ export default function ContactMap() {
   return (
     <section className="cmap">
       <div className="container cmap-inner">
-        <motion.div className="cmap-card" initial={reducedMotion ? false : { opacity: 0, scale: 0.96 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true, amount: 0.25 }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
+        <motion.div className="cmap-card" initial={reducedMotion ? false : { opacity: 0, scale: 0.96 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ amount: 0.25 }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
           <MapIllustrationSvg />
         </motion.div>
 
-        <motion.div className="cmap-content" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ once: true, amount: 0.25 }} variants={stagger(0.09)}>
+        <motion.div className="cmap-content" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ amount: 0.25 }} variants={stagger(0.09)}>
           <motion.span className="cmap-badge" variants={fadeUp} transition={{ duration: 0.5 }}>Our Location</motion.span>
           <motion.h2 className="cmap-title" variants={fadeUp} transition={{ duration: 0.55 }}>
             Visit Our <span>Learning Center</span>

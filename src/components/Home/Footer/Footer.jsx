@@ -71,7 +71,7 @@ export default function Footer() {
   return (
     <footer className="footer">
       <div className="container">
-        <motion.div className="footer-grid" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ once: true, amount: 0.15 }} variants={stagger(0.08)}>
+        <motion.div className="footer-grid" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ amount: 0.2 }} variants={stagger(0.08)}>
           <motion.div className="footer-brand" variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} transition={{ duration: 0.55 }}>
             <a href="#" className="footer-logo">
               <FooterLogo />

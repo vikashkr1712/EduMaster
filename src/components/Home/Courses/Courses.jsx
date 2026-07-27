@@ -102,7 +102,7 @@ export default function Courses() {
   return (
     <section className="courses">
       <div className="container">
-        <motion.div className="courses-head" initial={reducedMotion ? false : { opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.55 }}>
+        <motion.div className="courses-head" initial={reducedMotion ? false : { opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ amount: 0.3 }} transition={{ duration: 0.55 }}>
           <span className="section-badge">Popular Courses</span>
           <h2 className="section-title courses-title">
             Explore Our Most <span className="hl-highlight">Popular</span> Courses
@@ -117,7 +117,7 @@ export default function Courses() {
             <ArrowNav dir="left" />
           </button>
 
-          <motion.div className="courses-grid" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ once: true, amount: 0.15 }} variants={stagger(0.1)}>
+          <motion.div className="courses-grid" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ amount: 0.2 }} variants={stagger(0.1)}>
             {courses.map((c) => (
               <motion.article className="course-card" key={c.title} variants={{ hidden: { opacity: 0, y: 26 }, visible: { opacity: 1, y: 0 } }} transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }} whileHover={reducedMotion ? undefined : { y: -7 }}>
                 <div className="course-media">{c.illustration}</div>

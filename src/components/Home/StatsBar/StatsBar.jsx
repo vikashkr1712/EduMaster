@@ -68,7 +68,7 @@ export default function StatsBar() {
   return (
     <section className="statsbar">
       <div className="container">
-        <motion.div className="statsbar-card" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ once: true, amount: 0.35 }} variants={stagger(0.05)}>
+        <motion.div className="statsbar-card" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ amount: 0.3 }} variants={stagger(0.05)}>
           {stats.map((s, i) => (
             <motion.div className={`statsbar-item${i > 0 ? ' has-divider' : ''}`} key={s.label} variants={{ hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0 } }} transition={{ duration: 0.45 }}>
               <span className="statsbar-icon" style={{ background: s.tint }}>

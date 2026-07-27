@@ -27,7 +27,7 @@ export default function CTA() {
   return (
     <section className="cta">
       <div className="container">
-        <motion.div className="cta-banner" initial={reducedMotion ? false : { opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}>
+        <motion.div className="cta-banner" initial={reducedMotion ? false : { opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ amount: 0.3 }} transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}>
           {/* background curves */}
           <svg className="cta-bg" viewBox="0 0 1240 140" preserveAspectRatio="none" aria-hidden="true">
             <path d="M900 140 Q 1060 40 1240 90 L1240 140 Z" fill="#FFFFFF" opacity="0.05" />

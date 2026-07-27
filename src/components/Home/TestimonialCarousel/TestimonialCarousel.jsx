@@ -95,7 +95,7 @@ export default function TestimonialCarousel() {
   return (
     <section className="tcarousel">
       <div className="container">
-        <motion.div className="tcarousel-head" initial={reducedMotion ? false : { opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.35 }} transition={{ duration: 0.55 }}>
+        <motion.div className="tcarousel-head" initial={reducedMotion ? false : { opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ amount: 0.3 }} transition={{ duration: 0.55 }}>
           <span className="section-badge">
             <ChatBadgeIcon /> Testimonials
           </span>
@@ -110,7 +110,7 @@ export default function TestimonialCarousel() {
             <ArrowNav dir="left" />
           </button>
 
-          <motion.div className="tcarousel-grid" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ once: true, amount: 0.15 }} variants={stagger(0.08)}>
+          <motion.div className="tcarousel-grid" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ amount: 0.2 }} variants={stagger(0.08)}>
             {ordered.map((r) => (
               <motion.article
                 className="tc-card"

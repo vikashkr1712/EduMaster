@@ -80,7 +80,7 @@ export default function AboutStats() {
   return (
     <section className="astats">
       <div className="container">
-        <motion.div className="astats-card" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={stagger(0.08)}>
+        <motion.div className="astats-card" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ amount: 0.3 }} variants={stagger(0.08)}>
           {aboutStats.map((s, i) => (
             <motion.div className={`astats-item${i > 0 ? ' has-divider' : ''}`} key={s.key} variants={{ hidden: { opacity: 0, y: 18 }, visible: { opacity: 1, y: 0 } }} transition={{ duration: 0.5 }}>
               <span className="astats-icon" style={{ background: s.tint }}>

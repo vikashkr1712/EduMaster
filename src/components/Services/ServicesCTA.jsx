@@ -22,7 +22,7 @@ export default function ServicesCTA() {
   return (
     <section className="scta">
       <div className="container">
-        <motion.div className="scta-banner" initial={reducedMotion ? false : { opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}>
+        <motion.div className="scta-banner" initial={reducedMotion ? false : { opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ amount: 0.3 }} transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}>
           <div className="scta-illustration">
             <TrophyIllustration />
           </div>

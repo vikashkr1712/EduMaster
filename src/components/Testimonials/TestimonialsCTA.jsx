@@ -8,7 +8,7 @@ export default function TestimonialsCTA() {
   return (
     <section className="tcta">
       <div className="container">
-        <motion.div className="tcta-card" initial={reducedMotion ? false : { opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}>
+        <motion.div className="tcta-card" initial={reducedMotion ? false : { opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ amount: 0.3 }} transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}>
           <div className="tcta-trophy">
             <TrophyIllustration />
           </div>

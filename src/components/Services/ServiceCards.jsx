@@ -72,13 +72,13 @@ export default function ServiceCards() {
   return (
     <section className="scards">
       <div className="container">
-        <motion.div className="scards-head" initial={reducedMotion ? false : { opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.4 }} transition={{ duration: 0.55 }}>
+        <motion.div className="scards-head" initial={reducedMotion ? false : { opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ amount: 0.3 }} transition={{ duration: 0.55 }}>
           <span className="scards-badge">Our Services</span>
           <h2 className="scards-title">Everything You Need To Learn &amp; Grow</h2>
           <p className="scards-sub">A complete ecosystem for students, professionals and institutions.</p>
         </motion.div>
 
-        <motion.div className="scards-grid" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ once: true, amount: 0.1 }} variants={stagger(0.08)}>
+        <motion.div className="scards-grid" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ amount: 0.2 }} variants={stagger(0.08)}>
           {serviceCards.map((card) => (
             <motion.article
               className={`scard scard-${card.tint}`}

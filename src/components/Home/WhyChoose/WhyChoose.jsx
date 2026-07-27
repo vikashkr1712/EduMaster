@@ -122,7 +122,7 @@ export default function WhyChoose() {
   return (
     <section className="whychoose">
       <div className="container whychoose-inner">
-        <motion.div className="whychoose-content" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ once: true, amount: 0.15 }} variants={stagger(0.08)}>
+        <motion.div className="whychoose-content" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ amount: 0.2 }} variants={stagger(0.08)}>
           <motion.span className="section-badge whychoose-badge" variants={fadeItem} transition={{ duration: 0.5 }}>
             <StarBadgeIcon /> Why Choose Us
           </motion.span>
@@ -151,7 +151,7 @@ export default function WhyChoose() {
           </motion.div>
         </motion.div>
 
-        <motion.div className="whychoose-illustration" initial={reducedMotion ? false : { opacity: 0, x: 28 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.25 }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
+        <motion.div className="whychoose-illustration" initial={reducedMotion ? false : { opacity: 0, x: 28 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ amount: 0.25 }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
           <WhyChooseIllustration className="whychoose-illustration-svg" />
         </motion.div>
       </div>

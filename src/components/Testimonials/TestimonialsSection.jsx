@@ -58,7 +58,7 @@ export default function TestimonialsSection() {
   return (
     <section className="tsection">
       <div className="container">
-        <motion.div className="tsection-head" initial={reducedMotion ? false : { opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.4 }} transition={{ duration: 0.55 }}>
+        <motion.div className="tsection-head" initial={reducedMotion ? false : { opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ amount: 0.3 }} transition={{ duration: 0.55 }}>
           <span className="tsection-badge">Testimonials</span>
           <h2 className="tsection-title">What Our Students Have to Say</h2>
           <p className="tsection-sub">

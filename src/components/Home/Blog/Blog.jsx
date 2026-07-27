@@ -60,10 +60,10 @@ export default function Blog() {
   return (
     <section className="blog">
       <div className="container">
-        <motion.div className="blog-badge-row" initial={reducedMotion ? false : { opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.4 }} transition={{ duration: 0.5 }}>
+        <motion.div className="blog-badge-row" initial={reducedMotion ? false : { opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ amount: 0.3 }} transition={{ duration: 0.5 }}>
           <span className="section-badge">From Our Blog</span>
         </motion.div>
-        <motion.div className="blog-head" initial={reducedMotion ? false : { opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.4 }} transition={{ duration: 0.55, delay: 0.08 }}>
+        <motion.div className="blog-head" initial={reducedMotion ? false : { opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ amount: 0.3 }} transition={{ duration: 0.55, delay: 0.08 }}>
           <h2 className="section-title blog-title">
             Latest <span className="blog-underline">Articles</span> &amp; Insights
           </h2>
@@ -81,7 +81,7 @@ export default function Blog() {
           </a>
         </motion.div>
 
-        <motion.div className="blog-grid" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ once: true, amount: 0.12 }} variants={stagger(0.09)}>
+        <motion.div className="blog-grid" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ amount: 0.2 }} variants={stagger(0.09)}>
           {posts.map((p) => (
             <motion.article className="blog-card" key={p.title} variants={{ hidden: { opacity: 0, y: 26 }, visible: { opacity: 1, y: 0 } }} transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }} whileHover={reducedMotion ? undefined : { y: -6 }}>
               <div className="blog-media">{p.illustration}</div>

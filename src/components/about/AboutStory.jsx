@@ -22,7 +22,7 @@ export default function AboutStory() {
   return (
     <section className="astory">
       <div className="container astory-inner">
-        <motion.div className="astory-content" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={stagger(0.09)}>
+        <motion.div className="astory-content" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ amount: 0.2 }} variants={stagger(0.09)}>
           <motion.span className="astory-badge" variants={fadeUp} transition={{ duration: 0.5 }}>Our Story</motion.span>
           <motion.h2 className="astory-title" variants={fadeUp} transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}>The Story Behind EduMaster</motion.h2>
           <motion.p className="astory-text" variants={fadeUp} transition={{ duration: 0.5 }}>
@@ -40,7 +40,7 @@ export default function AboutStory() {
           </motion.button>
         </motion.div>
 
-        <motion.div className="astory-illustration" initial={reducedMotion ? false : { opacity: 0, x: 28 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.25 }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
+        <motion.div className="astory-illustration" initial={reducedMotion ? false : { opacity: 0, x: 28 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ amount: 0.25 }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
           <AboutStoryIllustration className="svg-about-story-inline" />
         </motion.div>
 

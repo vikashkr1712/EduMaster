@@ -20,7 +20,7 @@ export default function WhyChooseUs() {
   const reducedMotion = useReducedMotion()
 
   return (
-    <motion.aside className="awhy-card" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ once: true, amount: 0.25 }} variants={stagger(0.07)}>
+    <motion.aside className="awhy-card" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ amount: 0.25 }} variants={stagger(0.07)}>
       <motion.h3 className="awhy-title" variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0 } }} transition={{ duration: 0.5 }}>Why Choose EduMaster?</motion.h3>
       <ul className="awhy-list">
         {whyChooseItems.map((item) => (

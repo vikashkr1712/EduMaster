@@ -59,14 +59,14 @@ export default function HowItWorks() {
   return (
     <section className="how-it-works">
       <div className="container">
-        <motion.div className="how-it-works-head" initial={reducedMotion ? false : { opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.4 }} transition={{ duration: 0.55 }}>
+        <motion.div className="how-it-works-head" initial={reducedMotion ? false : { opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ amount: 0.3 }} transition={{ duration: 0.55 }}>
           <span className="how-it-works-badge">HOW IT WORKS</span>
           <h2 className="how-it-works-title">
             Simple Steps to <span>Get</span> Started
           </h2>
         </motion.div>
 
-        <motion.div className="how-it-works-steps" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ once: true, amount: 0.25 }} variants={stagger(0.14)}>
+        <motion.div className="how-it-works-steps" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ amount: 0.25 }} variants={stagger(0.14)}>
           {howItWorksSteps.map((step, i) => (
             <motion.div className="hiw-step" key={step.number} variants={{ hidden: { opacity: 0, y: 22 }, visible: { opacity: 1, y: 0 } }} transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}>
               <div className="hiw-step-top">

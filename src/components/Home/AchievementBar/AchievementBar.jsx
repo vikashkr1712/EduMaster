@@ -69,7 +69,7 @@ export default function AchievementBar() {
           className="achievebar-card"
           initial={reducedMotion ? false : 'hidden'}
           whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ amount: 0.3 }}
           variants={stagger()}
         >
           {items.map((s, i) => (

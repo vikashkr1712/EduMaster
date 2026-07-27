@@ -99,8 +99,8 @@ export default function Partners() {
   return (
     <section className="partners">
       <div className="container">
-        <motion.p className="partners-heading" initial={reducedMotion ? false : { opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.5 }} transition={{ duration: 0.45 }}>Trusted by Learners &amp; Partners</motion.p>
-        <motion.div className="partners-row" initial={reducedMotion ? false : { opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, amount: 0.35 }} transition={{ duration: 0.55 }}>
+        <motion.p className="partners-heading" initial={reducedMotion ? false : { opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ amount: 0.3 }} transition={{ duration: 0.45 }}>Trusted by Learners &amp; Partners</motion.p>
+        <motion.div className="partners-row" initial={reducedMotion ? false : { opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ amount: 0.3 }} transition={{ duration: 0.55 }}>
           {partnerLogos.map((Logo, i) => (
             <Logo key={i} />
           ))}

@@ -34,7 +34,7 @@ export function Reveal({ children, className, delay = 0, amount = 0.2 }) {
       className={className}
       initial={reducedMotion ? false : 'hidden'}
       whileInView="visible"
-      viewport={{ once: true, amount }}
+      viewport={{ amount }}
       variants={fadeUp}
       transition={{ duration: 0.55, delay, ease: [0.22, 1, 0.36, 1] }}
     >
@@ -45,15 +45,20 @@ export function Reveal({ children, className, delay = 0, amount = 0.2 }) {
 
 export function CountUp({ value }) {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, amount: 0.6 })
+  const isInView = useInView(ref, { amount: 0.6 })
   const reducedMotion = useReducedMotion()
   const match = value.match(/[\d,]+/)
   const initial = match ? `${value.slice(0, match.index)}0${value.slice((match.index ?? 0) + match[0].length)}` : value
   const [display, setDisplay] = useState(initial)
 
   useEffect(() => {
-    if (!isInView || reducedMotion || !match) {
-      if (reducedMotion) setDisplay(value)
+    if (reducedMotion || !match) {
+      setDisplay(value)
+      return
+    }
+    if (!isInView) {
+      // reset after leaving the viewport so the count replays on re-entry
+      setDisplay(initial)
       return
     }
     const target = Number(match[0].replaceAll(',', ''))

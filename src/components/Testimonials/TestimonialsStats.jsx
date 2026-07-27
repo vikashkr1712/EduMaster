@@ -76,7 +76,7 @@ export default function TestimonialsStats() {
   return (
     <section className="tstats">
       <div className="container">
-        <motion.div className="tstats-card" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={stagger(0.08)}>
+        <motion.div className="tstats-card" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ amount: 0.3 }} variants={stagger(0.08)}>
           {testimonialsStats.map((s, i) => (
             <motion.div className={`tstats-item${i > 0 ? ' has-divider' : ''}`} key={s.key} variants={{ hidden: { opacity: 0, y: 18 }, visible: { opacity: 1, y: 0 } }} transition={{ duration: 0.5 }}>
               <span className="tstats-icon" style={{ background: s.tint }}>
