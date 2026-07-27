@@ -149,27 +149,67 @@
   margin: 0 -22px 0 -14px;
 }
 
-.authpanel-illustration .svg-auth-inline {
-  display: block;
-  width: 100%;
-  height: auto;
-  /* enlarge from the top edge so the scene reaches further
-     down toward the statistics card, like the reference;
-     extra Y stretch pulls the bottom down to the last feature
-     line while the top edge stays fixed */
-  transform: scale(1.12, 2.5);
-  transform-origin: 50% 0;
+.authpanel-illustration {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 0;
+
+  /* Variables with defaults */
+  --illustration-scale-x: 1;
+  --illustration-scale-y: 1;
+
+  --illustration-offset-x: 0px;
+  --illustration-offset-y: 0px;
+
+  --illustration-origin-x: 50%;
+  --illustration-origin-y: 0%;
+
+  margin: 0 -22px 0 -14px;
+}
+.authpage--login .authpanel-illustration {
+  --illustration-scale-x: 1.10;
+  --illustration-scale-y: 1.70;
+
+  --illustration-offset-x: 0px;
+  --illustration-offset-y: 0px;
+
+  --illustration-origin-x: 50%;
+  --illustration-origin-y: 40%;
+}
+
+.authpage--signup .authpanel-illustration {
+  --illustration-scale-x: 1.20;
+  --illustration-scale-y: 1.80;
+
+  --illustration-offset-x: 0px;
+  --illustration-offset-y: 0px;
+
+  --illustration-origin-x: 68%;
+  --illustration-origin-y: 30%;
 }
 
 /* the signup panel is taller (four feature rows) — enlarge its
    illustration more so it reaches the last feature row; growth
    is biased left/down so the right edge is never clipped */
-.authpage--signup .authpanel-illustration .svg-auth-inline {
-  /* Top edge fixed; extra Y stretch pulls the artwork's bottom down to the
-     last feature row ("...and grow together."), biased left so the right
-     edge never clips. */
-  transform: scale(1.24, );
-  transform-origin: 68% 0;
+.authpanel-illustration .svg-auth-inline {
+  display: block;
+  width: 100%;
+  height: auto;
+
+  transform:
+    translate(
+      var(--illustration-offset-x),
+      var(--illustration-offset-y)
+    )
+    scale(
+      var(--illustration-scale-x),
+      var(--illustration-scale-y)
+    );
+
+  transform-origin:
+    var(--illustration-origin-x)
+    var(--illustration-origin-y);
 }
 
 /* ---- icon tints ---- */

@@ -15,7 +15,13 @@
 .authpanel-feature:nth-child(5) { animation-delay: 0.6s; }
 
 .authpanel-illustration { animation: auth-fade 0.8s ease 0.25s backwards; }
-.authpanel-illustration svg { transform-origin: center; animation: em-float 6s ease-in-out infinite; }
+.authpanel-illustration-float {
+  animation: em-float 6s ease-in-out infinite;
+}
+
+.authpanel-illustration svg {
+  transform-origin: center;
+}
 
 .authpanel-stat { animation: auth-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) backwards; }
 .authpanel-stat:nth-child(1) { animation-delay: 0.45s; }

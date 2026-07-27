@@ -54,7 +54,11 @@ export default function AuthLeftPanel({ badge, title, description, features, ill
           </ul>
         </div>
 
-        <div className="authpanel-illustration">{illustration}</div>
+        <div className="authpanel-illustration">
+  <div className="authpanel-illustration-float">
+    {illustration}
+  </div>
+</div>
       </div>
 
       <div className="authpanel-stats">
