@@ -1,4 +1,5 @@
 import { missionCards } from '../../data/aboutData.js'
+import { motion, stagger, useReducedMotion } from '../Home/motion.jsx'
 
 function TargetIcon() {
   return (
@@ -58,24 +59,26 @@ const icons = {
 }
 
 export default function AboutMission() {
+  const reducedMotion = useReducedMotion()
+
   return (
     <section className="amission">
       <div className="container">
-        <div className="amission-card">
+        <motion.div className="amission-card" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ once: true, amount: 0.25 }} variants={stagger(0.1)}>
           {missionCards.map((card, i) => (
-            <div className={`amission-item${i > 0 ? ' has-divider' : ''}`} key={card.key}>
-              <span className="amission-icon" style={{ background: card.tint }}>
+            <motion.div className={`amission-item${i > 0 ? ' has-divider' : ''}`} key={card.key} variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}>
+              <motion.span className="amission-icon" style={{ background: card.tint }} variants={{ hidden: { opacity: 0, scale: 0.55 }, visible: { opacity: 1, scale: 1 } }} transition={{ type: 'spring', stiffness: 260, damping: 16 }}>
                 {icons[card.key]}
-              </span>
+              </motion.span>
               <div className="amission-copy">
                 <h3>{card.title}</h3>
                 {card.lines.map((line) => (
                   <p key={line}>{line}</p>
                 ))}
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   )

@@ -1,5 +1,6 @@
 import './TestimonialsHero.css'
 import TestimonialsHeroIllustration from '../../assets/svg/testimonials/TestimonialsHeroIllustration.jsx'
+import { fadeUp, motion, stagger, useReducedMotion } from '../Home/motion.jsx'
 
 function ArrowIcon() {
   return (
@@ -25,23 +26,25 @@ function PlayCircleIcon() {
 }
 
 export default function TestimonialsHero() {
+  const reducedMotion = useReducedMotion()
+
   return (
     <section className="thero">
-      <div className="container thero-inner">
-        <span className="thero-badge">What Our Learners Say</span>
+      <motion.div className="container thero-inner" initial={reducedMotion ? false : 'hidden'} animate="visible" variants={stagger(0.09)}>
+        <motion.span className="thero-badge" variants={fadeUp} transition={{ duration: 0.5 }}>What Our Learners Say</motion.span>
 
-        <h1 className="thero-title">
+        <motion.h1 className="thero-title" variants={fadeUp} transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}>
           Trusted by Learners
           <br />
           <span>Worldwide</span>
-        </h1>
+        </motion.h1>
 
-        <p className="thero-text">
+        <motion.p className="thero-text" variants={fadeUp} transition={{ duration: 0.5 }}>
           See how EduMaster has helped thousands of students achieve their goals and advance
           their careers.
-        </p>
+        </motion.p>
 
-        <div className="thero-actions">
+        <motion.div className="thero-actions" variants={fadeUp} transition={{ duration: 0.5 }}>
           <button className="thero-btn-explore">
             Explore Courses
             <ArrowIcon />
@@ -50,12 +53,12 @@ export default function TestimonialsHero() {
             <PlayCircleIcon />
             Watch Video
           </button>
-        </div>
+        </motion.div>
 
-        <div className="thero-illustration">
+        <motion.div className="thero-illustration" variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0 } }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}>
           <TestimonialsHeroIllustration />
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </section>
   )
 }

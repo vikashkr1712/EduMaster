@@ -9,9 +9,14 @@ export default function LoginCard() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [remember, setRemember] = useState(false)
+  const [loading, setLoading] = useState(false)
 
+  // presentational only — brief loading feedback, no auth call
   const onSubmit = (e) => {
     e.preventDefault()
+    if (loading) return
+    setLoading(true)
+    setTimeout(() => setLoading(false), 900)
   }
 
   return (
@@ -55,9 +60,9 @@ export default function LoginCard() {
         </a>
       </div>
 
-      <button type="submit" className="authcard-submit">
-        <LoginArrowIcon />
-        Login
+      <button type="submit" className={`authcard-submit${loading ? ' is-loading' : ''}`} disabled={loading}>
+        {loading ? <span className="authcard-spinner" aria-hidden="true" /> : <LoginArrowIcon />}
+        {loading ? 'Logging in…' : 'Login'}
       </button>
 
       <div className="authcard-divider">

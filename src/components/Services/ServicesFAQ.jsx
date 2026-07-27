@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './ServicesFAQ.css'
 import { servicesFaqs } from '../../data/servicesData.js'
+import { motion, stagger, useReducedMotion } from '../Home/motion.jsx'
 
 function ChevronIcon() {
   return (
@@ -12,22 +13,23 @@ function ChevronIcon() {
 
 export default function ServicesFAQ() {
   const [openId, setOpenId] = useState(null)
+  const reducedMotion = useReducedMotion()
 
   const toggle = (id) => setOpenId((cur) => (cur === id ? null : id))
 
   return (
     <section className="sfaq">
       <div className="container">
-        <div className="sfaq-head">
+        <motion.div className="sfaq-head" initial={reducedMotion ? false : { opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.5 }} transition={{ duration: 0.5 }}>
           <span className="sfaq-badge">FAQs</span>
           <h2 className="sfaq-title">Frequently Asked Questions</h2>
-        </div>
+        </motion.div>
 
-        <div className="sfaq-grid">
+        <motion.div className="sfaq-grid" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ once: true, amount: 0.1 }} variants={stagger(0.06)}>
           {servicesFaqs.map((item) => {
             const open = openId === item.id
             return (
-              <div className={`sfaq-item${open ? ' is-open' : ''}`} key={item.id}>
+              <motion.div className={`sfaq-item${open ? ' is-open' : ''}`} key={item.id} variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0 } }} transition={{ duration: 0.45 }}>
                 <button
                   className="sfaq-question"
                   aria-expanded={open}
@@ -41,10 +43,10 @@ export default function ServicesFAQ() {
                 <div className="sfaq-answer">
                   <p>{item.a}</p>
                 </div>
-              </div>
+              </motion.div>
             )
           })}
-        </div>
+        </motion.div>
       </div>
     </section>
   )

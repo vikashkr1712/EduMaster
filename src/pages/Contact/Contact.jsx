@@ -3,6 +3,7 @@ import Footer from '../../components/Home/Footer/Footer.jsx'
 import ContactHero from '../../components/Contact/ContactHero.jsx'
 import ContactInfo from '../../components/Contact/ContactInfo.jsx'
 import ContactMap from '../../components/Contact/ContactMap.jsx'
+import './ContactMotion.css'
 
 export default function Contact() {
   return (

@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import './TestimonialsSection.css'
 import TestimonialCard from './TestimonialCard.jsx'
 import { testimonials } from '../../data/testimonialsData.js'
+import { motion, useReducedMotion } from '../Home/motion.jsx'
 
 function ArrowNav({ dir }) {
   return (
@@ -37,6 +38,7 @@ const DOT_COUNT = 3
 export default function TestimonialsSection() {
   const perPage = usePerPage()
   const [page, setPage] = useState(0)
+  const reducedMotion = useReducedMotion()
 
   const pages = useMemo(() => {
     const chunks = []
@@ -56,13 +58,13 @@ export default function TestimonialsSection() {
   return (
     <section className="tsection">
       <div className="container">
-        <div className="tsection-head">
+        <motion.div className="tsection-head" initial={reducedMotion ? false : { opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.4 }} transition={{ duration: 0.55 }}>
           <span className="tsection-badge">Testimonials</span>
           <h2 className="tsection-title">What Our Students Have to Say</h2>
           <p className="tsection-sub">
             Real stories from real learners who transformed their careers with EduMaster.
           </p>
-        </div>
+        </motion.div>
 
         <div className="tsection-slider">
           <button className="tsection-arrow tsection-arrow-left" onClick={prev} aria-label="Previous testimonials">
@@ -76,8 +78,8 @@ export default function TestimonialsSection() {
             >
               {pages.map((group, i) => (
                 <div className="tsection-page" key={i} aria-hidden={i !== page}>
-                  {group.map((t) => (
-                    <TestimonialCard testimonial={t} key={t.id} />
+                  {group.map((t, j) => (
+                    <TestimonialCard testimonial={t} index={j} key={t.id} />
                   ))}
                 </div>
               ))}

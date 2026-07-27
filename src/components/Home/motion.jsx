@@ -1,23 +1,36 @@
-import { motion, useInView, useMotionValue, useReducedMotion, useSpring } from 'framer-motion'
+import {
+  LazyMotion,
+  MotionConfig,
+  m,
+  useInView,
+  useMotionValue,
+  useReducedMotion,
+  useSpring,
+} from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
+import { fadeUp, staggerChildren } from '../../utils/motionVariants.js'
 
-export { motion, useReducedMotion }
+/* `m` + LazyMotion(domMax) loads animation features once at the app root
+   instead of bundling the full motion runtime per component. */
+export { m as motion, useReducedMotion, fadeUp, staggerChildren as stagger }
 
-export const fadeUp = {
-  hidden: { opacity: 0, y: 22 },
-  visible: { opacity: 1, y: 0 },
+/* App-level provider: async feature loading (separate chunk) + system
+   reduced-motion handling. */
+const loadFeatures = () => import('./motion-features.js').then((mod) => mod.default)
+
+export function MotionProvider({ children }) {
+  return (
+    <LazyMotion features={loadFeatures} strict>
+      <MotionConfig reducedMotion="user">{children}</MotionConfig>
+    </LazyMotion>
+  )
 }
-
-export const stagger = (delay = 0) => ({
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.1, delayChildren: delay } },
-})
 
 export function Reveal({ children, className, delay = 0, amount = 0.2 }) {
   const reducedMotion = useReducedMotion()
 
   return (
-    <motion.div
+    <m.div
       className={className}
       initial={reducedMotion ? false : 'hidden'}
       whileInView="visible"
@@ -26,7 +39,7 @@ export function Reveal({ children, className, delay = 0, amount = 0.2 }) {
       transition={{ duration: 0.55, delay, ease: [0.22, 1, 0.36, 1] }}
     >
       {children}
-    </motion.div>
+    </m.div>
   )
 }
 
@@ -78,7 +91,7 @@ export function MagneticButton({ children, className }) {
   }
 
   return (
-    <motion.button
+    <m.button
       className={className}
       style={reducedMotion ? undefined : { x: springX, y: springY }}
       whileTap={{ scale: 0.97 }}
@@ -96,6 +109,6 @@ export function MagneticButton({ children, className }) {
     >
       {children}
       {ripple && <span className="home-button-ripple" key={ripple.key} style={{ left: ripple.x, top: ripple.y }} />}
-    </motion.button>
+    </m.button>
   )
 }

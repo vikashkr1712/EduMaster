@@ -1,4 +1,5 @@
 import './About.css'
+import './AboutMotion.css'
 import Navbar from '../../components/Home/Navbar/Navbar.jsx'
 import Footer from '../../components/Home/Footer/Footer.jsx'
 import AboutHero from '../../components/about/AboutHero.jsx'

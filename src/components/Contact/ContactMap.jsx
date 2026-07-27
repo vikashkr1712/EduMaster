@@ -1,5 +1,6 @@
 import './ContactMap.css'
 import MapIllustrationSvg from '../../assets/svg/contact/MapIllustrationSvg.jsx'
+import { fadeUp, motion, stagger, useReducedMotion } from '../Home/motion.jsx'
 
 function ExternalLinkIcon() {
   return (
@@ -16,26 +17,28 @@ function ExternalLinkIcon() {
 }
 
 export default function ContactMap() {
+  const reducedMotion = useReducedMotion()
+
   return (
     <section className="cmap">
       <div className="container cmap-inner">
-        <div className="cmap-card">
+        <motion.div className="cmap-card" initial={reducedMotion ? false : { opacity: 0, scale: 0.96 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true, amount: 0.25 }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
           <MapIllustrationSvg />
-        </div>
+        </motion.div>
 
-        <div className="cmap-content">
-          <span className="cmap-badge">Our Location</span>
-          <h2 className="cmap-title">
+        <motion.div className="cmap-content" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ once: true, amount: 0.25 }} variants={stagger(0.09)}>
+          <motion.span className="cmap-badge" variants={fadeUp} transition={{ duration: 0.5 }}>Our Location</motion.span>
+          <motion.h2 className="cmap-title" variants={fadeUp} transition={{ duration: 0.55 }}>
             Visit Our <span>Learning Center</span>
-          </h2>
-          <p className="cmap-text">
+          </motion.h2>
+          <motion.p className="cmap-text" variants={fadeUp} transition={{ duration: 0.5 }}>
             We&rsquo;d love to meet you in person and show you around our learning environment.
-          </p>
-          <button className="cmap-btn">
+          </motion.p>
+          <motion.button className="cmap-btn" variants={fadeUp} transition={{ duration: 0.5 }}>
             View on Map
             <ExternalLinkIcon />
-          </button>
-        </div>
+          </motion.button>
+        </motion.div>
       </div>
     </section>
   )

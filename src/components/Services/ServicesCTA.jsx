@@ -1,5 +1,6 @@
 import './ServicesCTA.css'
 import TrophyIllustration from '../../assets/svg/common/TrophyIllustration.jsx'
+import { motion, useReducedMotion } from '../Home/motion.jsx'
 
 function ArrowIcon() {
   return (
@@ -16,10 +17,12 @@ function ArrowIcon() {
 }
 
 export default function ServicesCTA() {
+  const reducedMotion = useReducedMotion()
+
   return (
     <section className="scta">
       <div className="container">
-        <div className="scta-banner">
+        <motion.div className="scta-banner" initial={reducedMotion ? false : { opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}>
           <div className="scta-illustration">
             <TrophyIllustration />
           </div>
@@ -39,7 +42,7 @@ export default function ServicesCTA() {
             Get Started Today
             <ArrowIcon />
           </button>
-        </div>
+        </motion.div>
       </div>
     </section>
   )

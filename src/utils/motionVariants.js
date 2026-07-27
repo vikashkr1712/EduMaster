@@ -2,6 +2,18 @@
 
 const EASE = [0.22, 1, 0.36, 1];
 
+/* Canonical variants used across all pages (via components/Home/motion.jsx).
+   Transitions are passed per-element so these stay timing-neutral. */
+export const fadeUp = {
+  hidden: { opacity: 0, y: 22 },
+  visible: { opacity: 1, y: 0 },
+};
+
+export const staggerChildren = (delay = 0) => ({
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.1, delayChildren: delay } },
+});
+
 export const viewportOnce = { once: true, amount: 0.2 };
 
 export const fadeIn = {

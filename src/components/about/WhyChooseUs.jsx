@@ -1,4 +1,5 @@
 import { whyChooseItems } from '../../data/aboutData.js'
+import { motion, stagger, useReducedMotion } from '../Home/motion.jsx'
 
 function CheckCircleIcon() {
   return (
@@ -16,17 +17,19 @@ function CheckCircleIcon() {
 }
 
 export default function WhyChooseUs() {
+  const reducedMotion = useReducedMotion()
+
   return (
-    <aside className="awhy-card">
-      <h3 className="awhy-title">Why Choose EduMaster?</h3>
+    <motion.aside className="awhy-card" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ once: true, amount: 0.25 }} variants={stagger(0.07)}>
+      <motion.h3 className="awhy-title" variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0 } }} transition={{ duration: 0.5 }}>Why Choose EduMaster?</motion.h3>
       <ul className="awhy-list">
         {whyChooseItems.map((item) => (
-          <li key={item}>
+          <motion.li key={item} variants={{ hidden: { opacity: 0, x: -14 }, visible: { opacity: 1, x: 0 } }} transition={{ duration: 0.45 }}>
             <CheckCircleIcon />
             {item}
-          </li>
+          </motion.li>
         ))}
       </ul>
-    </aside>
+    </motion.aside>
   )
 }

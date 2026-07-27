@@ -1,5 +1,6 @@
 import './TestimonialsStats.css'
 import { testimonialsStats } from '../../data/testimonialsData.js'
+import { CountUp, motion, stagger, useReducedMotion } from '../Home/motion.jsx'
 
 function StudentsIcon() {
   return (
@@ -70,22 +71,24 @@ const icons = {
 }
 
 export default function TestimonialsStats() {
+  const reducedMotion = useReducedMotion()
+
   return (
     <section className="tstats">
       <div className="container">
-        <div className="tstats-card">
+        <motion.div className="tstats-card" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={stagger(0.08)}>
           {testimonialsStats.map((s, i) => (
-            <div className={`tstats-item${i > 0 ? ' has-divider' : ''}`} key={s.key}>
+            <motion.div className={`tstats-item${i > 0 ? ' has-divider' : ''}`} key={s.key} variants={{ hidden: { opacity: 0, y: 18 }, visible: { opacity: 1, y: 0 } }} transition={{ duration: 0.5 }}>
               <span className="tstats-icon" style={{ background: s.tint }}>
                 {icons[s.key]}
               </span>
               <div className="tstats-copy">
-                <span className="tstats-value">{s.value}</span>
+                <span className="tstats-value"><CountUp value={s.value} /></span>
                 <span className="tstats-label">{s.label}</span>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   )

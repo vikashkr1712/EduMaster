@@ -1,9 +1,11 @@
 import './ContactInfo.css'
+import { useState } from 'react'
 import MailIconSvg from '../../assets/svg/contact/MailIconSvg.jsx'
 import PhoneIconSvg from '../../assets/svg/contact/PhoneIconSvg.jsx'
 import VisitPinIconSvg from '../../assets/svg/contact/VisitPinIconSvg.jsx'
 import ClockIconSvg from '../../assets/svg/contact/ClockIconSvg.jsx'
 import { contactCards } from '../../data/contactData.js'
+import { fadeUp, motion, stagger, useReducedMotion } from '../Home/motion.jsx'
 
 const cardIcons = {
   mail: <MailIconSvg />,
@@ -27,18 +29,29 @@ function SendIcon() {
 }
 
 export default function ContactInfo() {
+  const reducedMotion = useReducedMotion()
+  const [loading, setLoading] = useState(false)
+
+  // presentational only — brief loading feedback, no submission logic
+  const onSubmit = (e) => {
+    e.preventDefault()
+    if (loading) return
+    setLoading(true)
+    setTimeout(() => setLoading(false), 900)
+  }
+
   return (
     <section className="cinfo">
       <div className="container cinfo-inner">
-        <div className="cinfo-left">
-          <h2 className="cinfo-title">
+        <motion.div className="cinfo-left" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ once: true, amount: 0.15 }} variants={stagger(0.08)}>
+          <motion.h2 className="cinfo-title" variants={fadeUp} transition={{ duration: 0.55 }}>
             Get in <span>Touch</span>
-          </h2>
-          <p className="cinfo-subtitle">Choose the best way to reach us. We&rsquo;re here to assist you!</p>
+          </motion.h2>
+          <motion.p className="cinfo-subtitle" variants={fadeUp} transition={{ duration: 0.5 }}>Choose the best way to reach us. We&rsquo;re here to assist you!</motion.p>
 
-          <div className="cinfo-cards">
+          <motion.div className="cinfo-cards" variants={stagger(0.08)}>
             {contactCards.map((card) => (
-              <div className={`cinfo-card cinfo-card-${card.tint}`} key={card.id}>
+              <motion.div className={`cinfo-card cinfo-card-${card.tint}`} key={card.id} variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}>
                 <span className="cinfo-card-icon">{cardIcons[card.icon]}</span>
                 <div className="cinfo-card-body">
                   <h3>{card.title}</h3>
@@ -46,30 +59,30 @@ export default function ContactInfo() {
                     <p key={line}>{line}</p>
                   ))}
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
-        <div className="cinfo-form-card">
+        <motion.div className="cinfo-form-card" initial={reducedMotion ? false : { opacity: 0, y: 26 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.15 }} transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}>
           <h2 className="cinfo-form-title">Send Us a Message</h2>
           <p className="cinfo-form-subtitle">
             Fill out the form below and we&rsquo;ll get back to you as soon as possible.
           </p>
 
-          <form className="cinfo-form" onSubmit={(e) => e.preventDefault()}>
+          <form className="cinfo-form" onSubmit={onSubmit}>
             <div className="cinfo-form-row">
               <input type="text" name="name" placeholder="Your Name" required />
               <input type="email" name="email" placeholder="Your Email" required />
             </div>
             <input type="text" name="subject" placeholder="Subject" required />
             <textarea name="message" placeholder="Your Message" rows="5" required />
-            <button type="submit" className="cinfo-form-btn">
-              Send Message
-              <SendIcon />
+            <button type="submit" className={`cinfo-form-btn${loading ? ' is-loading' : ''}`} disabled={loading}>
+              {loading ? 'Sending…' : 'Send Message'}
+              {loading ? <span className="cinfo-spinner" aria-hidden="true" /> : <SendIcon />}
             </button>
           </form>
-        </div>
+        </motion.div>
       </div>
     </section>
   )

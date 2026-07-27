@@ -1,4 +1,5 @@
 import Avatar from '../../assets/svg/common/Avatar.jsx'
+import { motion, useReducedMotion } from '../Home/motion.jsx'
 
 function QuoteIcon() {
   return (
@@ -23,10 +24,17 @@ function StarRow({ rating }) {
   )
 }
 
-export default function TestimonialCard({ testimonial }) {
+export default function TestimonialCard({ testimonial, index = 0 }) {
   const t = testimonial
+  const reducedMotion = useReducedMotion()
   return (
-    <article className="tcard">
+    <motion.article
+      className="tcard"
+      initial={reducedMotion ? false : { opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ duration: 0.5, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+    >
       <div className="tcard-topline">
         <QuoteIcon />
         <StarRow rating={t.rating} />
@@ -40,6 +48,6 @@ export default function TestimonialCard({ testimonial }) {
           <span className="tcard-company">Placed at {t.company}</span>
         </div>
       </div>
-    </article>
+    </motion.article>
   )
 }

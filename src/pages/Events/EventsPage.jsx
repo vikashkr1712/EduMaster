@@ -5,6 +5,7 @@ import FeaturesSection from '../../components/Events/FeaturesSection.jsx'
 import PopularEvents from '../../components/Events/PopularEvents.jsx'
 import HowItWorks from '../../components/Events/HowItWorks.jsx'
 import StatsSection from '../../components/Events/StatsSection.jsx'
+import './EventsMotion.css'
 
 export default function EventsPage() {
   return (

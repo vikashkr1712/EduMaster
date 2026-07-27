@@ -1,5 +1,6 @@
 import './PricingSection.css'
 import { pricingPlans } from '../../data/servicesData.js'
+import { motion, stagger, useReducedMotion } from '../Home/motion.jsx'
 
 function CheckIcon() {
   return (
@@ -11,18 +12,22 @@ function CheckIcon() {
 }
 
 export default function PricingSection() {
+  const reducedMotion = useReducedMotion()
+
   return (
     <section className="spricing">
       <div className="container">
-        <div className="spricing-head">
+        <motion.div className="spricing-head" initial={reducedMotion ? false : { opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.5 }} transition={{ duration: 0.5 }}>
           <span className="spricing-badge">Service Packages</span>
-        </div>
+        </motion.div>
 
-        <div className="spricing-grid">
+        <motion.div className="spricing-grid" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ once: true, amount: 0.15 }} variants={stagger(0.12)}>
           {pricingPlans.map((plan) => (
-            <article
+            <motion.article
               className={`splan${plan.highlighted ? ' splan-highlighted' : ''}`}
               key={plan.id}
+              variants={{ hidden: { opacity: 0, y: 28 }, visible: { opacity: 1, y: 0 } }}
+              transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
             >
               {plan.highlighted && <span className="splan-ribbon">{plan.ribbon}</span>}
               <h3 className="splan-name">{plan.name}</h3>
@@ -42,9 +47,9 @@ export default function PricingSection() {
               <button className={`splan-btn${plan.highlighted ? ' splan-btn-primary' : ''}`}>
                 Get Started
               </button>
-            </article>
+            </motion.article>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   )

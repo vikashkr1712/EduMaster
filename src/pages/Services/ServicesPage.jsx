@@ -9,6 +9,7 @@ import PricingSection from '../../components/Services/PricingSection.jsx'
 import ServicesStats from '../../components/Services/ServicesStats.jsx'
 import ServicesFAQ from '../../components/Services/ServicesFAQ.jsx'
 import ServicesCTA from '../../components/Services/ServicesCTA.jsx'
+import './ServicesMotion.css'
 
 export default function ServicesPage() {
   return (

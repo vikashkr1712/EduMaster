@@ -4,6 +4,7 @@ import TestimonialsHero from '../../components/Testimonials/TestimonialsHero.jsx
 import TestimonialsStats from '../../components/Testimonials/TestimonialsStats.jsx'
 import TestimonialsSection from '../../components/Testimonials/TestimonialsSection.jsx'
 import TestimonialsCTA from '../../components/Testimonials/TestimonialsCTA.jsx'
+import './TestimonialsMotion.css'
 
 export default function Testimonials() {
   return (

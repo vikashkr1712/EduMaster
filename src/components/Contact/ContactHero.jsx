@@ -1,6 +1,7 @@
 import './ContactHero.css'
 import ContactHeroSvgNew from '../../assets/svg/contact/ContactHeroSvgNew.jsx'
 import { heroFeatures } from '../../data/contactData.js'
+import { fadeUp, motion, stagger, useReducedMotion } from '../Home/motion.jsx'
 
 function CheckIcon() {
   return (
@@ -19,36 +20,38 @@ function CheckIcon() {
 }
 
 export default function ContactHero() {
+  const reducedMotion = useReducedMotion()
+
   return (
     <section className="chero">
       <div className="container chero-inner">
-        <div className="chero-content">
-          <span className="chero-badge">Contact Us</span>
+        <motion.div className="chero-content" initial={reducedMotion ? false : 'hidden'} animate="visible" variants={stagger(0.09)}>
+          <motion.span className="chero-badge" variants={fadeUp} transition={{ duration: 0.5 }}>Contact Us</motion.span>
 
-          <h1 className="chero-title">
+          <motion.h1 className="chero-title" variants={fadeUp} transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}>
             We&rsquo;d Love to
             <br />
             <span>Hear From You!</span>
-          </h1>
+          </motion.h1>
 
-          <p className="chero-text">
+          <motion.p className="chero-text" variants={fadeUp} transition={{ duration: 0.5 }}>
             Have a question, suggestion, or just want to say hello? We&rsquo;re here to help and
             answer any questions you may have.
-          </p>
+          </motion.p>
 
-          <ul className="chero-features">
+          <motion.ul className="chero-features" variants={stagger(0.08)}>
             {heroFeatures.map((f) => (
-              <li key={f}>
+              <motion.li key={f} variants={{ hidden: { opacity: 0, x: -14 }, visible: { opacity: 1, x: 0 } }} transition={{ duration: 0.45 }}>
                 <CheckIcon />
                 <span>{f}</span>
-              </li>
+              </motion.li>
             ))}
-          </ul>
-        </div>
+          </motion.ul>
+        </motion.div>
 
-        <div className="chero-illustration">
+        <motion.div className="chero-illustration" initial={reducedMotion ? false : { opacity: 0, x: 28 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}>
           <ContactHeroSvgNew />
-        </div>
+        </motion.div>
       </div>
     </section>
   )

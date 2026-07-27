@@ -1,5 +1,6 @@
 import './ServicesHero.css'
 import ServicesHeroSvg from '../../assets/svg/services/ServicesHeroSvg.jsx'
+import { fadeUp, motion, stagger, useReducedMotion } from '../Home/motion.jsx'
 
 function ArrowIcon() {
   return (
@@ -26,26 +27,28 @@ function CalendarIcon() {
 }
 
 export default function ServicesHero() {
+  const reducedMotion = useReducedMotion()
+
   return (
     <section className="shero">
       <div className="container shero-inner">
-        <div className="shero-content">
-          <span className="shero-badge">Our Services</span>
+        <motion.div className="shero-content" initial={reducedMotion ? false : 'hidden'} animate="visible" variants={stagger(0.09)}>
+          <motion.span className="shero-badge" variants={fadeUp} transition={{ duration: 0.5 }}>Our Services</motion.span>
 
-          <h1 className="shero-title">
+          <motion.h1 className="shero-title" variants={fadeUp} transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}>
             Empowering Your
             <br />
             <span>Learning</span> Beyond
             <br />
             Traditional Education
-          </h1>
+          </motion.h1>
 
-          <p className="shero-text">
+          <motion.p className="shero-text" variants={fadeUp} transition={{ duration: 0.5 }}>
             At EduMaster, we provide a complete ecosystem of learning services designed to help
             you achieve your goals and advance your career.
-          </p>
+          </motion.p>
 
-          <div className="shero-actions">
+          <motion.div className="shero-actions" variants={fadeUp} transition={{ duration: 0.5 }}>
             <button className="shero-btn-explore">
               Explore Services
               <ArrowIcon />
@@ -54,12 +57,12 @@ export default function ServicesHero() {
               <CalendarIcon />
               Book Free Consultation
             </button>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
-        <div className="shero-illustration">
+        <motion.div className="shero-illustration" initial={reducedMotion ? false : { opacity: 0, x: 28 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}>
           <ServicesHeroSvg />
-        </div>
+        </motion.div>
       </div>
     </section>
   )

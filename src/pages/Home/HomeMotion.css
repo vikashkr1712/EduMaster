@@ -28,9 +28,9 @@
 .home-page .navbar-menu.open > a:nth-child(7) { animation-delay: .29s; }
 .home-page .navbar-menu.open .navbar-menu-actions { animation: home-nav-item .35s .33s cubic-bezier(.22, 1, .36, 1) both; }
 
-.home-page .hero-illustration { transform-origin: center; animation: home-illustration-float 6s ease-in-out infinite; }
-.home-page .hero-illustration-svg { transform-origin: center; animation: home-illustration-breathe 4.5s ease-in-out infinite; }
-.home-page .hero-stat-icon { animation: home-stat-float 3.8s ease-in-out infinite; }
+.home-page .hero-illustration { transform-origin: center; animation: em-float 6s ease-in-out infinite; }
+.home-page .hero-illustration-svg { transform-origin: center; animation: em-breathe 4.5s ease-in-out infinite; }
+.home-page .hero-stat-icon { animation: em-float-sm 3.8s ease-in-out infinite; }
 .home-page .hero-stat:nth-child(2) .hero-stat-icon { animation-delay: -.7s; }
 .home-page .hero-stat:nth-child(3) .hero-stat-icon { animation-delay: -1.4s; }
 .home-page .hero-stat:nth-child(4) .hero-stat-icon { animation-delay: -2.1s; }
@@ -44,18 +44,18 @@
 /* Hero SVG detail animations — paths targeted by fill/index so the SVG file stays untouched.
    Selectors depend on HeroIllustration.jsx path order and fill values; regenerate these if the SVG is re-exported. */
 .home-page .hero-illustration-svg path { transform-box: fill-box; }
-.home-page .hero-illustration-svg path[fill="#FEC510"] { animation: home-svg-glow 2.8s ease-in-out infinite; }
+.home-page .hero-illustration-svg path[fill="#FEC510"] { animation: em-glow 2.8s ease-in-out infinite; }
 .home-page .hero-illustration-svg path[fill="#FEC510"]:nth-of-type(odd) { animation-delay: -1.4s; }
 .home-page .hero-illustration-svg path[fill="#45B360"],
 .home-page .hero-illustration-svg path[fill="#39A95B"],
 .home-page .hero-illustration-svg path[fill="#2C914E"],
 .home-page .hero-illustration-svg path[fill="#32A355"],
-.home-page .hero-illustration-svg path[fill="#42B35F"] { transform-origin: 50% 100%; animation: home-leaf-sway 5.5s ease-in-out infinite; }
-.home-page .hero-illustration-svg path:nth-of-type(202) { transform-origin: center; animation: home-eye-blink 4.2s linear infinite; }
-.home-page .hero-illustration-svg path:nth-of-type(235) { transform-origin: 0 50%; animation: home-chart-grow .7s .9s cubic-bezier(.22, 1, .36, 1) both; }
-.home-page .hero-illustration-svg path:nth-of-type(234) { transform-origin: 0 50%; animation: home-chart-grow .7s 1.05s cubic-bezier(.22, 1, .36, 1) both; }
-.home-page .hero-illustration-svg path:nth-of-type(236) { transform-origin: 0 50%; animation: home-chart-grow .7s 1.2s cubic-bezier(.22, 1, .36, 1) both; }
-.home-page .hero-illustration-svg path:nth-of-type(237) { transform-origin: 0 50%; animation: home-chart-grow .7s 1.35s cubic-bezier(.22, 1, .36, 1) both; }
+.home-page .hero-illustration-svg path[fill="#42B35F"] { transform-origin: 50% 100%; animation: em-sway 5.5s ease-in-out infinite; }
+.home-page .hero-illustration-svg path:nth-of-type(202) { transform-origin: center; animation: em-blink 4.2s linear infinite; }
+.home-page .hero-illustration-svg path:nth-of-type(235) { transform-origin: 0 50%; animation: em-draw .7s .9s cubic-bezier(.22, 1, .36, 1) both; }
+.home-page .hero-illustration-svg path:nth-of-type(234) { transform-origin: 0 50%; animation: em-draw .7s 1.05s cubic-bezier(.22, 1, .36, 1) both; }
+.home-page .hero-illustration-svg path:nth-of-type(236) { transform-origin: 0 50%; animation: em-draw .7s 1.2s cubic-bezier(.22, 1, .36, 1) both; }
+.home-page .hero-illustration-svg path:nth-of-type(237) { transform-origin: 0 50%; animation: em-draw .7s 1.35s cubic-bezier(.22, 1, .36, 1) both; }
 
 .home-page .footer-newsletter input { transition: transform .25s ease; }
 .home-page .footer-newsletter input:focus { transform: translateY(-1px); }
@@ -70,23 +70,23 @@
 .home-page .t-card { will-change: transform; }
 .home-page .t-card:hover { transform: translateY(-5px); }
 .home-page .t-quote { display: inline-flex; transform: rotate(-5deg); }
-.home-page .t-avatar { animation: home-avatar-float 3.6s ease-in-out infinite; }
+.home-page .t-avatar { animation: em-float-sm 3.6s ease-in-out infinite; }
 .home-page .t-avatar:nth-child(2) { animation-delay: -.6s; }
 .home-page .t-avatar:nth-child(3) { animation-delay: -1.2s; }
 .home-page .t-avatar:nth-child(4) { animation-delay: -1.8s; }
 .home-page .t-avatar:nth-child(5) { animation-delay: -2.4s; }
 .home-page .t-avatar:nth-child(6) { animation-delay: -3s; }
-.home-page .t-person svg, .home-page .tc-person > svg { animation: home-avatar-float 4.2s ease-in-out infinite; }
+.home-page .t-person svg, .home-page .tc-person > svg { animation: em-float-sm 4.2s ease-in-out infinite; }
 
 .home-page .btn-startlearning { transition: transform .2s ease; }
 .home-page .btn-startlearning:hover { transform: translateY(-2px) scale(1.02); }
 .home-page .btn-startlearning:active { transform: scale(.97); }
 .home-page .btn-startlearning svg { transition: transform .2s ease; }
 .home-page .btn-startlearning:hover svg { transform: translateX(4px); }
-.home-page .cta-left > svg { animation: home-illustration-float 5.5s ease-in-out infinite; }
+.home-page .cta-left > svg { animation: em-float 5.5s ease-in-out infinite; }
 .home-page .cta-left > svg circle { transform-box: fill-box; }
 .home-page .cta-left > svg circle:nth-of-type(2),
-.home-page .cta-left > svg circle:nth-of-type(3) { animation: home-stat-float 3.4s ease-in-out infinite; }
+.home-page .cta-left > svg circle:nth-of-type(3) { animation: em-float-sm 3.4s ease-in-out infinite; }
 .home-page .cta-left > svg circle:nth-of-type(3) { animation-delay: -1.7s; }
 
 .home-page .partners { overflow: hidden; }
@@ -97,16 +97,8 @@
 @keyframes home-nav-item { from { opacity: 0; transform: translateY(-7px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes home-underline { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 @keyframes home-menu-in { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes home-illustration-float { 0%, 100% { transform: translate3d(0, 0, 0); } 50% { transform: translate3d(0, -10px, 0); } }
-@keyframes home-illustration-breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.008); } }
-@keyframes home-stat-float { 0%, 100% { transform: translate3d(0, 0, 0); } 50% { transform: translate3d(0, -4px, 0); } }
 @keyframes home-marquee { from { transform: translate3d(0, 0, 0); } 50% { transform: translate3d(-2%, 0, 0); } to { transform: translate3d(0, 0, 0); } }
 @keyframes home-ripple { to { transform: translate(-50%, -50%) scale(24); opacity: 0; } }
-@keyframes home-svg-glow { 0%, 100% { opacity: 1; } 50% { opacity: .45; } }
-@keyframes home-leaf-sway { 0%, 100% { transform: rotate(-1.2deg); } 50% { transform: rotate(1.2deg); } }
-@keyframes home-eye-blink { 0%, 92%, 100% { transform: scaleY(1); } 95% { transform: scaleY(.12); } }
-@keyframes home-chart-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
-@keyframes home-avatar-float { 0%, 100% { transform: translate3d(0, 0, 0); } 50% { transform: translate3d(0, -3px, 0); } }
 
 @media (prefers-reduced-motion: reduce) {
   .home-page *, .home-page *::before, .home-page *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }

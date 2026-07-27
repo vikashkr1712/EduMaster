@@ -1,5 +1,6 @@
 import './ServicesStats.css'
 import { servicesStats } from '../../data/servicesData.js'
+import { CountUp, motion, stagger, useReducedMotion } from '../Home/motion.jsx'
 
 const ICONS = {
   students: (
@@ -39,20 +40,22 @@ const ICONS = {
 }
 
 export default function ServicesStats() {
+  const reducedMotion = useReducedMotion()
+
   return (
     <section className="sstats">
       <div className="container">
-        <div className="sstats-card">
+        <motion.div className="sstats-card" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={stagger(0.08)}>
           {servicesStats.map((s) => (
-            <div className="sstats-item" key={s.key}>
+            <motion.div className="sstats-item" key={s.key} variants={{ hidden: { opacity: 0, y: 18 }, visible: { opacity: 1, y: 0 } }} transition={{ duration: 0.5 }}>
               <span className={`sstats-icon sstats-${s.tint}`}>{ICONS[s.icon]}</span>
               <div className="sstats-copy">
-                <span className="sstats-value">{s.value}</span>
+                <span className="sstats-value"><CountUp value={s.value} /></span>
                 <span className="sstats-label">{s.label}</span>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   )

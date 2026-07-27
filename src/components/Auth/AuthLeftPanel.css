@@ -163,9 +163,9 @@
    illustration more so it reaches the last feature row; growth
    is biased left/down so the right edge is never clipped */
 .authpage--signup .authpanel-illustration .svg-auth-inline {
-  /* Keep the existing top/start position, while extending the complete
-     artwork — including its baseline — vertically. */
-  transform: scaleX(1.18) scaleY(1.27);
+  /* Uniform scale (no distortion): grows the complete artwork down toward
+     the last feature row, biased left/down so the right edge never clips. */
+  transform: scale(1.24);
   transform-origin: 68% 0;
 }
 
@@ -250,7 +250,7 @@
   }
 
   .authpage--signup .authpanel-illustration .svg-auth-inline {
-    transform: scaleX(1.14) scaleY(1.22);
+    transform: scale(1.19);
     transform-origin: 68% 0;
   }
 }
@@ -292,7 +292,7 @@
   /* signup keeps a moderate enlargement so the scene still
      reaches its taller feature list */
   .authpage--signup .authpanel-illustration .svg-auth-inline {
-    transform: scaleX(1.12) scaleY(1.18);
+    transform: scale(1.15);
     transform-origin: 68% 0;
   }
 }

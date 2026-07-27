@@ -15,14 +15,14 @@
 .authpanel-feature:nth-child(5) { animation-delay: 0.6s; }
 
 .authpanel-illustration { animation: auth-fade 0.8s ease 0.25s backwards; }
-.authpanel-illustration svg { transform-origin: center; animation: auth-float 6s ease-in-out infinite; }
+.authpanel-illustration svg { transform-origin: center; animation: em-float 6s ease-in-out infinite; }
 
 .authpanel-stat { animation: auth-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) backwards; }
 .authpanel-stat:nth-child(1) { animation-delay: 0.45s; }
 .authpanel-stat:nth-child(2) { animation-delay: 0.53s; }
 .authpanel-stat:nth-child(3) { animation-delay: 0.61s; }
 .authpanel-stat:nth-child(4) { animation-delay: 0.69s; }
-.authpanel-stat-icon { animation: auth-stat-float 3.8s ease-in-out infinite; }
+.authpanel-stat-icon { animation: em-float-sm 3.8s ease-in-out infinite; }
 .authpanel-stat:nth-child(2) .authpanel-stat-icon { animation-delay: -0.7s; }
 .authpanel-stat:nth-child(3) .authpanel-stat-icon { animation-delay: -1.4s; }
 .authpanel-stat:nth-child(4) .authpanel-stat-icon { animation-delay: -2.1s; }
@@ -51,12 +51,63 @@
 .authcard-social-btn:hover svg { transform: scale(1.12); }
 .authfield-eye { transition: transform 0.18s ease, color 0.2s, background 0.2s; }
 .authfield-eye:hover { transform: scale(1.1); }
+/* password toggle swaps the icon element — fade/scale it in on each swap */
+.authfield-eye svg { animation: auth-eye-in 0.18s ease; }
+
+/* ---- form card entrance: fade-up card, stagger its rows ---- */
+.authcard { animation: auth-up 0.55s cubic-bezier(0.22, 1, 0.36, 1) backwards; }
+.authcard > * { animation: auth-up 0.45s cubic-bezier(0.22, 1, 0.36, 1) backwards; }
+.authcard > *:nth-child(1) { animation-delay: 0.1s; }
+.authcard > *:nth-child(2) { animation-delay: 0.15s; }
+.authcard > *:nth-child(3) { animation-delay: 0.2s; }
+.authcard > *:nth-child(4) { animation-delay: 0.25s; }
+.authcard > *:nth-child(5) { animation-delay: 0.3s; }
+.authcard > *:nth-child(6) { animation-delay: 0.35s; }
+.authcard > *:nth-child(7) { animation-delay: 0.4s; }
+.authcard > *:nth-child(8) { animation-delay: 0.45s; }
+.authcard > *:nth-child(9) { animation-delay: 0.5s; }
+.authcard > *:nth-child(10) { animation-delay: 0.55s; }
+
+/* ---- inputs: smooth border + focus glow + label interaction ---- */
+.authfield-box input { transition: border-color 0.25s ease, box-shadow 0.25s ease; }
+.authfield-box input:focus { border-color: var(--blue); box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.13); }
+.authfield-label { transition: color 0.2s ease; }
+.authfield:focus-within .authfield-label { color: var(--blue); }
+
+/* ---- checkbox check pop ---- */
+.authcard-check input { transition: transform 0.15s ease; }
+.authcard-check input:checked { animation: auth-check-pop 0.25s ease; }
+
+/* ---- submit loading spinner ---- */
+.authcard-submit.is-loading { opacity: 0.85; pointer-events: none; }
+.authcard-spinner {
+  width: 17px;
+  height: 17px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  border: 2.4px solid rgba(255, 255, 255, 0.35);
+  border-top-color: #fff;
+  animation: auth-spin 0.7s linear infinite;
+}
+
+/* ---- illustration groups (targeted by fill; SVG files untouched) ----
+   greens = plants sway, golds = lamp/certificate shine,
+   light-blue decorative dots twinkle in two phases */
+.svg-auth-inline path { transform-box: fill-box; }
+.svg-auth-inline path[fill="#04B97C"],
+.svg-auth-inline path[fill="#05B678"],
+.svg-auth-inline path[fill="#03B372"] { transform-origin: 50% 100%; animation: em-sway 5.5s ease-in-out infinite; }
+.svg-auth-inline path[fill="#FCB405"],
+.svg-auth-inline path[fill="#FB9D04"],
+.svg-auth-inline path[fill="#FDB308"] { animation: em-glow 3s ease-in-out infinite; }
+.svg-auth-inline path[fill="#AEC2FC"],
+.svg-auth-inline path[fill="#A2B9FD"] { animation: em-glow 2.8s ease-in-out infinite; }
+.svg-auth-inline path[fill="#AEC2FC"]:nth-of-type(odd),
+.svg-auth-inline path[fill="#A2B9FD"]:nth-of-type(odd) { animation-delay: -1.4s; }
 
 @keyframes auth-up { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
 @keyframes auth-drop { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: none; } }
 @keyframes auth-fade { from { opacity: 0; } to { opacity: 1; } }
-@keyframes auth-float { 0%, 100% { transform: translate3d(0, 0, 0); } 50% { transform: translate3d(0, -9px, 0); } }
-@keyframes auth-stat-float { 0%, 100% { transform: translate3d(0, 0, 0); } 50% { transform: translate3d(0, -3px, 0); } }
 @keyframes auth-shine { to { transform: translateX(320%) skewX(-12deg); } }
 @keyframes auth-shake {
   0%, 100% { transform: translateX(0); }
@@ -66,12 +117,19 @@
   80% { transform: translateX(3px); }
 }
 @keyframes auth-pop { 0% { transform: scale(1); } 45% { transform: scale(1.02); } 100% { transform: scale(1); } }
+@keyframes auth-eye-in { from { opacity: 0; transform: scale(0.7); } to { opacity: 1; transform: scale(1); } }
+@keyframes auth-check-pop { 0% { transform: scale(0.8); } 55% { transform: scale(1.15); } 100% { transform: scale(1); } }
+@keyframes auth-spin { to { transform: rotate(360deg); } }
 
 @media (prefers-reduced-motion: reduce) {
   .authpanel-brand, .authpanel-badge, .authpanel-title, .authpanel-text,
   .authpanel-feature, .authpanel-illustration, .authpanel-illustration svg,
   .authpanel-stat, .authpanel-stat-icon,
   .authcard-submit:hover::before,
+  .authcard, .authcard > *, .authfield-eye svg, .authcard-check input:checked,
+  .svg-auth-inline path,
   .authfield-box.is-error, .authfield-box.is-success { animation: none !important; }
-  .authcard-social-btn svg, .authfield-eye { transition-duration: 0.01ms !important; }
+  .authcard-spinner { animation-duration: 1.5s !important; }
+  .authcard-social-btn svg, .authfield-eye,
+  .authfield-box input, .authfield-label, .authcard-check input { transition-duration: 0.01ms !important; }
 }

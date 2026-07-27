@@ -1,7 +1,7 @@
 /* Motion layer for the Courses page — transform/opacity only, layered after CoursesPage.css */
 
 /* hero */
-.courses-hero-illustration svg { transform-origin: center; animation: courses-float 6s ease-in-out infinite; }
+.courses-hero-illustration svg { transform-origin: center; animation: em-float 6s ease-in-out infinite; }
 
 /* search focus glow */
 .courses-hero-search { transition: box-shadow 0.25s ease, transform 0.25s ease; }
@@ -10,24 +10,24 @@
 /* hero SVG graph — green bars grow from their base after load.
    Indexes/fills depend on svg_course.jsx path order; regenerate if the SVG is re-exported. */
 .svg-course-inline path { transform-box: fill-box; }
-.svg-course-inline path:nth-of-type(179) { transform-origin: 50% 100%; animation: courses-chart-grow 0.6s 0.3s cubic-bezier(0.22, 1, 0.36, 1) both; }
-.svg-course-inline path:nth-of-type(26) { transform-origin: 50% 100%; animation: courses-chart-grow 0.6s 0.45s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.svg-course-inline path:nth-of-type(179) { transform-origin: 50% 100%; animation: em-grow 0.6s 0.3s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.svg-course-inline path:nth-of-type(26) { transform-origin: 50% 100%; animation: em-grow 0.6s 0.45s cubic-bezier(0.22, 1, 0.36, 1) both; }
 .svg-course-inline path:nth-of-type(24),
 .svg-course-inline path:nth-of-type(39),
-.svg-course-inline path:nth-of-type(44) { transform-origin: 50% 100%; animation: courses-chart-grow 0.6s 0.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.svg-course-inline path:nth-of-type(44) { transform-origin: 50% 100%; animation: em-grow 0.6s 0.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
 .svg-course-inline path:nth-of-type(27),
 .svg-course-inline path:nth-of-type(42),
-.svg-course-inline path:nth-of-type(77) { transform-origin: 50% 100%; animation: courses-chart-grow 0.6s 0.75s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.svg-course-inline path:nth-of-type(77) { transform-origin: 50% 100%; animation: em-grow 0.6s 0.75s cubic-bezier(0.22, 1, 0.36, 1) both; }
 
 /* hero SVG data dots — phased shimmer along the dotted arcs */
 .svg-course-inline path[fill="#9AB7FC"],
 .svg-course-inline path[fill="#9FB8FC"],
-.svg-course-inline path[fill="#A4BDFB"] { animation: courses-dot-pulse 2.6s ease-in-out infinite; }
+.svg-course-inline path[fill="#A4BDFB"] { animation: em-glow 2.6s ease-in-out infinite; }
 .svg-course-inline path[fill="#9FB8FC"] { animation-delay: -0.85s; }
 .svg-course-inline path[fill="#A4BDFB"] { animation-delay: -1.7s; }
 .courses-hero-search-btn svg { transition: transform 0.2s ease; }
 .courses-hero-search-btn:hover svg { transform: scale(1.1); }
-.courses-stat-icon { animation: courses-stat-float 3.8s ease-in-out infinite; }
+.courses-stat-icon { animation: em-float-sm 3.8s ease-in-out infinite; }
 .courses-stat:nth-child(2) .courses-stat-icon { animation-delay: -0.7s; }
 .courses-stat:nth-child(3) .courses-stat-icon { animation-delay: -1.4s; }
 .courses-stat:nth-child(4) .courses-stat-icon { animation-delay: -2.1s; }
@@ -71,22 +71,18 @@
 .cpage-next:hover:not(:disabled) svg { transform: translateX(3px); }
 
 /* request banner */
-.request-banner-art { display: inline-flex; animation: courses-float 5.5s ease-in-out infinite; }
+.request-banner-art { display: inline-flex; animation: em-float 5.5s ease-in-out infinite; }
 .btn-request { transition: transform 0.2s ease, background 0.2s; }
 .btn-request:hover { transform: translateY(-2px); }
 .btn-request:active { transform: scale(0.97); }
 .btn-request svg { transition: transform 0.2s ease; }
 .btn-request:hover svg { transform: translateX(4px); }
 
-@keyframes courses-float { 0%, 100% { transform: translate3d(0, 0, 0); } 50% { transform: translate3d(0, -9px, 0); } }
-@keyframes courses-stat-float { 0%, 100% { transform: translate3d(0, 0, 0); } 50% { transform: translate3d(0, -4px, 0); } }
 @keyframes courses-star-shimmer { 0%, 100% { transform: scale(1) rotate(0deg); } 50% { transform: scale(1.25) rotate(8deg); } }
 @keyframes courses-pop { 0% { transform: scale(0.7); } 60% { transform: scale(1.15); } 100% { transform: scale(1); } }
 @keyframes courses-fadein { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
 @keyframes courses-section-in { from { opacity: 0; } to { opacity: 1; } }
 @keyframes courses-heart-bounce { 0% { transform: scale(1); } 40% { transform: scale(1.28); } 65% { transform: scale(0.96); } 100% { transform: scale(1.12); } }
-@keyframes courses-chart-grow { from { transform: scaleY(0); } to { transform: scaleY(1); } }
-@keyframes courses-dot-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
 
 @media (prefers-reduced-motion: reduce) {
   .courses-hero-illustration svg,

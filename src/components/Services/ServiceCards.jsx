@@ -1,5 +1,6 @@
 import './ServiceCards.css'
 import { serviceCards } from '../../data/servicesData.js'
+import { motion, stagger, useReducedMotion } from '../Home/motion.jsx'
 
 const ICONS = {
   live: (
@@ -66,19 +67,29 @@ function ArrowIcon() {
 }
 
 export default function ServiceCards() {
+  const reducedMotion = useReducedMotion()
+
   return (
     <section className="scards">
       <div className="container">
-        <div className="scards-head">
+        <motion.div className="scards-head" initial={reducedMotion ? false : { opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.4 }} transition={{ duration: 0.55 }}>
           <span className="scards-badge">Our Services</span>
           <h2 className="scards-title">Everything You Need To Learn &amp; Grow</h2>
           <p className="scards-sub">A complete ecosystem for students, professionals and institutions.</p>
-        </div>
+        </motion.div>
 
-        <div className="scards-grid">
+        <motion.div className="scards-grid" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ once: true, amount: 0.1 }} variants={stagger(0.08)}>
           {serviceCards.map((card) => (
-            <article className={`scard scard-${card.tint}`} key={card.id}>
-              <span className="scard-icon">{ICONS[card.icon]}</span>
+            <motion.article
+              className={`scard scard-${card.tint}`}
+              key={card.id}
+              variants={{ hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0 } }}
+              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+              whileHover={reducedMotion ? undefined : { y: -6 }}
+            >
+              <motion.span className="scard-icon" variants={{ hidden: { opacity: 0, scale: 0.55 }, visible: { opacity: 1, scale: 1 } }} transition={{ type: 'spring', stiffness: 260, damping: 16 }}>
+                {ICONS[card.icon]}
+              </motion.span>
               <div className="scard-body">
                 <h3>{card.title}</h3>
                 <p>{card.text}</p>
@@ -87,9 +98,9 @@ export default function ServiceCards() {
                   <ArrowIcon />
                 </a>
               </div>
-            </article>
+            </motion.article>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   )

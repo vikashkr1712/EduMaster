@@ -1,5 +1,6 @@
 import './StatsSection.css'
 import { eventStats } from '../../data/eventsData.js'
+import { CountUp, motion, stagger, useReducedMotion } from '../Home/motion.jsx'
 
 function StudentsIcon() {
   return (
@@ -72,22 +73,24 @@ const ICONS = {
 }
 
 export default function StatsSection() {
+  const reducedMotion = useReducedMotion()
+
   return (
     <section className="programs-stats">
       <div className="container">
-        <div className="programs-stats-card">
+        <motion.div className="programs-stats-card" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={stagger(0.08)}>
           {eventStats.map((s, i) => (
-            <div className={`programs-stats-item${i > 0 ? ' has-divider' : ''}`} key={s.key}>
+            <motion.div className={`programs-stats-item${i > 0 ? ' has-divider' : ''}`} key={s.key} variants={{ hidden: { opacity: 0, y: 18 }, visible: { opacity: 1, y: 0 } }} transition={{ duration: 0.5 }}>
               <span className="programs-stats-icon" style={{ background: s.tint }}>
                 {ICONS[s.key]}
               </span>
               <div className="programs-stats-copy">
-                <span className="programs-stats-value">{s.value}</span>
+                <span className="programs-stats-value"><CountUp value={s.value} /></span>
                 <span className="programs-stats-label">{s.label}</span>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   )

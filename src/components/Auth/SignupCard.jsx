@@ -12,9 +12,14 @@ export default function SignupCard() {
   const [password, setPassword] = useState('')
   const [confirm, setConfirm] = useState('')
   const [agreed, setAgreed] = useState(false)
+  const [loading, setLoading] = useState(false)
 
+  // presentational only — brief loading feedback, no auth call
   const onSubmit = (e) => {
     e.preventDefault()
+    if (loading) return
+    setLoading(true)
+    setTimeout(() => setLoading(false), 900)
   }
 
   return (
@@ -86,9 +91,9 @@ export default function SignupCard() {
         </span>
       </label>
 
-      <button type="submit" className="authcard-submit">
-        <UserPlusIcon />
-        Create Account
+      <button type="submit" className={`authcard-submit${loading ? ' is-loading' : ''}`} disabled={loading}>
+        {loading ? <span className="authcard-spinner" aria-hidden="true" /> : <UserPlusIcon />}
+        {loading ? 'Creating Account…' : 'Create Account'}
       </button>
 
       <div className="authcard-divider">

@@ -1,0 +1,62 @@
+/* Motion layer for the Contact page — transform/opacity only.
+   All keyframes come from styles/svg-motion.css (em- prefix).
+   SVG groups are targeted by fill value; the SVG files stay untouched. */
+
+/* ---- hero SVG: float + breathe, message/email accents, decorative dots ---- */
+.chero-illustration { animation: em-float 6s ease-in-out infinite; }
+.chero-illustration svg { transform-origin: center; animation: em-breathe 4.5s ease-in-out infinite; }
+.svg-contact-hero path { transform-box: fill-box; }
+.svg-contact-hero path[fill="#C1D4FD"] { animation: em-glow 2.8s ease-in-out infinite; }
+.svg-contact-hero path[fill="#C1D4FD"]:nth-of-type(odd) { animation-delay: -1.4s; }
+.svg-contact-hero path[fill="#487FF6"] { animation: em-glow-soft 2.6s ease-in-out infinite; }
+
+/* ---- contact info cards (hover lift exists in ContactInfo.css) ---- */
+.cinfo-card { will-change: transform; }
+.cinfo-card-icon { display: inline-flex; transition: transform 0.22s ease; }
+.cinfo-card:hover .cinfo-card-icon { transform: translateY(-3px) scale(1.08); }
+.cinfo-card-icon svg { animation: em-float-sm 3.8s ease-in-out infinite; }
+.cinfo-card:nth-child(2) .cinfo-card-icon svg { animation-delay: -0.9s; }
+.cinfo-card:nth-child(3) .cinfo-card-icon svg { animation-delay: -1.8s; }
+.cinfo-card:nth-child(4) .cinfo-card-icon svg { animation-delay: -2.7s; }
+
+/* ---- form: focus glow, border transition, button, loading, validation hooks ---- */
+.cinfo-form input,
+.cinfo-form textarea { transition: border-color 0.25s ease, box-shadow 0.25s ease; }
+.cinfo-form input:focus,
+.cinfo-form textarea:focus { border-color: var(--blue); box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.13); }
+.cinfo-form input.is-error,
+.cinfo-form textarea.is-error { animation: em-shake 0.4s ease; }
+.cinfo-form input.is-success,
+.cinfo-form textarea.is-success { animation: em-pop 0.3s ease; }
+.cinfo-form-btn { transition: transform 0.2s ease, background 0.2s, box-shadow 0.2s; }
+.cinfo-form-btn:hover { transform: translateY(-2px); }
+.cinfo-form-btn:active { transform: scale(0.97); }
+.cinfo-form-btn.is-loading { opacity: 0.85; pointer-events: none; }
+.cinfo-form-btn svg { transition: transform 0.2s ease; }
+.cinfo-form-btn:hover svg { transform: translateX(3px) translateY(-2px); }
+.cinfo-spinner {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  border: 2.4px solid rgba(255, 255, 255, 0.35);
+  border-top-color: #fff;
+  animation: em-spin 0.7s linear infinite;
+}
+
+/* ---- map: pin pulse (marker greens) + button ---- */
+.svg-contact-map path { transform-box: fill-box; }
+.svg-contact-map path[fill="#22C55E"] { transform-origin: center; animation: em-shine 2.4s ease-in-out infinite; }
+.cmap-btn { transition: transform 0.2s ease, background 0.2s, border-color 0.2s; }
+.cmap-btn:hover { transform: translateY(-2px); }
+.cmap-btn:active { transform: scale(0.97); }
+
+@media (prefers-reduced-motion: reduce) {
+  .chero-illustration, .chero-illustration svg, .svg-contact-hero path,
+  .cinfo-card-icon svg, .svg-contact-map path,
+  .cinfo-form input.is-error, .cinfo-form textarea.is-error,
+  .cinfo-form input.is-success, .cinfo-form textarea.is-success { animation: none !important; }
+  .cinfo-spinner { animation-duration: 1.5s !important; }
+  .cinfo-card-icon, .cinfo-form input, .cinfo-form textarea,
+  .cinfo-form-btn, .cinfo-form-btn svg, .cmap-btn { transition-duration: 0.01ms !important; }
+}

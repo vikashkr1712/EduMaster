@@ -1,4 +1,5 @@
 import { aboutStats } from '../../data/aboutData.js'
+import { CountUp, motion, stagger, useReducedMotion } from '../Home/motion.jsx'
 
 function StudentsIcon() {
   return (
@@ -74,22 +75,24 @@ const icons = {
 }
 
 export default function AboutStats() {
+  const reducedMotion = useReducedMotion()
+
   return (
     <section className="astats">
       <div className="container">
-        <div className="astats-card">
+        <motion.div className="astats-card" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={stagger(0.08)}>
           {aboutStats.map((s, i) => (
-            <div className={`astats-item${i > 0 ? ' has-divider' : ''}`} key={s.key}>
+            <motion.div className={`astats-item${i > 0 ? ' has-divider' : ''}`} key={s.key} variants={{ hidden: { opacity: 0, y: 18 }, visible: { opacity: 1, y: 0 } }} transition={{ duration: 0.5 }}>
               <span className="astats-icon" style={{ background: s.tint }}>
                 {icons[s.key]}
               </span>
               <div className="astats-copy">
-                <span className="astats-value">{s.value}</span>
+                <span className="astats-value"><CountUp value={s.value} /></span>
                 <span className="astats-label">{s.label}</span>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   )

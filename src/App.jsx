@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { MotionProvider } from './components/Home/motion.jsx'
 import Home from './pages/Home/Home.jsx'
 import CoursesPage from './pages/Courses/CoursesPage.jsx'
 import EventsPage from './pages/Events/EventsPage.jsx'
@@ -12,18 +13,20 @@ import SignupPage from './pages/Auth/SignupPage.jsx'
 export default function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/courses" element={<CoursesPage />} />
-        <Route path="/events" element={<EventsPage />} />
-        <Route path="/services" element={<ServicesPage />} />
-        <Route path="/programs" element={<Navigate to="/events" replace />} />
-        <Route path="/testimonials" element={<Testimonials />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignupPage />} />
-      </Routes>
+      <MotionProvider>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/courses" element={<CoursesPage />} />
+          <Route path="/events" element={<EventsPage />} />
+          <Route path="/services" element={<ServicesPage />} />
+          <Route path="/programs" element={<Navigate to="/events" replace />} />
+          <Route path="/testimonials" element={<Testimonials />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignupPage />} />
+        </Routes>
+      </MotionProvider>
     </BrowserRouter>
   )
 }

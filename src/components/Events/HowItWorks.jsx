@@ -1,5 +1,6 @@
 import './HowItWorks.css'
 import { howItWorksSteps } from '../../data/eventsData.js'
+import { motion, stagger, useReducedMotion } from '../Home/motion.jsx'
 
 function BrowseIcon() {
   return (
@@ -53,31 +54,41 @@ const ICONS = {
 }
 
 export default function HowItWorks() {
+  const reducedMotion = useReducedMotion()
+
   return (
     <section className="how-it-works">
       <div className="container">
-        <div className="how-it-works-head">
+        <motion.div className="how-it-works-head" initial={reducedMotion ? false : { opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.4 }} transition={{ duration: 0.55 }}>
           <span className="how-it-works-badge">HOW IT WORKS</span>
           <h2 className="how-it-works-title">
             Simple Steps to <span>Get</span> Started
           </h2>
-        </div>
+        </motion.div>
 
-        <div className="how-it-works-steps">
+        <motion.div className="how-it-works-steps" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ once: true, amount: 0.25 }} variants={stagger(0.14)}>
           {howItWorksSteps.map((step, i) => (
-            <div className="hiw-step" key={step.number}>
+            <motion.div className="hiw-step" key={step.number} variants={{ hidden: { opacity: 0, y: 22 }, visible: { opacity: 1, y: 0 } }} transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}>
               <div className="hiw-step-top">
-                <span className="hiw-step-icon" style={{ background: step.tint }}>
+                <motion.span className="hiw-step-icon" style={{ background: step.tint }} variants={{ hidden: { opacity: 0, scale: 0.5 }, visible: { opacity: 1, scale: 1 } }} transition={{ type: 'spring', stiffness: 260, damping: 16 }}>
                   {ICONS[step.number]}
-                </span>
-                {i < howItWorksSteps.length - 1 && <span className="hiw-connector" aria-hidden="true" />}
+                </motion.span>
+                {i < howItWorksSteps.length - 1 && (
+                  <motion.span
+                    className="hiw-connector"
+                    aria-hidden="true"
+                    style={{ originX: 0 }}
+                    variants={{ hidden: { opacity: 0, scaleX: 0 }, visible: { opacity: 1, scaleX: 1 } }}
+                    transition={{ duration: 0.6, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                  />
+                )}
               </div>
               <span className="hiw-step-number">{step.number}</span>
               <h3 className="hiw-step-title">{step.title}</h3>
               <p className="hiw-step-text">{step.text}</p>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   )

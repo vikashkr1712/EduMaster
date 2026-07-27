@@ -1,4 +1,5 @@
 import AboutHeroIllustration from '../../assets/svg/about/AboutHeroIllustration.jsx'
+import { fadeUp, motion, stagger, useReducedMotion } from '../Home/motion.jsx'
 
 function ArrowIcon() {
   return (
@@ -15,34 +16,36 @@ function ArrowIcon() {
 }
 
 export default function AboutHero() {
+  const reducedMotion = useReducedMotion()
+
   return (
     <section className="ahero">
-      <div className="container ahero-inner">
-        <span className="ahero-badge">About Us</span>
+      <motion.div className="container ahero-inner" initial={reducedMotion ? false : 'hidden'} animate="visible" variants={stagger(0.09)}>
+        <motion.span className="ahero-badge" variants={fadeUp} transition={{ duration: 0.5 }}>About Us</motion.span>
 
-        <h1 className="ahero-title">
+        <motion.h1 className="ahero-title" variants={fadeUp} transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}>
           Empowering Learners
           <br />
           To Build <span>Better Futures</span>
-        </h1>
+        </motion.h1>
 
-        <p className="ahero-text">
+        <motion.p className="ahero-text" variants={fadeUp} transition={{ duration: 0.5 }}>
           At EduMaster, we believe education is the key to unlocking potential and creating
           opportunities. Our mission is to make high-quality learning accessible to everyone,
           everywhere.
-        </p>
+        </motion.p>
 
-        <div className="ahero-actions">
+        <motion.div className="ahero-actions" variants={fadeUp} transition={{ duration: 0.5 }}>
           <button className="ahero-btn">
             Our Events
             <ArrowIcon />
           </button>
-        </div>
+        </motion.div>
 
-        <div className="ahero-illustration">
+        <motion.div className="ahero-illustration" variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0 } }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}>
           <AboutHeroIllustration className="svg-about-hero-inline" />
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </section>
   )
 }
