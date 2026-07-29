@@ -69,7 +69,7 @@ Pages available for screenshots (images are not embedded in this README):
 ## Folder Structure
 
 ```text
-src/
+frontend/src/
 ├── assets/
 │   └── svg/
 │       ├── about/
@@ -118,20 +118,21 @@ The project does not currently contain `hooks/` or `utils/` directories. See [PR
 
 | Folder/file | Purpose |
 | --- | --- |
-| `src/assets/svg/` | Page-specific React SVG illustration components. |
-| `src/components/` | Reusable page sections, cards, navigation, footer, and form components. |
-| `src/data/` | Local data used for courses, services, events, testimonials, contact, about, and auth content. |
-| `src/pages/` | Route-level page compositions. The Events route is implemented in `src/pages/Events/`. |
-| `src/styles/` | Global styles, CSS variables, and shared responsive rules. |
-| `src/svg/` | Standalone SVG illustration files. |
-| `src/App.jsx` | Browser-router and route definitions. |
-| `src/main.jsx` | React application entry point and global-style imports. |
+| `frontend/src/assets/svg/` | Page-specific React SVG illustration components. |
+| `frontend/src/components/` | Reusable page sections, cards, navigation, footer, and form components. |
+| `frontend/src/data/` | Local data used for courses, services, events, testimonials, contact, about, and auth content. |
+| `frontend/src/pages/` | Route-level page compositions. The Events route is implemented in `frontend/src/pages/Events/`. |
+| `frontend/src/styles/` | Global styles, CSS variables, and shared responsive rules. |
+| `frontend/src/svg/` | Standalone SVG illustration files. |
+| `frontend/src/App.jsx` | Browser-router and route definitions. |
+| `frontend/src/main.jsx` | React application entry point and global-style imports. |
 
 ## Installation
 
 ```bash
 git clone https://github.com/vikashkr1712/EduMaster.git
 cd EduMaster
+cd frontend
 npm install
 npm run dev
 ```
@@ -157,7 +158,7 @@ No environment variables are required or referenced by the current project.
 | Command | Description |
 | --- | --- |
 | `npm run dev` | Starts the Vite development server. |
-| `npm run build` | Creates an optimized production build in `dist/`. |
+| `npm run build` | Creates an optimized production build in `frontend/dist/`. |
 | `npm run preview` | Serves the production build locally for previewing. |
 
 ## Routes
@@ -200,7 +201,7 @@ Layouts adapt for desktop, tablet, and mobile screens through CSS media queries 
 
 ## SVG Assets
 
-Illustrations are organized in `src/assets/svg/` by page area (`about`, `auth`, `contact`, `courses`, `events`, `home`, `services`, and `testimonials`). Additional standalone SVG files are kept in `src/svg/`.
+Illustrations are organized in `frontend/src/assets/svg/` by page area (`about`, `auth`, `contact`, `courses`, `events`, `home`, `services`, and `testimonials`). Additional standalone SVG files are kept in `frontend/src/svg/`.
 
 ## Development Workflow
 

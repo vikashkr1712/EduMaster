@@ -206,11 +206,11 @@ Do not continue automatically.
 
 Prefer creating and reusing:
 
-src/utils/motionVariants.js
+frontend/src/utils/motionVariants.js
 
-src/hooks/useCounter.js
+frontend/src/hooks/useCounter.js
 
-src/hooks/useReducedMotion.js
+frontend/src/hooks/useReducedMotion.js
 
 Do not recreate animation variants on every page.
 

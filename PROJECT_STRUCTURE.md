@@ -14,12 +14,12 @@ main.jsx
                     └── SVG assets
 ```
 
-`src/main.jsx` mounts the React application and imports global styles. `src/App.jsx` owns the browser-router configuration. Route pages compose feature components, which consume local data modules and SVG assets.
+`frontend/src/main.jsx` mounts the React application and imports global styles. `frontend/src/App.jsx` owns the browser-router configuration. Route pages compose feature components, which consume local data modules and SVG assets.
 
 ## Source Layout
 
 ```text
-src/
+frontend/src/
 ├── assets/svg/             # React SVG illustration components, grouped by feature
 ├── components/             # Reusable UI grouped by feature or page area
 │   ├── Auth/
@@ -78,7 +78,7 @@ The legacy `/programs` path is retained as a compatibility redirect to `/events`
 ## Styling and Motion
 
 - Component styles are colocated with the component where practical.
-- Global variables, base styles, and shared media queries are in `src/styles/`.
+- Global variables, base styles, and shared media queries are in `frontend/src/styles/`.
 - Framer Motion utilities are located in `components/Home/motion.jsx` and are used alongside CSS transitions and keyframes.
 - Reduced-motion handling is present in motion-related styles and components.
 
