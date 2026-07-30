@@ -6,7 +6,8 @@ import CoursesSidebar from '../../components/Courses/CoursesSidebar.jsx'
 import CourseGrid from '../../components/Courses/CourseGrid.jsx'
 import CoursesPagination from '../../components/Courses/CoursesPagination.jsx'
 import RequestCourseBanner from '../../components/Courses/RequestCourseBanner.jsx'
-import { courses, sortOptions, COURSES_PER_PAGE } from '../../data/coursesData.js'
+import { COURSES_PER_PAGE } from '../../data/coursesData.js'
+import { getCourses } from '../../api/course.js'
 import './CoursesPage.css'
 import './CoursesMotion.css'
 
@@ -25,65 +26,86 @@ const DEFAULT_FILTERS = {
   ratings: [],
 }
 
+// Backend-supported sort options only (see course.service SORT_OPTIONS)
+const SORT_PARAMS = {
+  Newest: 'newest',
+  'Price: Low to High': 'priceAsc',
+  'Price: High to Low': 'priceDesc',
+}
+const SORT_OPTIONS = Object.keys(SORT_PARAMS)
+
+const SEARCH_DEBOUNCE_MS = 400
+
 export default function CoursesPage() {
   const [search, setSearch] = useState('')
+  const [debouncedSearch, setDebouncedSearch] = useState('')
   const [filters, setFilters] = useState(DEFAULT_FILTERS)
-  const [sort, setSort] = useState('Popular')
+  const [sort, setSort] = useState('Newest')
   const [page, setPage] = useState(1)
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
-  /* --- filtering --- */
-  const filtered = useMemo(() => {
-    const q = search.trim().toLowerCase()
-    let list = courses.filter((c) => {
-      if (filters.category !== 'All Categories' && c.category !== filters.category) return false
-      if (filters.levels.length > 0 && !filters.levels.includes(c.level)) return false
-      if (filters.prices.length > 0 && !filters.prices.includes(c.priceType)) return false
-      if (filters.ratings.length > 0 && !filters.ratings.some((r) => c.rating >= r)) return false
-      if (
-        q &&
-        !c.title.toLowerCase().includes(q) &&
-        !c.category.toLowerCase().includes(q) &&
-        !c.instructor.toLowerCase().includes(q) &&
-        !c.level.toLowerCase().includes(q)
-      )
-        return false
-      return true
-    })
+  const [courses, setCourses] = useState([])
+  const [pagination, setPagination] = useState(null)
+  const [status, setStatus] = useState('loading') // 'loading' | 'error' | 'success'
+  const [retryToken, setRetryToken] = useState(0)
 
-    /* --- sorting --- */
-    const students = (c) => parseInt(c.students.replace(/[,+]/g, ''), 10) || 0
-    switch (sort) {
-      case 'Popular':
-        list = [...list].sort((a, b) => students(b) - students(a))
-        break
-      case 'Newest':
-        list = [...list].sort((a, b) => b.id - a.id)
-        break
-      case 'Highest Rated':
-        list = [...list].sort((a, b) => b.rating - a.rating)
-        break
-      case 'Price: Low to High':
-        list = [...list].sort((a, b) => a.price - b.price)
-        break
-      case 'Price: High to Low':
-        list = [...list].sort((a, b) => b.price - a.price)
-        break
-      default:
-        break
-    }
-    return list
-  }, [search, filters, sort])
-
-  /* --- pagination --- */
-  const totalPages = Math.max(1, Math.ceil(filtered.length / COURSES_PER_PAGE))
-  const safePage = Math.min(page, totalPages)
-  const pageCourses = filtered.slice((safePage - 1) * COURSES_PER_PAGE, safePage * COURSES_PER_PAGE)
+  /* --- debounce the search input --- */
+  useEffect(() => {
+    const timer = setTimeout(() => setDebouncedSearch(search.trim()), SEARCH_DEBOUNCE_MS)
+    return () => clearTimeout(timer)
+  }, [search])
 
   // reset to page 1 whenever filters/search/sort change
   useEffect(() => {
     setPage(1)
-  }, [search, filters, sort])
+  }, [debouncedSearch, filters, sort])
+
+  /* --- backend query params --- */
+  const queryParams = useMemo(() => {
+    const params = {
+      page,
+      limit: COURSES_PER_PAGE,
+      sort: SORT_PARAMS[sort] ?? 'newest',
+    }
+    if (debouncedSearch) params.search = debouncedSearch
+    if (filters.category !== 'All Categories') params.category = filters.category
+    // backend accepts a single level; multi-select can't be expressed server-side
+    if (filters.levels.length === 1) params.level = filters.levels[0]
+    // Free = price 0, Paid = price > 0 (via min/max price params)
+    if (filters.prices.length === 1) {
+      if (filters.prices[0] === 'Free') params.maxPrice = 0
+      else params.minPrice = 1
+    }
+    return params
+  }, [debouncedSearch, filters, sort, page])
+
+  /* --- fetch courses --- */
+  useEffect(() => {
+    let ignore = false
+    setStatus('loading')
+
+    getCourses(queryParams)
+      .then((response) => {
+        if (ignore) return
+        const data = response?.data ?? {}
+        setCourses(Array.isArray(data.courses) ? data.courses : [])
+        setPagination(data.pagination ?? null)
+        setStatus('success')
+      })
+      .catch(() => {
+        if (!ignore) setStatus('error')
+      })
+
+    return () => {
+      ignore = true
+    }
+  }, [queryParams, retryToken])
+
+  /* --- pagination (from backend) --- */
+  const totalPages = pagination?.pages ?? 1
+  const total = pagination?.total ?? 0
+  const currentPage = pagination?.page ?? page
+  const limit = pagination?.limit ?? COURSES_PER_PAGE
 
   const handlePage = (p) => {
     setPage(p)
@@ -91,8 +113,8 @@ export default function CoursesPage() {
     document.querySelector('.courses-page-body')?.scrollIntoView({ behavior: 'smooth' })
   }
 
-  const showingFrom = filtered.length === 0 ? 0 : (safePage - 1) * COURSES_PER_PAGE + 1
-  const showingTo = Math.min(safePage * COURSES_PER_PAGE, filtered.length)
+  const showingFrom = total === 0 ? 0 : (currentPage - 1) * limit + 1
+  const showingTo = total === 0 ? 0 : (currentPage - 1) * limit + courses.length
 
   return (
     <>
@@ -111,8 +133,13 @@ export default function CoursesPage() {
           <div className="courses-main">
             <div className="courses-toolbar">
               <p className="courses-toolbar-count">
-                Showing <b>{showingFrom}</b> – <b>{showingTo}</b> of <b>{filtered.length}</b>{' '}
-                courses
+                {status === 'success' ? (
+                  <>
+                    Showing <b>{showingFrom}</b> – <b>{showingTo}</b> of <b>{total}</b> courses
+                  </>
+                ) : (
+                  <>&nbsp;</>
+                )}
               </p>
               <div className="courses-toolbar-right">
                 <button className="courses-filter-btn" onClick={() => setSidebarOpen(true)}>
@@ -126,7 +153,7 @@ export default function CoursesPage() {
                     value={sort}
                     onChange={(e) => setSort(e.target.value)}
                   >
-                    {sortOptions.map((o) => (
+                    {SORT_OPTIONS.map((o) => (
                       <option key={o} value={o}>
                         {o}
                       </option>
@@ -136,8 +163,29 @@ export default function CoursesPage() {
               </div>
             </div>
 
-            <CourseGrid courses={pageCourses} />
-            <CoursesPagination page={safePage} totalPages={totalPages} onPage={handlePage} />
+            {status === 'loading' && (
+              <div className="cgrid-empty" role="status">
+                <h3>Loading courses…</h3>
+                <p>Fetching the latest courses for you.</p>
+              </div>
+            )}
+
+            {status === 'error' && (
+              <div className="cgrid-empty" role="alert">
+                <h3>Unable to load courses</h3>
+                <p>Something went wrong. Please check your connection and try again.</p>
+                <button className="courses-filter-btn" onClick={() => setRetryToken((t) => t + 1)}>
+                  Try Again
+                </button>
+              </div>
+            )}
+
+            {status === 'success' && (
+              <>
+                <CourseGrid courses={courses} />
+                <CoursesPagination page={currentPage} totalPages={totalPages} onPage={handlePage} />
+              </>
+            )}
           </div>
         </div>
       </div>

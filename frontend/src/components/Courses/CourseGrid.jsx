@@ -17,7 +17,7 @@ export default function CourseGrid({ courses }) {
       {courses.map((course, i) => (
         <motion.div
           className="cgrid-reveal"
-          key={course.id}
+          key={course._id ?? course.id}
           initial={reducedMotion ? false : 'hidden'}
           whileInView="visible"
           viewport={{ amount: 0.2 }}

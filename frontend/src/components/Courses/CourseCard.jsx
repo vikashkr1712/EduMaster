@@ -10,6 +10,16 @@ const CAT_CLASS = {
   'Personal Development': 'ccat-personal',
 }
 
+const CAT_ILLUSTRATION = {
+  Development: 'development',
+  'Data Science': 'datascience',
+  Design: 'design',
+  Business: 'business',
+  Marketing: 'marketing',
+  'IT & Software': 'cloud',
+  'Personal Development': 'productivity',
+}
+
 function HeartIcon() {
   return (
     <svg width="19" height="19" viewBox="0 0 24 24" fill="none">
@@ -46,8 +56,9 @@ function StudentsIcon() {
 
 function InstructorAvatar({ name }) {
   const hues = ['#2563EB', '#F97316', '#22C55E', '#8B5CF6', '#EC4899', '#0EA5E9', '#F9B233']
-  const hue = hues[name.length % hues.length]
-  const initials = name
+  const safeName = name || 'EduMaster'
+  const hue = hues[safeName.length % hues.length]
+  const initials = safeName
     .split(' ')
     .map((w) => w[0])
     .join('')
@@ -61,14 +72,29 @@ function InstructorAvatar({ name }) {
 
 export default function CourseCard({ course }) {
   const inr = (n) => `₹${n.toLocaleString('en-IN')}`
-  const studentCount = parseInt(course.students.replace(/[,+]/g, ''), 10) || 0
+
+  const rating = Number(course.rating)
+  const hasRating = Number.isFinite(rating) && rating > 0
+  const studentCount = typeof course.students === 'string'
+    ? parseInt(course.students.replace(/[,+]/g, ''), 10) || 0
+    : Number(course.students) || 0
   const reviews = studentCount >= 5000
     ? `${(Math.round(studentCount / 500) / 10).toFixed(1)}K`
     : `${Math.round(studentCount / 5)}`
+
+  const price = Number(course.price) || 0
+  const discountPrice = Number.isFinite(Number(course.discountPrice)) && course.discountPrice != null
+    ? Number(course.discountPrice)
+    : null
+  const effectivePrice = discountPrice ?? price
+  const isFree = course.priceType === 'Free' || effectivePrice === 0
+  const oldPrice = course.oldPrice ?? (discountPrice != null && discountPrice < price ? price : null)
+  const imageType = course.imageType || CAT_ILLUSTRATION[course.category] || 'development'
+
   return (
     <article className="ccard">
       <div className="ccard-media">
-        <CourseIllustration type={course.imageType} />
+        <CourseIllustration type={imageType} />
       </div>
       <div className="ccard-body">
         <div className="ccard-topline">
@@ -87,25 +113,33 @@ export default function CourseCard({ course }) {
           {course.instructor}
         </div>
 
-        <div className="ccard-meta">
-          <span className="ccard-rating">
-            <StarIcon />
-            <b>{course.rating.toFixed(1)}</b>
-            <span className="ccard-reviews">({reviews})</span>
-          </span>
-          <span className="ccard-students">
-            <StudentsIcon />
-            {course.students} Students
-          </span>
-        </div>
+        {(hasRating || studentCount > 0) && (
+          <div className="ccard-meta">
+            {hasRating && (
+              <span className="ccard-rating">
+                <StarIcon />
+                <b>{rating.toFixed(1)}</b>
+                <span className="ccard-reviews">({reviews})</span>
+              </span>
+            )}
+            {studentCount > 0 && (
+              <span className="ccard-students">
+                <StudentsIcon />
+                {course.students} Students
+              </span>
+            )}
+          </div>
+        )}
 
         <div className="ccard-pricing">
-          {course.priceType === 'Free' ? (
+          {isFree ? (
             <span className="ccard-price ccard-price-free">Free</span>
           ) : (
             <>
-              <span className="ccard-price">{inr(course.price)}</span>
-              <span className="ccard-oldprice">{inr(course.oldPrice)}</span>
+              <span className="ccard-price">{inr(effectivePrice)}</span>
+              {oldPrice != null && oldPrice > 0 && (
+                <span className="ccard-oldprice">{inr(oldPrice)}</span>
+              )}
             </>
           )}
         </div>
