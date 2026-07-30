@@ -54,37 +54,44 @@ export default function EventCard({ event }) {
         <p className="pcard-desc">{event.description}</p>
 
         <div className="pcard-meta">
-          <div className="pcard-meta-item">
-            <span className="pcard-meta-icon">
-              <CalendarIcon />
-            </span>
-            <div className="pcard-meta-copy">
-              <span className="pcard-meta-value">{event.duration}</span>
-              <span className="pcard-meta-label">Event Duration</span>
-            </div>
-          </div>
-
-          <div className="pcard-meta-item">
-            <span className="pcard-meta-icon">
-              <CoursesIcon />
-            </span>
-            <div className="pcard-meta-copy">
-              <span className="pcard-meta-value">{event.courses}</span>
-              <span className="pcard-meta-label">Sessions</span>
-            </div>
-          </div>
-
-          <div className="pcard-meta-item">
-            <span className="pcard-meta-icon">
-              <StarIcon />
-            </span>
-            <div className="pcard-meta-copy">
-              <span className="pcard-meta-value">
-                {event.rating} <span className="pcard-reviews">({event.reviews})</span>
+          {event.duration && (
+            <div className="pcard-meta-item">
+              <span className="pcard-meta-icon">
+                <CalendarIcon />
               </span>
-              <span className="pcard-meta-label">Rating</span>
+              <div className="pcard-meta-copy">
+                <span className="pcard-meta-value">{event.duration}</span>
+                <span className="pcard-meta-label">Event Duration</span>
+              </div>
             </div>
-          </div>
+          )}
+
+          {event.courses && (
+            <div className="pcard-meta-item">
+              <span className="pcard-meta-icon">
+                <CoursesIcon />
+              </span>
+              <div className="pcard-meta-copy">
+                <span className="pcard-meta-value">{event.courses}</span>
+                <span className="pcard-meta-label">Sessions</span>
+              </div>
+            </div>
+          )}
+
+          {event.rating && (
+            <div className="pcard-meta-item">
+              <span className="pcard-meta-icon">
+                <StarIcon />
+              </span>
+              <div className="pcard-meta-copy">
+                <span className="pcard-meta-value">
+                  {event.rating}
+                  {event.reviews && <span className="pcard-reviews"> ({event.reviews})</span>}
+                </span>
+                <span className="pcard-meta-label">Rating</span>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </motion.article>
