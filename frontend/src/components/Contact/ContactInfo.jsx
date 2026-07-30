@@ -38,14 +38,15 @@ export default function ContactInfo() {
   const onSubmit = async (e) => {
     e.preventDefault()
     if (loading) return
+    const formElement = e.currentTarget
     setLoading(true)
     try {
-      const form = new FormData(e.currentTarget)
+      const form = new FormData(formElement)
       await api('/contact', {
         method: 'POST',
         body: Object.fromEntries(form),
       })
-      e.currentTarget.reset()
+      formElement.reset()
       notifications.success('Your message has been sent. We’ll be in touch soon.')
     } catch (error) {
       notifications.error(error.message)
