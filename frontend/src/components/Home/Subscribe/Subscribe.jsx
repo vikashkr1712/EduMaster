@@ -1,4 +1,7 @@
+import { useState } from 'react'
 import './Subscribe.css'
+import { api } from '../../../lib/api.js'
+import { useNotifications } from '../../Notifications/NotificationProvider.jsx'
 
 function MailIcon() {
   return (
@@ -10,6 +13,25 @@ function MailIcon() {
 }
 
 export default function Subscribe() {
+  const notifications = useNotifications()
+  const [email, setEmail] = useState('')
+  const [loading, setLoading] = useState(false)
+
+  const onSubmit = async (e) => {
+    e.preventDefault()
+    if (loading) return
+    setLoading(true)
+    try {
+      await api('/newsletter/subscribe', { method: 'POST', body: { email } })
+      setEmail('')
+      notifications.success('You’re subscribed to the newsletter.')
+    } catch (error) {
+      notifications.error(error.message)
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return (
     <section className="subscribe">
       <div className="container">
@@ -23,9 +45,9 @@ export default function Subscribe() {
               <p>Subscribe to our newsletter for the latest courses and offers.</p>
             </div>
           </div>
-          <form className="subscribe-form" onSubmit={(e) => e.preventDefault()}>
-            <input type="email" placeholder="Enter your email address" />
-            <button type="submit" className="btn-subscribe">
+          <form className="subscribe-form" onSubmit={onSubmit}>
+            <input type="email" placeholder="Enter your email address" value={email} onChange={(e) => setEmail(e.target.value)} />
+            <button type="submit" className="btn-subscribe" disabled={loading}>
               Subscribe
             </button>
           </form>

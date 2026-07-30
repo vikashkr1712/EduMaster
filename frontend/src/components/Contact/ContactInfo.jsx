@@ -6,6 +6,8 @@ import VisitPinIconSvg from '../../assets/svg/contact/VisitPinIconSvg.jsx'
 import ClockIconSvg from '../../assets/svg/contact/ClockIconSvg.jsx'
 import { contactCards } from '../../data/contactData.js'
 import { fadeUp, motion, stagger, useReducedMotion } from '../Home/motion.jsx'
+import { api } from '../../lib/api.js'
+import { useNotifications } from '../Notifications/NotificationProvider.jsx'
 
 const cardIcons = {
   mail: <MailIconSvg />,
@@ -30,14 +32,26 @@ function SendIcon() {
 
 export default function ContactInfo() {
   const reducedMotion = useReducedMotion()
+  const notifications = useNotifications()
   const [loading, setLoading] = useState(false)
 
-  // presentational only — brief loading feedback, no submission logic
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault()
     if (loading) return
     setLoading(true)
-    setTimeout(() => setLoading(false), 900)
+    try {
+      const form = new FormData(e.currentTarget)
+      await api('/contact', {
+        method: 'POST',
+        body: Object.fromEntries(form),
+      })
+      e.currentTarget.reset()
+      notifications.success('Your message has been sent. We’ll be in touch soon.')
+    } catch (error) {
+      notifications.error(error.message)
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (

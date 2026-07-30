@@ -9,12 +9,14 @@ import About from './pages/About/About.jsx'
 import Contact from './pages/Contact/Contact.jsx'
 import LoginPage from './pages/Auth/LoginPage.jsx'
 import SignupPage from './pages/Auth/SignupPage.jsx'
+import { NotificationProvider } from './components/Notifications/NotificationProvider.jsx'
 
 export default function App() {
   return (
     <BrowserRouter>
-      <MotionProvider>
-        <Routes>
+      <NotificationProvider>
+        <MotionProvider>
+          <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/courses" element={<CoursesPage />} />
           <Route path="/events" element={<EventsPage />} />
@@ -25,8 +27,9 @@ export default function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
-        </Routes>
-      </MotionProvider>
+          </Routes>
+        </MotionProvider>
+      </NotificationProvider>
     </BrowserRouter>
   )
 }

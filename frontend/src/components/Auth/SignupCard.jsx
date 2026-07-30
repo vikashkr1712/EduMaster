@@ -5,8 +5,11 @@ import AuthField from './AuthField.jsx'
 import SocialButtons from './SocialButtons.jsx'
 import { CheckCircleIcon, UserPlusIcon } from './AuthIcons.jsx'
 import { passwordRules } from '../../data/authData.js'
+import { api } from '../../lib/api.js'
+import { useNotifications } from '../Notifications/NotificationProvider.jsx'
 
 export default function SignupCard() {
+  const notifications = useNotifications()
   const [fullName, setFullName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -14,12 +17,21 @@ export default function SignupCard() {
   const [agreed, setAgreed] = useState(false)
   const [loading, setLoading] = useState(false)
 
-  // presentational only — brief loading feedback, no auth call
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault()
     if (loading) return
     setLoading(true)
-    setTimeout(() => setLoading(false), 900)
+    try {
+      await api('/auth/register', {
+        method: 'POST',
+        body: { name: fullName, email, password, confirmPassword: confirm },
+      })
+      notifications.success('Your account has been created successfully.')
+    } catch (error) {
+      notifications.error(error.message)
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (

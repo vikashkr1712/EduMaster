@@ -1,22 +1,36 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import './AuthCard.css'
 import AuthField from './AuthField.jsx'
 import SocialButtons from './SocialButtons.jsx'
 import { LoginArrowIcon } from './AuthIcons.jsx'
+import { api } from '../../lib/api.js'
+import { useNotifications } from '../Notifications/NotificationProvider.jsx'
 
 export default function LoginCard() {
+  const navigate = useNavigate()
+  const notifications = useNotifications()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [remember, setRemember] = useState(false)
   const [loading, setLoading] = useState(false)
 
-  // presentational only — brief loading feedback, no auth call
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault()
     if (loading) return
     setLoading(true)
-    setTimeout(() => setLoading(false), 900)
+    try {
+      await api('/auth/login', {
+        method: 'POST',
+        body: { email, password },
+      })
+      notifications.success('Welcome back! You are now signed in.')
+      navigate('/', { replace: true })
+    } catch (error) {
+      notifications.error(error.message)
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
