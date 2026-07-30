@@ -1,15 +1,17 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import './AuthCard.css'
 import AuthField from './AuthField.jsx'
 import SocialButtons from './SocialButtons.jsx'
 import { LoginArrowIcon } from './AuthIcons.jsx'
-import { api } from '../../lib/api.js'
 import { useNotifications } from '../Notifications/NotificationProvider.jsx'
+import { useAuth } from './AuthProvider.jsx'
 
 export default function LoginCard() {
   const navigate = useNavigate()
+  const location = useLocation()
   const notifications = useNotifications()
+  const { login } = useAuth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [remember, setRemember] = useState(false)
@@ -20,12 +22,13 @@ export default function LoginCard() {
     if (loading) return
     setLoading(true)
     try {
-      await api('/auth/login', {
-        method: 'POST',
-        body: { email, password },
-      })
+      await login({ email, password })
       notifications.success('Welcome back! You are now signed in.')
-      navigate('/', { replace: true })
+      const redirectTo = location.state?.from
+      navigate(
+        redirectTo ? `${redirectTo.pathname}${redirectTo.search}${redirectTo.hash}` : '/',
+        { replace: true }
+      )
     } catch (error) {
       notifications.error(error.message)
     } finally {
