@@ -1,5 +1,6 @@
 import './Footer.css'
 import { motion, stagger, useReducedMotion } from '../motion.jsx'
+import NewsletterForm from '../Subscribe/NewsletterForm.jsx'
 
 function FooterLogo() {
   return (
@@ -128,10 +129,7 @@ export default function Footer() {
           <motion.div className="footer-newsletter" variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} transition={{ duration: 0.55 }}>
             <h4>Subscribe to Our Newsletter</h4>
             <p>Get the latest updates on new courses and offers.</p>
-            <form onSubmit={(e) => e.preventDefault()}>
-              <input type="email" placeholder="Enter your email" />
-              <button type="submit">Subscribe</button>
-            </form>
+            <NewsletterForm inputProps={{ placeholder: 'Enter your email' }} />
           </motion.div>
         </motion.div>
 
