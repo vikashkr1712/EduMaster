@@ -6,7 +6,7 @@ import VisitPinIconSvg from '../../assets/svg/contact/VisitPinIconSvg.jsx'
 import ClockIconSvg from '../../assets/svg/contact/ClockIconSvg.jsx'
 import { contactCards } from '../../data/contactData.js'
 import { fadeUp, motion, stagger, useReducedMotion } from '../Home/motion.jsx'
-import { api } from '../../lib/api.js'
+import { submitContact } from '../../api/contact.js'
 import { useNotifications } from '../Notifications/NotificationProvider.jsx'
 
 const cardIcons = {
@@ -42,10 +42,7 @@ export default function ContactInfo() {
     setLoading(true)
     try {
       const form = new FormData(formElement)
-      await api('/contact', {
-        method: 'POST',
-        body: Object.fromEntries(form),
-      })
+      await submitContact(Object.fromEntries(form))
       formElement.reset()
       notifications.success('Your message has been sent. We’ll be in touch soon.')
     } catch (error) {
