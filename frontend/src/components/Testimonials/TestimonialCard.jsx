@@ -37,15 +37,15 @@ export default function TestimonialCard({ testimonial, index = 0 }) {
     >
       <div className="tcard-topline">
         <QuoteIcon />
-        <StarRow rating={t.rating} />
+        <StarRow rating={Number(t.rating) || 0} />
       </div>
       <p className="tcard-text">{t.review}</p>
       <div className="tcard-person">
         <Avatar variant={t.avatar} size={44} />
         <div className="tcard-person-copy">
           <span className="tcard-name">{t.name}</span>
-          <span className="tcard-role">{t.designation}</span>
-          <span className="tcard-company">Placed at {t.company}</span>
+          {t.designation && <span className="tcard-role">{t.designation}</span>}
+          {t.company && <span className="tcard-company">Placed at {t.company}</span>}
         </div>
       </div>
     </motion.article>
