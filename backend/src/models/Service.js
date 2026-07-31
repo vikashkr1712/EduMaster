@@ -2,6 +2,10 @@ import mongoose from 'mongoose';
 
 const serviceSchema = new mongoose.Schema(
   {
+    sourceId: {
+      type: String,
+      trim: true,
+    },
     title: {
       type: String,
       required: [true, 'Title is required'],
@@ -33,6 +37,10 @@ const serviceSchema = new mongoose.Schema(
       trim: true,
     },
     icon: {
+      type: String,
+      trim: true,
+    },
+    tint: {
       type: String,
       trim: true,
     },

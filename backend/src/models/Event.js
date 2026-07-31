@@ -2,6 +2,9 @@ import mongoose from 'mongoose';
 
 const eventSchema = new mongoose.Schema(
   {
+    sourceId: {
+      type: Number,
+    },
     title: {
       type: String,
       required: [true, 'Title is required'],
@@ -58,6 +61,27 @@ const eventSchema = new mongoose.Schema(
       maxlength: [60, 'Speaker must not exceed 60 characters'],
     },
     thumbnail: {
+      type: String,
+      trim: true,
+    },
+    imageType: {
+      type: String,
+      trim: true,
+    },
+    duration: {
+      type: String,
+      trim: true,
+    },
+    courses: {
+      type: String,
+      trim: true,
+    },
+    rating: {
+      type: Number,
+      min: [0, 'Rating must not be negative'],
+      max: [5, 'Rating must not exceed 5'],
+    },
+    reviews: {
       type: String,
       trim: true,
     },

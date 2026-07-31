@@ -2,6 +2,9 @@ import mongoose from 'mongoose';
 
 const courseSchema = new mongoose.Schema(
   {
+    sourceId: {
+      type: Number,
+    },
     title: {
       type: String,
       required: [true, 'Title is required'],
@@ -51,7 +54,28 @@ const courseSchema = new mongoose.Schema(
       default: 0,
       min: [0, 'Discount price must not be negative'],
     },
+    oldPrice: {
+      type: Number,
+      min: [0, 'Old price must not be negative'],
+    },
+    priceType: {
+      type: String,
+      trim: true,
+    },
+    rating: {
+      type: Number,
+      min: [0, 'Rating must not be negative'],
+      max: [5, 'Rating must not exceed 5'],
+    },
+    students: {
+      type: String,
+      trim: true,
+    },
     thumbnail: {
+      type: String,
+      trim: true,
+    },
+    imageType: {
       type: String,
       trim: true,
     },
