@@ -1,5 +1,6 @@
 import './ServiceCards.css'
-import { serviceCards } from '../../data/servicesData.js'
+import { useEffect, useState } from 'react'
+import { getServices } from '../../api/service.js'
 import { motion, stagger, useReducedMotion } from '../Home/motion.jsx'
 
 const ICONS = {
@@ -66,8 +67,49 @@ function ArrowIcon() {
   )
 }
 
+const SERVICES_LIMIT = 6
+
+// Tint per known backend icon key; unknown icons cycle through the palette
+const ICON_TINT = {
+  live: 'blue',
+  career: 'green',
+  placement: 'orange',
+  certification: 'purple',
+  corporate: 'orange',
+  resources: 'blue',
+}
+const TINT_CYCLE = ['blue', 'green', 'orange', 'purple']
+
+const toCard = (service, index) => ({
+  ...service,
+  tint: ICON_TINT[service.icon] || TINT_CYCLE[index % TINT_CYCLE.length],
+  iconNode: ICONS[service.icon] || ICONS.resources,
+  text: service.shortDescription || service.description || '',
+})
+
 export default function ServiceCards() {
   const reducedMotion = useReducedMotion()
+  const [cards, setCards] = useState([])
+  const [status, setStatus] = useState('loading') // 'loading' | 'error' | 'success'
+
+  useEffect(() => {
+    let ignore = false
+
+    getServices({ limit: SERVICES_LIMIT })
+      .then((response) => {
+        if (ignore) return
+        const data = response?.data ?? {}
+        setCards(Array.isArray(data.services) ? data.services.map(toCard) : [])
+        setStatus('success')
+      })
+      .catch(() => {
+        if (!ignore) setStatus('error')
+      })
+
+    return () => {
+      ignore = true
+    }
+  }, [])
 
   return (
     <section className="scards">
@@ -78,29 +120,47 @@ export default function ServiceCards() {
           <p className="scards-sub">A complete ecosystem for students, professionals and institutions.</p>
         </motion.div>
 
-        <motion.div className="scards-grid" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ amount: 0.2 }} variants={stagger(0.08)}>
-          {serviceCards.map((card) => (
-            <motion.article
-              className={`scard scard-${card.tint}`}
-              key={card.id}
-              variants={{ hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0 } }}
-              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              whileHover={reducedMotion ? undefined : { y: -6 }}
-            >
-              <motion.span className="scard-icon" variants={{ hidden: { opacity: 0, scale: 0.55 }, visible: { opacity: 1, scale: 1 } }} transition={{ type: 'spring', stiffness: 260, damping: 16 }}>
-                {ICONS[card.icon]}
-              </motion.span>
-              <div className="scard-body">
-                <h3>{card.title}</h3>
-                <p>{card.text}</p>
-                <a href="#" className="scard-link">
-                  Learn More
-                  <ArrowIcon />
-                </a>
-              </div>
-            </motion.article>
-          ))}
-        </motion.div>
+        {status === 'loading' && (
+          <p className="scards-sub" role="status">
+            Loading services…
+          </p>
+        )}
+
+        {status === 'error' && (
+          <p className="scards-sub" role="alert">
+            Unable to load services right now. Please try again later.
+          </p>
+        )}
+
+        {status === 'success' && cards.length === 0 && (
+          <p className="scards-sub">No services available right now. Check back soon!</p>
+        )}
+
+        {status === 'success' && cards.length > 0 && (
+          <motion.div className="scards-grid" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ amount: 0.2 }} variants={stagger(0.08)}>
+            {cards.map((card) => (
+              <motion.article
+                className={`scard scard-${card.tint}`}
+                key={card._id ?? card.id}
+                variants={{ hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0 } }}
+                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                whileHover={reducedMotion ? undefined : { y: -6 }}
+              >
+                <motion.span className="scard-icon" variants={{ hidden: { opacity: 0, scale: 0.55 }, visible: { opacity: 1, scale: 1 } }} transition={{ type: 'spring', stiffness: 260, damping: 16 }}>
+                  {card.iconNode}
+                </motion.span>
+                <div className="scard-body">
+                  <h3>{card.title}</h3>
+                  <p>{card.text}</p>
+                  <a href="#" className="scard-link">
+                    Learn More
+                    <ArrowIcon />
+                  </a>
+                </div>
+              </motion.article>
+            ))}
+          </motion.div>
+        )}
       </div>
     </section>
   )
