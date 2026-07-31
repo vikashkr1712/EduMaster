@@ -7,7 +7,15 @@ import { LoginArrowIcon } from './AuthIcons.jsx'
 import { useNotifications } from '../Notifications/NotificationProvider.jsx'
 import { useAuth } from './AuthProvider.jsx'
 
-export default function LoginCard() {
+export default function LoginCard({
+  variant = 'login',
+  title = 'Login to Your Account',
+  subtitle = 'Enter your credentials to access your account',
+  submitLabel = 'Login',
+  headerIcon,
+  footer,
+  onSubmit: onFormSubmit,
+}) {
   const navigate = useNavigate()
   const location = useLocation()
   const notifications = useNotifications()
@@ -20,6 +28,10 @@ export default function LoginCard() {
   const onSubmit = async (e) => {
     e.preventDefault()
     if (loading) return
+    if (onFormSubmit) {
+      onFormSubmit({ email, password, remember })
+      return
+    }
     setLoading(true)
     try {
       await login({ email, password })
@@ -37,9 +49,10 @@ export default function LoginCard() {
   }
 
   return (
-    <form className="authcard" onSubmit={onSubmit} noValidate>
-      <h2 className="authcard-title">Login to Your Account</h2>
-      <p className="authcard-sub">Enter your credentials to access your account</p>
+    <form className={`authcard authcard--${variant}`} onSubmit={onSubmit} noValidate>
+      {headerIcon && <div className="authcard-header-icon">{headerIcon}</div>}
+      <h2 className="authcard-title">{title}</h2>
+      <p className="authcard-sub">{subtitle}</p>
 
       <AuthField
         id="login-email"
@@ -79,7 +92,7 @@ export default function LoginCard() {
 
       <button type="submit" className={`authcard-submit${loading ? ' is-loading' : ''}`} disabled={loading}>
         {loading ? <span className="authcard-spinner" aria-hidden="true" /> : <LoginArrowIcon />}
-        {loading ? 'Logging in…' : 'Login'}
+        {loading ? 'Logging in…' : submitLabel}
       </button>
 
       <div className="authcard-divider">
@@ -88,9 +101,11 @@ export default function LoginCard() {
 
       <SocialButtons />
 
-      <p className="authcard-switch">
-        Don&apos;t have an account? <Link to="/signup">Sign Up</Link>
-      </p>
+      {footer ?? (
+        <p className="authcard-switch">
+          Don&apos;t have an account? <Link to="/signup">Sign Up</Link>
+        </p>
+      )}
     </form>
   )
 }

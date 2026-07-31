@@ -18,9 +18,43 @@ function LogoMark() {
   )
 }
 
-export default function AuthLeftPanel({ badge, title, description, features, illustration }) {
+export default function AuthLeftPanel({
+  badge,
+  title,
+  description,
+  features,
+  illustration,
+  variant,
+  illustrationConfig,
+  illustrationGroupStyle,
+  showStats = true,
+  footer,
+}) {
   return (
-    <section className="authpanel">
+    <section className={`authpanel${variant ? ` authpanel--${variant}` : ''}`}>
+      {variant === 'admin' && (
+        <>
+          <span
+            className="authpanel-admin-orb"
+            style={{
+              left: illustrationConfig.circles.x,
+              top: illustrationConfig.circles.y,
+              width: illustrationConfig.circles.size,
+            }}
+            aria-hidden="true"
+          />
+          <span
+            className="authpanel-admin-dots"
+            style={{
+              left: illustrationConfig.dots.x,
+              top: illustrationConfig.dots.y,
+              width: illustrationConfig.dots.width,
+              height: illustrationConfig.dots.height,
+            }}
+            aria-hidden="true"
+          />
+        </>
+      )}
       <Link to="/" className="authpanel-brand" aria-label="EduMaster home">
         <LogoMark />
         <span className="authpanel-brand-text">
@@ -55,23 +89,30 @@ export default function AuthLeftPanel({ badge, title, description, features, ill
         </div>
 
         <div className="authpanel-illustration">
-  <div className="authpanel-illustration-float">
-    {illustration}
-  </div>
-</div>
+          <div className="authpanel-illustration-float">
+            {variant === 'admin' ? (
+              <div className="admin-illustration-group" style={illustrationGroupStyle}>
+                {illustration}
+              </div>
+            ) : illustration}
+          </div>
+        </div>
       </div>
 
-      <div className="authpanel-stats">
-        {authStats.map((stat) => (
-          <div key={stat.id} className="authpanel-stat">
-            <span className={`authpanel-stat-icon tint-${stat.tint}`}>
-              <AuthTileIcon name={stat.icon} />
-            </span>
-            <span className="authpanel-stat-value"><CountUp value={stat.value} /></span>
-            <span className="authpanel-stat-label">{stat.label}</span>
-          </div>
-        ))}
-      </div>
+      {showStats && (
+        <div className="authpanel-stats">
+          {authStats.map((stat) => (
+            <div key={stat.id} className="authpanel-stat">
+              <span className={`authpanel-stat-icon tint-${stat.tint}`}>
+                <AuthTileIcon name={stat.icon} />
+              </span>
+              <span className="authpanel-stat-value"><CountUp value={stat.value} /></span>
+              <span className="authpanel-stat-label">{stat.label}</span>
+            </div>
+          ))}
+        </div>
+      )}
+      {footer && <p className="authpanel-footer">{footer}</p>}
     </section>
   )
 }

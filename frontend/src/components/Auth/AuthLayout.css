@@ -41,6 +41,43 @@
   padding: 20px 0 22px;
 }
 
+.authpage--admin {
+  background: #f5f7fb;
+}
+
+.authpage--admin .authpage-inner {
+  min-height: calc(100vh - 14px);
+  gap: 0;
+  overflow: hidden;
+  border-radius: 24px;
+  box-shadow: 0 10px 30px rgba(19, 43, 91, 0.06);
+}
+
+.authpage--admin .authpanel {
+  border-radius: 24px 0 0 24px;
+}
+
+.authpage--admin .authpage-card-col {
+  padding: 36px 38px;
+  background: linear-gradient(145deg, #f8fafc, #fff 52%);
+}
+
+@media (max-width: 1024px) {
+  .authpage--admin .authpage-inner {
+    gap: 26px;
+    overflow: visible;
+    box-shadow: none;
+  }
+
+  .authpage--admin .authpanel {
+    border-radius: 24px;
+  }
+
+  .authpage--admin .authpage-card-col {
+    padding: 8px 0 0;
+  }
+}
+
 /* ---- tablet ---- */
 @media (max-width: 1400px) {
   .authpage-inner {

@@ -26,6 +26,25 @@
   margin-bottom: 28px;
 }
 
+.authcard-header-icon {
+  width: 76px;
+  height: 76px;
+  display: grid;
+  place-items: center;
+  margin: 0 auto 22px;
+  color: var(--blue);
+  background: linear-gradient(145deg, #f7f9fe, #eef3fb);
+  border-radius: 50%;
+}
+
+.authcard--admin {
+  max-width: 548px;
+}
+
+.authcard--admin .authcard-title {
+  font-size: 31px;
+}
+
 /* ---- fields ---- */
 .authfield {
   margin-bottom: 20px;
@@ -297,6 +316,16 @@
 
   .authcard-title {
     font-size: 23px;
+  }
+
+  .authcard--admin .authcard-title {
+    font-size: 25px;
+  }
+
+  .authcard-header-icon {
+    width: 66px;
+    height: 66px;
+    margin-bottom: 18px;
   }
 
   .authcard-sub {

@@ -116,6 +116,15 @@ function InstructorIcon() {
   )
 }
 
+function ShieldIcon() {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <path d="M12 3.5 19 6v5.5c0 4.3-2.8 7.4-7 9-4.2-1.6-7-4.7-7-9V6l7-2.5Z" stroke="currentColor" strokeWidth="1.9" strokeLinejoin="round" />
+      <path d="m8.8 12 2.1 2.1 4.4-4.5" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
 const featureIcons = {
   book: BookIcon,
   chart: ChartIcon,
@@ -124,6 +133,7 @@ const featureIcons = {
   people: PeopleIcon,
   students: StudentsIcon,
   instructor: InstructorIcon,
+  shield: ShieldIcon,
 }
 
 export function AuthTileIcon({ name }) {
@@ -231,6 +241,17 @@ export function LoginArrowIcon() {
         strokeLinecap="round"
         strokeLinejoin="round"
       />
+    </svg>
+  )
+}
+
+export function AdminLoginIcon() {
+  return (
+    <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+      <circle cx="21" cy="16" r="8" fill="currentColor" />
+      <path d="M8 35.5c0-7 5.8-11.5 13-11.5s13 4.5 13 11.5v2.5H8v-2.5Z" fill="currentColor" />
+      <path d="m35.5 24.5 7 2.5v5.5c0 4.1-2.8 7.1-7 8.7-4.2-1.6-7-4.6-7-8.7V27l7-2.5Z" fill="#F9B233" stroke="#fff" strokeWidth="1.5" strokeLinejoin="round" />
+      <path d="m32.7 32.4 1.8 1.8 3.7-3.8" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   )
 }

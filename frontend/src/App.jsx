@@ -9,6 +9,7 @@ import About from './pages/About/About.jsx'
 import Contact from './pages/Contact/Contact.jsx'
 import LoginPage from './pages/Auth/LoginPage.jsx'
 import SignupPage from './pages/Auth/SignupPage.jsx'
+import AdminLoginPage from './pages/Admin/AdminLoginPage.jsx'
 import { NotificationProvider } from './components/Notifications/NotificationProvider.jsx'
 import { AuthProvider } from './components/Auth/AuthProvider.jsx'
 
@@ -29,6 +30,7 @@ export default function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
+          <Route path="/admin/login" element={<AdminLoginPage />} />
             </Routes>
           </MotionProvider>
         </AuthProvider>
