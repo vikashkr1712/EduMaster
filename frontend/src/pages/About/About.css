@@ -145,7 +145,7 @@
 .amission-copy p {
   font-size: 13.5px;
   line-height: 1.6;
-  color: var(--text-body);
+  color: rgb(52, 49, 49);
 }
 
 /* ---------------- story + why choose ---------------- */
@@ -155,14 +155,29 @@
 }
 
 .astory-inner {
-  display: grid;
-  grid-template-columns: 1fr 1.1fr 0.92fr;
+  display: flex;
+  flex-direction: column;
   gap: 34px;
-  align-items: center;
 }
 
 .astory-content {
+  max-width: 760px;
+  text-align: center;
+  margin: 0 auto;
   min-width: 0;
+}
+
+.astory-details {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  align-items: center;
+  gap: 34px;
+  background: var(--bg-white);
+  border: 1px solid #e8edf5;
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-soft);
+  padding: 30px 28px;
 }
 
 .astory-badge {
@@ -193,7 +208,7 @@
   height: 3px;
   border-radius: 2px;
   background: var(--yellow);
-  margin-top: 10px;
+  margin: 10px auto 0;
 }
 
 .astory-text {
@@ -236,11 +251,8 @@
 }
 
 .awhy-card {
-  background: var(--bg-white);
-  border: 1px solid #e8edf5;
-  border-radius: var(--radius-card);
-  box-shadow: var(--shadow-soft);
-  padding: 30px 28px;
+  border-left: 1px solid #e2e7f0;
+  padding: 4px 0 4px 34px;
 }
 
 .awhy-title {
@@ -411,15 +423,14 @@
   }
 }
 
-/* Below tablet: story stacks — text + illustration, why-choose full width */
+/* Below tablet: preserve the illustration and why-choose row */
 @media (max-width: 900px) {
-  .astory-inner {
-    grid-template-columns: 1fr 1fr;
+  .astory-details {
     gap: 28px;
   }
 
   .awhy-card {
-    grid-column: 1 / -1;
+    padding-left: 28px;
   }
 
   .awhy-list {
@@ -514,8 +525,19 @@
   }
 
   .astory-inner {
+    gap: 26px;
+  }
+
+  .astory-details {
     grid-template-columns: 1fr;
     gap: 26px;
+    padding: 24px 20px;
+  }
+
+  .awhy-card {
+    border-left: none;
+    border-top: 1px solid #e2e7f0;
+    padding: 24px 0 0;
   }
 
   .astory-title {

@@ -60,18 +60,17 @@
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  background: var(--blue-bright);
+  background: var(--navy-btn);
   color: #fff;
   font-size: 15px;
   font-weight: 500;
-  padding: 15px 30px;
-  border-radius: 10px;
-  transition: background 0.2s, transform 0.2s;
+  padding: 16px 34px;
+  border-radius: var(--radius-pill);
+  transition: background 0.2s;
 }
 
 .shero-btn-explore:hover {
-  background: #1f4fd6;
-  transform: translateY(-1px);
+  background: var(--navy-dark);
 }
 
 .shero-btn-consult {
@@ -79,18 +78,17 @@
   align-items: center;
   gap: 10px;
   background: #fff;
-  border: 1.5px solid var(--blue);
-  color: var(--blue);
+  border: 1.5px solid #e2e7f0;
+  color: var(--navy);
   font-size: 15px;
   font-weight: 500;
-  padding: 13px 26px;
-  border-radius: 10px;
-  transition: background 0.2s, color 0.2s;
+  padding: 14px 30px;
+  border-radius: var(--radius-pill);
+  transition: border-color 0.2s;
 }
 
 .shero-btn-consult:hover {
-  background: var(--blue);
-  color: #fff;
+  border-color: var(--navy);
 }
 
 .shero-illustration {

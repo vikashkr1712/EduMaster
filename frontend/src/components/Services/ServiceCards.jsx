@@ -67,7 +67,7 @@ function ArrowIcon() {
   )
 }
 
-const SERVICES_LIMIT = 6
+const SERVICES_LIMIT = 3
 
 // Tint per known backend icon key; unknown icons cycle through the palette
 const ICON_TINT = {
@@ -138,7 +138,7 @@ export default function ServiceCards() {
 
         {status === 'success' && cards.length > 0 && (
           <motion.div className="scards-grid" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ amount: 0.2 }} variants={stagger(0.08)}>
-            {cards.map((card) => (
+            {cards.slice(0, 3).map((card) => (
               <motion.article
                 className={`scard scard-${card.tint}`}
                 key={card._id ?? card.id}

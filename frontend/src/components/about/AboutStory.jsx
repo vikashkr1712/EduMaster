@@ -40,11 +40,13 @@ export default function AboutStory() {
           </motion.button>
         </motion.div>
 
-        <motion.div className="astory-illustration" initial={reducedMotion ? false : { opacity: 0, x: 28 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ amount: 0.25 }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
-          <AboutStoryIllustration className="svg-about-story-inline" />
-        </motion.div>
+        <div className="astory-details">
+          <motion.div className="astory-illustration" initial={reducedMotion ? false : { opacity: 0, x: 28 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ amount: 0.25 }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
+            <AboutStoryIllustration className="svg-about-story-inline" />
+          </motion.div>
 
-        <WhyChooseUs />
+          <WhyChooseUs />
+        </div>
       </div>
     </section>
   )
