@@ -6,7 +6,7 @@ import CoursesSidebar from '../../components/Courses/CoursesSidebar.jsx'
 import CourseGrid from '../../components/Courses/CourseGrid.jsx'
 import CoursesPagination from '../../components/Courses/CoursesPagination.jsx'
 import RequestCourseBanner from '../../components/Courses/RequestCourseBanner.jsx'
-import { courses as catalogCourses, COURSES_PER_PAGE } from '../../data/coursesData.js'
+import { COURSES_PER_PAGE } from '../../data/coursesData.js'
 import { getCourses } from '../../api/course.js'
 import './CoursesPage.css'
 import './CoursesMotion.css'
@@ -36,34 +36,6 @@ const SORT_OPTIONS = Object.keys(SORT_PARAMS)
 
 const SEARCH_DEBOUNCE_MS = 400
 
-function getCatalogFallback({ search, filters, sort, page }) {
-  const normalizedSearch = search.toLowerCase()
-  const filteredCourses = catalogCourses.filter((course) => {
-    const matchesSearch = !normalizedSearch || [course.title, course.category, course.instructor]
-      .some((value) => value.toLowerCase().includes(normalizedSearch))
-    const matchesCategory = filters.category === 'All Categories' || course.category === filters.category
-    const matchesLevel = filters.levels.length === 0 || filters.levels.includes(course.level)
-    const matchesPrice = filters.prices.length === 0 || filters.prices.includes(course.priceType)
-    const matchesRating = filters.ratings.length === 0 || filters.ratings.some((rating) => course.rating >= rating)
-
-    return matchesSearch && matchesCategory && matchesLevel && matchesPrice && matchesRating
-  })
-
-  const sortedCourses = [...filteredCourses]
-  if (sort === 'Price: Low to High') sortedCourses.sort((a, b) => a.price - b.price)
-  if (sort === 'Price: High to Low') sortedCourses.sort((a, b) => b.price - a.price)
-
-  const total = sortedCourses.length
-  const pages = Math.max(Math.ceil(total / COURSES_PER_PAGE), 1)
-  const currentPage = Math.min(page, pages)
-  const start = (currentPage - 1) * COURSES_PER_PAGE
-
-  return {
-    courses: sortedCourses.slice(start, start + COURSES_PER_PAGE),
-    pagination: { total, page: currentPage, pages, limit: COURSES_PER_PAGE },
-  }
-}
-
 export default function CoursesPage() {
   const [search, setSearch] = useState('')
   const [debouncedSearch, setDebouncedSearch] = useState('')
@@ -75,6 +47,7 @@ export default function CoursesPage() {
   const [courses, setCourses] = useState([])
   const [pagination, setPagination] = useState(null)
   const [status, setStatus] = useState('loading') // 'loading' | 'error' | 'success'
+  const [errorMessage, setErrorMessage] = useState('')
   const [retryToken, setRetryToken] = useState(0)
 
   /* --- debounce the search input --- */
@@ -117,17 +90,16 @@ export default function CoursesPage() {
         if (ignore) return
         const data = response?.data ?? {}
         const apiCourses = Array.isArray(data.courses) ? data.courses : []
-        const apiTotal = data.pagination?.total ?? apiCourses.length
-        const result = apiTotal > 0
-          ? { courses: apiCourses, pagination: data.pagination }
-          : getCatalogFallback({ search: debouncedSearch, filters, sort, page })
-
-        setCourses(result.courses)
-        setPagination(result.pagination)
+        setCourses(apiCourses)
+        setPagination(data.pagination ?? null)
         setStatus('success')
       })
-      .catch(() => {
-        if (!ignore) setStatus('error')
+      .catch((error) => {
+        if (ignore) return
+        setCourses([])
+        setPagination(null)
+        setErrorMessage(error.message)
+        setStatus('error')
       })
 
     return () => {
@@ -207,7 +179,7 @@ export default function CoursesPage() {
             {status === 'error' && (
               <div className="cgrid-empty" role="alert">
                 <h3>Unable to load courses</h3>
-                <p>Something went wrong. Please check your connection and try again.</p>
+                <p>{errorMessage || 'Unable to connect to the server. Please try again.'}</p>
                 <button className="courses-filter-btn" onClick={() => setRetryToken((t) => t + 1)}>
                   Try Again
                 </button>
