@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { api } from '../../../lib/api.js'
+import { submitNewsletter } from '../../../api/newsletter.js'
 import { useNotifications } from '../../Notifications/NotificationProvider.jsx'
 
 export default function NewsletterForm({ formClassName, inputProps, buttonClassName }) {
@@ -13,7 +13,7 @@ export default function NewsletterForm({ formClassName, inputProps, buttonClassN
 
     setLoading(true)
     try {
-      await api('/newsletter/subscribe', { method: 'POST', body: { email } })
+      await submitNewsletter({ email })
       setEmail('')
       notifications.success('You’re subscribed to the newsletter.')
     } catch (error) {
