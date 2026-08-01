@@ -8,6 +8,7 @@ const SORT_OPTIONS = {
   newest: { createdAt: -1 },
   oldest: { createdAt: 1 },
   title: { title: 1 },
+  ratingDesc: { rating: -1 },
   priceAsc: { price: 1 },
   priceDesc: { price: -1 },
 };
@@ -79,16 +80,33 @@ export const getCourses = async (query = {}, { includeUnpublished = false } = {}
     filter.category = String(query.category).trim();
   }
 
-  if (query.level) {
-    filter.level = String(query.level).trim();
+  const levels = String(query.levels ?? query.level ?? '')
+    .split(',')
+    .map((level) => level.trim())
+    .filter(Boolean);
+  if (levels.length === 1) {
+    filter.level = levels[0];
+  } else if (levels.length > 1) {
+    filter.level = { $in: levels };
   }
 
-  const minPrice = Number(query.minPrice);
-  const maxPrice = Number(query.maxPrice);
-  if (!Number.isNaN(minPrice) || !Number.isNaN(maxPrice)) {
-    filter.price = {};
-    if (!Number.isNaN(minPrice)) filter.price.$gte = minPrice;
-    if (!Number.isNaN(maxPrice)) filter.price.$lte = maxPrice;
+  if (query.price === 'free') {
+    filter.price = 0;
+  } else if (query.price === 'paid') {
+    filter.price = { $gt: 0 };
+  } else {
+    const minPrice = Number(query.minPrice);
+    const maxPrice = Number(query.maxPrice);
+    if (!Number.isNaN(minPrice) || !Number.isNaN(maxPrice)) {
+      filter.price = {};
+      if (!Number.isNaN(minPrice)) filter.price.$gte = minPrice;
+      if (!Number.isNaN(maxPrice)) filter.price.$lte = maxPrice;
+    }
+  }
+
+  const minRating = Number(query.minRating);
+  if (!Number.isNaN(minRating)) {
+    filter.rating = { $gte: minRating };
   }
 
   if (query.isFeatured !== undefined) {

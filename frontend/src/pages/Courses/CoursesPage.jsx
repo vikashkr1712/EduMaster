@@ -29,6 +29,9 @@ const DEFAULT_FILTERS = {
 // Backend-supported sort options only (see course.service SORT_OPTIONS)
 const SORT_PARAMS = {
   Newest: 'newest',
+  Oldest: 'oldest',
+  'Title: A to Z': 'title',
+  'Highest Rated': 'ratingDesc',
   'Price: Low to High': 'priceAsc',
   'Price: High to Low': 'priceDesc',
 }
@@ -70,13 +73,11 @@ export default function CoursesPage() {
     }
     if (debouncedSearch) params.search = debouncedSearch
     if (filters.category !== 'All Categories') params.category = filters.category
-    // backend accepts a single level; multi-select can't be expressed server-side
-    if (filters.levels.length === 1) params.level = filters.levels[0]
-    // Free = price 0, Paid = price > 0 (via min/max price params)
+    if (filters.levels.length > 0) params.levels = filters.levels.join(',')
     if (filters.prices.length === 1) {
-      if (filters.prices[0] === 'Free') params.maxPrice = 0
-      else params.minPrice = 1
+      params.price = filters.prices[0].toLowerCase()
     }
+    if (filters.ratings.length > 0) params.minRating = Math.min(...filters.ratings)
     return params
   }, [debouncedSearch, filters, sort, page])
 

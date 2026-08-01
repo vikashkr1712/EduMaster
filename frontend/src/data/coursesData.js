@@ -1,16 +1,28 @@
 // EduMaster course catalog — 84 courses across 7 categories × 3 levels
 // Each category: 12 courses (4 Beginner, 4 Intermediate, 4 Advanced), mix of Free/Paid.
 
+const COURSE_RATINGS = [
+  4.9, 4.8, 4.7, 4.8, 4.9, 4.7, 4.8, 4.7, 4.9, 4.8, 4.7, 4.8,
+  4.7, 4.9, 4.8, 4.7, 4.8, 4.9, 4.7, 4.8, 4.7, 4.9, 4.8, 4.7,
+  4.8, 4.7, 4.9, 4.8, 4.7, 4.8, 4.9, 4.7, 4.8, 4.7, 4.9, 4.8,
+  4.7, 4.8, 4.9, 4.7,
+  4.6, 4.6, 4.6, 4.6, 4.6, 4.6, 4.6, 4.6, 4.6, 4.6,
+  4.5, 4.5, 4.5, 4.5, 4.5, 4.5, 4.5, 4.5, 4.5, 4.5,
+  4.4, 4.3, 4.2, 4.1, 4.0, 4.4, 4.3, 4.2, 3.9, 4.1, 4.4, 4.3,
+  4.2, 4.0, 4.4, 3.8, 4.3, 4.1, 4.2, 4.4, 4.0, 4.3, 4.1, 3.7,
+]
+
 let nextId = 1
 
 function course(title, category, level, priceType, rating, students, instructor, price, oldPrice, imageType) {
+  const id = nextId++
   return {
-    id: nextId++,
+    id,
     title,
     category,
     level,
     priceType,
-    rating,
+    rating: COURSE_RATINGS[id - 1],
     students,
     instructor,
     price,
@@ -149,4 +161,4 @@ export const sortOptions = [
   'Price: High to Low',
 ]
 
-export const COURSES_PER_PAGE = 9
+export const COURSES_PER_PAGE = 8
