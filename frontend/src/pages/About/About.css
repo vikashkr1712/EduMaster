@@ -575,6 +575,64 @@
   }
 }
 
+/* ============================================================
+   Tablet — 577px–1023px: stack story card (image above content),
+   2-per-row stats. Desktop ≥1024 and mobile ≤576 untouched.
+   ============================================================ */
+@media (min-width: 577px) and (max-width: 1023px) {
+  .astory-details {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+    padding: 26px 24px;
+  }
+
+  .astory-illustration {
+    width: 100%;
+    background: #ffffff;
+  }
+
+  .svg-about-story-inline {
+    width: 100%;
+    max-width: 480px;
+    height: auto;
+  }
+
+  .awhy-card {
+    border-left: none;
+    border-top: 1px solid #e2e7f0;
+    padding: 26px 0 0;
+  }
+
+  .awhy-title {
+    text-align: center;
+  }
+
+  .awhy-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px 24px;
+  }
+
+  .astats-card {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 24px;
+    padding: 28px 18px;
+  }
+
+  .astats-item.has-divider {
+    border-left: none;
+  }
+
+  .astats-item:nth-child(even) {
+    border-left: 1px solid #eaeef5;
+  }
+
+  .astats-item:last-child {
+    grid-column: 1 / -1;
+    border-left: none;
+  }
+}
+
 /* very small phones: mission single column */
 @media (max-width: 400px) {
   .amission-card {

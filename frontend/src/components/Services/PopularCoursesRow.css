@@ -29,13 +29,8 @@
 
 .spop-grid {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 16px;
-}
-
-/* tighten the shared course card inside the 5-up row */
-.spop-grid .ccard-title {
-  font-size: 14px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
 }
 
 .spop-cta {
@@ -59,12 +54,6 @@
 }
 
 /* ---- tablet ---- */
-@media (max-width: 1180px) {
-  .spop-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-
 @media (max-width: 1024px) {
   .spop-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));

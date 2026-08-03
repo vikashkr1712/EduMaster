@@ -28,7 +28,7 @@ export default function PopularCoursesRow() {
         </div>
 
         <div className="spop-grid">
-          {popularServiceCourses.map((course) => (
+          {popularServiceCourses.slice(0, 3).map((course) => (
             <CourseCard key={course.id} course={course} />
           ))}
         </div>
