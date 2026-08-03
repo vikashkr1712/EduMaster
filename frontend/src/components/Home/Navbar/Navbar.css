@@ -201,7 +201,7 @@
     display: none;
   }
 
-  .navbar-actions:has(.navbar-profile-avatar) {
+  .navbar-actions--authenticated {
     display: flex;
   }
 

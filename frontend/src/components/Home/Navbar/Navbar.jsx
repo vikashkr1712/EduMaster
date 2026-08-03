@@ -70,7 +70,7 @@ export default function Navbar() {
           )}
         </nav>
 
-        <div className="navbar-actions">
+        <div className={`navbar-actions${isAuthenticated ? ' navbar-actions--authenticated' : ''}`}>
           {isAuthenticated ? (
             <Link to="/profile" className="navbar-profile-avatar" aria-label="View profile">
               <img src={avatar} alt="" />
