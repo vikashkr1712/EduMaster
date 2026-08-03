@@ -1,5 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { NavLink, Link } from 'react-router-dom'
+import { useAuth } from '../../Auth/AuthProvider.jsx'
+import maleAvatar from '../../../profile_img/man_img.png'
+import femaleAvatar from '../../../profile_img/women_svg.png'
 import './Navbar.css'
 
 function LogoMark() {
@@ -28,6 +31,8 @@ const links = [
 export default function Navbar() {
   const [open, setOpen] = useState(false)
   const rootRef = useRef(null)
+  const { user, isAuthenticated } = useAuth()
+  const avatar = user?.gender === 'female' ? femaleAvatar : maleAvatar
 
   useEffect(() => {
     if (!open) return
@@ -66,8 +71,16 @@ export default function Navbar() {
         </nav>
 
         <div className="navbar-actions">
-          <Link to="/login" className="btn-login">Login</Link>
-          <Link to="/signup" className="btn-signup">Sign Up</Link>
+          {isAuthenticated ? (
+            <Link to="/profile" className="navbar-profile-avatar" aria-label="View profile">
+              <img src={avatar} alt="" />
+            </Link>
+          ) : (
+            <>
+              <Link to="/login" className="btn-login">Login</Link>
+              <Link to="/signup" className="btn-signup">Sign Up</Link>
+            </>
+          )}
         </div>
 
         <button
@@ -99,14 +112,16 @@ export default function Navbar() {
             </NavLink>
           )
         )}
-        <div className="navbar-menu-actions">
-          <Link to="/login" className="btn-login" onClick={() => setOpen(false)}>
-            Login
-          </Link>
-          <Link to="/signup" className="btn-signup" onClick={() => setOpen(false)}>
-            Sign Up
-          </Link>
-        </div>
+        {!isAuthenticated && (
+          <div className="navbar-menu-actions">
+            <Link to="/login" className="btn-login" onClick={() => setOpen(false)}>
+              Login
+            </Link>
+            <Link to="/signup" className="btn-signup" onClick={() => setOpen(false)}>
+              Sign Up
+            </Link>
+          </div>
+        )}
       </div>
     </header>
   )

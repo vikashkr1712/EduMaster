@@ -1,5 +1,5 @@
 import './CoursesSidebar.css'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { categories, levels, priceTypes, ratingOptions } from '../../data/coursesData.js'
 import { motion, useReducedMotion } from '../Home/motion.jsx'
 
@@ -128,16 +128,6 @@ function Checkbox({ checked, onChange, children }) {
 export default function CoursesSidebar({ filters, setFilters, mobileOpen, onClose }) {
   const [open, setOpen] = useState({ categories: true, level: true, price: true, ratings: true })
   const toggleSection = (key) => setOpen((o) => ({ ...o, [key]: !o[key] }))
-
-  // lock the page behind the drawer while it is open (mobile/tablet)
-  useEffect(() => {
-    if (!mobileOpen) return undefined
-    const previous = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
-    return () => {
-      document.body.style.overflow = previous
-    }
-  }, [mobileOpen])
 
   const toggleIn = (key, value) => {
     setFilters((f) => {
