@@ -21,7 +21,7 @@ export default function AboutStoryIllustration({
       className={className}
       style={style}
     >
-<path fill="#F9FAFD" opacity="1.000000" stroke="none"
+<path fill="#FFFFFF" opacity="1.000000" stroke="none"
 	d="
 M1022.000000,1090.000000
 	C681.333313,1090.000000 341.166656,1090.000000 1.000000,1090.000000 

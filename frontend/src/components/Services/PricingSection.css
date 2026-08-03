@@ -147,12 +147,19 @@
   .splan {
     padding: 26px 20px 22px;
   }
+
+  /* keep room for the "Most Popular" ribbon (the .splan padding
+     shorthand above would otherwise reset it) */
+  .splan-highlighted {
+    padding-top: 48px;
+  }
 }
 
 /* ---- mobile ---- */
 @media (max-width: 820px) {
   .spricing-grid {
     grid-template-columns: 1fr;
+    gap: 18px;
     max-width: 460px;
     margin: 0 auto;
   }

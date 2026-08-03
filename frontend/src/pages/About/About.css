@@ -576,6 +576,22 @@
 }
 
 /* ============================================================
+   Small desktop — 1024px–1199px: keep the side-by-side card but
+   balance the two columns so spacing stays even.
+   ============================================================ */
+@media (min-width: 1024px) and (max-width: 1199px) {
+  .astory-details {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 26px;
+    padding: 28px 26px;
+  }
+
+  .awhy-card {
+    padding-left: 26px;
+  }
+}
+
+/* ============================================================
    Tablet — 577px–1023px: stack story card (image above content),
    2-per-row stats. Desktop ≥1024 and mobile ≤576 untouched.
    ============================================================ */
