@@ -1,6 +1,8 @@
+import { useNavigate } from 'react-router-dom'
 import { Reveal } from '../Home/motion.jsx'
 
 export default function RequestCourseBanner() {
+  const navigate = useNavigate()
   return (
     <section className="request-banner-wrap">
       <div className="container">
@@ -31,7 +33,18 @@ export default function RequestCourseBanner() {
               <p>Request a course and we will notify you when it&apos;s available.</p>
             </div>
           </div>
-          <button className="btn-request">
+          <button
+            className="btn-request"
+            onClick={() =>
+              navigate('/contact', {
+                state: {
+                  scrollTo: 'form',
+                  subject: 'Course Request',
+                  message: 'I would like to request a new course.',
+                },
+              })
+            }
+          >
             Request a Course
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
               <path d="M4 12h16m0 0l-6-6m6 6l-6 6" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />

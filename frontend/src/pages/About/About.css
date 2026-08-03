@@ -122,7 +122,7 @@
 }
 
 .amission-item.has-divider {
-  border-left: 3px solid #d2d5db;
+  border-left: 2px solid #666767;
 }
 
 .amission-icon {
@@ -251,7 +251,7 @@
 }
 
 .awhy-card {
-  border-left: 1px solid #e2e7f0;
+  border-left: 1px solid #666767;
   padding: 4px 0 4px 34px;
 }
 
@@ -536,7 +536,7 @@
 
   .awhy-card {
     border-left: none;
-    border-top: 1px solid #e2e7f0;
+    border-top: 1px solid #666767;
     padding: 24px 0 0;
   }
 
@@ -615,7 +615,7 @@
 
   .awhy-card {
     border-left: none;
-    border-top: 1px solid #e2e7f0;
+    border-top: 1px solid #666767;
     padding: 26px 0 0;
   }
 
@@ -661,7 +661,28 @@
   }
 
   .amission-item.has-divider {
-    border-top: 1px solid #eaeef5;
+    border-top: 1px solid #666767;
     padding-top: 22px;
   }
+}
+
+
+@media (max-width: 900px) {
+
+  .amission-item{
+      flex-direction: column;
+      align-items: center;
+      text-align:center;
+      gap:12px;
+  }
+
+  .amission-copy{
+      width:100%;
+  }
+
+  .amission-copy p{
+      max-width:220px;
+      margin:0 auto;
+  }
+
 }

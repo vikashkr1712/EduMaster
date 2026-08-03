@@ -99,7 +99,7 @@ export default function SignupCard() {
           onChange={(e) => setAgreed(e.target.checked)}
         />
         <span>
-          I agree to the <a href="#">Terms &amp; Conditions</a> and <a href="#">Privacy Policy</a>
+          I agree to the <Link to="/about">Terms &amp; Conditions</Link> and <Link to="/about">Privacy Policy</Link>
         </span>
       </label>
 

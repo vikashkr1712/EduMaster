@@ -19,6 +19,7 @@ function ArrowIcon() {
 }
 
 const EVENTS_LIMIT = 6
+const EVENTS_LIMIT_ALL = 50
 
 // Backend events have no imageType; derive the illustration from category
 const CAT_ILLUSTRATION = {
@@ -57,11 +58,12 @@ export default function PopularEvents() {
   const reducedMotion = useReducedMotion()
   const [events, setEvents] = useState([])
   const [status, setStatus] = useState('loading') // 'loading' | 'error' | 'success'
+  const [showAll, setShowAll] = useState(false)
 
   useEffect(() => {
     let ignore = false
 
-    getEvents({ limit: EVENTS_LIMIT, sort: 'startDate' })
+    getEvents({ limit: showAll ? EVENTS_LIMIT_ALL : EVENTS_LIMIT, sort: 'startDate' })
       .then((response) => {
         if (ignore) return
         const data = response?.data ?? {}
@@ -75,7 +77,7 @@ export default function PopularEvents() {
     return () => {
       ignore = true
     }
-  }, [])
+  }, [showAll])
 
   return (
     <section className="popular-programs">
@@ -114,12 +116,14 @@ export default function PopularEvents() {
           </motion.div>
         )}
 
-        <motion.div className="popular-programs-cta" initial={reducedMotion ? false : { opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ amount: 0.3 }} transition={{ duration: 0.5 }}>
-          <button className="popular-programs-viewall">
-            View All Events
-            <ArrowIcon />
-          </button>
-        </motion.div>
+        {!showAll && (
+          <motion.div className="popular-programs-cta" initial={reducedMotion ? false : { opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ amount: 0.3 }} transition={{ duration: 0.5 }}>
+            <button className="popular-programs-viewall" onClick={() => setShowAll(true)}>
+              View All Events
+              <ArrowIcon />
+            </button>
+          </motion.div>
+        )}
       </div>
     </section>
   )

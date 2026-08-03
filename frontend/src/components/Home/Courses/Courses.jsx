@@ -1,20 +1,36 @@
 import './Courses.css'
+import { useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import CourseIllustration1 from '../../../assets/svg/home/CourseIllustration1.jsx'
 import CourseIllustration2 from '../../../assets/svg/home/CourseIllustration2.jsx'
 import CourseIllustration3 from '../../../assets/svg/home/CourseIllustration3.jsx'
 import Avatar from '../../../assets/svg/common/Avatar.jsx'
 import { motion, stagger, useReducedMotion } from '../motion.jsx'
 
-function HeartIcon() {
+function HeartIcon({ filled }) {
   return (
-    <svg width="19" height="19" viewBox="0 0 24 24" fill="none">
+    <svg width="19" height="19" viewBox="0 0 24 24" fill={filled ? '#EF4444' : 'none'}>
       <path
         d="M12 20.5c-6-4-9-7.5-9-11A5 5 0 0 1 12 6.6 5 5 0 0 1 21 9.5c0 3.5-3 7-9 11z"
-        stroke="#94A3B8"
+        stroke={filled ? '#EF4444' : '#94A3B8'}
         strokeWidth="1.8"
         strokeLinejoin="round"
       />
     </svg>
+  )
+}
+
+function WishlistButton() {
+  const [liked, setLiked] = useState(false)
+  return (
+    <button
+      className="course-wishlist"
+      aria-label={liked ? 'Remove from wishlist' : 'Add to wishlist'}
+      aria-pressed={liked}
+      onClick={() => setLiked(!liked)}
+    >
+      <HeartIcon filled={liked} />
+    </button>
   )
 }
 
@@ -98,6 +114,18 @@ const courses = [
 
 export default function Courses() {
   const reducedMotion = useReducedMotion()
+  const navigate = useNavigate()
+  const gridRef = useRef(null)
+
+  const scrollGrid = (dir) => {
+    const grid = gridRef.current
+    if (!grid) return
+    if (grid.scrollWidth > grid.clientWidth) {
+      grid.scrollBy({ left: dir * grid.clientWidth * 0.9, behavior: 'smooth' })
+    } else {
+      navigate('/courses')
+    }
+  }
 
   return (
     <section className="courses">
@@ -113,20 +141,18 @@ export default function Courses() {
         </motion.div>
 
         <div className="courses-slider">
-          <button className="courses-arrow courses-arrow-left" aria-label="Previous courses">
+          <button className="courses-arrow courses-arrow-left" aria-label="Previous courses" onClick={() => scrollGrid(-1)}>
             <ArrowNav dir="left" />
           </button>
 
-          <motion.div className="courses-grid" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ amount: 0.2 }} variants={stagger(0.1)}>
+          <motion.div className="courses-grid" ref={gridRef} initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ amount: 0.2 }} variants={stagger(0.1)}>
             {courses.map((c) => (
               <motion.article className="course-card" key={c.title} variants={{ hidden: { opacity: 0, y: 26 }, visible: { opacity: 1, y: 0 } }} transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }} whileHover={reducedMotion ? undefined : { y: -7 }}>
                 <div className="course-media">{c.illustration}</div>
                 <div className="course-body">
                   <div className="course-topline">
                     <span className={`course-cat ${c.categoryClass}`}>{c.category}</span>
-                    <button className="course-wishlist" aria-label="Add to wishlist">
-                      <HeartIcon />
-                    </button>
+                    <WishlistButton />
                   </div>
                   <h3 className="course-title">{c.title}</h3>
                   <div className="course-instructor">
@@ -153,13 +179,13 @@ export default function Courses() {
             ))}
           </motion.div>
 
-          <button className="courses-arrow courses-arrow-right" aria-label="Next courses">
+          <button className="courses-arrow courses-arrow-right" aria-label="Next courses" onClick={() => scrollGrid(1)}>
             <ArrowNav dir="right" />
           </button>
         </div>
 
         <div className="courses-viewall">
-          <button className="btn-viewall">
+          <button className="btn-viewall" onClick={() => navigate('/courses')}>
             View All Courses
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
               <path

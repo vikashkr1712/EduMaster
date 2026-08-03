@@ -41,7 +41,7 @@ export default function Navbar() {
   return (
     <header className="navbar" ref={rootRef}>
       <div className="container navbar-inner">
-        <a href="#" className="navbar-brand">
+        <Link to="/" className="navbar-brand">
           <LogoMark />
           <span className="navbar-brand-text">
             <span className="navbar-brand-name">
@@ -49,7 +49,7 @@ export default function Navbar() {
             </span>
             <span className="navbar-brand-tag">Learn. Grow. Succeed.</span>
           </span>
-        </a>
+        </Link>
 
         <nav className="navbar-links">
           {links.map((link) =>

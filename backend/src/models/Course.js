@@ -94,6 +94,10 @@ const courseSchema = new mongoose.Schema(
       minlength: [2, 'Instructor must be at least 2 characters'],
       maxlength: [60, 'Instructor must not exceed 60 characters'],
     },
+    hasCertificate: {
+      type: Boolean,
+      default: true,
+    },
     isFeatured: {
       type: Boolean,
       default: false,

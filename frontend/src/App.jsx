@@ -1,4 +1,5 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { useEffect } from 'react'
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import { MotionProvider } from './components/Home/motion.jsx'
 import Home from './pages/Home/Home.jsx'
 import CoursesPage from './pages/Courses/CoursesPage.jsx'
@@ -13,9 +14,19 @@ import AdminLoginPage from './pages/Admin/AdminLoginPage.jsx'
 import { NotificationProvider } from './components/Notifications/NotificationProvider.jsx'
 import { AuthProvider } from './components/Auth/AuthProvider.jsx'
 
+// scroll to the top whenever the route changes
+function ScrollToTop() {
+  const { pathname } = useLocation()
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
+  }, [pathname])
+  return null
+}
+
 export default function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <NotificationProvider>
         <AuthProvider>
           <MotionProvider>

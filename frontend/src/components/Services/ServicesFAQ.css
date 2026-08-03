@@ -34,6 +34,15 @@
   align-items: start;
 }
 
+/* each column flows independently, so opening an item
+   never shifts the other column */
+.sfaq-col {
+  display: grid;
+  gap: 14px;
+  align-content: start;
+  min-width: 0;
+}
+
 .sfaq-item {
   background: var(--bg-card);
   border-radius: 12px;
@@ -97,6 +106,12 @@
     gap: 14px;
     max-width: 720px;
     margin: 0 auto;
+  }
+
+  /* flatten the two columns back into one list, restoring
+     the original question order via each item's `order` */
+  .sfaq-col {
+    display: contents;
   }
 }
 

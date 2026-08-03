@@ -30,7 +30,7 @@ function SendIcon() {
   )
 }
 
-export default function ContactInfo() {
+export default function ContactInfo({ prefillSubject, prefillMessage }) {
   const reducedMotion = useReducedMotion()
   const notifications = useNotifications()
   const [loading, setLoading] = useState(false)
@@ -76,7 +76,7 @@ export default function ContactInfo() {
           </motion.div>
         </motion.div>
 
-        <motion.div className="cinfo-form-card" initial={reducedMotion ? false : { opacity: 0, y: 26 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ amount: 0.2 }} transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}>
+        <motion.div id="contact-form" className="cinfo-form-card" initial={reducedMotion ? false : { opacity: 0, y: 26 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ amount: 0.2 }} transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}>
           <h2 className="cinfo-form-title">Send Us a Message</h2>
           <p className="cinfo-form-subtitle">
             Fill out the form below and we&rsquo;ll get back to you as soon as possible.
@@ -87,8 +87,8 @@ export default function ContactInfo() {
               <input type="text" name="name" placeholder="Your Name" required />
               <input type="email" name="email" placeholder="Your Email" required />
             </div>
-            <input type="text" name="subject" placeholder="Subject" required />
-            <textarea name="message" placeholder="Your Message" rows="5" required />
+            <input type="text" name="subject" placeholder="Subject" defaultValue={prefillSubject} required />
+            <textarea name="message" placeholder="Your Message" rows="5" defaultValue={prefillMessage} required />
             <button type="submit" className={`cinfo-form-btn${loading ? ' is-loading' : ''}`} disabled={loading}>
               {loading ? 'Sending…' : 'Send Message'}
               {loading ? <span className="cinfo-spinner" aria-hidden="true" /> : <SendIcon />}

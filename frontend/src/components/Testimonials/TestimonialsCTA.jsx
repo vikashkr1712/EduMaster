@@ -1,9 +1,11 @@
 import './TestimonialsCTA.css'
+import { useNavigate } from 'react-router-dom'
 import TrophyIllustration from '../../assets/svg/common/TrophyIllustration.jsx'
 import { motion, useReducedMotion } from '../Home/motion.jsx'
 
 export default function TestimonialsCTA() {
   const reducedMotion = useReducedMotion()
+  const navigate = useNavigate()
 
   return (
     <section className="tcta">
@@ -19,7 +21,7 @@ export default function TestimonialsCTA() {
               world-class instructors.
             </p>
           </div>
-          <button className="tcta-btn">
+          <button className="tcta-btn" onClick={() => navigate('/signup')}>
             Get Started Now
             <svg width="17" height="17" viewBox="0 0 24 24" fill="none">
               <path

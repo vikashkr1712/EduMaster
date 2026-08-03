@@ -82,7 +82,7 @@ export function CountUp({ value }) {
   return <span ref={ref}>{display}</span>
 }
 
-export function MagneticButton({ children, className }) {
+export function MagneticButton({ children, className, onClick }) {
   const reducedMotion = useReducedMotion()
   const x = useMotionValue(0)
   const y = useMotionValue(0)
@@ -110,6 +110,7 @@ export function MagneticButton({ children, className }) {
       onClick={(event) => {
         const bounds = event.currentTarget.getBoundingClientRect()
         setRipple({ x: event.clientX - bounds.left, y: event.clientY - bounds.top, key: Date.now() })
+        onClick?.(event)
       }}
     >
       {children}

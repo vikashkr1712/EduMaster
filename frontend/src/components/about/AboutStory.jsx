@@ -34,7 +34,14 @@ export default function AboutStory() {
             effective for everyone. Today, we are proud to have a global community of learners
             and instructors who inspire each other every day.
           </motion.p>
-          <motion.button className="astory-btn" variants={fadeUp} transition={{ duration: 0.5 }}>
+          <motion.button
+            className="astory-btn"
+            variants={fadeUp}
+            transition={{ duration: 0.5 }}
+            onClick={() =>
+              document.querySelector('.astory-details')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+            }
+          >
             Learn More About Us
             <ArrowIcon />
           </motion.button>

@@ -1,4 +1,5 @@
 import './Footer.css'
+import { Link } from 'react-router-dom'
 import { motion, stagger, useReducedMotion } from '../motion.jsx'
 import NewsletterForm from '../Subscribe/NewsletterForm.jsx'
 
@@ -54,16 +55,28 @@ function YoutubeIcon() {
   )
 }
 
-const quickLinks = ['Home', 'Courses', 'Events', 'About Us', 'Contact Us']
+const quickLinks = [
+  { label: 'Home', to: '/' },
+  { label: 'Courses', to: '/courses' },
+  { label: 'Events', to: '/events' },
+  { label: 'About Us', to: '/about' },
+  { label: 'Contact Us', to: '/contact' },
+]
 const categories = ['Development', 'Data Science', 'Design', 'Business', 'Marketing']
-const resources = ['Blog', 'Help Center', 'FAQs', 'Privacy Policy', 'Terms & Conditions']
+const resources = [
+  { label: 'Blog', to: '/' },
+  { label: 'Help Center', to: '/contact' },
+  { label: 'FAQs', to: '/services' },
+  { label: 'Privacy Policy', to: '/about' },
+  { label: 'Terms & Conditions', to: '/about' },
+]
 
 const socials = [
-  { label: 'Facebook', icon: <FacebookIcon /> },
-  { label: 'Twitter', icon: <TwitterIcon /> },
-  { label: 'LinkedIn', icon: <LinkedInIcon /> },
-  { label: 'Instagram', icon: <InstagramIcon /> },
-  { label: 'YouTube', icon: <YoutubeIcon /> },
+  { label: 'Facebook', href: 'https://www.facebook.com', icon: <FacebookIcon /> },
+  { label: 'Twitter', href: 'https://twitter.com', icon: <TwitterIcon /> },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com', icon: <LinkedInIcon /> },
+  { label: 'Instagram', href: 'https://www.instagram.com', icon: <InstagramIcon /> },
+  { label: 'YouTube', href: 'https://www.youtube.com', icon: <YoutubeIcon /> },
 ]
 
 export default function Footer() {
@@ -74,19 +87,19 @@ export default function Footer() {
       <div className="container">
         <motion.div className="footer-grid" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ amount: 0.2 }} variants={stagger(0.08)}>
           <motion.div className="footer-brand" variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} transition={{ duration: 0.55 }}>
-            <a href="#" className="footer-logo">
+            <Link to="/" className="footer-logo">
               <FooterLogo />
               <span className="footer-logo-text">
                 Edu<span>Master</span>
               </span>
-            </a>
+            </Link>
             <p className="footer-desc">
               Empowering learners worldwide with quality education and industry-relevant skills to
               build better careers.
             </p>
             <div className="footer-socials">
               {socials.map((s) => (
-                <motion.a href="#" key={s.label} aria-label={s.label} className="footer-social" whileHover={reducedMotion ? undefined : { scale: 1.12, y: -2 }} whileTap={{ scale: 0.94 }}>
+                <motion.a href={s.href} target="_blank" rel="noopener noreferrer" key={s.label} aria-label={s.label} className="footer-social" whileHover={reducedMotion ? undefined : { scale: 1.12, y: -2 }} whileTap={{ scale: 0.94 }}>
                   {s.icon}
                 </motion.a>
               ))}
@@ -97,8 +110,8 @@ export default function Footer() {
             <h4>Quick Links</h4>
             <ul>
               {quickLinks.map((l) => (
-                <li key={l}>
-                  <a href="#">{l}</a>
+                <li key={l.label}>
+                  <Link to={l.to}>{l.label}</Link>
                 </li>
               ))}
             </ul>
@@ -109,7 +122,7 @@ export default function Footer() {
             <ul>
               {categories.map((l) => (
                 <li key={l}>
-                  <a href="#">{l}</a>
+                  <Link to="/courses">{l}</Link>
                 </li>
               ))}
             </ul>
@@ -119,8 +132,8 @@ export default function Footer() {
             <h4>Resources</h4>
             <ul>
               {resources.map((l) => (
-                <li key={l}>
-                  <a href="#">{l}</a>
+                <li key={l.label}>
+                  <Link to={l.to}>{l.label}</Link>
                 </li>
               ))}
             </ul>

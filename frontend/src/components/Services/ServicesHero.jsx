@@ -1,4 +1,5 @@
 import './ServicesHero.css'
+import { useNavigate } from 'react-router-dom'
 import ServicesHeroSvg from '../../assets/svg/services/ServicesHeroSvg.jsx'
 import { fadeUp, motion, stagger, useReducedMotion } from '../Home/motion.jsx'
 
@@ -28,6 +29,7 @@ function CalendarIcon() {
 
 export default function ServicesHero() {
   const reducedMotion = useReducedMotion()
+  const navigate = useNavigate()
 
   return (
     <section className="shero">
@@ -49,11 +51,27 @@ export default function ServicesHero() {
           </motion.p>
 
           <motion.div className="shero-actions" variants={fadeUp} transition={{ duration: 0.5 }}>
-            <button className="shero-btn-explore">
+            <button
+              className="shero-btn-explore"
+              onClick={() =>
+                document.querySelector('.scards')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+              }
+            >
               Explore Services
               <ArrowIcon />
             </button>
-            <button className="shero-btn-consult">
+            <button
+              className="shero-btn-consult"
+              onClick={() =>
+                navigate('/contact', {
+                  state: {
+                    scrollTo: 'form',
+                    subject: 'Free Consultation',
+                    message: 'I would like to book a free consultation.',
+                  },
+                })
+              }
+            >
               <CalendarIcon />
               Book Free Consultation
             </button>

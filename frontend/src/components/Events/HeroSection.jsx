@@ -1,4 +1,5 @@
 import './HeroSection.css'
+import { useNavigate } from 'react-router-dom'
 import EventsHero from '../../assets/svg/events/EventsHero.jsx'
 import { fadeUp, motion, stagger, useReducedMotion } from '../Home/motion.jsx'
 
@@ -27,6 +28,7 @@ function PlayCircleIcon() {
 
 export default function HeroSection() {
   const reducedMotion = useReducedMotion()
+  const navigate = useNavigate()
 
   return (
     <section className="programs-hero">
@@ -44,11 +46,16 @@ export default function HeroSection() {
           </motion.p>
 
           <motion.div className="programs-hero-actions" variants={fadeUp} transition={{ duration: 0.5 }}>
-            <button className="programs-btn-explore">
+            <button
+              className="programs-btn-explore"
+              onClick={() =>
+                document.querySelector('.popular-programs')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+              }
+            >
               Explore Events
               <ArrowIcon />
             </button>
-            <button className="programs-btn-how">
+            <button className="programs-btn-how" onClick={() => navigate('/about')}>
               <PlayCircleIcon />
               How It Works
             </button>

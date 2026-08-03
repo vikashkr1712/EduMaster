@@ -85,9 +85,13 @@ export default function LoginCard({
           />
           <span>Remember Me</span>
         </label>
-        <a href="#" className="authcard-forgot">
+        <Link
+          to="/contact"
+          state={{ scrollTo: 'form', subject: 'Password Reset', message: 'I need help resetting my password.' }}
+          className="authcard-forgot"
+        >
           Forgot Password?
-        </a>
+        </Link>
       </div>
 
       <button type="submit" className={`authcard-submit${loading ? ' is-loading' : ''}`} disabled={loading}>

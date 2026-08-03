@@ -1,4 +1,5 @@
 import './TestimonialsHero.css'
+import { useNavigate } from 'react-router-dom'
 import TestimonialsHeroIllustration from '../../assets/svg/testimonials/TestimonialsHeroIllustration.jsx'
 import { fadeUp, motion, stagger, useReducedMotion } from '../Home/motion.jsx'
 
@@ -27,6 +28,7 @@ function PlayCircleIcon() {
 
 export default function TestimonialsHero() {
   const reducedMotion = useReducedMotion()
+  const navigate = useNavigate()
 
   return (
     <section className="thero">
@@ -45,11 +47,14 @@ export default function TestimonialsHero() {
         </motion.p>
 
         <motion.div className="thero-actions" variants={fadeUp} transition={{ duration: 0.5 }}>
-          <button className="thero-btn-explore">
+          <button className="thero-btn-explore" onClick={() => navigate('/courses')}>
             Explore Courses
             <ArrowIcon />
           </button>
-          <button className="thero-btn-video">
+          <button
+            className="thero-btn-video"
+            onClick={() => window.open('https://www.youtube.com/watch?v=zJSY8tbf_ys', '_blank', 'noopener,noreferrer')}
+          >
             <PlayCircleIcon />
             Watch Video
           </button>

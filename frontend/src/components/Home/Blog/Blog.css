@@ -46,11 +46,14 @@
   color: var(--blue);
   font-size: 15px;
   font-weight: 600;
-  transition: gap 0.2s;
 }
 
-.blog-viewall:hover {
-  gap: 12px;
+.blog-viewall svg {
+  transition: transform 0.2s ease;
+}
+
+.blog-viewall:hover svg {
+  transform: translateX(4px);
 }
 
 .blog-grid {

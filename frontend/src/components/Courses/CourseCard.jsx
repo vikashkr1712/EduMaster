@@ -83,9 +83,9 @@ export default function CourseCard({ course }) {
     : `${Math.round(studentCount / 5)}`
 
   const price = Number(course.price) || 0
-  const discountPrice = Number.isFinite(Number(course.discountPrice)) && course.discountPrice != null
-    ? Number(course.discountPrice)
-    : null
+  // a discountPrice of 0 means "no discount" (schema default), not a free course
+  const rawDiscount = Number(course.discountPrice)
+  const discountPrice = Number.isFinite(rawDiscount) && rawDiscount > 0 ? rawDiscount : null
   const effectivePrice = discountPrice ?? price
   const isFree = course.priceType === 'Free' || effectivePrice === 0
   const oldPrice = course.oldPrice ?? (discountPrice != null && discountPrice < price ? price : null)

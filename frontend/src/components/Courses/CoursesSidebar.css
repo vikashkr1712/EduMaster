@@ -162,12 +162,22 @@
     top: 0;
     left: 0;
     bottom: 0;
+    height: 100dvh;
+    max-height: 100dvh;
     width: min(320px, 86vw);
     border-radius: 0;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
     z-index: 150;
     transform: translateX(-105%);
     transition: transform 0.28s ease;
+  }
+
+  .courses-sidebar::-webkit-scrollbar {
+    display: none;
   }
 
   .courses-sidebar.open {

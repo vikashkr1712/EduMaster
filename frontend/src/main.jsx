@@ -5,6 +5,7 @@ import './styles/variables.css'
 import './styles/global.css'
 import './styles/responsive.css'
 import './styles/svg-motion.css'
+import './styles/interactions.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

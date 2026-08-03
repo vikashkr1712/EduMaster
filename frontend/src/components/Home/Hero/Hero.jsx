@@ -1,6 +1,9 @@
 import './Hero.css'
+import { useNavigate } from 'react-router-dom'
 import HeroIllustration from '../../../assets/svg/home/HeroIllustration.jsx'
 import { CountUp, MagneticButton, motion, stagger, useReducedMotion } from '../motion.jsx'
+
+export const DEMO_VIDEO_URL = 'https://www.youtube.com/watch?v=zJSY8tbf_ys'
 
 function RocketIcon() {
   return (
@@ -66,6 +69,7 @@ const stats = [
 
 export default function Hero() {
   const reducedMotion = useReducedMotion()
+  const navigate = useNavigate()
 
   return (
     <section className="hero">
@@ -104,7 +108,7 @@ export default function Hero() {
           </motion.div>
 
           <motion.div className="hero-actions" variants={{ hidden: { opacity: 0, scale: 0.96 }, visible: { opacity: 1, scale: 1 } }} transition={{ duration: 0.5 }}>
-            <MagneticButton className="btn-explore">
+            <MagneticButton className="btn-explore" onClick={() => navigate('/courses')}>
               Explore Courses
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
                 <path
@@ -116,7 +120,7 @@ export default function Hero() {
                 />
               </svg>
             </MagneticButton>
-            <MagneticButton className="btn-demo">
+            <MagneticButton className="btn-demo" onClick={() => window.open(DEMO_VIDEO_URL, '_blank', 'noopener,noreferrer')}>
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
                 <circle cx="12" cy="12" r="10" fill="#1B2B4B" />
                 <path d="M10 8.5l5.5 3.5-5.5 3.5v-7z" fill="#fff" />

@@ -1,5 +1,6 @@
 import './ServiceCards.css'
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { getServices } from '../../api/service.js'
 import { motion, stagger, useReducedMotion } from '../Home/motion.jsx'
 
@@ -152,10 +153,18 @@ export default function ServiceCards() {
                 <div className="scard-body">
                   <h3>{card.title}</h3>
                   <p>{card.text}</p>
-                  <a href="#" className="scard-link">
+                  <Link
+                    to="/contact"
+                    state={{
+                      scrollTo: 'form',
+                      subject: `Enquiry: ${card.title}`,
+                      message: `I would like to know more about ${card.title}.`,
+                    }}
+                    className="scard-link"
+                  >
                     Learn More
                     <ArrowIcon />
-                  </a>
+                  </Link>
                 </div>
               </motion.article>
             ))}

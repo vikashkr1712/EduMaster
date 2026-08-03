@@ -106,11 +106,14 @@
   font-size: 13.5px;
   font-weight: 600;
   color: var(--blue);
-  transition: gap 0.2s;
 }
 
-.scard-link:hover {
-  gap: 12px;
+.scard-link svg {
+  transition: transform 0.2s ease;
+}
+
+.scard-link:hover svg {
+  transform: translateX(4px);
 }
 
 /* ---- tablet ---- */

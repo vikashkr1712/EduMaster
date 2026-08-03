@@ -1,7 +1,9 @@
 import './JoinCTA.css'
+import { useNavigate } from 'react-router-dom'
 import TrophyIllustration from '../../../assets/svg/common/TrophyIllustration.jsx'
 
 export default function JoinCTA() {
+  const navigate = useNavigate()
   return (
     <section className="joincta">
       <div className="container">
@@ -16,7 +18,7 @@ export default function JoinCTA() {
               dreams.
             </p>
           </div>
-          <button className="btn-getstarted">
+          <button className="btn-getstarted" onClick={() => navigate('/signup')}>
             Get Started Now
             <svg width="17" height="17" viewBox="0 0 24 24" fill="none">
               <path

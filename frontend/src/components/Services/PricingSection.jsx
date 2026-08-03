@@ -1,4 +1,5 @@
 import './PricingSection.css'
+import { useNavigate } from 'react-router-dom'
 import { pricingPlans } from '../../data/servicesData.js'
 import { motion, stagger, useReducedMotion } from '../Home/motion.jsx'
 
@@ -13,6 +14,7 @@ function CheckIcon() {
 
 export default function PricingSection() {
   const reducedMotion = useReducedMotion()
+  const navigate = useNavigate()
 
   return (
     <section className="spricing">
@@ -44,7 +46,7 @@ export default function PricingSection() {
                   </li>
                 ))}
               </ul>
-              <button className={`splan-btn${plan.highlighted ? ' splan-btn-primary' : ''}`}>
+              <button className={`splan-btn${plan.highlighted ? ' splan-btn-primary' : ''}`} onClick={() => navigate('/signup')}>
                 Get Started
               </button>
             </motion.article>

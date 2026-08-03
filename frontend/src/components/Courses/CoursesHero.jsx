@@ -25,7 +25,7 @@ export default function CoursesHero({ search, onSearch }) {
           variants={stagger(0.08)}
         >
           <motion.h1 className="courses-hero-title" variants={fadeUp} transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}>
-            Explore Our Courses Test
+            Explore Our Courses
           </motion.h1>
           <motion.p className="courses-hero-text" variants={fadeUp} transition={{ duration: 0.5 }}>
             Choose from our wide range of industry-relevant courses designed to help you gain

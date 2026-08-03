@@ -1,4 +1,5 @@
 import './ServicesCTA.css'
+import { useNavigate } from 'react-router-dom'
 import TrophyIllustration from '../../assets/svg/common/TrophyIllustration.jsx'
 import { motion, useReducedMotion } from '../Home/motion.jsx'
 
@@ -18,6 +19,7 @@ function ArrowIcon() {
 
 export default function ServicesCTA() {
   const reducedMotion = useReducedMotion()
+  const navigate = useNavigate()
 
   return (
     <section className="scta">
@@ -38,7 +40,7 @@ export default function ServicesCTA() {
             </p>
           </div>
 
-          <button className="scta-btn">
+          <button className="scta-btn" onClick={() => navigate('/signup')}>
             Get Started Today
             <ArrowIcon />
           </button>

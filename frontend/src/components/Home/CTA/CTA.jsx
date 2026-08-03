@@ -1,4 +1,5 @@
 import './CTA.css'
+import { useNavigate } from 'react-router-dom'
 import { motion, useReducedMotion } from '../motion.jsx'
 
 function CTAIllustration() {
@@ -23,6 +24,7 @@ function CTAIllustration() {
 
 export default function CTA() {
   const reducedMotion = useReducedMotion()
+  const navigate = useNavigate()
 
   return (
     <section className="cta">
@@ -42,7 +44,7 @@ export default function CTA() {
               <p>Join thousands of learners and take the first step towards your dream career.</p>
             </div>
           </div>
-          <button className="btn-startlearning">
+          <button className="btn-startlearning" onClick={() => navigate('/courses')}>
             Start Learning Now
             <svg width="17" height="17" viewBox="0 0 24 24" fill="none">
               <path

@@ -67,7 +67,12 @@ export default function Blog() {
           <h2 className="section-title blog-title">
             Latest <span className="blog-underline">Articles</span> &amp; Insights
           </h2>
-          <a href="#" className="blog-viewall">
+          <a
+            href="https://www.freecodecamp.org/news"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="blog-viewall"
+          >
             View All Articles
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
               <path

@@ -4,7 +4,7 @@ export const missionCards = [
     title: 'Our Mission',
     tint: 'var(--tint-blue)',
     lines: [
-      'To provide accessible, affordable, and high-quality education that empowers individuals to achieve their goals.',
+      'Deliver accessible, affordable, high-quality education that empowers every learner to achieve their goals.',
     ],
   },
   {
@@ -12,7 +12,7 @@ export const missionCards = [
     title: 'Our Vision',
     tint: 'var(--tint-green)',
     lines: [
-      "To be the world's most trusted online learning platform, transforming lives through education.",
+      "Become the world's most trusted online learning platform, transforming lives through education.",
     ],
   },
   {
@@ -20,10 +20,7 @@ export const missionCards = [
     title: 'Our Values',
     tint: 'var(--tint-orange)',
     lines: [
-      'Excellence in education',
-      'Integrity in everything we do',
-      'Learner success is our priority',
-      'Innovation for a better tomorrow',
+      'Excellence, integrity, innovation and learner success guide everything we do.',
     ],
   },
   {
@@ -31,7 +28,7 @@ export const missionCards = [
     title: 'Our Commitment',
     tint: 'var(--tint-purple)',
     lines: [
-      'We are committed to continuous improvement and creating a learning experience that makes a real difference.',
+      'Continuously improving learning experiences through innovation, quality and student-focused education.',
     ],
   },
 ]

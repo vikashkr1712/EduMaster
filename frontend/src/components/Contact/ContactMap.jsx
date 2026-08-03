@@ -34,7 +34,18 @@ export default function ContactMap() {
           <motion.p className="cmap-text" variants={fadeUp} transition={{ duration: 0.5 }}>
             We&rsquo;d love to meet you in person and show you around our learning environment.
           </motion.p>
-          <motion.button className="cmap-btn" variants={fadeUp} transition={{ duration: 0.5 }}>
+          <motion.button
+            className="cmap-btn"
+            variants={fadeUp}
+            transition={{ duration: 0.5 }}
+            onClick={() =>
+              window.open(
+                'https://www.google.com/maps/search/?api=1&query=Connaught+Place,+New+Delhi',
+                '_blank',
+                'noopener,noreferrer'
+              )
+            }
+          >
             View on Map
             <ExternalLinkIcon />
           </motion.button>

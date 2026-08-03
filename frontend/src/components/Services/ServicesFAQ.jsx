@@ -26,26 +26,31 @@ export default function ServicesFAQ() {
         </motion.div>
 
         <motion.div className="sfaq-grid" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ amount: 0.2 }} variants={stagger(0.06)}>
-          {servicesFaqs.map((item) => {
-            const open = openId === item.id
-            return (
-              <motion.div className={`sfaq-item${open ? ' is-open' : ''}`} key={item.id} variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0 } }} transition={{ duration: 0.45 }}>
-                <button
-                  className="sfaq-question"
-                  aria-expanded={open}
-                  onClick={() => toggle(item.id)}
-                >
-                  {item.q}
-                  <span className="sfaq-chevron">
-                    <ChevronIcon />
-                  </span>
-                </button>
-                <div className="sfaq-answer">
-                  <p>{item.a}</p>
-                </div>
-              </motion.div>
-            )
-          })}
+          {[0, 1].map((col) => (
+            <div className="sfaq-col" key={col}>
+              {servicesFaqs.map((item, index) => {
+                if (index % 2 !== col) return null
+                const open = openId === item.id
+                return (
+                  <motion.div className={`sfaq-item${open ? ' is-open' : ''}`} key={item.id} style={{ order: index }} variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0 } }} transition={{ duration: 0.45 }}>
+                    <button
+                      className="sfaq-question"
+                      aria-expanded={open}
+                      onClick={() => toggle(item.id)}
+                    >
+                      {item.q}
+                      <span className="sfaq-chevron">
+                        <ChevronIcon />
+                      </span>
+                    </button>
+                    <div className="sfaq-answer">
+                      <p>{item.a}</p>
+                    </div>
+                  </motion.div>
+                )
+              })}
+            </div>
+          ))}
         </motion.div>
       </div>
     </section>
