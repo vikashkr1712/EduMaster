@@ -1,0 +1,347 @@
+/* ============================================
+   Order History page
+   ============================================ */
+
+.orders-filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--text-body);
+}
+
+.orders-filter-select {
+  padding: 11px 14px;
+  border: 1px solid #e2e8f3;
+  border-radius: 10px;
+  background: var(--bg-white);
+  box-shadow: var(--shadow-soft);
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-heading);
+  cursor: pointer;
+}
+
+.orders-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-soft);
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
+}
+
+/* tablet horizontal scroll wrapper */
+.orders-scroll {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.orders-table {
+  width: 100%;
+  min-width: 1050px;
+  border-collapse: collapse;
+}
+
+.orders-table thead {
+  background: #f2f5fb;
+}
+
+.orders-table th {
+  padding: 15px 18px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text-heading);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.orders-table td {
+  padding: 18px;
+  vertical-align: middle;
+}
+
+.orders-table tbody tr + tr {
+  border-top: 1px solid #eef1f7;
+}
+
+.orders-id {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-heading);
+  white-space: nowrap;
+}
+
+.orders-course {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.orders-course-art {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+.orders-course-text {
+  min-width: 0;
+}
+
+.orders-course-title {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--text-heading);
+  margin: 0;
+  max-width: 220px;
+}
+
+.orders-course-author {
+  font-size: 12.5px;
+  color: var(--text-body);
+  margin: 3px 0 0;
+}
+
+.orders-date {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-heading);
+  margin: 0;
+  white-space: nowrap;
+}
+
+.orders-time {
+  font-size: 12.5px;
+  color: var(--text-body);
+  margin: 3px 0 0;
+  white-space: nowrap;
+}
+
+.orders-amount {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-heading);
+  white-space: nowrap;
+}
+
+.orders-pay {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.orders-pay-icon {
+  display: inline-flex;
+  color: var(--text-body);
+  flex-shrink: 0;
+}
+
+.orders-pay-label {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--text-heading);
+  margin: 0;
+  white-space: nowrap;
+}
+
+.orders-pay-sub {
+  font-size: 12.5px;
+  color: var(--text-body);
+  margin: 2px 0 0;
+  white-space: nowrap;
+}
+
+.orders-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 18px;
+  border: 1.5px solid var(--blue);
+  border-radius: 10px;
+  background: transparent;
+  font-family: var(--font);
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--blue);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.18s ease, color 0.18s ease;
+}
+
+.orders-action {
+  min-width: 148px;
+}
+
+.orders-btn:hover {
+  background: var(--blue);
+  color: #fff;
+}
+
+/* Keep all desktop columns visible; narrower dashboard layouts scroll only
+   within this wrapper instead of widening the page. */
+@media (max-width: 1199px) and (min-width: 641px) {
+  .orders-table { min-width: 1050px; }
+}
+
+/* pagination */
+
+.orders-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.orders-page-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 42px;
+  height: 42px;
+  padding: 0 8px;
+  border: 1px solid #e2e8f3;
+  border-radius: 10px;
+  background: var(--bg-white);
+  font-family: var(--font);
+  font-size: 14.5px;
+  font-weight: 500;
+  color: var(--text-heading);
+  cursor: pointer;
+  transition: color 0.18s ease, border-color 0.18s ease;
+}
+
+.orders-page-btn:hover:not(:disabled):not(.is-active) {
+  color: var(--blue);
+  border-color: var(--blue);
+}
+
+.orders-page-btn:disabled {
+  color: var(--text-muted);
+  cursor: default;
+}
+
+.orders-page-btn.is-active {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: #fff;
+}
+
+/* ============================================
+   Mobile: rows become cards
+   ============================================ */
+
+@media (max-width: 640px) {
+  .orders-card {
+    background: transparent;
+    box-shadow: none;
+    border-radius: 0;
+    overflow: visible;
+  }
+
+  .orders-scroll {
+    overflow-x: visible;
+  }
+
+  .orders-table {
+    min-width: 0;
+    display: block;
+  }
+
+  .orders-table thead {
+    display: none;
+  }
+
+  .orders-table tbody {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .orders-table tbody tr {
+    display: block;
+    background: var(--bg-card);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-soft);
+    padding: 8px 18px;
+  }
+
+  .orders-table tbody tr + tr {
+    border-top: 0;
+  }
+
+  .orders-table td {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 11px 0;
+  }
+
+  .orders-table td + td {
+    border-top: 1px solid #f1f4f9;
+  }
+
+  .orders-table td::before {
+    content: attr(data-label);
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--text-muted);
+    flex-shrink: 0;
+  }
+
+  .orders-course {
+    justify-content: flex-end;
+    text-align: right;
+  }
+
+  .orders-course-text {
+    order: -1;
+  }
+
+  .orders-course-title {
+    max-width: none;
+  }
+
+  .orders-course-art {
+    width: 40px;
+    height: 40px;
+  }
+
+  .orders-date,
+  .orders-time {
+    text-align: right;
+  }
+
+  td.orders-action {
+    justify-content: stretch;
+  }
+
+  td.orders-action::before {
+    display: none;
+  }
+
+  .orders-btn {
+    width: 100%;
+    padding: 12px 18px;
+  }
+
+  .orders-pay {
+    justify-content: flex-end;
+    text-align: right;
+  }
+
+  .orders-pay-text {
+    order: -1;
+  }
+}

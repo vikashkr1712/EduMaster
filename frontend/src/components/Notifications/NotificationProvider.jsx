@@ -17,6 +17,7 @@ export function NotificationProvider({ children }) {
   const value = {
     success: (message) => notify('success', message),
     error: (message) => notify('error', message),
+    info: (message) => notify('info', message),
   }
 
   return (
@@ -25,7 +26,9 @@ export function NotificationProvider({ children }) {
       <div className="notifications" aria-live="polite" aria-atomic="true">
         {notifications.map((notification) => (
           <div className={`notification notification--${notification.type}`} key={notification.id} role="status">
-            <span className="notification__icon" aria-hidden="true">{notification.type === 'success' ? '✓' : '!'}</span>
+            <span className="notification__icon" aria-hidden="true">
+              {notification.type === 'success' ? '✓' : notification.type === 'info' ? 'i' : '!'}
+            </span>
             <span>{notification.message}</span>
           </div>
         ))}

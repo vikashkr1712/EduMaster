@@ -46,6 +46,15 @@ const userSchema = new mongoose.Schema(
     lastLoginAt: {
       type: Date,
     },
+    avatar: {
+      type: String,
+      trim: true,
+      default: null,
+    },
+    wishlist: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Course',
+    }],
   },
   { timestamps: true }
 );

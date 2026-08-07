@@ -1,0 +1,364 @@
+/* ============================================
+   Settings page
+   ============================================ */
+
+.settings-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-soft);
+  padding: 28px;
+  min-width: 0;
+}
+
+.settings-card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.settings-card-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-heading);
+  margin: 0;
+}
+
+.settings-card-subtitle {
+  font-size: 13.5px;
+  color: var(--text-body);
+  margin: 5px 0 0;
+}
+
+.settings-head-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 18px;
+  border: 0;
+  border-radius: 9px;
+  background: var(--tint-blue);
+  font-family: var(--font);
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--blue);
+  cursor: pointer;
+  transition: background 0.18s ease, color 0.18s ease;
+}
+
+.settings-head-btn:hover {
+  background: var(--blue);
+  color: #fff;
+}
+
+/* ---------- form fields ---------- */
+
+.settings-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px 24px;
+}
+
+.settings-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.settings-field--full {
+  grid-column: 1 / -1;
+}
+
+.settings-label {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text-heading);
+}
+
+.settings-input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #e2e8f3;
+  border-radius: 10px;
+  background: var(--bg-white);
+  font-family: var(--font);
+  font-size: 14px;
+  color: var(--text-heading);
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.settings-input::placeholder {
+  color: var(--text-muted);
+}
+
+.settings-input:focus {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.settings-textarea {
+  resize: vertical;
+  min-height: 88px;
+  line-height: 1.6;
+}
+
+.settings-phone {
+  display: flex;
+  gap: 10px;
+}
+
+.settings-phone-code {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 14px;
+  border: 1px solid #e2e8f3;
+  border-radius: 10px;
+  background: var(--bg-white);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-heading);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.settings-input:disabled {
+  background: var(--bg-light);
+  color: var(--text-body);
+  cursor: not-allowed;
+}
+
+.settings-hint {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  margin: 14px 0 0;
+}
+
+.settings-head-btn:disabled {
+  opacity: 0.65;
+  cursor: default;
+}
+
+.settings-head-btn:disabled:hover {
+  background: var(--tint-blue);
+  color: var(--blue);
+}
+
+.settings-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 22px;
+}
+
+.settings-primary-btn {
+  padding: 12px 26px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--blue);
+  font-family: var(--font);
+  font-size: 14.5px;
+  font-weight: 500;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.18s ease;
+}
+
+.settings-primary-btn:hover:not(:disabled) {
+  background: #1d4fd8;
+}
+
+.settings-primary-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+/* ---------- password rows ---------- */
+
+.settings-password-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.settings-password-row {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  align-items: center;
+  gap: 16px 24px;
+}
+
+.settings-password-field {
+  position: relative;
+}
+
+.settings-password-field .settings-input {
+  padding-right: 46px;
+}
+
+.settings-eye {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.settings-eye:hover {
+  color: var(--blue);
+}
+
+/* ---------- preference / toggle rows ---------- */
+
+.settings-rows {
+  display: flex;
+  flex-direction: column;
+}
+
+.settings-rows .settings-row + .settings-row {
+  border-top: 1px solid #f1f4f9;
+}
+
+.settings-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 0;
+}
+
+.settings-card .settings-row:first-child {
+  padding-top: 0;
+}
+
+.settings-card .settings-row:last-child {
+  padding-bottom: 0;
+}
+
+.settings-row-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: var(--tint-blue);
+  color: var(--blue);
+  flex-shrink: 0;
+}
+
+.settings-row-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.settings-row-label {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--text-heading);
+  margin: 0;
+}
+
+.settings-row-desc {
+  font-size: 13px;
+  color: var(--text-body);
+  margin: 3px 0 0;
+}
+
+.settings-select {
+  padding: 11px 14px;
+  border: 1px solid #e2e8f3;
+  border-radius: 10px;
+  background: var(--bg-white);
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-heading);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* toggle switch */
+
+.settings-toggle {
+  position: relative;
+  width: 46px;
+  height: 26px;
+  border: 0;
+  border-radius: 999px;
+  background: #dbe2ee;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.2s ease;
+}
+
+.settings-toggle.is-on {
+  background: var(--blue);
+}
+
+.settings-toggle:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+
+.settings-toggle-knob {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(20, 33, 61, 0.25);
+  transition: transform 0.2s ease;
+}
+
+.settings-toggle.is-on .settings-toggle-knob {
+  transform: translateX(20px);
+}
+
+/* ---------- responsive ---------- */
+
+@media (max-width: 860px) {
+  .settings-form-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .settings-password-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
+}
+
+@media (max-width: 640px) {
+  .settings-card {
+    padding: 20px;
+  }
+
+  .settings-row {
+    flex-wrap: wrap;
+  }
+
+  .settings-select {
+    width: 100%;
+  }
+
+  .settings-actions {
+    margin-top: 18px;
+  }
+
+  .settings-primary-btn {
+    width: 100%;
+  }
+}

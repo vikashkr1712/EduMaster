@@ -1,4 +1,5 @@
 import CourseIllustration from './CourseIllustrations.jsx'
+import { useWishlist } from '../Wishlist/WishlistProvider.jsx'
 
 const CAT_CLASS = {
   Development: 'ccat-dev',
@@ -20,12 +21,13 @@ const CAT_ILLUSTRATION = {
   'Personal Development': 'productivity',
 }
 
-function HeartIcon() {
+function HeartIcon({ filled }) {
   return (
     <svg width="19" height="19" viewBox="0 0 24 24" fill="none">
       <path
         d="M12 20.5C6.5 15.7 3 12.6 3 8.9 3 6.2 5.2 4 7.9 4c1.6 0 3.1.8 4.1 2 1-1.2 2.5-2 4.1-2C18.8 4 21 6.2 21 8.9c0 3.7-3.5 6.8-9 11.6z"
-        stroke="#9AA5B5"
+        fill={filled ? '#EF4444' : 'none'}
+        stroke={filled ? '#EF4444' : '#9AA5B5'}
         strokeWidth="1.9"
         strokeLinejoin="round"
       />
@@ -71,6 +73,7 @@ function InstructorAvatar({ name }) {
 }
 
 export default function CourseCard({ course }) {
+  const { isWishlisted, toggleWishlist, isPending } = useWishlist()
   const inr = (n) => `₹${n.toLocaleString('en-IN')}`
 
   const rating = Number(course.rating)
@@ -90,6 +93,7 @@ export default function CourseCard({ course }) {
   const isFree = course.priceType === 'Free' || effectivePrice === 0
   const oldPrice = course.oldPrice ?? (discountPrice != null && discountPrice < price ? price : null)
   const imageType = course.imageType || CAT_ILLUSTRATION[course.category] || 'development'
+  const wishlisted = isWishlisted(course)
 
   return (
     <article className="ccard">
@@ -101,8 +105,8 @@ export default function CourseCard({ course }) {
           <span className={`ccard-cat ${CAT_CLASS[course.category] || 'ccat-dev'}`}>
             {course.category}
           </span>
-          <button className="ccard-wishlist" aria-label="Add to wishlist">
-            <HeartIcon />
+          <button className="ccard-wishlist" aria-label={wishlisted ? 'Remove from wishlist' : 'Add to wishlist'} aria-pressed={wishlisted} disabled={isPending(course)} onClick={() => toggleWishlist(course)}>
+            <HeartIcon filled={wishlisted} />
           </button>
         </div>
 

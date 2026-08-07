@@ -11,9 +11,20 @@ import Contact from './pages/Contact/Contact.jsx'
 import LoginPage from './pages/Auth/LoginPage.jsx'
 import SignupPage from './pages/Auth/SignupPage.jsx'
 import ProfilePage from './pages/Profile/ProfilePage.jsx'
+import MyProfilePage from './pages/Profile/MyProfilePage.jsx'
+import CertificatesPage from './pages/Profile/CertificatesPage.jsx'
+import OrderHistoryPage from './pages/Profile/OrderHistoryPage.jsx'
+import MyCoursesPage from './pages/Profile/MyCoursesPage.jsx'
+import SettingsPage from './pages/Profile/SettingsPage.jsx'
+import PaymentMethodsPage from './pages/Profile/PaymentMethodsPage.jsx'
+import WishlistPage from './pages/Profile/WishlistPage.jsx'
+import HelpSupportPage from './pages/Profile/HelpSupportPage.jsx'
+import { LogoutConfirmProvider } from './components/Dashboard/LogoutModal.jsx'
+import { AvatarProvider } from './components/Profile/AvatarProvider.jsx'
 import AdminLoginPage from './pages/Admin/AdminLoginPage.jsx'
 import { NotificationProvider } from './components/Notifications/NotificationProvider.jsx'
 import { AuthProvider } from './components/Auth/AuthProvider.jsx'
+import { WishlistProvider } from './components/Wishlist/WishlistProvider.jsx'
 
 // scroll to the top whenever the route changes
 function ScrollToTop() {
@@ -30,6 +41,9 @@ export default function App() {
       <ScrollToTop />
       <NotificationProvider>
         <AuthProvider>
+          <WishlistProvider>
+          <AvatarProvider>
+          <LogoutConfirmProvider>
           <MotionProvider>
             <Routes>
           <Route path="/" element={<Home />} />
@@ -42,10 +56,21 @@ export default function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
-          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/profile" element={<MyProfilePage />} />
+          <Route path="/profile/courses" element={<MyCoursesPage />} />
+          <Route path="/profile/certificates" element={<CertificatesPage />} />
+          <Route path="/profile/orders" element={<OrderHistoryPage />} />
+          <Route path="/profile/wishlist" element={<WishlistPage />} />
+          <Route path="/profile/help" element={<HelpSupportPage />} />
+          <Route path="/profile/settings" element={<SettingsPage />} />
+          <Route path="/profile/payments" element={<PaymentMethodsPage />} />
+          <Route path="/profile/*" element={<ProfilePage />} />
           <Route path="/admin/login" element={<AdminLoginPage />} />
             </Routes>
           </MotionProvider>
+          </LogoutConfirmProvider>
+          </AvatarProvider>
+          </WishlistProvider>
         </AuthProvider>
       </NotificationProvider>
     </BrowserRouter>

@@ -1,0 +1,130 @@
+/* ============================================
+   My Courses page
+   ============================================ */
+
+.mycourse-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.mycourse-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.mycourse-card:hover {
+  box-shadow: var(--shadow-card);
+  transform: translateY(-2px);
+}
+
+.mycourse-art {
+  width: 100%;
+  aspect-ratio: 2 / 1;
+  overflow: hidden;
+}
+
+.mycourse-art svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.mycourse-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 18px;
+  flex: 1;
+}
+
+.mycourse-title {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--text-heading);
+  margin: 0;
+}
+
+.mycourse-instructor {
+  font-size: 13px;
+  color: var(--text-body);
+  margin: -4px 0 0;
+}
+
+.mycourse-meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.mycourse-meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  color: var(--text-body);
+}
+
+.mycourse-progress {
+  width: 100%;
+  margin-top: auto;
+}
+
+.mycourse-progress-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12.5px;
+  color: var(--text-body);
+  margin-bottom: 7px;
+}
+
+.mycourse-progress-value {
+  font-weight: 600;
+  color: var(--text-heading);
+}
+
+.mycourse-progress-fill {
+  height: 100%;
+  border-radius: 999px;
+}
+
+.mycourse-progress-fill--blue {
+  background: var(--blue);
+}
+
+.mycourse-progress-fill--green {
+  background: var(--green);
+}
+
+.mycourse-progress-fill--purple {
+  background: var(--purple);
+}
+
+.mycourse-progress-fill--orange {
+  background: var(--orange);
+}
+
+/* responsive: 3 → 2 → 1, never more than 3 */
+
+@media (max-width: 1199px) {
+  .mycourse-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+}
+
+@media (max-width: 640px) {
+  .mycourse-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

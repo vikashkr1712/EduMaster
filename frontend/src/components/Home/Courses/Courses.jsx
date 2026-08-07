@@ -1,11 +1,12 @@
 import './Courses.css'
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import CourseIllustration1 from '../../../assets/svg/home/CourseIllustration1.jsx'
 import CourseIllustration2 from '../../../assets/svg/home/CourseIllustration2.jsx'
 import CourseIllustration3 from '../../../assets/svg/home/CourseIllustration3.jsx'
 import Avatar from '../../../assets/svg/common/Avatar.jsx'
 import { motion, stagger, useReducedMotion } from '../motion.jsx'
+import { useWishlist } from '../../Wishlist/WishlistProvider.jsx'
 
 function HeartIcon({ filled }) {
   return (
@@ -20,14 +21,16 @@ function HeartIcon({ filled }) {
   )
 }
 
-function WishlistButton() {
-  const [liked, setLiked] = useState(false)
+function WishlistButton({ course }) {
+  const { isWishlisted, toggleWishlist, isPending } = useWishlist()
+  const liked = isWishlisted(course)
   return (
     <button
       className="course-wishlist"
       aria-label={liked ? 'Remove from wishlist' : 'Add to wishlist'}
       aria-pressed={liked}
-      onClick={() => setLiked(!liked)}
+      disabled={isPending(course)}
+      onClick={() => toggleWishlist(course)}
     >
       <HeartIcon filled={liked} />
     </button>
@@ -72,6 +75,7 @@ function ArrowNav({ dir }) {
 
 const courses = [
   {
+    id: 1,
     illustration: <CourseIllustration1 />,
     category: 'Development',
     categoryClass: 'cat-dev',
@@ -85,6 +89,7 @@ const courses = [
     oldPrice: '₹9,999',
   },
   {
+    id: 13,
     illustration: <CourseIllustration2 />,
     category: 'Data Science',
     categoryClass: 'cat-data',
@@ -98,6 +103,7 @@ const courses = [
     oldPrice: '₹7,999',
   },
   {
+    id: 25,
     illustration: <CourseIllustration3 />,
     category: 'Design',
     categoryClass: 'cat-design',
@@ -152,7 +158,7 @@ export default function Courses() {
                 <div className="course-body">
                   <div className="course-topline">
                     <span className={`course-cat ${c.categoryClass}`}>{c.category}</span>
-                    <WishlistButton />
+                    <WishlistButton course={c} />
                   </div>
                   <h3 className="course-title">{c.title}</h3>
                   <div className="course-instructor">

@@ -1,4 +1,8 @@
-.home-page .navbar {
+/* Keep the drawer's fixed positioning attached to the viewport. Applying a
+   transform to .navbar makes it the containing block and clips the drawer to
+   the header on the Home page. The same entrance animation stays on its inner
+   content instead. */
+.home-page .navbar-inner {
   animation: home-nav-enter 0.65s cubic-bezier(.22, 1, .36, 1) both;
 }
 

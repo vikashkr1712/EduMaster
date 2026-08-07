@@ -19,7 +19,24 @@ function getErrorMessage(status, data) {
   return data?.errors?.[0]?.message || data?.message || 'Unable to complete the request. Please try again.'
 }
 
-export async function client(path, { method = 'GET', body, headers, ...options } = {}) {
+// Deduplicated silent token refresh: on a 401 from a non-auth endpoint we try
+// POST /auth/refresh once (existing backend endpoint), then retry the request.
+let refreshPromise = null
+
+function refreshTokens() {
+  refreshPromise ??= fetch(`${API_BASE_URL}/auth/refresh`, {
+    method: 'POST',
+    credentials: 'include',
+  })
+    .then((response) => response.ok)
+    .catch(() => false)
+    .finally(() => {
+      refreshPromise = null
+    })
+  return refreshPromise
+}
+
+export async function client(path, { method = 'GET', body, headers, _isRetry = false, ...options } = {}) {
   if (!API_BASE_URL) {
     throw new ApiError('The API is not configured. Set VITE_API_URL and try again.', {
       code: 'CONFIGURATION',
@@ -50,6 +67,15 @@ export async function client(path, { method = 'GET', body, headers, ...options }
     throw new ApiError('Unable to connect to the server. Please try again.', { code: 'NETWORK' })
   } finally {
     clearTimeout(timeout)
+  }
+
+  // Expired access token: refresh once and retry (never for auth endpoints,
+  // so a failed login/refresh can't loop).
+  if (response.status === 401 && !_isRetry && !path.startsWith('/auth/')) {
+    const refreshed = await refreshTokens()
+    if (refreshed) {
+      return client(path, { method, body, headers, _isRetry: true, ...options })
+    }
   }
 
   const hasJsonResponse = response.headers.get('content-type')?.includes('application/json')

@@ -9,3 +9,7 @@ export const updateProfileSchema = z
   .refine((data) => Object.keys(data).length > 0, {
     message: 'At least one field must be provided',
   });
+
+export const uploadAvatarSchema = z.object({
+  dataUrl: z.string().min(1, 'An image is required').max(3_000_000, 'Image is too large'),
+}).strict();

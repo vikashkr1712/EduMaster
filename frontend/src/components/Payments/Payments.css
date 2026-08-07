@@ -1,0 +1,364 @@
+/* ============================================
+   Payment Methods page
+   ============================================ */
+
+.pay-section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: -8px;
+}
+
+.pay-section-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-heading);
+  margin: 0;
+}
+
+.pay-add-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 12px 22px;
+  border: 1.5px solid var(--blue);
+  border-radius: 10px;
+  background: var(--bg-white);
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--blue);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.18s ease, color 0.18s ease;
+}
+
+.pay-add-btn:hover {
+  background: var(--blue);
+  color: #fff;
+}
+
+/* ---------- saved card rows ---------- */
+
+.pay-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.pay-card {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  background: var(--bg-card);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-soft);
+  padding: 24px 26px;
+  min-width: 0;
+}
+
+.pay-card-tile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 96px;
+  height: 68px;
+  border: 1px solid #eef1f7;
+  border-radius: 12px;
+  background: var(--bg-white);
+  flex-shrink: 0;
+}
+
+.pay-brand-visa {
+  font-size: 21px;
+  font-weight: 800;
+  font-style: italic;
+  letter-spacing: 0.02em;
+  color: #1a3aa8;
+}
+
+.pay-brand-mc {
+  position: relative;
+  display: inline-block;
+  width: 52px;
+  height: 32px;
+}
+
+.pay-brand-mc-red,
+.pay-brand-mc-orange {
+  position: absolute;
+  top: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.pay-brand-mc-red {
+  left: 0;
+  background: #eb001b;
+}
+
+.pay-brand-mc-orange {
+  right: 0;
+  background: #f79e1b;
+  opacity: 0.9;
+}
+
+.pay-card-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.pay-card-brand-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.pay-card-brand {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-heading);
+  margin: 0;
+}
+
+.pay-card-number {
+  font-size: 14.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--text-heading);
+  margin: 7px 0 0;
+}
+
+.pay-card-expiry {
+  font-size: 13px;
+  color: var(--text-body);
+  margin: 5px 0 0;
+}
+
+.pay-card-holder {
+  font-size: 14.5px;
+  font-weight: 500;
+  color: var(--text-heading);
+  margin: 0;
+  padding-right: 22px;
+  border-right: 1px solid #e7ecf5;
+}
+
+.pay-card-status {
+  flex-shrink: 0;
+}
+
+.pay-card-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  background: var(--tint-green);
+  font-size: 13px;
+  font-weight: 600;
+  color: #15803d;
+}
+
+.pay-card-menu {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--text-body);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.18s ease, color 0.18s ease;
+}
+
+.pay-card-menu:hover {
+  background: var(--bg-light);
+  color: var(--text-heading);
+}
+
+/* ---------- dashed add-new panel ---------- */
+
+.pay-add-panel {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  border: 1.5px dashed #b9c9e8;
+  border-radius: var(--radius-card);
+  background: var(--bg-white);
+  padding: 28px 26px;
+}
+
+.pay-add-panel-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--tint-blue);
+  color: var(--blue);
+  flex-shrink: 0;
+}
+
+.pay-add-panel-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.pay-add-panel-title {
+  font-size: 16.5px;
+  font-weight: 600;
+  color: var(--text-heading);
+  margin: 0;
+}
+
+.pay-add-panel-desc {
+  font-size: 13.5px;
+  color: var(--text-body);
+  margin: 5px 0 0;
+}
+
+/* ---------- security banner ---------- */
+
+.pay-secure {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  background: #edf2fd;
+  border-radius: var(--radius-card);
+  padding: 28px 26px;
+}
+
+.pay-secure-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #dde8fc;
+  flex-shrink: 0;
+}
+
+.pay-secure-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.pay-secure-title {
+  font-size: 16.5px;
+  font-weight: 600;
+  color: var(--text-heading);
+  margin: 0;
+}
+
+.pay-secure-desc {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--text-body);
+  margin: 5px 0 0;
+  max-width: 520px;
+}
+
+.pay-secure-brands {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+}
+
+.pay-secure-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 72px;
+  height: 44px;
+  padding: 0 12px;
+  border: 1px solid #e2e8f3;
+  border-radius: 10px;
+  background: var(--bg-white);
+}
+
+.pay-secure-chip .pay-brand-visa {
+  font-size: 16px;
+}
+
+.pay-secure-chip .pay-brand-mc {
+  transform: scale(0.72);
+}
+
+.pay-brand-rupay,
+.pay-brand-upi {
+  font-size: 14.5px;
+  font-weight: 800;
+  font-style: italic;
+  color: #1b2b4b;
+}
+
+.pay-brand-rupay span,
+.pay-brand-upi span {
+  color: var(--green);
+  margin-left: 1px;
+}
+
+/* ---------- responsive ---------- */
+
+/* Tablet: wrap holder/status under the card info */
+@media (max-width: 1024px) {
+  .pay-card {
+    flex-wrap: wrap;
+    row-gap: 14px;
+  }
+
+  .pay-card-holder {
+    border-right: 0;
+    padding-right: 0;
+  }
+
+  .pay-secure {
+    flex-wrap: wrap;
+  }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .pay-section-head {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .pay-section-head .pay-add-btn {
+    justify-content: center;
+  }
+
+  .pay-card {
+    padding: 18px;
+    gap: 16px;
+  }
+
+  .pay-card-tile {
+    width: 78px;
+    height: 56px;
+  }
+
+  .pay-add-panel,
+  .pay-secure {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+  }
+
+  .pay-add-panel .pay-add-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}

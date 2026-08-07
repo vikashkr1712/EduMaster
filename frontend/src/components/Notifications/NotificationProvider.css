@@ -44,5 +44,12 @@
   font-size: 0.8rem;
 }
 
+.notification--info {
+  color: #1e40af;
+  border-color: #93c5fd;
+  background: #eff6ff;
+}
+
 .notification--success .notification__icon { background: #16a34a; }
 .notification--error .notification__icon { background: #dc2626; }
+.notification--info .notification__icon { background: #2563eb; }
