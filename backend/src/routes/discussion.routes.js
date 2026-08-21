@@ -1,0 +1,18 @@
+import { Router } from 'express';
+import * as controller from '../controllers/discussion.controller.js';
+import { authenticate } from '../middleware/authenticate.js';
+import { validate } from '../middleware/validate.js';
+import { discussionSchema, replySchema, updateDiscussionSchema } from '../validations/assignment.validation.js';
+const router = Router();
+router.use(authenticate);
+router.post('/', validate(discussionSchema), controller.create);
+router.get('/:id/replies', controller.replies);
+router.post('/:id/reply', validate(replySchema), controller.reply);
+router.patch('/:id/replies/:replyId', validate(replySchema), controller.updateReply);
+router.delete('/:id/replies/:replyId', controller.removeReply);
+router.post('/:id/replies/:replyId/like', controller.likeReply);
+router.post('/:id/like', controller.like);
+router.patch('/:id', validate(updateDiscussionSchema), controller.update);
+router.delete('/:id', controller.remove);
+router.get('/:lessonId', controller.list);
+export default router;

@@ -1,0 +1,42 @@
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
+import { deleteAdminQuiz, getAdminQuizOptions, getAdminQuizzes } from '../../api/admin.js'
+import AdminConfirmModal from '../../components/Admin/AdminConfirmModal.jsx'
+import AdminIcon from '../../components/Admin/AdminIcons.jsx'
+import AdminQuizTable from '../../components/Admin/AdminQuizTable.jsx'
+import { useNotifications } from '../../components/Notifications/NotificationProvider.jsx'
+import './AdminQuizzes.css'
+
+const PAGE_SIZE = 10
+const initialFilters = { course: '', status: '', difficulty: '', attempts: '', sort: 'newest' }
+const errorCopy = (error) => error?.status === 409 ? error.message : error?.status === 403 ? 'Administrator permission is required to manage quizzes.' : error?.status === 401 ? 'Your Admin session has expired. Please sign in again.' : error?.code === 'NETWORK' || error?.code === 'OFFLINE' ? 'Unable to reach the server. Check your connection and retry.' : error?.message || 'Unable to load quizzes.'
+
+export default function AdminQuizzesPage() {
+  const notifications = useNotifications()
+  const requestId = useRef(0)
+  const [search, setSearch] = useState(''); const [debouncedSearch, setDebouncedSearch] = useState('')
+  const [filters, setFilters] = useState(initialFilters); const [page, setPage] = useState(1)
+  const [quizzes, setQuizzes] = useState([]); const [courses, setCourses] = useState([])
+  const [summary, setSummary] = useState({ total: 0, questions: 0, attempts: 0, passed: 0 })
+  const [pagination, setPagination] = useState({ total: 0, page: 1, pages: 1, limit: PAGE_SIZE })
+  const [loading, setLoading] = useState(true); const [error, setError] = useState(null); const [deleteQuiz, setDeleteQuiz] = useState(null); const [deletingId, setDeletingId] = useState(null)
+
+  useEffect(() => { const timer = setTimeout(() => { setDebouncedSearch(search.trim()); setPage(1) }, 300); return () => clearTimeout(timer) }, [search])
+  useEffect(() => { getAdminQuizOptions().then((response) => setCourses(response?.data?.courses ?? [])).catch(() => {}) }, [])
+  const query = useMemo(() => ({ search: debouncedSearch, ...filters, page, limit: PAGE_SIZE }), [debouncedSearch, filters, page])
+  const load = useCallback(async ({ silent = false } = {}) => { const current = ++requestId.current; if (!silent) setLoading(true); setError(null); try { const response = await getAdminQuizzes(query); if (current !== requestId.current) return; const data = response?.data ?? {}; setQuizzes(data.quizzes ?? []); setSummary(data.summary ?? {}); setPagination(data.pagination ?? {}) } catch (requestError) { if (current === requestId.current) setError(requestError) } finally { if (current === requestId.current) setLoading(false) } }, [query])
+  useEffect(() => { load(); return () => { requestId.current += 1 } }, [load])
+  const updateFilter = (name, value) => { setFilters((current) => ({ ...current, [name]: value })); setPage(1) }
+  const clear = () => { setSearch(''); setDebouncedSearch(''); setFilters(initialFilters); setPage(1) }
+  const confirmDelete = async () => { if (!deleteQuiz) return; setDeletingId(deleteQuiz._id); try { await deleteAdminQuiz(deleteQuiz._id); notifications.success('Quiz deleted.'); setDeleteQuiz(null); if (quizzes.length === 1 && page > 1) setPage((value) => value - 1); else await load({ silent: true }) } catch (actionError) { notifications.error(errorCopy(actionError)); setDeleteQuiz(null) } finally { setDeletingId(null) } }
+  const filtered = Boolean(debouncedSearch || filters.course || filters.status || filters.difficulty || filters.attempts || filters.sort !== 'newest')
+  const start = pagination.total ? (pagination.page - 1) * pagination.limit + 1 : 0; const end = Math.min(pagination.page * pagination.limit, pagination.total || 0)
+
+  return <div className="admin-quizzes"><div className="admin-page-heading"><div><h1>Quizzes</h1><p>Manage assessments across EduMaster courses.</p></div><Link className="admin-button admin-button--primary" to="/admin/quizzes/new"><AdminIcon name="plus" size={18} />Create Quiz</Link></div>
+    <section className="admin-quiz-summary" aria-label="Quiz totals">{[['Total Quizzes', summary.total], ['Total Questions', summary.questions], ['Quiz Attempts', summary.attempts], ['Passed Attempts', summary.passed]].map(([label, value]) => <div key={label}><span>{label}</span><strong>{Number(value) || 0}</strong></div>)}</section>
+    <section className="admin-quiz-manager" aria-labelledby="quiz-list-title"><div className="admin-quiz-toolbar"><label className="admin-course-search"><span className="sr-only">Search quizzes</span><AdminIcon name="search" size={18} /><input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search quizzes, courses or lessons…" /></label><select aria-label="Filter by course" value={filters.course} onChange={(event) => updateFilter('course', event.target.value)}><option value="">All courses</option>{courses.map((course) => <option key={course._id} value={course._id}>{course.title}</option>)}</select><select aria-label="Filter by availability" value={filters.status} onChange={(event) => updateFilter('status', event.target.value)}><option value="">All availability</option><option value="published">Published</option><option value="draft">Draft</option></select><select aria-label="Filter by difficulty" value={filters.difficulty} onChange={(event) => updateFilter('difficulty', event.target.value)}><option value="">All difficulties</option><option>Easy</option><option>Medium</option><option>Hard</option></select><select aria-label="Filter by attempts" value={filters.attempts} onChange={(event) => updateFilter('attempts', event.target.value)}><option value="">All attempts</option><option value="with">Has attempts</option><option value="without">No attempts</option></select><select aria-label="Sort quizzes" value={filters.sort} onChange={(event) => updateFilter('sort', event.target.value)}><option value="newest">Newest</option><option value="oldest">Oldest</option><option value="titleAsc">Title A–Z</option><option value="titleDesc">Title Z–A</option><option value="questionsDesc">Most questions</option><option value="questionsAsc">Fewest questions</option></select></div>
+      <div className="admin-course-manager__heading"><div><h2 id="quiz-list-title">Quiz Catalog</h2><p>Showing {start}–{end} of {pagination.total || 0}</p></div>{filtered && <button type="button" onClick={clear}>Clear filters</button>}</div>
+      {loading ? <div className="admin-course-table-loading" aria-busy="true" aria-label="Loading quizzes">{Array.from({ length: 6 }, (_, index) => <span key={index} />)}</div> : error ? <div className="admin-course-list-state" role="alert"><h3>Unable to load quizzes</h3><p>{errorCopy(error)}</p><button type="button" className="admin-button admin-button--primary" onClick={() => load()}>Retry</button></div> : quizzes.length === 0 ? <div className="admin-course-list-state"><h3>{filtered ? 'No quizzes match your search or filters.' : 'No quizzes found.'}</h3><p>{filtered ? 'Try clearing or changing the current filters.' : 'Create the first quiz for a curriculum lesson.'}</p>{filtered && <button type="button" className="admin-button admin-button--secondary" onClick={clear}>Clear filters</button>}</div> : <AdminQuizTable quizzes={quizzes} deletingId={deletingId} onDelete={setDeleteQuiz} />}
+      {!loading && !error && pagination.total > 0 && <div className="admin-pagination"><span>Showing {start}–{end} of {pagination.total}</span><div><button type="button" onClick={() => setPage((value) => value - 1)} disabled={page <= 1}>Previous</button>{Array.from({ length: pagination.pages }, (_, index) => index + 1).filter((value) => Math.abs(value - page) <= 2).map((value) => <button type="button" key={value} className={value === page ? 'is-active' : ''} aria-current={value === page ? 'page' : undefined} onClick={() => setPage(value)}>{value}</button>)}<button type="button" onClick={() => setPage((value) => value + 1)} disabled={page >= pagination.pages}>Next</button></div></div>}
+    </section><AdminConfirmModal open={Boolean(deleteQuiz)} title="Delete Quiz?" confirmLabel="Delete quiz" pending={Boolean(deletingId)} onCancel={() => setDeleteQuiz(null)} onConfirm={confirmDelete}><p><strong>{deleteQuiz?.title}</strong> will be permanently deleted.</p><p>Quizzes with learner attempts are protected and cannot be deleted.</p></AdminConfirmModal></div>
+}

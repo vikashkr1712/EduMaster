@@ -1,0 +1,239 @@
+/* ============================================
+   Help & Support page
+   ============================================ */
+
+.help-contact-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.help-contact-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-soft);
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.help-contact-card .profile-tile {
+  margin-bottom: 8px;
+}
+
+.help-contact-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-heading);
+  margin: 0;
+}
+
+.help-contact-desc {
+  font-size: 13.5px;
+  color: var(--text-body);
+  margin: 0 0 12px;
+}
+
+.help-contact-btn {
+  display: inline-block;
+  width: 100%;
+  padding: 11px 16px;
+  border: 1.5px solid var(--blue);
+  border-radius: 10px;
+  background: transparent;
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--blue);
+  text-align: center;
+  cursor: pointer;
+  margin-top: auto;
+  transition: background 0.18s ease, color 0.18s ease;
+}
+
+.help-contact-btn:hover {
+  background: var(--blue);
+  color: #fff;
+}
+
+/* FAQ search */
+
+.help-search {
+  position: relative;
+  margin-bottom: 18px;
+}
+
+.help-search-icon {
+  position: absolute;
+  top: 50%;
+  left: 14px;
+  transform: translateY(-50%);
+  display: inline-flex;
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.help-search-input {
+  width: 100%;
+  padding: 13px 16px 13px 44px;
+  border: 1px solid #e2e8f3;
+  border-radius: 10px;
+  background: var(--bg-light);
+  font-family: var(--font);
+  font-size: 14px;
+  color: var(--text-heading);
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.help-search-input::placeholder {
+  color: var(--text-muted);
+}
+
+.help-search-input:focus {
+  outline: none;
+  border-color: var(--blue);
+  background: var(--bg-white);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+/* FAQ accordion */
+
+.help-faq-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.help-faq-item + .help-faq-item {
+  border-top: 1px solid #f1f4f9;
+}
+
+.help-faq-question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  padding: 16px 4px;
+  border: 0;
+  background: transparent;
+  font-family: var(--font);
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--text-heading);
+  text-align: left;
+  cursor: pointer;
+  transition: color 0.18s ease;
+}
+
+.help-faq-question:hover {
+  color: var(--blue);
+}
+
+.help-faq-question:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+.help-faq-chevron {
+  display: inline-flex;
+  color: var(--text-body);
+  flex-shrink: 0;
+  transition: transform 0.22s ease;
+}
+
+.help-faq-item.is-open .help-faq-chevron {
+  transform: rotate(180deg);
+}
+
+.help-faq-item.is-open .help-faq-question {
+  color: var(--blue);
+}
+
+.help-faq-answer p {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text-body);
+  margin: 0;
+  padding: 0 4px 16px;
+  max-width: 640px;
+}
+
+.help-faq-none {
+  font-size: 14px;
+  color: var(--text-body);
+  margin: 0;
+  padding: 8px 4px;
+}
+
+/* banner */
+
+.help-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  background: #edf2fd;
+  border-radius: var(--radius-card);
+  padding: 26px 28px;
+}
+
+.help-banner-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text-heading);
+  margin: 0;
+}
+
+.help-banner-desc {
+  font-size: 13.5px;
+  color: var(--text-body);
+  margin: 5px 0 0;
+}
+
+.help-banner-btn {
+  display: inline-block;
+  padding: 12px 26px;
+  border-radius: 10px;
+  background: var(--blue);
+  font-size: 14.5px;
+  font-weight: 500;
+  color: #fff;
+  transition: background 0.18s ease;
+}
+
+.help-banner-btn:hover {
+  background: #1d4fd8;
+}
+
+/* responsive */
+
+@media (max-width: 1024px) {
+  .help-contact-grid {
+    gap: 18px;
+  }
+}
+
+@media (max-width: 860px) {
+  .help-contact-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .help-banner {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .help-banner-btn {
+    text-align: center;
+  }
+}

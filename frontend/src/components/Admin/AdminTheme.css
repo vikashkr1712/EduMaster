@@ -1,0 +1,654 @@
+/* Admin-only visual system. This file is intentionally loaded after the
+   feature styles so every Admin module shares one light/dark contract. */
+.admin-shell {
+  --admin-blue: #0967f2;
+  --admin-blue-dark: #0759d6;
+  --admin-blue-soft: #eaf2ff;
+  --admin-canvas: #f5f7fb;
+  --admin-surface: #ffffff;
+  --admin-surface-subtle: #f8fafc;
+  --admin-surface-hover: #f5f8fc;
+  --admin-text: #101936;
+  --admin-text-soft: #344054;
+  --admin-muted: #667085;
+  --admin-border: #e1e7ef;
+  --admin-border-strong: #cbd5e1;
+  --admin-shadow: 0 2px 8px rgba(16, 24, 40, 0.045);
+  --admin-shadow-raised: 0 14px 34px rgba(16, 24, 40, 0.11);
+  --admin-focus: rgba(9, 103, 242, 0.25);
+  background: var(--admin-canvas);
+  color: var(--admin-text);
+}
+
+.admin-sidebar {
+  width: 224px;
+  background: linear-gradient(180deg, #06224a 0%, #082f61 100%);
+  box-shadow: 8px 0 30px rgba(5, 25, 55, 0.09);
+}
+
+.admin-sidebar__brand {
+  min-height: 82px;
+  gap: 11px;
+  padding: 16px 18px;
+}
+
+.admin-sidebar__mark {
+  width: 38px;
+  height: 38px;
+  flex-basis: 38px;
+  border-radius: 10px;
+  background: #0874ff;
+  font-size: 20px;
+}
+
+.admin-sidebar__brand strong { font-size: 18px; }
+.admin-sidebar__brand span { color: #9eb3d1; font-size: 12px; }
+.admin-sidebar__nav { padding: 16px 10px; }
+.admin-sidebar__eyebrow { margin-inline: 11px; color: #7f9aba; }
+.admin-nav-item {
+  min-height: 42px;
+  gap: 12px;
+  margin-block: 2px;
+  padding: 9px 12px;
+  border-radius: 8px;
+  color: #c5d2e5;
+  font-size: 13px;
+}
+.admin-nav-item:hover { background: rgba(255, 255, 255, 0.07); color: #fff; }
+.admin-nav-item.is-active {
+  background: linear-gradient(135deg, #0878ff, #0862ed);
+  box-shadow: 0 8px 18px rgba(0, 91, 225, 0.26);
+}
+.admin-sidebar__footer { padding: 16px 20px 18px; color: #91a7c5; font-size: 12px; }
+
+.admin-main {
+  width: calc(100% - 224px);
+  margin-left: 224px;
+}
+
+.admin-header {
+  min-height: 70px;
+  padding: 10px clamp(20px, 2.4vw, 34px);
+  border-color: var(--admin-border);
+  background: color-mix(in srgb, var(--admin-surface) 94%, transparent);
+}
+
+.admin-header__actions,
+.admin-theme-toggle {
+  display: flex;
+  align-items: center;
+}
+
+.admin-header__actions { gap: 8px; }
+.admin-theme-toggle {
+  width: 42px;
+  height: 42px;
+  justify-content: center;
+  border: 1px solid var(--admin-border);
+  border-radius: 10px;
+  background: var(--admin-surface);
+  color: var(--admin-text-soft);
+  cursor: pointer;
+}
+.admin-theme-toggle:hover { border-color: #9fc2ff; background: var(--admin-blue-soft); color: var(--admin-blue); }
+.admin-profile-trigger { color: var(--admin-text); }
+.admin-profile-trigger:hover,
+.admin-profile-trigger[aria-expanded='true'] { border-color: var(--admin-border); background: var(--admin-surface-subtle); }
+.admin-profile-menu { border-color: var(--admin-border); background: var(--admin-surface); box-shadow: var(--admin-shadow-raised); }
+.admin-profile-menu__identity { border-color: var(--admin-border); }
+
+.admin-content { padding: 24px clamp(20px, 2.4vw, 34px) 38px; }
+
+.admin-dashboard,
+.admin-courses,
+.admin-course-editor,
+.admin-users,
+.admin-user-details-page,
+.admin-commerce,
+.admin-certificates,
+.admin-certificate-details,
+.admin-quizzes,
+.admin-quiz-form-page,
+.admin-quiz-details,
+.admin-assignments,
+.admin-assignment-form-page,
+.admin-assignment-details,
+.admin-assignment-submissions,
+.admin-submission-details,
+.admin-discussions,
+.admin-discussion-details,
+.admin-notifications,
+.admin-notification-form-page,
+.admin-notification-details,
+.admin-reports,
+.admin-settings,
+.admin-curriculum {
+  width: 100%;
+  max-width: 1600px;
+  margin-inline: auto;
+  color: var(--admin-text);
+}
+
+.admin-shell :where(h1, h2, h3, h4, legend, dt) { color: var(--admin-text); }
+.admin-shell :where(p, dd) { text-wrap: pretty; }
+.admin-shell :where(.admin-page-heading, .admin-user-page-heading, .admin-commerce-heading) h1,
+.admin-dashboard__intro h1 {
+  color: var(--admin-text);
+  font-size: clamp(26px, 2.1vw, 32px);
+  letter-spacing: -0.025em;
+}
+.admin-shell :where(.admin-page-heading, .admin-user-page-heading, .admin-commerce-heading) p,
+.admin-dashboard__intro > div > p:last-child { color: var(--admin-muted); }
+
+.admin-dashboard__intro { align-items: center; margin-bottom: 22px; }
+.admin-dashboard__welcome { color: var(--admin-blue); }
+.admin-refresh-button,
+.admin-button--secondary,
+.admin-commerce-button--secondary {
+  border-color: var(--admin-border-strong);
+  background: var(--admin-surface);
+  color: var(--admin-text-soft);
+}
+.admin-button--primary,
+.admin-commerce-button--primary {
+  background: linear-gradient(135deg, #0878ff, #0862ed);
+  box-shadow: 0 7px 16px rgba(9, 103, 242, 0.16);
+}
+
+.admin-stat-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 14px; }
+.admin-stat-card {
+  min-height: 124px;
+  gap: 13px;
+  padding: 18px;
+  border-color: var(--admin-border);
+  border-radius: 12px;
+  background: var(--admin-surface);
+  box-shadow: var(--admin-shadow);
+}
+.admin-stat-card__icon { width: 42px; height: 42px; flex-basis: 42px; }
+.admin-stat-card__body > span { color: var(--admin-text-soft); font-size: 13px; }
+.admin-stat-card__body strong { color: var(--admin-text); font-size: clamp(21px, 1.65vw, 27px); }
+.admin-stat-card__body small { color: var(--admin-muted); font-size: 12px; }
+.admin-recent-grid { grid-template-columns: minmax(0, 1fr); gap: 22px; margin-top: 22px; }
+
+.admin-panel,
+.admin-course-manager,
+.admin-user-manager,
+.admin-commerce-manager,
+.admin-certificate-manager,
+.admin-quiz-manager,
+.admin-assignment-manager,
+.admin-discussion-manager,
+.admin-notification-manager,
+.admin-form-card,
+.admin-question-section,
+.admin-course-editor__form,
+.admin-course-preview,
+.admin-user-profile-card,
+.admin-user-detail-section,
+.admin-commerce-detail-card,
+.admin-enrollment-hero,
+.admin-enrollment-progress-panel,
+.admin-certificate-card,
+.admin-certificate-side-card,
+.admin-assignment-detail-card,
+.admin-submission-card,
+.admin-discussion-detail-card,
+.admin-notification-detail-card,
+.admin-report-card,
+.admin-report-table-card,
+.admin-settings-panel,
+.admin-setting-section,
+.admin-curriculum-panel {
+  border-color: var(--admin-border);
+  background: var(--admin-surface);
+  box-shadow: var(--admin-shadow);
+}
+
+.admin-panel,
+.admin-course-manager,
+.admin-user-manager,
+.admin-commerce-manager,
+.admin-certificate-manager,
+.admin-quiz-manager,
+.admin-assignment-manager,
+.admin-discussion-manager,
+.admin-notification-manager,
+.admin-form-card,
+.admin-question-section,
+.admin-user-profile-card,
+.admin-user-detail-section,
+.admin-commerce-detail-card,
+.admin-report-card,
+.admin-report-table-card,
+.admin-settings-panel { border-radius: 12px; }
+
+.admin-shell :where(input, select, textarea) {
+  border-color: var(--admin-border-strong);
+  background-color: var(--admin-surface);
+  color: var(--admin-text);
+}
+.admin-shell :where(input, textarea)::placeholder { color: #98a2b3; opacity: 1; }
+.admin-shell :where(input, select, textarea):focus {
+  border-color: var(--admin-blue);
+  box-shadow: 0 0 0 3px var(--admin-focus);
+  outline: 0;
+}
+.admin-shell :where(input, select, textarea):disabled { background: var(--admin-surface-subtle); color: var(--admin-muted); }
+
+.admin-shell :where(table) { color: var(--admin-text-soft); }
+.admin-shell :where(th) { background: var(--admin-surface-subtle); color: var(--admin-muted); }
+.admin-shell :where(td) { border-color: var(--admin-border); }
+.admin-shell :where(tbody tr:hover) { background: var(--admin-surface-hover); }
+.admin-table__primary,
+.admin-user-cell strong { color: var(--admin-text); }
+.admin-table__secondary,
+.admin-user-cell small { color: var(--admin-muted); }
+
+.admin-course-summary,
+.admin-user-summary,
+.admin-commerce-summary,
+.admin-certificate-summary,
+.admin-quiz-summary,
+.admin-assignment-summary,
+.admin-discussion-summary,
+.admin-notification-summary,
+.admin-report-kpis { gap: 14px; }
+
+.admin-course-summary > div,
+.admin-user-summary > div,
+.admin-commerce-summary > div,
+.admin-certificate-summary > div,
+.admin-quiz-summary > div,
+.admin-assignment-summary > div,
+.admin-discussion-summary > div,
+.admin-notification-summary > div,
+.admin-report-kpis > div {
+  border-color: var(--admin-border);
+  border-radius: 12px;
+  background: var(--admin-surface);
+  box-shadow: var(--admin-shadow);
+}
+
+.admin-course-summary span,
+.admin-user-summary span,
+.admin-commerce-summary span,
+.admin-certificate-summary span,
+.admin-quiz-summary span,
+.admin-assignment-summary span,
+.admin-discussion-summary span,
+.admin-notification-summary span,
+.admin-report-kpis span { color: var(--admin-muted); }
+.admin-course-summary strong,
+.admin-user-summary strong,
+.admin-commerce-summary strong,
+.admin-certificate-summary strong,
+.admin-quiz-summary strong,
+.admin-assignment-summary strong,
+.admin-discussion-summary strong,
+.admin-notification-summary strong,
+.admin-report-kpis strong { color: var(--admin-text); }
+
+.admin-shell :where(.admin-course-toolbar, .admin-user-toolbar, .admin-commerce-toolbar, .admin-certificate-toolbar, .admin-quiz-toolbar, .admin-assignment-toolbar, .admin-submission-toolbar, .admin-discussion-toolbar, .admin-notification-toolbar) {
+  border-color: var(--admin-border);
+  background: var(--admin-surface);
+}
+
+.admin-shell :where(.admin-course-manager__heading, .admin-user-manager__heading, .admin-commerce-manager__heading, .admin-panel__heading, .admin-form-card__heading, .admin-question-section__heading, .admin-user-section-heading, .admin-commerce-section-heading, .admin-report-card__heading) {
+  border-color: var(--admin-border);
+}
+
+.admin-shell :where(
+  .admin-course-table-wrap,
+  .admin-user-table-wrap,
+  .admin-commerce-table-wrap,
+  .admin-certificate-table-wrap,
+  .admin-quiz-table-wrap,
+  .admin-assignment-table-wrap,
+  .admin-submission-table-wrap,
+  .admin-discussion-table-wrap,
+  .admin-notification-table-wrap,
+  .admin-recipient-table-wrap,
+  .admin-report-table-wrap,
+  .admin-table-wrap
+) {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  contain: layout inline-size paint;
+}
+
+.admin-shell :where(.admin-pagination, .admin-user-pagination, .admin-commerce-pagination) {
+  border-color: var(--admin-border);
+  color: var(--admin-muted);
+}
+.admin-shell :where(.admin-pagination, .admin-user-pagination, .admin-commerce-pagination) button {
+  border-color: var(--admin-border);
+  background: var(--admin-surface);
+  color: var(--admin-text-soft);
+}
+.admin-shell :where(.admin-pagination, .admin-user-pagination, .admin-commerce-pagination) button.is-active {
+  border-color: var(--admin-blue);
+  background: var(--admin-blue);
+  color: #fff;
+}
+
+.admin-shell :where(.admin-back-link, .admin-user-back, .admin-commerce-back) { color: var(--admin-blue); }
+.admin-shell :where(.admin-course-list-state, .admin-user-list-state, .admin-commerce-state, .admin-dashboard-error, .admin-quiz-form-state, .admin-certificate-loading) {
+  border-color: var(--admin-border);
+  background: var(--admin-surface);
+  color: var(--admin-muted);
+}
+
+/* Dark mode keeps the same density and hierarchy while replacing every large
+   white surface with layered navy panels and softened separators. */
+[data-theme='dark'] .admin-shell {
+  --admin-blue: #6d86ff;
+  --admin-blue-dark: #91a4ff;
+  --admin-blue-soft: rgba(109, 134, 255, 0.14);
+  --admin-canvas: #081426;
+  --admin-surface: #111e32;
+  --admin-surface-subtle: #142238;
+  --admin-surface-hover: #172842;
+  --admin-text: #f4f7fc;
+  --admin-text-soft: #d4dceb;
+  --admin-muted: #97a6bc;
+  --admin-border: #283850;
+  --admin-border-strong: #3a4d69;
+  --admin-shadow: 0 5px 18px rgba(0, 0, 0, 0.16);
+  --admin-shadow-raised: 0 20px 44px rgba(0, 0, 0, 0.32);
+  --admin-focus: rgba(109, 134, 255, 0.22);
+}
+
+[data-theme='dark'] .admin-sidebar {
+  background: linear-gradient(180deg, #071a32 0%, #09284d 100%);
+  box-shadow: 8px 0 32px rgba(0, 0, 0, 0.2);
+}
+[data-theme='dark'] .admin-header { background: rgba(17, 30, 50, 0.94); }
+[data-theme='dark'] .admin-avatar { border-color: #344a68; }
+[data-theme='dark'] .admin-avatar--fallback { background: #20385d; color: #a9b8ff; }
+[data-theme='dark'] .admin-profile-menu > button,
+[data-theme='dark'] .admin-profile-menu > a { background: var(--admin-surface); }
+[data-theme='dark'] .admin-profile-menu > button { color: #ff9a91; }
+[data-theme='dark'] .admin-profile-menu > a { color: var(--admin-text-soft); }
+[data-theme='dark'] .admin-profile-menu > button:hover { background: rgba(217, 45, 32, 0.12); }
+[data-theme='dark'] .admin-profile-menu > a:hover { background: var(--admin-surface-hover); color: #a9b8ff; }
+
+[data-theme='dark'] .admin-shell :where(.admin-status--completed, .admin-user-status--active, .admin-completion-status--completed, .is-published) { background: rgba(34, 197, 94, 0.14); color: #76dda0; }
+[data-theme='dark'] .admin-shell :where(.admin-status--pending, .is-draft) { background: rgba(245, 158, 11, 0.14); color: #f7c768; }
+[data-theme='dark'] .admin-shell :where(.admin-status--failed, .admin-user-status--inactive) { background: rgba(239, 68, 68, 0.14); color: #ff968f; }
+[data-theme='dark'] .admin-shell :where(.admin-status--refunded, .admin-role--admin) { background: rgba(139, 92, 246, 0.16); color: #c4a8ff; }
+[data-theme='dark'] .admin-role--user { background: rgba(34, 197, 94, 0.12); color: #75d99b; }
+
+[data-theme='dark'] .admin-stat-card__icon { background: rgba(75, 104, 242, 0.16); color: #8da0ff; }
+[data-theme='dark'] .admin-stat-card__icon--courses { background: rgba(34, 197, 94, 0.13); color: #73da9d; }
+[data-theme='dark'] .admin-stat-card__icon--enrollments { background: rgba(139, 92, 246, 0.16); color: #b99aff; }
+[data-theme='dark'] .admin-stat-card__icon--orders { background: rgba(245, 158, 11, 0.14); color: #f5c264; }
+[data-theme='dark'] .admin-stat-card__icon--revenue { background: rgba(20, 184, 166, 0.14); color: #68d5c9; }
+[data-theme='dark'] .admin-stat-card__icon--certificates { background: rgba(236, 72, 153, 0.14); color: #f095bd; }
+
+[data-theme='dark'] .admin-shell :where(.admin-table th, table th) { background: var(--admin-surface-subtle) !important; color: var(--admin-muted) !important; }
+[data-theme='dark'] .admin-shell :where(.admin-table td, table td) { border-color: var(--admin-border) !important; color: var(--admin-text-soft); }
+[data-theme='dark'] .admin-shell :where(.admin-table tbody tr:hover, table tbody tr:hover) { background: var(--admin-surface-hover) !important; }
+[data-theme='dark'] .admin-shell :where(.admin-course-table-loading, .admin-user-table-loading, .admin-commerce-loading) span,
+[data-theme='dark'] .admin-skeleton { background: linear-gradient(90deg, #17263d 25%, #20324d 50%, #17263d 75%); background-size: 200% 100%; }
+
+/* Feature styles are route-split and can be injected after this shared file.
+   These dark declarations deliberately carry enough weight to keep every
+   late-loaded Admin surface in the same navy system. */
+[data-theme='dark'] .admin-shell :where(h1, h2, h3, h4, legend, dt, strong) {
+  color: var(--admin-text) !important;
+}
+[data-theme='dark'] .admin-shell :where(p, small, dd, time) { color: var(--admin-muted); }
+[data-theme='dark'] .admin-shell :where(input, select, textarea) {
+  border-color: var(--admin-border-strong) !important;
+  background: var(--admin-surface-subtle) !important;
+  color: var(--admin-text) !important;
+}
+[data-theme='dark'] .admin-shell :where(input, textarea)::placeholder { color: #7f90a8 !important; }
+
+[data-theme='dark'] .admin-shell :where(
+  [class$='-manager'],
+  [class$='-card'],
+  [class$='-panel'],
+  [class$='-form'],
+  .admin-course-form,
+  .admin-settings-section,
+  .admin-settings-footer,
+  .admin-report-chart,
+  .admin-report-panel,
+  .admin-order-hero,
+  .admin-enrollment-progress-panel,
+  .admin-financial-summary,
+  .admin-discussion-post,
+  .admin-discussion-replies,
+  .admin-notification-message,
+  .admin-notification-recipients,
+  .admin-submission-history,
+  .admin-recipient-table-wrap,
+  .admin-course-details,
+  .admin-curriculum-course,
+  .admin-curriculum-state,
+  .admin-curriculum-empty
+) {
+  border-color: var(--admin-border) !important;
+  background: var(--admin-surface) !important;
+  color: var(--admin-text-soft);
+}
+
+[data-theme='dark'] .admin-shell :where(
+  .admin-course-summary,
+  .admin-user-summary,
+  .admin-commerce-summary,
+  .admin-certificate-summary,
+  .admin-quiz-summary,
+  .admin-assignment-summary,
+  .admin-discussion-summary,
+  .admin-notification-summary,
+  .admin-quiz-detail-stats,
+  .admin-assignment-detail-stats,
+  .admin-user-related-grid,
+  .admin-learning-summary,
+  .admin-report-metric-grid
+) > div {
+  border-color: var(--admin-border) !important;
+  background: var(--admin-surface) !important;
+  color: var(--admin-text-soft);
+}
+
+[data-theme='dark'] .admin-shell :where(
+  .admin-course-toolbar,
+  .admin-user-toolbar,
+  .admin-commerce-toolbar,
+  .admin-certificate-toolbar,
+  .admin-quiz-toolbar,
+  .admin-assignment-toolbar,
+  .admin-submission-toolbar,
+  .admin-discussion-toolbar,
+  .admin-notification-toolbar,
+  .admin-course-manager__heading,
+  .admin-user-manager__heading,
+  .admin-commerce-manager__heading,
+  .admin-panel__heading,
+  .admin-form-card__heading,
+  .admin-question-section__heading,
+  .admin-form-section-heading,
+  .admin-section-heading,
+  .admin-settings-section__heading,
+  .admin-report-section-heading,
+  .admin-course-form__actions,
+  .admin-notification-form__actions,
+  .admin-form-card__actions
+) {
+  border-color: var(--admin-border) !important;
+  background: transparent !important;
+}
+
+[data-theme='dark'] .admin-shell :where(
+  .admin-form-checks label,
+  .admin-switch-field,
+  .admin-audience-options label,
+  .admin-student-options label,
+  .admin-question-option,
+  .admin-attachment-row,
+  .admin-resource-row,
+  .admin-related-actions a,
+  .admin-related-record,
+  .admin-file-link,
+  .admin-file-download,
+  .admin-completed-lessons span,
+  .admin-submission-version,
+  .admin-reply-card,
+  .admin-answer-card,
+  .admin-order-items > div
+) {
+  border-color: var(--admin-border) !important;
+  background: var(--admin-surface-subtle) !important;
+  color: var(--admin-text-soft);
+}
+
+[data-theme='dark'] .admin-shell :where(table, thead, tbody, tr, td) { background-color: transparent !important; }
+[data-theme='dark'] .admin-shell :where(th) { border-color: var(--admin-border) !important; background: var(--admin-surface-subtle) !important; color: #9fb0c8 !important; }
+[data-theme='dark'] .admin-shell :where(td, td span:not([class*='status']):not([class*='role'])) { color: var(--admin-text-soft); }
+[data-theme='dark'] .admin-shell :where(.admin-pagination, .admin-user-pagination, .admin-commerce-pagination, .admin-course-form__actions) {
+  border-color: var(--admin-border) !important;
+  background: var(--admin-surface) !important;
+}
+[data-theme='dark'] .admin-shell :where(.admin-report-metric, .admin-report-empty, .admin-question-empty, .admin-option-loading) {
+  border-color: var(--admin-border) !important;
+  background: var(--admin-surface-subtle) !important;
+  color: var(--admin-muted) !important;
+}
+[data-theme='dark'] .admin-shell :where(.admin-settings-security, .admin-integrity-banner, .admin-commerce-integrity, .admin-inline-note) {
+  border-color: #34527c !important;
+  background: #132743 !important;
+  color: #b9cff0 !important;
+}
+[data-theme='dark'] .admin-shell .admin-course-free { color: #71dfa0 !important; }
+[data-theme='dark'] .admin-shell .admin-course-form > section {
+  border-color: var(--admin-border) !important;
+  background: var(--admin-surface) !important;
+}
+[data-theme='dark'] .admin-shell label > span:first-child { color: var(--admin-text-soft) !important; }
+[data-theme='dark'] .admin-shell .admin-course-cell__thumb {
+  border-color: #365276 !important;
+  background: #20385d !important;
+  color: #a7b8ff !important;
+}
+[data-theme='dark'] .admin-shell .admin-course-cell__thumb span { color: #a7b8ff !important; }
+[data-theme='dark'] .admin-shell :where(.admin-report-metric, .admin-report-kpis > div) > span { color: #91a3bb !important; }
+[data-theme='dark'] .admin-shell :where(.admin-course-search, .admin-user-search, .admin-commerce-search) {
+  border-color: var(--admin-border-strong) !important;
+  background: var(--admin-surface-subtle) !important;
+  color: var(--admin-muted) !important;
+}
+[data-theme='dark'] .admin-shell :where(.admin-course-search, .admin-user-search, .admin-commerce-search) input {
+  background: transparent !important;
+}
+.admin-shell :where(.sr-only, .admin-user-sr-only, .admin-commerce-sr-only) {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+[data-theme='dark'] .admin-shell :where(.admin-pagination, .admin-user-pagination, .admin-commerce-pagination) button:disabled {
+  border-color: #33445e !important;
+  background: #203047 !important;
+  color: #73839a !important;
+}
+[data-theme='dark'] .admin-shell :where(.admin-notification-type, .admin-certificate-status) {
+  border-color: var(--admin-border) !important;
+  background: #203047 !important;
+  color: #aebdd1 !important;
+}
+[data-theme='dark'] .admin-shell .admin-commerce-section-heading {
+  border-color: var(--admin-border) !important;
+  background: var(--admin-surface-subtle) !important;
+}
+[data-theme='dark'] .admin-shell .admin-order-student__body,
+[data-theme='dark'] .admin-shell .admin-order-student .admin-commerce-related-link {
+  background: var(--admin-surface) !important;
+}
+[data-theme='dark'] .admin-shell .admin-order-student__body strong {
+  color: var(--admin-heading) !important;
+}
+
+/* Keep every desktop action available without forcing a horizontal pan. */
+@media (min-width: 1025px) and (max-width: 1600px) {
+  .admin-course-table { min-width: 1040px; }
+  .admin-user-table { min-width: 1030px; }
+  .admin-enrollment-table { min-width: 1060px; }
+  .admin-shell :where(.admin-course-table, .admin-user-table, .admin-enrollment-table) :where(th, td) { padding-inline: 10px; }
+  .admin-course-actions span,
+  .admin-user-actions span,
+  .admin-enrollment-table .admin-commerce-view span { display: none; }
+  .admin-course-actions a,
+  .admin-course-actions button,
+  .admin-user-actions a,
+  .admin-user-actions button,
+  .admin-enrollment-table .admin-commerce-view { width: 32px; min-width: 32px; padding-inline: 6px; }
+}
+
+/* Shared, compact pagination used by recent dashboard data and reports. */
+.admin-shared-pagination{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:15px 18px;border-top:1px solid var(--admin-border);color:var(--admin-muted);font-size:13px}.admin-shared-pagination__controls,.admin-shared-pagination__pages{display:flex;align-items:center;gap:5px}.admin-shared-pagination button{min-width:36px;min-height:36px;border:1px solid #d8e1ed;border-radius:8px;background:var(--admin-surface);padding:6px 10px;color:#40506a;font:inherit;font-size:12px;font-weight:750;cursor:pointer}.admin-shared-pagination button:hover:not(:disabled){border-color:#9bb7ed;color:var(--admin-blue)}.admin-shared-pagination button.is-active{border-color:var(--admin-blue);background:var(--admin-blue);color:#fff}.admin-shared-pagination button:disabled{cursor:not-allowed;opacity:.45}.admin-shared-pagination__pages i{display:grid;min-width:26px;place-items:center;font-style:normal}.admin-shared-pagination__mobile{display:none;font-weight:700;white-space:nowrap}
+[data-theme='dark'] .admin-shared-pagination{border-color:var(--admin-border);background:var(--admin-surface)}[data-theme='dark'] .admin-shared-pagination button{border-color:var(--admin-border-strong);background:var(--admin-surface-subtle);color:var(--admin-text-soft)}[data-theme='dark'] .admin-shared-pagination button.is-active{border-color:#7188ff;background:#5d73eb;color:#fff}
+
+.admin-avatar--fallback svg{width:78%;height:78%}.admin-course-fallback{display:grid;width:100%;height:100%;place-items:center}.admin-course-fallback svg{width:40px;height:32px}.admin-recent-loading,.admin-recent-error{display:flex;min-height:140px;align-items:center;justify-content:center;gap:12px;padding:24px;color:var(--admin-muted);font-size:14px}.admin-recent-error button{border:0;border-radius:8px;background:var(--admin-blue);padding:8px 13px;color:#fff;font:inherit;font-size:13px;font-weight:700}
+
+@media(max-width:576px){.admin-shared-pagination{align-items:stretch;flex-direction:column}.admin-shared-pagination__controls{justify-content:space-between}.admin-shared-pagination__pages{display:none}.admin-shared-pagination__mobile{display:inline}.admin-shared-pagination button{min-width:82px}}
+
+@media (max-width: 1480px) {
+  .admin-stat-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (max-width: 1180px) {
+  .admin-recent-grid { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 1024px) {
+  .admin-sidebar { width: min(290px, calc(100vw - 40px)); }
+  .admin-main { width: 100%; margin-left: 0; }
+  .admin-header__menu { background: var(--admin-surface); color: var(--admin-text-soft); }
+}
+
+@media (max-width: 767px) {
+  .admin-header { min-height: 66px; padding: 9px 16px; }
+  .admin-content { padding: 20px 16px 30px; }
+  .admin-theme-toggle { width: 40px; height: 40px; }
+  .admin-stat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .admin-stat-card { min-height: 118px; padding: 16px; }
+  .admin-shell :where(
+    .admin-course-manager,
+    .admin-user-manager,
+    .admin-commerce-manager,
+    .admin-certificate-manager,
+    .admin-quiz-manager,
+    .admin-assignment-manager,
+    .admin-discussion-manager,
+    .admin-notification-manager
+  ) {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    overflow: hidden;
+  }
+}
+
+@media (max-width: 575px) {
+  .admin-header__title { max-width: 135px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .admin-profile-trigger { padding-inline: 4px; }
+  .admin-profile-trigger > svg { display: none; }
+  .admin-stat-grid { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 389px) {
+  .admin-header { padding-inline: 12px; }
+  .admin-content { padding-inline: 12px; }
+  .admin-header__actions { gap: 4px; }
+}

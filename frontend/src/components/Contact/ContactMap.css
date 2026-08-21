@@ -1,0 +1,117 @@
+.cmap {
+  background: var(--bg-light);
+  padding: 20px 0 70px;
+}
+
+.cmap-inner {
+  display: grid;
+  grid-template-columns: 1.55fr 1fr;
+  gap: 44px;
+  align-items: center;
+}
+
+.cmap-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+  height: 230px;
+}
+
+.svg-contact-map {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.cmap-badge {
+  display: inline-block;
+  background: #d8e6ff;
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 16px;
+}
+
+.cmap-title {
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 12px;
+}
+
+.cmap-title span {
+  color: var(--yellow);
+}
+
+.cmap-text {
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: var(--text-body);
+  margin-bottom: 22px;
+  max-width: 400px;
+}
+
+.cmap-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #fff;
+  border: 1.5px solid var(--blue);
+  color: var(--blue);
+  font-size: 14.5px;
+  font-weight: 600;
+  padding: 12px 26px;
+  border-radius: var(--radius-pill);
+  transition: background 0.2s, color 0.2s;
+}
+
+.cmap-btn:hover {
+  background: var(--blue);
+  color: #fff;
+}
+
+/* ---- tablet ---- */
+@media (max-width: 1024px) {
+  .cmap-inner {
+    gap: 28px;
+  }
+
+  .cmap-title {
+    font-size: 26px;
+  }
+}
+
+/* ---- mobile ---- */
+@media (max-width: 900px) {
+  .cmap {
+    padding: 8px 0 48px;
+  }
+
+  .cmap-inner {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .cmap-card {
+    height: 190px;
+  }
+
+  .cmap-content {
+    padding-bottom: 4px;
+  }
+}
+
+@media (max-width: 560px) {
+  .cmap-card {
+    height: 160px;
+  }
+
+  .cmap-title {
+    font-size: 24px;
+  }
+}

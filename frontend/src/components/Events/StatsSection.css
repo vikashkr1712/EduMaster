@@ -1,0 +1,127 @@
+.programs-stats {
+  background: var(--bg-light);
+  padding: 20px 0 60px;
+}
+
+.programs-stats-card {
+  background: var(--bg-white);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-soft);
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  padding: 32px 20px;
+}
+
+.programs-stats-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.programs-stats-item.has-divider {
+  border-left: 1px solid #eaeef5;
+}
+
+.programs-stats-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.programs-stats-copy {
+  display: flex;
+  flex-direction: column;
+}
+
+.programs-stats-value {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.2;
+}
+
+.programs-stats-label {
+  font-size: 13.5px;
+  color: var(--text-body);
+}
+
+/* ---- tablet ---- */
+@media (max-width: 1024px) {
+  .programs-stats-card {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    row-gap: 28px;
+    padding: 28px 20px;
+  }
+
+  .programs-stats-item.has-divider {
+    border-left: none;
+  }
+
+  .programs-stats-item:nth-child(2),
+  .programs-stats-item:nth-child(3),
+  .programs-stats-item:nth-child(5) {
+    border-left: 1px solid #eaeef5;
+  }
+}
+
+/* ---- mobile: 2-up grid ---- */
+@media (max-width: 700px) {
+  .programs-stats {
+    padding: 12px 0 44px;
+  }
+
+  .programs-stats-card {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 24px;
+    padding: 24px 14px;
+  }
+
+  .programs-stats-item {
+    justify-content: flex-start;
+    gap: 12px;
+    padding: 0 8px;
+  }
+
+  .programs-stats-item:nth-child(2),
+  .programs-stats-item:nth-child(3),
+  .programs-stats-item:nth-child(5) {
+    border-left: none;
+  }
+
+  .programs-stats-item:nth-child(even) {
+    border-left: 1px solid #eaeef5;
+  }
+
+  .programs-stats-icon {
+    width: 46px;
+    height: 46px;
+  }
+
+  .programs-stats-value {
+    font-size: 18px;
+  }
+
+  .programs-stats-label {
+    font-size: 12.5px;
+  }
+}
+
+/* ---- small mobile: single column so long labels never overflow ---- */
+@media (max-width: 360px) {
+  .programs-stats-card {
+    grid-template-columns: 1fr;
+    row-gap: 18px;
+    padding: 22px 18px;
+  }
+
+  .programs-stats-item,
+  .programs-stats-item:nth-child(even) {
+    border-left: none;
+    padding: 0;
+  }
+}

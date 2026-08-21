@@ -1,0 +1,800 @@
+/* Dark theme is intentionally isolated here so the completed light theme keeps
+   its existing values, spacing, and component geometry. */
+[data-theme='dark'] body {
+  color: var(--text-body);
+  background: var(--bg-primary);
+  scrollbar-color: #58657a #111c2e;
+}
+
+[data-theme='dark'] ::selection { background: rgba(75, 104, 242, .38); color: #fff; }
+[data-theme='dark'] * { scrollbar-color: #58657a #111c2e; }
+[data-theme='dark'] input,
+[data-theme='dark'] select,
+[data-theme='dark'] textarea { color-scheme: dark; }
+
+[data-theme='dark'] input::placeholder,
+[data-theme='dark'] textarea::placeholder { color: var(--text-muted); }
+
+[data-theme='dark'] .section-badge {
+  color: #8fa3ff;
+  background: var(--primary-soft, rgba(75, 104, 242, .15));
+}
+
+/* Shared navigation and overlays */
+[data-theme='dark'] .navbar {
+  color: var(--text-primary);
+  background: rgba(8, 20, 38, .96);
+  border-bottom: 1px solid var(--divider);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, .08);
+}
+[data-theme='dark'] .navbar-brand-name { color: var(--text-primary); }
+[data-theme='dark'] .navbar-brand-tag { color: var(--text-muted); }
+[data-theme='dark'] .navbar-links a { color: var(--text-secondary); }
+[data-theme='dark'] .navbar-links a:hover,
+[data-theme='dark'] .navbar-links a.active { color: var(--text-primary); }
+[data-theme='dark'] .navbar-bell,
+[data-theme='dark'] .navbar-cart,
+[data-theme='dark'] .navbar-theme-toggle,
+[data-theme='dark'] .navbar-profile-trigger,
+[data-theme='dark'] .navbar-burger,
+[data-theme='dark'] .navbar-drawer-close { color: var(--text-secondary); }
+[data-theme='dark'] .navbar-theme-toggle {
+  background: var(--surface-primary);
+  border-color: var(--border-primary);
+}
+[data-theme='dark'] .navbar-theme-toggle:hover {
+  color: var(--gold);
+  background: var(--surface-hover);
+  border-color: var(--border-secondary);
+}
+[data-theme='dark'] .navbar-profile-avatar { border-color: var(--border-secondary); }
+[data-theme='dark'] .profile-dropdown,
+[data-theme='dark'] .notification-dropdown,
+[data-theme='dark'] .navbar-drawer {
+  color: var(--text-body);
+  background: var(--surface-primary);
+  border-color: var(--border-primary);
+  box-shadow: var(--shadow-card);
+}
+[data-theme='dark'] .profile-dropdown *,
+[data-theme='dark'] .notification-dropdown * { border-color: var(--divider); }
+[data-theme='dark'] .profile-dropdown a,
+[data-theme='dark'] .profile-dropdown button,
+[data-theme='dark'] .notification-dropdown__item { color: var(--text-secondary); }
+[data-theme='dark'] .profile-dropdown a:hover,
+[data-theme='dark'] .profile-dropdown button:hover,
+[data-theme='dark'] .notification-dropdown__item:hover,
+[data-theme='dark'] .notification-dropdown__item.is-unread { background: var(--surface-hover); }
+[data-theme='dark'] .notification-dropdown__head,
+[data-theme='dark'] .notification-dropdown__item { background-color: var(--surface-primary); }
+[data-theme='dark'] .navbar-drawer-link { color: var(--text-secondary); }
+[data-theme='dark'] .navbar-drawer-link:hover,
+[data-theme='dark'] .navbar-drawer-link.active { color: #fff; background: var(--surface-hover); }
+[data-theme='dark'] .btn-login { color: var(--text-primary); }
+
+/* Shared dashboard, cards, controls, modals and toasts */
+[data-theme='dark'] .dash-page { background: var(--bg-primary); }
+[data-theme='dark'] .dash-sidebar-card,
+[data-theme='dark'] .dash-support-card,
+[data-theme='dark'] .profile-stat-card,
+[data-theme='dark'] .profile-section-card,
+[data-theme='dark'] .settings-card,
+[data-theme='dark'] .pay-card,
+[data-theme='dark'] .pay-add-panel,
+[data-theme='dark'] .pay-secure,
+[data-theme='dark'] .orders-card,
+[data-theme='dark'] .cert-card,
+[data-theme='dark'] .wishlist-card,
+[data-theme='dark'] .mycourse-card {
+  background: var(--surface-primary);
+  border: 1px solid var(--border-primary);
+  box-shadow: var(--shadow-card);
+}
+[data-theme='dark'] .dash-profile-summary,
+[data-theme='dark'] .settings-rows .settings-row + .settings-row { border-color: var(--divider); }
+[data-theme='dark'] .dash-menu-item { color: var(--text-secondary); }
+[data-theme='dark'] .dash-menu-icon { color: var(--text-muted); }
+[data-theme='dark'] .dash-menu-item:hover { color: #8fa3ff; background: var(--surface-hover); }
+[data-theme='dark'] .dash-menu-item.is-active {
+  color: #8fa3ff;
+  background: linear-gradient(90deg, rgba(75,104,242,.23), rgba(75,104,242,.11));
+}
+[data-theme='dark'] .dash-menu-logout:hover { color: var(--red, #ef5350); background: rgba(239,83,80,.12); }
+[data-theme='dark'] .dash-menu-toggle,
+[data-theme='dark'] .logout-modal,
+[data-theme='dark'] .logout-modal-cancel {
+  color: var(--text-primary);
+  background: var(--surface-primary);
+  border-color: var(--border-primary);
+}
+[data-theme='dark'] .settings-input,
+[data-theme='dark'] .settings-phone-code,
+[data-theme='dark'] .settings-select,
+[data-theme='dark'] .cert-sort-select,
+[data-theme='dark'] .orders-filter-select,
+[data-theme='dark'] .orders-page-btn {
+  color: var(--text-primary);
+  background: var(--bg-tertiary);
+  border-color: var(--border-primary);
+}
+[data-theme='dark'] .settings-input:disabled { color: var(--text-muted); background: var(--surface-secondary); }
+[data-theme='dark'] .settings-toggle { background: var(--border-secondary); }
+[data-theme='dark'] .notification-toast { color: var(--text-primary); background: var(--surface-elevated); border-color: var(--border-secondary); }
+[data-theme='dark'] .dash-sidebar { background: var(--bg-primary); }
+
+/* Home */
+[data-theme='dark'] .home-page,
+[data-theme='dark'] .hero,
+[data-theme='dark'] .features,
+[data-theme='dark'] .home-courses,
+[data-theme='dark'] .why-choose,
+[data-theme='dark'] .testimonials,
+[data-theme='dark'] .blog,
+[data-theme='dark'] .partners,
+[data-theme='dark'] .subscribe-section { background: var(--bg-primary); }
+[data-theme='dark'] .hero { background: radial-gradient(circle at 75% 35%, rgba(55, 91, 177, .1), transparent 34%), var(--bg-primary); }
+[data-theme='dark'] .hero-badge { color: var(--gold, #f2b93d); background: rgba(242,185,61,.1); border: 1px solid rgba(242,185,61,.2); }
+[data-theme='dark'] .btn-explore { background: linear-gradient(135deg, #3158ff, #2449d8); }
+[data-theme='dark'] .btn-demo { color: var(--text-primary); background: transparent; border-color: var(--border-secondary); }
+[data-theme='dark'] .btn-demo:hover { border-color: #6f85aa; }
+[data-theme='dark'] .hero-illustration {
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+}
+[data-theme='dark'] .hero-illustration-svg > path:first-of-type { fill: transparent; }
+
+/* Remove only the traced pale backdrop fragments beside the learner's legs
+   and plant. Book pages use different paths and intentionally remain white. */
+[data-theme='dark'] .hero-illustration-svg > path:nth-of-type(3),
+[data-theme='dark'] .hero-illustration-svg > path:nth-of-type(83),
+[data-theme='dark'] .svg-course-inline > path:nth-of-type(5),
+[data-theme='dark'] .shero-illustration .svg-services-inline > path:nth-of-type(8) {
+  fill: transparent;
+}
+[data-theme='dark'] .features-card,
+[data-theme='dark'] .course-card,
+[data-theme='dark'] .t-card,
+[data-theme='dark'] .tc-card,
+[data-theme='dark'] .blog-card,
+[data-theme='dark'] .subscribe-card,
+[data-theme='dark'] .statsbar-card,
+[data-theme='dark'] .achievebar-card {
+  background-color: var(--surface-primary);
+  border-color: var(--border-primary);
+  box-shadow: var(--shadow-card);
+}
+[data-theme='dark'] .course-card *,
+[data-theme='dark'] .t-card *,
+[data-theme='dark'] .tc-card *,
+[data-theme='dark'] .blog-card * { border-color: var(--divider); }
+[data-theme='dark'] .subscribe-input,
+[data-theme='dark'] .footer-newsletter input { color: var(--text-primary); background: var(--bg-tertiary); border-color: var(--border-primary); }
+
+/* Course catalogue */
+[data-theme='dark'] .courses-hero,
+[data-theme='dark'] .courses-page-body,
+[data-theme='dark'] .request-banner-wrap { background: var(--bg-primary); }
+[data-theme='dark'] .courses-hero-search,
+[data-theme='dark'] .courses-hero-search input,
+[data-theme='dark'] .courses-filter-btn,
+[data-theme='dark'] .courses-sort,
+[data-theme='dark'] .courses-sidebar,
+[data-theme='dark'] .cpage,
+[data-theme='dark'] .cgrid-empty {
+  color: var(--text-primary);
+  background: var(--surface-primary);
+  border-color: var(--border-primary);
+}
+[data-theme='dark'] .courses-sort select { color: var(--text-primary); }
+[data-theme='dark'] .cs-cat { color: var(--text-secondary); }
+[data-theme='dark'] .cs-cat svg { color: var(--text-muted); }
+[data-theme='dark'] .cs-cat:hover,
+[data-theme='dark'] .cs-cat.active { color: #8fa3ff; background: var(--surface-active); }
+[data-theme='dark'] .cs-check-label { color: var(--text-secondary); }
+[data-theme='dark'] .cs-check-box { background: var(--bg-tertiary); border-color: var(--border-secondary); }
+[data-theme='dark'] .courses-sidebar,
+[data-theme='dark'] .courses-sidebar * { border-color: var(--divider); }
+[data-theme='dark'] .ccard {
+  background: var(--surface-primary);
+  border: 1px solid var(--border-primary);
+  box-shadow: var(--shadow-card);
+}
+[data-theme='dark'] .ccard-wishlist { color: var(--text-secondary); background: rgba(8,20,38,.82); }
+[data-theme='dark'] .ccard-action-cart { background: var(--primary-soft, rgba(75,104,242,.15)); }
+[data-theme='dark'] .request-banner { background: var(--surface-secondary); border: 1px solid var(--border-primary); }
+[data-theme='dark'] .courses-hero-illustration { background: transparent; border-color: transparent; box-shadow: none; }
+[data-theme='dark'] .courses-hero-illustration svg > rect:first-of-type,
+[data-theme='dark'] .courses-hero-illustration svg > path:first-of-type,
+[data-theme='dark'] .courses-hero-illustration svg > path:nth-of-type(2) { fill: transparent; }
+[data-theme='dark'] .courses-hero-illustration svg > path:nth-of-type(3) { fill: var(--bg-secondary); }
+
+/* Course details */
+[data-theme='dark'] .cdp-page { background: var(--bg-primary); }
+[data-theme='dark'] .cdp-breadcrumb-bar { background: var(--bg-primary); border-color: var(--divider); }
+[data-theme='dark'] .cdp-hero {
+  background: var(--surface-primary);
+  border: 1px solid var(--border-primary);
+  box-shadow: var(--shadow-card);
+}
+[data-theme='dark'] .cdp-quick-stats,
+[data-theme='dark'] .cdp-ov-info-card,
+[data-theme='dark'] .cdp-curr-module,
+[data-theme='dark'] .cdp-inst-card,
+[data-theme='dark'] .cdp-reviews-summary,
+[data-theme='dark'] .cdp-review-card,
+[data-theme='dark'] .cdp-reviews-empty,
+[data-theme='dark'] .cdp-faq-item,
+[data-theme='dark'] .cdp-purchase-card {
+  background: var(--surface-primary);
+  border-color: var(--border-primary);
+  box-shadow: var(--shadow-card);
+}
+[data-theme='dark'] .cdp-tabs,
+[data-theme='dark'] .cdp-pc-includes,
+[data-theme='dark'] .cdp-pc-audience,
+[data-theme='dark'] .cdp-pc-coupon,
+[data-theme='dark'] .cdp-ov-info-row,
+[data-theme='dark'] .cdp-curr-lesson,
+[data-theme='dark'] .cdp-inst-stats { border-color: var(--divider); }
+[data-theme='dark'] .cdp-share-btn,
+[data-theme='dark'] .cdp-coupon-btn,
+[data-theme='dark'] .cdp-btn-add-cart,
+[data-theme='dark'] .cdp-btn-wishlist { color: var(--text-primary); background: var(--bg-tertiary); border-color: var(--border-secondary); }
+[data-theme='dark'] .cdp-coupon-input { color: var(--text-primary); background: var(--bg-tertiary); border-color: var(--border-primary); }
+[data-theme='dark'] .cdp-pc-discount-badge { background: rgba(242,185,61,.12); }
+
+/* Cart */
+[data-theme='dark'] .cart-page { background: var(--bg-primary); }
+[data-theme='dark'] .cart-breadcrumb-bar { background: var(--bg-primary); border-color: var(--divider); }
+[data-theme='dark'] .cart-item,
+[data-theme='dark'] .cart-summary,
+[data-theme='dark'] .cart-empty,
+[data-theme='dark'] .cart-skeleton-item,
+[data-theme='dark'] .cart-reco-card {
+  background: var(--surface-primary);
+  border-color: var(--border-primary);
+  box-shadow: var(--shadow-card);
+}
+[data-theme='dark'] .cart-summary-total { border-color: var(--divider); }
+[data-theme='dark'] .cart-coupon-input,
+[data-theme='dark'] .cart-coupon-btn { color: var(--text-primary); background: var(--bg-tertiary); border-color: var(--border-primary); }
+[data-theme='dark'] .cart-coupon-applied,
+[data-theme='dark'] .cart-reco-btn.in-cart { background: rgba(95,189,91,.12); }
+[data-theme='dark'] .skel { background: linear-gradient(90deg, var(--surface-secondary) 25%, var(--surface-hover) 50%, var(--surface-secondary) 75%); background-size: 400% 100%; }
+
+/* Checkout */
+[data-theme='dark'] .chk-page { background: radial-gradient(circle at 88% 4%, rgba(75,104,242,.08), transparent 28%), var(--bg-primary); }
+[data-theme='dark'] .chk-breadcrumb-bar { background: var(--bg-primary); border-color: var(--divider); }
+[data-theme='dark'] .chk-main-card,
+[data-theme='dark'] .chk-order-summary,
+[data-theme='dark'] .chk-coupon,
+[data-theme='dark'] .chk-guarantee-card,
+[data-theme='dark'] .chk-empty {
+  background: var(--surface-primary);
+  border-color: var(--border-primary);
+  box-shadow: var(--shadow-card);
+}
+[data-theme='dark'] .chk-method,
+[data-theme='dark'] .chk-wallet-btn,
+[data-theme='dark'] .chk-demo-qr,
+[data-theme='dark'] .chk-coupon-btn { color: var(--text-primary); background: var(--bg-tertiary); border-color: var(--border-primary); }
+[data-theme='dark'] .chk-method.selected { background: rgba(75,104,242,.09); }
+[data-theme='dark'] .chk-radio { background: var(--bg-tertiary); border-color: #76849a; }
+[data-theme='dark'] .chk-method-icon { color: #8da7da; background: var(--surface-secondary); }
+[data-theme='dark'] .chk-logo { filter: brightness(1.55) saturate(1.05); }
+[data-theme='dark'] .chk-card-details,
+[data-theme='dark'] .chk-upi-form,
+[data-theme='dark'] .chk-nb-form,
+[data-theme='dark'] .chk-wallet-form,
+[data-theme='dark'] .chk-wallet-visual { background: var(--bg-secondary); border-color: var(--border-primary); }
+[data-theme='dark'] .chk-field input,
+[data-theme='dark'] .chk-select,
+[data-theme='dark'] .chk-coupon-input { color: var(--text-primary); background: var(--bg-tertiary); border-color: var(--border-primary); }
+[data-theme='dark'] .chk-divider,
+[data-theme='dark'] .chk-os-includes,
+[data-theme='dark'] .chk-os-total { border-color: var(--divider); }
+[data-theme='dark'] .chk-os-breakdown { background: var(--bg-secondary); border-color: var(--divider); }
+[data-theme='dark'] .chk-security { background: rgba(95,189,91,.08); border-color: rgba(95,189,91,.25); }
+[data-theme='dark'] .chk-coupon-applied { background: rgba(95,189,91,.12); }
+
+/* Order success */
+[data-theme='dark'] .order-success-page { background: radial-gradient(circle at 20% 5%, rgba(95,189,91,.06), transparent 30%), var(--bg-primary); }
+[data-theme='dark'] .order-breadcrumb-bar { background: var(--bg-primary); border-color: var(--divider); }
+[data-theme='dark'] .order-success-hero,
+[data-theme='dark'] .order-side-card,
+[data-theme='dark'] .order-state-card { background: var(--surface-primary); border-color: var(--border-primary); }
+[data-theme='dark'] .order-email-card { background: rgba(95,189,91,.08); border-color: rgba(95,189,91,.25); }
+[data-theme='dark'] .order-success-icon-ring { border-color: rgba(95,189,91,.14); box-shadow: 0 0 0 13px rgba(95,189,91,.05); }
+[data-theme='dark'] .order-info-card,
+[data-theme='dark'] .order-info-item,
+[data-theme='dark'] .order-includes,
+[data-theme='dark'] .order-price-total { border-color: var(--divider); }
+[data-theme='dark'] .order-action-secondary,
+[data-theme='dark'] .order-support-actions button,
+[data-theme='dark'] .order-support-actions a { background: var(--bg-tertiary); }
+
+/* Profile pages */
+[data-theme='dark'] .profile-hero {
+  background: linear-gradient(105deg, var(--surface-primary), var(--surface-secondary));
+  border: 1px solid var(--border-primary);
+  box-shadow: var(--shadow-card);
+}
+[data-theme='dark'] .profile-stat-card,
+[data-theme='dark'] .profile-section-card,
+[data-theme='dark'] .profile-course-card,
+[data-theme='dark'] .profile-achievement-card { border-color: var(--border-primary); }
+[data-theme='dark'] .profile-course-art--blue,
+[data-theme='dark'] .profile-achievement-card--blue { background: rgba(75,104,242,.12); }
+[data-theme='dark'] .profile-course-art--green,
+[data-theme='dark'] .profile-achievement-card--green { background: rgba(95,189,91,.1); }
+[data-theme='dark'] .profile-course-art--purple,
+[data-theme='dark'] .profile-achievement-card--purple { background: rgba(138,92,246,.1); }
+[data-theme='dark'] .profile-api-empty { background: var(--bg-secondary); }
+[data-theme='dark'] .profile-activity-item + .profile-activity-item { border-color: var(--divider); }
+[data-theme='dark'] .profile-activity-skeleton { background: linear-gradient(90deg, var(--surface-secondary) 25%, var(--surface-hover) 50%, var(--surface-secondary) 75%); background-size: 200% 100%; }
+[data-theme='dark'] .mycourse-lms-activity,
+[data-theme='dark'] .mycourse-state { color: var(--text-body); background: var(--bg-tertiary); border-color: var(--border-primary); }
+[data-theme='dark'] .mycourse-activity-details { border-color: var(--divider); }
+[data-theme='dark'] .mycourse-activity-summary-count,
+[data-theme='dark'] .mycourse-lms-activity b { color: var(--text-secondary); background: var(--surface-active); }
+[data-theme='dark'] .wishlist-empty { background: var(--surface-primary); border: 1px solid var(--border-primary); }
+[data-theme='dark'] .wishlist-heart { background: rgba(8,20,38,.9); }
+[data-theme='dark'] .cert-tab { background: var(--surface-primary); border-color: var(--border-primary); box-shadow: none; }
+[data-theme='dark'] .cert-tab.is-active { border-color: var(--blue); }
+[data-theme='dark'] .cert-preview { /* The printable credential intentionally stays light. */ color-scheme: light; }
+[data-theme='dark'] .cert-preview .cert-preview-brand,
+[data-theme='dark'] .cert-preview .cert-preview-heading,
+[data-theme='dark'] .cert-preview .cert-preview-name,
+[data-theme='dark'] .cert-preview .cert-preview-course,
+[data-theme='dark'] .cert-preview .cert-preview-signature { color: #1b2b4b; }
+[data-theme='dark'] .cert-preview .cert-preview-for { color: #5a6b87; }
+[data-theme='dark'] .cert-preview .cert-preview-role { color: #8a97ab; }
+[data-theme='dark'] .cert-progress-track { background: var(--surface-active); }
+[data-theme='dark'] .orders-table thead { background: var(--surface-secondary); }
+[data-theme='dark'] .orders-table tbody tr + tr { border-color: var(--divider); }
+[data-theme='dark'] .orders-loading,
+[data-theme='dark'] .orders-empty,
+[data-theme='dark'] .orders-detail { background: var(--surface-primary); border-color: var(--border-primary); }
+[data-theme='dark'] .orders-detail-row > td,
+[data-theme='dark'] .orders-detail-items article { background: var(--bg-secondary); }
+[data-theme='dark'] .orders-detail > header,
+[data-theme='dark'] .orders-detail > footer { border-color: var(--divider); }
+[data-theme='dark'] .orders-scroll { scrollbar-color: #58657a #111c2e; }
+[data-theme='dark'] .pay-card-menu,
+[data-theme='dark'] .pay-secure-chip { color: var(--text-secondary); background: var(--bg-tertiary); border-color: var(--border-primary); }
+[data-theme='dark'] .help-contact-card,
+[data-theme='dark'] .help-faq-list,
+[data-theme='dark'] .help-banner { background: var(--surface-primary); border-color: var(--border-primary); box-shadow: var(--shadow-card); }
+[data-theme='dark'] .help-search-input { color: var(--text-primary); background: var(--bg-tertiary); border-color: var(--border-primary); }
+[data-theme='dark'] .help-faq-item + .help-faq-item { border-color: var(--divider); }
+
+/* Focused course player, assignments, discussions and notes */
+[data-theme='dark'] .learn-page { background: var(--bg-primary); }
+[data-theme='dark'] .learn-back-button,
+[data-theme='dark'] .learn-bookmark-button,
+[data-theme='dark'] .learn-info-card,
+[data-theme='dark'] .learn-sidebar-card,
+[data-theme='dark'] .learn-resources-card,
+[data-theme='dark'] .lms-tabs-card,
+[data-theme='dark'] .learn-completion-dialog {
+  color: var(--text-primary);
+  background: var(--surface-primary);
+  border-color: var(--border-primary);
+  box-shadow: var(--shadow-card);
+}
+[data-theme='dark'] .learn-course-heading > span { color: var(--gold, #f2b93d); }
+[data-theme='dark'] .learn-progress-track { background: var(--surface-active); }
+[data-theme='dark'] .learn-sidebar-tabs,
+[data-theme='dark'] .learn-module,
+[data-theme='dark'] .lms-tabs,
+[data-theme='dark'] .learn-info-card > div,
+[data-theme='dark'] .lms-upload { border-color: var(--divider); }
+[data-theme='dark'] .learn-lesson-row:hover:not(:disabled) { background: var(--surface-hover); }
+[data-theme='dark'] .learn-lesson-row.is-current { color: #8fa3ff; background: var(--surface-active); }
+[data-theme='dark'] .learn-lesson-play { background: var(--bg-tertiary); border-color: var(--border-secondary); }
+[data-theme='dark'] .learn-resource-list a:hover,
+[data-theme='dark'] .learn-note,
+[data-theme='dark'] .lms-overview-copy,
+[data-theme='dark'] .lms-discussion-editor,
+[data-theme='dark'] .lms-reply,
+[data-theme='dark'] .lms-notes-editor { background: var(--bg-secondary); }
+[data-theme='dark'] .lms-quiz-panel { background: linear-gradient(135deg, var(--surface-secondary), var(--bg-secondary)); border-color: var(--border-primary); }
+[data-theme='dark'] .lms-assignment-meta,
+[data-theme='dark'] .lms-assignment-meta > span,
+[data-theme='dark'] .lms-discussion-item,
+[data-theme='dark'] .lms-notes-list > article { border-color: var(--border-primary); }
+[data-theme='dark'] .lms-attachment-list a { background: rgba(75,104,242,.1); }
+[data-theme='dark'] .lms-upload-drop { background: var(--bg-tertiary); border-color: var(--border-secondary); }
+[data-theme='dark'] .learn-note textarea,
+[data-theme='dark'] .lms-upload textarea,
+[data-theme='dark'] .lms-discussion-editor textarea,
+[data-theme='dark'] .lms-inline-edit textarea,
+[data-theme='dark'] .lms-notes-editor textarea,
+[data-theme='dark'] .lms-discussion-head select,
+[data-theme='dark'] .lms-reply-edit input,
+[data-theme='dark'] .lms-reply-compose input,
+[data-theme='dark'] .lms-notes-editor input,
+[data-theme='dark'] .lms-notes-search input {
+  color: var(--text-primary);
+  background: var(--bg-tertiary);
+  border-color: var(--border-primary);
+}
+
+/* Quiz */
+[data-theme='dark'] .quiz-page { background: var(--bg-primary); }
+[data-theme='dark'] .quiz-header-card,
+[data-theme='dark'] .quiz-question-card,
+[data-theme='dark'] .quiz-history,
+[data-theme='dark'] .quiz-result-card,
+[data-theme='dark'] .quiz-review {
+  background: var(--surface-primary);
+  border-color: var(--border-primary);
+  box-shadow: var(--shadow-card);
+}
+[data-theme='dark'] .quiz-timer { background: rgba(75,104,242,.12); }
+[data-theme='dark'] .quiz-progress-track { background: var(--surface-active); }
+[data-theme='dark'] .quiz-question-meta span { color: #b69aff; background: rgba(138,92,246,.16); }
+[data-theme='dark'] .quiz-option,
+[data-theme='dark'] .quiz-dot-nav button,
+[data-theme='dark'] .quiz-secondary { color: var(--text-secondary); background: var(--bg-tertiary); border-color: var(--border-primary); }
+[data-theme='dark'] .quiz-option > span { color: var(--text-primary); background: var(--surface-active); }
+[data-theme='dark'] .quiz-option.is-selected { color: var(--text-primary); background: var(--surface-active); border-color: var(--blue); }
+[data-theme='dark'] .quiz-history article,
+[data-theme='dark'] .quiz-result-stats,
+[data-theme='dark'] .quiz-result-stats div,
+[data-theme='dark'] .quiz-review article { border-color: var(--divider); }
+[data-theme='dark'] .quiz-history .is-passed { color: #84d981; background: rgba(95,189,91,.16); }
+[data-theme='dark'] .quiz-history .is-failed { color: #ff8582; background: rgba(239,83,80,.16); }
+[data-theme='dark'] .quiz-score-circle > div,
+[data-theme='dark'] .quiz-review article > div { background: var(--bg-secondary); }
+
+/* Certificate verification */
+[data-theme='dark'] .verify-page { background: radial-gradient(circle at 50% 0, rgba(75,104,242,.09), transparent 35%), var(--bg-primary); }
+[data-theme='dark'] .verify-card { background: var(--surface-primary); border-color: var(--border-primary); box-shadow: var(--shadow-card); }
+[data-theme='dark'] .verify-details,
+[data-theme='dark'] .verify-details > div { border-color: var(--divider); }
+[data-theme='dark'] .verify-code { color: #91a7ff; background: var(--bg-secondary); }
+[data-theme='dark'] .verify-icon { border-color: rgba(95,189,91,.18); box-shadow: 0 0 0 10px rgba(95,189,91,.07); }
+
+/* Secondary public routes inherit the same premium surface system. */
+[data-theme='dark'] .about-page,
+[data-theme='dark'] .events-page,
+[data-theme='dark'] .services-page,
+[data-theme='dark'] .testimonials-page,
+[data-theme='dark'] .contact-page,
+[data-theme='dark'] .status-page { background: var(--bg-primary); }
+[data-theme='dark'] .status-page__card { color: var(--text-body); background: var(--surface-primary); border-color: var(--border-primary); }
+
+/* Remaining public/shared sections */
+[data-theme='dark'] .ahero,
+[data-theme='dark'] .amission,
+[data-theme='dark'] .astory,
+[data-theme='dark'] .astats,
+[data-theme='dark'] .programs-hero,
+[data-theme='dark'] .programs-features,
+[data-theme='dark'] .popular-programs,
+[data-theme='dark'] .how-it-works,
+[data-theme='dark'] .programs-stats,
+[data-theme='dark'] .shero,
+[data-theme='dark'] .scards,
+[data-theme='dark'] .swhy,
+[data-theme='dark'] .spop,
+[data-theme='dark'] .sprocess,
+[data-theme='dark'] .spricing,
+[data-theme='dark'] .sstats,
+[data-theme='dark'] .sfaq,
+[data-theme='dark'] .scta,
+[data-theme='dark'] .thero,
+[data-theme='dark'] .tstats,
+[data-theme='dark'] .tsection,
+[data-theme='dark'] .tcta,
+[data-theme='dark'] .chero,
+[data-theme='dark'] .cinfo,
+[data-theme='dark'] .cmap { background: var(--bg-primary); }
+[data-theme='dark'] .amission-card,
+[data-theme='dark'] .awhy-card,
+[data-theme='dark'] .astats-card,
+[data-theme='dark'] .programs-features-card,
+[data-theme='dark'] .programs-stats-card,
+[data-theme='dark'] .pcard,
+[data-theme='dark'] .scard,
+[data-theme='dark'] .sprocess-track,
+[data-theme='dark'] .sstats-card,
+[data-theme='dark'] .sfaq-item,
+[data-theme='dark'] .splan,
+[data-theme='dark'] .tstats-card,
+[data-theme='dark'] .tcta-card,
+[data-theme='dark'] .tcard,
+[data-theme='dark'] .cinfo-card,
+[data-theme='dark'] .cinfo-form-card,
+[data-theme='dark'] .cmap-card {
+  background: var(--surface-primary);
+  border-color: var(--border-primary);
+  box-shadow: var(--shadow-card);
+}
+[data-theme='dark'] .tcta-card { background: var(--surface-secondary); }
+[data-theme='dark'] .amission-item.has-divider,
+[data-theme='dark'] .astats-item.has-divider,
+[data-theme='dark'] .programs-feature-item + .programs-feature-item,
+[data-theme='dark'] .pcard-meta { border-color: var(--divider); }
+[data-theme='dark'] .programs-btn-how,
+[data-theme='dark'] .shero-btn-consult,
+[data-theme='dark'] .thero-btn-video,
+[data-theme='dark'] .tsection-arrow,
+[data-theme='dark'] .splan-btn { color: var(--text-primary); background: var(--bg-tertiary); border-color: var(--border-secondary); }
+[data-theme='dark'] .cinfo-form input,
+[data-theme='dark'] .cinfo-form select,
+[data-theme='dark'] .cinfo-form textarea { color: var(--text-primary); background: var(--bg-tertiary); border-color: var(--border-primary); }
+[data-theme='dark'] .amission-copy p,
+[data-theme='dark'] .chero-features li { color: var(--text-secondary); }
+
+/* Generated illustrations contain full-canvas white paths and pale backdrop
+   blobs. Recolour only those backdrop paths; cards, people and brand artwork
+   keep their authored colours. */
+[data-theme='dark'] .programs-hero-illustration,
+[data-theme='dark'] .shero-illustration,
+[data-theme='dark'] .swhy-illustration,
+[data-theme='dark'] .thero-illustration,
+[data-theme='dark'] .ahero-illustration,
+[data-theme='dark'] .astory-illustration,
+[data-theme='dark'] .chero-illustration {
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+}
+[data-theme='dark'] .svg-programs-inline > path:first-of-type,
+[data-theme='dark'] .svg-testimonials-inline > path:first-of-type,
+[data-theme='dark'] .svg-about-hero-inline > path:first-of-type,
+[data-theme='dark'] .svg-about-story-inline > path:first-of-type {
+  fill: transparent;
+}
+[data-theme='dark'] .svg-programs-inline > path:nth-of-type(2),
+[data-theme='dark'] .svg-testimonials-inline > path:nth-of-type(2),
+[data-theme='dark'] .svg-about-hero-inline > path:nth-of-type(2),
+[data-theme='dark'] .svg-services-inline > path:first-of-type,
+[data-theme='dark'] .svg-contact-hero > path:first-of-type {
+  fill: var(--bg-secondary);
+}
+
+/* The traced services/contact art uses two adjacent pale pieces for one large
+   background blob. Giving both pieces the same theme surface avoids a seam. */
+[data-theme='dark'] .shero-illustration .svg-services-inline > path:nth-of-type(2),
+[data-theme='dark'] .shero-illustration .svg-services-inline > path:nth-of-type(3),
+[data-theme='dark'] .swhy-illustration .svg-services-inline > path:nth-of-type(2),
+[data-theme='dark'] .svg-contact-hero > path:nth-of-type(2) {
+  fill: var(--bg-secondary);
+}
+
+/* Dark artwork panels. These are the substantial white card paths inside the
+   generated SVGs; keeping the selectors path-specific preserves books, skin,
+   clothing, charts and small specular highlights. */
+[data-theme='dark'] .hero-illustration-svg > path:nth-of-type(161),
+[data-theme='dark'] .hero-illustration-svg > path:nth-of-type(171),
+[data-theme='dark'] .hero-illustration-svg > path:nth-of-type(217),
+[data-theme='dark'] .svg-course-inline > path:nth-of-type(119),
+[data-theme='dark'] .svg-course-inline > path:nth-of-type(171),
+[data-theme='dark'] .svg-course-inline > path:nth-of-type(180),
+[data-theme='dark'] .svg-programs-inline > path:nth-of-type(147),
+[data-theme='dark'] .svg-programs-inline > path:nth-of-type(155),
+[data-theme='dark'] .svg-programs-inline > path:nth-of-type(156),
+[data-theme='dark'] .svg-programs-inline > path:nth-of-type(205),
+[data-theme='dark'] .shero-illustration .svg-services-inline > path:nth-of-type(36),
+[data-theme='dark'] .shero-illustration .svg-services-inline > path:nth-of-type(38),
+[data-theme='dark'] .shero-illustration .svg-services-inline > path:nth-of-type(95),
+[data-theme='dark'] .shero-illustration .svg-services-inline > path:nth-of-type(131),
+[data-theme='dark'] .shero-illustration .svg-services-inline > path:nth-of-type(153),
+[data-theme='dark'] .shero-illustration .svg-services-inline > path:nth-of-type(246),
+[data-theme='dark'] .shero-illustration .svg-services-inline > path:nth-of-type(275),
+[data-theme='dark'] .svg-testimonials-inline > path:nth-of-type(3),
+[data-theme='dark'] .svg-testimonials-inline > path:nth-of-type(88),
+[data-theme='dark'] .svg-testimonials-inline > path:nth-of-type(107),
+[data-theme='dark'] .svg-testimonials-inline > path:nth-of-type(108),
+[data-theme='dark'] .svg-testimonials-inline > path:nth-of-type(142),
+[data-theme='dark'] .svg-about-hero-inline > path:nth-of-type(69),
+[data-theme='dark'] .svg-about-hero-inline > path:nth-of-type(74),
+[data-theme='dark'] .svg-contact-hero > path:nth-of-type(28),
+[data-theme='dark'] .svg-contact-hero > path:nth-of-type(120) {
+  fill: var(--surface-elevated);
+}
+
+[data-theme='dark'] .svg-about-hero-inline > path:nth-of-type(3) {
+  fill: var(--bg-secondary);
+}
+
+/* The Contact support-card lettering was authored in navy for a white card.
+   Its card is dark in this theme, so give only the 24/7 label bright contrast. */
+[data-theme='dark'] .svg-contact-hero > path:nth-of-type(n + 133):nth-of-type(-n + 142) {
+  fill: var(--text-heading);
+}
+
+/* Pale separator strokes authored as filled paths become muted blue-grey on
+   the dark cards, matching the supplied dark illustration references. */
+[data-theme='dark'] .svg-programs-inline > path:nth-of-type(212),
+[data-theme='dark'] .svg-programs-inline > path:nth-of-type(213),
+[data-theme='dark'] .svg-programs-inline > path:nth-of-type(214),
+[data-theme='dark'] .svg-programs-inline > path:nth-of-type(225),
+[data-theme='dark'] .svg-programs-inline > path:nth-of-type(231),
+[data-theme='dark'] .svg-programs-inline > path:nth-of-type(233),
+[data-theme='dark'] .svg-testimonials-inline > path:nth-of-type(87),
+[data-theme='dark'] .svg-testimonials-inline > path:nth-of-type(147),
+[data-theme='dark'] .svg-testimonials-inline > path:nth-of-type(148),
+[data-theme='dark'] .svg-about-hero-inline > path:nth-of-type(194),
+[data-theme='dark'] .svg-about-hero-inline > path:nth-of-type(195),
+[data-theme='dark'] .svg-about-hero-inline > path:nth-of-type(197),
+[data-theme='dark'] .svg-about-hero-inline > path:nth-of-type(198),
+[data-theme='dark'] .svg-about-hero-inline > path:nth-of-type(199) {
+  fill: var(--border-secondary);
+}
+
+/* Public-page eyebrow pills use dark translucent surfaces in the supplied
+   dark mockups instead of the light theme's solid powder-blue fill. */
+[data-theme='dark'] .shero-badge,
+[data-theme='dark'] .scards-badge,
+[data-theme='dark'] .swhy-badge,
+[data-theme='dark'] .spop-badge,
+[data-theme='dark'] .sprocess-badge,
+[data-theme='dark'] .spricing-badge,
+[data-theme='dark'] .sfaq-badge,
+[data-theme='dark'] .thero-badge,
+[data-theme='dark'] .tsection-badge,
+[data-theme='dark'] .ahero-badge,
+[data-theme='dark'] .astory-badge,
+[data-theme='dark'] .chero-badge,
+[data-theme='dark'] .cmap-badge {
+  color: var(--blue-bright);
+  background: rgba(75, 104, 242, 0.14);
+  border: 1px solid rgba(106, 130, 255, 0.18);
+}
+
+[data-theme='dark'] .whychoose-badge {
+  color: var(--blue-bright);
+  background: rgba(75, 104, 242, 0.14);
+  border: 1px solid rgba(106, 130, 255, 0.18);
+}
+
+/* Remaining public illustrations: remove the traced paper canvas and render
+   the substantial floating UI cards as dark surfaces. */
+[data-theme='dark'] .whychoose-illustration-svg > path:nth-of-type(1) {
+  fill: transparent;
+}
+[data-theme='dark'] .whychoose-illustration-svg > path:nth-of-type(2),
+[data-theme='dark'] .whychoose-illustration-svg > path:nth-of-type(3) {
+  fill: var(--bg-secondary);
+}
+[data-theme='dark'] .whychoose-illustration-svg > path:nth-of-type(31),
+[data-theme='dark'] .whychoose-illustration-svg > path:nth-of-type(32),
+[data-theme='dark'] .whychoose-illustration-svg > path:nth-of-type(132),
+[data-theme='dark'] .swhy-illustration .svg-services-inline > path:nth-of-type(4),
+[data-theme='dark'] .swhy-illustration .svg-services-inline > path:nth-of-type(54),
+[data-theme='dark'] .swhy-illustration .svg-services-inline > path:nth-of-type(55),
+[data-theme='dark'] .swhy-illustration .svg-services-inline > path:nth-of-type(68),
+[data-theme='dark'] .swhy-illustration .svg-services-inline > path:nth-of-type(77) {
+  fill: var(--surface-elevated);
+}
+
+/* The original student artwork includes a white world-map texture inside the
+   small analytics tile. In dark mode it reads as a damaged/overlaid image, so
+   mute the texture while preserving its blue and green chart bars. */
+[data-theme='dark'] .swhy-illustration .svg-services-inline > path:nth-of-type(n + 164):nth-of-type(-n + 234)[fill='#F9FCFD'],
+[data-theme='dark'] .swhy-illustration .svg-services-inline > path:nth-of-type(n + 164):nth-of-type(-n + 234)[fill='#FAFBFE'],
+[data-theme='dark'] .swhy-illustration .svg-services-inline > path:nth-of-type(n + 164):nth-of-type(-n + 234)[fill='#FDFDFE'],
+[data-theme='dark'] .swhy-illustration .svg-services-inline > path:nth-of-type(n + 164):nth-of-type(-n + 234)[fill='#FEFEFD'] {
+  fill: var(--border-secondary);
+  opacity: 0.52;
+}
+
+/* Learner CTA: the light cream card made white headings unreadable after the
+   global theme variables switched. Keep the complete component dark. */
+[data-theme='dark'] .joincta-card,
+[data-theme='dark'] .tcta-card {
+  background: linear-gradient(135deg, var(--surface-secondary), var(--surface-primary));
+  border: 1px solid var(--border-primary);
+  box-shadow: var(--shadow-card);
+}
+[data-theme='dark'] .joincta-copy h2,
+[data-theme='dark'] .tcta-copy h2 { color: var(--text-heading); }
+[data-theme='dark'] .joincta-copy p,
+[data-theme='dark'] .tcta-copy p { color: var(--text-body); }
+
+/* Authentication pages */
+[data-theme='dark'] .authpage { background: var(--bg-primary); }
+[data-theme='dark'] .authpanel,
+[data-theme='dark'] .authpanel--admin {
+  background: linear-gradient(150deg, var(--surface-primary), var(--bg-secondary));
+  border: 1px solid var(--border-primary);
+}
+[data-theme='dark'] .authpage--admin { background: var(--bg-primary); }
+[data-theme='dark'] .authpage--admin .authpage-inner {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-primary);
+  box-shadow: var(--shadow-soft);
+}
+[data-theme='dark'] .authpage--admin .authpage-card-col {
+  background: linear-gradient(145deg, var(--bg-secondary), var(--bg-primary));
+}
+[data-theme='dark'] .authpanel-badge,
+[data-theme='dark'] .authpanel--admin .authpanel-badge {
+  color: var(--blue-bright);
+  background: rgba(75, 104, 242, 0.14);
+  border: 1px solid rgba(106, 130, 255, 0.18);
+}
+[data-theme='dark'] .authpanel-brand-name,
+[data-theme='dark'] .authpanel-title,
+[data-theme='dark'] .authpanel-feature-title,
+[data-theme='dark'] .authpanel--admin .authpanel-brand-name,
+[data-theme='dark'] .authpanel--admin .authpanel-title,
+[data-theme='dark'] .authpanel--admin .authpanel-feature-title { color: var(--text-heading); }
+[data-theme='dark'] .authpanel-brand-tag,
+[data-theme='dark'] .authpanel-text,
+[data-theme='dark'] .authpanel-feature-text,
+[data-theme='dark'] .authpanel-footer,
+[data-theme='dark'] .authpanel--admin .authpanel-brand-tag,
+[data-theme='dark'] .authpanel--admin .authpanel-text,
+[data-theme='dark'] .authpanel--admin .authpanel-feature-text,
+[data-theme='dark'] .authpanel--admin .authpanel-footer { color: var(--text-body); }
+[data-theme='dark'] .authpanel-admin-orb {
+  border-color: var(--border-primary);
+  box-shadow: 0 0 0 54px rgba(20, 34, 56, 0.52);
+}
+[data-theme='dark'] .authpanel-admin-dots {
+  opacity: 0.4;
+  background-image: radial-gradient(circle, var(--border-secondary) 1.6px, transparent 1.8px);
+}
+[data-theme='dark'] .authpanel-stat + .authpanel-stat { border-color: var(--border-primary); }
+[data-theme='dark'] .authcard { color: var(--text-body); background: var(--surface-primary); border-color: var(--border-primary); box-shadow: var(--shadow-card); }
+[data-theme='dark'] .authfield-box,
+[data-theme='dark'] .authfield-box input,
+[data-theme='dark'] .authcard-social-btn { color: var(--text-primary); background: var(--bg-tertiary); border-color: var(--border-primary); }
+[data-theme='dark'] .authcard-divider::after { background: var(--divider); }
+[data-theme='dark'] .authcard-divider span { background: var(--surface-primary); }
+
+/* Auth artwork cards. The person, clothing, plants and book colors stay
+   untouched; only the original paper/card surfaces are theme-mapped. */
+[data-theme='dark'] .authpage--login .svg-auth-inline > path:nth-of-type(3),
+[data-theme='dark'] .authpage--login .svg-auth-inline > path:nth-of-type(4),
+[data-theme='dark'] .authpage--login .svg-auth-inline > path:nth-of-type(5),
+[data-theme='dark'] .authpage--login .svg-auth-inline > path:nth-of-type(16),
+[data-theme='dark'] .authpage--login .svg-auth-inline > path:nth-of-type(19),
+[data-theme='dark'] .authpage--login .svg-auth-inline > path:nth-of-type(21),
+[data-theme='dark'] .authpage--login .svg-auth-inline > path:nth-of-type(22),
+[data-theme='dark'] .authpage--login .svg-auth-inline > path:nth-of-type(23),
+[data-theme='dark'] .authpage--login .svg-auth-inline > path:nth-of-type(25),
+[data-theme='dark'] .authpage--login .svg-auth-inline > path:nth-of-type(26),
+[data-theme='dark'] .authpage--login .svg-auth-inline > path:nth-of-type(28),
+[data-theme='dark'] .authpage--login .svg-auth-inline > path:nth-of-type(255),
+[data-theme='dark'] .authpage--login .svg-auth-inline > path:nth-of-type(256),
+[data-theme='dark'] .authpage--login .svg-auth-inline > path:nth-of-type(285),
+[data-theme='dark'] .authpage--signup .svg-auth-inline > path:nth-of-type(3),
+[data-theme='dark'] .authpage--signup .svg-auth-inline > path:nth-of-type(4),
+[data-theme='dark'] .authpage--signup .svg-auth-inline > path:nth-of-type(5),
+[data-theme='dark'] .authpage--signup .svg-auth-inline > path:nth-of-type(20),
+[data-theme='dark'] .authpage--signup .svg-auth-inline > path:nth-of-type(30),
+[data-theme='dark'] .authpage--signup .svg-auth-inline > path:nth-of-type(31) {
+  fill: var(--surface-elevated);
+}
+[data-theme='dark'] .authpage--admin .svg-admin > path:nth-of-type(1) { fill: transparent; }
+
+/* Admin illustration: theme-map the monitor casing and dashboard panels. The
+   keyboard, books, plant and graph colours remain authored artwork. */
+[data-theme='dark'] .authpage--admin .svg-admin > path:nth-of-type(148) {
+  fill: var(--surface-elevated);
+}
+[data-theme='dark'] .authpage--admin .svg-admin > path:nth-of-type(573),
+[data-theme='dark'] .authpage--admin .svg-admin > path:nth-of-type(576),
+[data-theme='dark'] .authpage--admin .svg-admin > path:nth-of-type(577),
+[data-theme='dark'] .authpage--admin .svg-admin > path:nth-of-type(578) {
+  fill: var(--bg-tertiary);
+}
+[data-theme='dark'] .authpage--admin .svg-admin > path:nth-of-type(875),
+[data-theme='dark'] .authpage--admin .svg-admin > path:nth-of-type(876),
+[data-theme='dark'] .authpage--admin .svg-admin > path:nth-of-type(882),
+[data-theme='dark'] .authpage--admin .svg-admin > path:nth-of-type(883) {
+  fill: var(--surface-secondary);
+}
+
+@media (max-width: 1080px) {
+  [data-theme='dark'] .dash-sidebar { background: var(--bg-primary); box-shadow: 20px 0 50px rgba(0,0,0,.35); }
+  [data-theme='dark'] .dash-sidebar-card,
+  [data-theme='dark'] .dash-support-card { border-color: var(--border-primary); }
+}

@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /profile/
+Disallow: /checkout
+Disallow: /order-success
+Disallow: /learn/
+Disallow: /quiz/
+
+Sitemap: /sitemap.xml

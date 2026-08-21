@@ -1,0 +1,77 @@
+/* Motion layer for the Services page — transform/opacity only, layered after component CSS.
+   Hero SVG elements are targeted by fill value (auto-converted SVG, no groups):
+   greens = plant, golds = certificate/medal, deep blues = chart data. */
+
+/* ---- hero SVG: floating wrapper + breathing artwork ---- */
+.shero-illustration { animation: em-float 6s ease-in-out infinite; }
+.shero-illustration svg { transform-origin: center; animation: em-breathe 4.5s ease-in-out infinite; }
+.svg-services-inline path { transform-box: fill-box; }
+
+/* plant leaves sway */
+.svg-services-inline path[fill="#05A280"],
+.svg-services-inline path[fill="#0AB288"],
+.svg-services-inline path[fill="#03A082"],
+.svg-services-inline path[fill="#089376"] { transform-origin: 50% 100%; animation: em-sway 5.5s ease-in-out infinite; }
+
+/* certificate / medal golds shine */
+.svg-services-inline path[fill="#FAAB0E"],
+.svg-services-inline path[fill="#FEA702"],
+.svg-services-inline path[fill="#EC8D04"] { animation: em-glow 3s ease-in-out infinite; }
+.svg-services-inline path[fill="#EC8D04"] { animation-delay: -1.5s; }
+
+/* chart data pulse */
+.svg-services-inline path[fill="#0654D2"],
+.svg-services-inline path[fill="#0D69FB"] { animation: em-glow-soft 2.6s ease-in-out infinite; }
+.svg-services-inline path[fill="#0D69FB"] { animation-delay: -1.3s; }
+
+/* ---- hero buttons ---- */
+.shero-btn-explore,
+.shero-btn-consult { transition: transform 0.2s ease, background 0.2s, border-color 0.2s; }
+.shero-btn-explore:hover,
+.shero-btn-consult:hover { transform: translateY(-2px); }
+.shero-btn-explore:active,
+.shero-btn-consult:active { transform: scale(0.97); }
+.shero-btn-explore svg { transition: transform 0.2s ease; }
+.shero-btn-explore:hover svg { transform: translateX(4px); }
+
+/* ---- feature (service) cards ---- */
+.scard { will-change: transform; }
+.scard-icon { display: inline-flex; transition: transform 0.22s ease; }
+.scard:hover .scard-icon { transform: translateY(-3px) scale(1.08); }
+.scard-link svg { transition: transform 0.2s ease; }
+.scard-link:hover svg { transform: translateX(4px); }
+
+/* ---- pricing ---- */
+.splan-highlighted { animation: services-glow 3.2s ease-in-out infinite; }
+.splan-ribbon { transform-origin: center; animation: services-badge-pulse 2.4s ease-in-out infinite; }
+.splan-btn { transition: transform 0.2s ease, background 0.2s, border-color 0.2s, color 0.2s; }
+.splan-btn:hover { transform: translateY(-2px); }
+.splan-btn:active { transform: scale(0.97); }
+
+/* ---- FAQ ---- */
+.sfaq-question { transition: color 0.2s; }
+
+/* ---- statistics ---- */
+.sstats-icon { animation: em-float-sm 3.8s ease-in-out infinite; }
+.sstats-item:nth-child(2) .sstats-icon { animation-delay: -0.7s; }
+.sstats-item:nth-child(3) .sstats-icon { animation-delay: -1.4s; }
+.sstats-item:nth-child(4) .sstats-icon { animation-delay: -2.1s; }
+.sstats-item:nth-child(5) .sstats-icon { animation-delay: -2.8s; }
+
+/* ---- CTA ---- */
+.scta-illustration { animation: em-float 5.5s ease-in-out infinite; }
+.scta-btn { transition: transform 0.2s ease, background 0.2s; }
+.scta-btn:hover { transform: translateY(-2px); }
+.scta-btn:active { transform: scale(0.97); }
+.scta-btn svg { transition: transform 0.2s ease; }
+.scta-btn:hover svg { transform: translateX(4px); }
+
+@keyframes services-glow { 0%, 100% { box-shadow: 0 10px 30px rgba(37, 99, 235, 0.16); } 50% { box-shadow: 0 14px 42px rgba(37, 99, 235, 0.32); } }
+@keyframes services-badge-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.03); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .shero-illustration, .shero-illustration svg, .svg-services-inline path,
+  .splan-highlighted, .splan-ribbon, .sstats-icon, .scta-illustration { animation: none !important; }
+  .shero-btn-explore, .shero-btn-consult, .shero-btn-explore svg,
+  .scard-icon, .scard-link svg, .splan-btn, .scta-btn, .scta-btn svg { transition-duration: 0.01ms !important; }
+}

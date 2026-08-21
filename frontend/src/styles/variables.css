@@ -1,0 +1,89 @@
+:root {
+  /* Brand colors */
+  --navy: #1b2b4b;
+  --navy-dark: #14213d;
+  --navy-btn: #1c2e52;
+  --blue: #2563eb;
+  --blue-bright: #2e63ff;
+  --yellow: #f9b233;
+  --yellow-deep: #ffc107;
+  --orange: #f97316;
+  --green: #22c55e;
+  --purple: #8b5cf6;
+  --pink: #ec4899;
+
+  /* Text */
+  --text-heading: #1b2b4b;
+  --text-body: #5a6b87;
+  --text-muted: #8a97ab;
+
+  /* Surfaces */
+  --bg-white: #ffffff;
+  --bg-light: #f5f7fb;
+  --bg-card: #ffffff;
+  --svg-illustration-bg: #f2f5fd;
+
+  /* Icon tints */
+  --tint-blue: #e3ecff;
+  --tint-green: #dcf7e5;
+  --tint-orange: #ffefd6;
+  --tint-purple: #ede9fe;
+  --tint-pink: #fde7f1;
+
+  /* Shadows */
+  --shadow-card: 0 6px 24px rgba(27, 43, 75, 0.07);
+  --shadow-card-hover: 0 12px 32px rgba(27, 43, 75, 0.12);
+  --shadow-soft: 0 4px 16px rgba(27, 43, 75, 0.06);
+
+  /* Radii */
+  --radius-card: 16px;
+  --radius-pill: 999px;
+
+  /* Layout */
+  --container: 1290px;
+  --font: 'Poppins', -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+
+[data-theme='dark'] {
+  --navy: #f8fafc;
+  --navy-dark: #0b1729;
+  --navy-btn: #203455;
+  --blue: #4b68f2;
+  --blue-bright: #5a76ff;
+  --yellow: #f2b93d;
+  --yellow-deep: #f2b93d;
+  --orange: #f28a33;
+  --green: #5fbd5b;
+  --purple: #8a5cf6;
+
+  --text-heading: #f8fafc;
+  --text-body: #b7c1d1;
+  --text-muted: #8996aa;
+  --text-disabled: #667085;
+
+  --bg-white: #081426;
+  --bg-light: #0b1729;
+  --bg-card: #111e32;
+  --bg-primary: #081426;
+  --bg-secondary: #0b1729;
+  --bg-tertiary: #0f1c30;
+  --surface-primary: #111e32;
+  --surface-secondary: #142238;
+  --surface-elevated: #17263d;
+  --surface-hover: #1b2c47;
+  --surface-active: #203455;
+  --svg-illustration-bg: #0b1729;
+  --border-primary: #283850;
+  --border-secondary: #33445e;
+  --divider: rgba(148, 163, 184, 0.15);
+
+  --tint-blue: rgba(75, 104, 242, 0.15);
+  --tint-green: rgba(95, 189, 91, 0.12);
+  --tint-orange: rgba(242, 138, 51, 0.12);
+  --tint-purple: rgba(138, 92, 246, 0.12);
+  --tint-pink: rgba(236, 72, 153, 0.12);
+
+  --shadow-soft: 0 8px 30px rgba(0, 0, 0, 0.18);
+  --shadow-card: 0 8px 24px rgba(0, 0, 0, 0.2);
+  --shadow-card-hover: 0 12px 32px rgba(0, 0, 0, 0.24);
+}

@@ -1,0 +1,12 @@
+import { Router } from 'express';
+import * as controller from '../controllers/note.controller.js';
+import { authenticate } from '../middleware/authenticate.js';
+import { validate } from '../middleware/validate.js';
+import { noteSchema, updateNoteSchema } from '../validations/assignment.validation.js';
+const router = Router();
+router.use(authenticate);
+router.post('/', validate(noteSchema), controller.create);
+router.patch('/:id', validate(updateNoteSchema), controller.update);
+router.delete('/:id', controller.remove);
+router.get('/:lessonId', controller.list);
+export default router;

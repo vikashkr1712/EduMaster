@@ -1,0 +1,25 @@
+import { client } from './client.js'
+
+export const getAssignment = (lessonId, courseId) => client(`/assignments/${encodeURIComponent(lessonId)}?courseId=${encodeURIComponent(courseId)}`)
+export const getAssignmentHistory = () => client('/assignments/history')
+export async function submitAssignment(assignmentId, file, remarks = '') {
+  const form = new FormData()
+  form.append('solution', file)
+  form.append('remarks', remarks)
+  return client(`/assignments/${encodeURIComponent(assignmentId)}/submit`, { method: 'POST', body: form, headers: {} })
+}
+export const getDiscussions = (lessonId, courseId, sort = 'newest', page = 1) => client(`/discussions/${encodeURIComponent(lessonId)}?courseId=${encodeURIComponent(courseId)}&sort=${encodeURIComponent(sort)}&page=${page}`)
+export const getDiscussionReplies = (id, page) => client(`/discussions/${encodeURIComponent(id)}/replies?page=${page}`)
+export const createDiscussion = (payload) => client('/discussions', { method: 'POST', body: payload })
+export const replyDiscussion = (id, message) => client(`/discussions/${encodeURIComponent(id)}/reply`, { method: 'POST', body: { message } })
+export const updateDiscussionReply = (id, replyId, message) => client(`/discussions/${encodeURIComponent(id)}/replies/${encodeURIComponent(replyId)}`, { method: 'PATCH', body: { message } })
+export const deleteDiscussionReply = (id, replyId) => client(`/discussions/${encodeURIComponent(id)}/replies/${encodeURIComponent(replyId)}`, { method: 'DELETE' })
+export const likeDiscussionReply = (id, replyId) => client(`/discussions/${encodeURIComponent(id)}/replies/${encodeURIComponent(replyId)}/like`, { method: 'POST' })
+export const likeDiscussion = (id) => client(`/discussions/${encodeURIComponent(id)}/like`, { method: 'POST' })
+export const updateDiscussion = (id, question) => client(`/discussions/${encodeURIComponent(id)}`, { method: 'PATCH', body: { question } })
+export const deleteDiscussion = (id) => client(`/discussions/${encodeURIComponent(id)}`, { method: 'DELETE' })
+export const getStudentNotes = (lessonId, courseId, search = '') => client(`/notes/${encodeURIComponent(lessonId)}?courseId=${encodeURIComponent(courseId)}&search=${encodeURIComponent(search)}`)
+export const createStudentNote = (payload) => client('/notes', { method: 'POST', body: payload })
+export const updateStudentNote = (id, payload) => client(`/notes/${encodeURIComponent(id)}`, { method: 'PATCH', body: payload })
+export const deleteStudentNote = (id) => client(`/notes/${encodeURIComponent(id)}`, { method: 'DELETE' })
+export const trackResourceDownload = (payload) => client('/learn/resources/download', { method: 'POST', body: payload })

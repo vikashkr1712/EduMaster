@@ -1,0 +1,134 @@
+/* Page shell shared by the Login and Signup pages —
+   left illustrated panel + right form card + footer. */
+
+.authpage {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-white);
+  padding: 14px 16px 0;
+}
+
+.authpage-inner {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.18fr) minmax(0, 0.82fr);
+  gap: 40px;
+  align-items: stretch;
+  width: 100%;
+  max-width: 1560px;
+  margin: 0 auto;
+}
+
+.authpage-card-col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 8px;
+  min-width: 0;
+}
+
+/* Signup card sits higher because it is taller */
+.authpage--signup .authpage-card-col {
+  align-items: flex-start;
+  padding-top: 14px;
+}
+
+.authpage-footer {
+  text-align: center;
+  font-size: 14px;
+  color: var(--text-body);
+  padding: 20px 0 22px;
+}
+
+.authpage--admin {
+  background: #f5f7fb;
+}
+
+.authpage--admin .authpage-inner {
+  min-height: calc(100vh - 14px);
+  gap: 0;
+  overflow: hidden;
+  border-radius: 24px;
+  box-shadow: 0 10px 30px rgba(19, 43, 91, 0.06);
+}
+
+.authpage--admin .authpanel {
+  border-radius: 24px 0 0 24px;
+}
+
+.authpage--admin .authpage-card-col {
+  padding: 36px 38px;
+  background: linear-gradient(145deg, #f8fafc, #fff 52%);
+}
+
+@media (max-width: 1024px) {
+  .authpage--admin .authpage-inner {
+    gap: 26px;
+    overflow: visible;
+    box-shadow: none;
+  }
+
+  .authpage--admin .authpanel {
+    border-radius: 24px;
+  }
+
+  .authpage--admin .authpage-card-col {
+    padding: 8px 0 0;
+  }
+}
+
+/* ---- tablet ---- */
+@media (max-width: 1400px) {
+  .authpage-inner {
+    gap: 28px;
+  }
+}
+
+@media (max-width: 1180px) {
+  .authpage-inner {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: 22px;
+  }
+}
+
+/* not enough room for two columns — left content on top,
+   authentication card below */
+@media (max-width: 1024px) {
+  .authpage-inner {
+    grid-template-columns: 1fr;
+    gap: 26px;
+  }
+
+  .authpage-card-col,
+  .authpage--signup .authpage-card-col {
+    padding: 8px 0 0;
+  }
+}
+
+/* ---- mobile ---- */
+@media (max-width: 640px) {
+  .authpage {
+    padding: 10px 12px 0;
+  }
+
+  .authpage-inner {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .authpage-card-col,
+  .authpage--signup .authpage-card-col {
+    padding: 0;
+  }
+
+  .authpage-footer {
+    padding: 18px 0 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .authpage {
+    padding: 8px 10px 0;
+  }
+}

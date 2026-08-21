@@ -1,0 +1,78 @@
+/* Motion layer for the Events page — transform/opacity only, layered after component CSS.
+   Hero SVG paths are targeted by nth-of-type index into EventsHero.jsx (auto-converted, no groups);
+   regenerate these indexes if the SVG is re-exported. */
+
+/* ---- hero SVG ---- */
+.programs-hero-illustration svg { transform-origin: center; animation: em-float 6s ease-in-out infinite; }
+.svg-programs-inline path { transform-box: fill-box; }
+
+/* chart bars (green graph, bottom-left panel) — grow up once on load */
+.svg-programs-inline path:nth-of-type(46),
+.svg-programs-inline path:nth-of-type(48),
+.svg-programs-inline path:nth-of-type(49),
+.svg-programs-inline path:nth-of-type(69),
+.svg-programs-inline path:nth-of-type(199),
+.svg-programs-inline path:nth-of-type(203) { transform-origin: 50% 100%; animation: em-grow 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.svg-programs-inline path:nth-of-type(46) { animation-delay: 0.45s; }
+.svg-programs-inline path:nth-of-type(199) { animation-delay: 0.55s; }
+.svg-programs-inline path:nth-of-type(203) { animation-delay: 0.65s; }
+.svg-programs-inline path:nth-of-type(69) { animation-delay: 0.75s; }
+.svg-programs-inline path:nth-of-type(49) { animation-delay: 0.85s; }
+.svg-programs-inline path:nth-of-type(48) { animation-delay: 0.95s; }
+
+/* chat bubble — gentle bob, typing dots pulse */
+.svg-programs-inline path:nth-of-type(205),
+.svg-programs-inline path:nth-of-type(239),
+.svg-programs-inline path:nth-of-type(240),
+.svg-programs-inline path:nth-of-type(243),
+.svg-programs-inline path:nth-of-type(244),
+.svg-programs-inline path:nth-of-type(245) { animation: em-bob 4s ease-in-out infinite; }
+.svg-programs-inline path:nth-of-type(241),
+.svg-programs-inline path:nth-of-type(242) { animation: em-bob 4s ease-in-out infinite, em-glow 1.4s ease-in-out infinite; }
+.svg-programs-inline path:nth-of-type(242) { animation-delay: 0s, -0.7s; }
+
+/* certificate — golden seal and highlights shine */
+.svg-programs-inline path:nth-of-type(207) { transform-origin: center; animation: em-shine 2.8s ease-in-out infinite; }
+.svg-programs-inline path:nth-of-type(208),
+.svg-programs-inline path:nth-of-type(248) { animation: em-glow 2.8s ease-in-out infinite; animation-delay: -1.4s; }
+
+/* ---- event cards ---- */
+.pcard:hover .pcard-meta-item:first-child .pcard-meta-icon { animation: events-cal-bounce 0.5s ease; }
+.pcard-meta-icon { display: inline-flex; }
+
+/* ---- timeline ---- */
+.hiw-step-icon { transition: transform 0.22s ease; }
+.hiw-step:hover .hiw-step-icon { transform: translateY(-3px) scale(1.06); }
+
+/* ---- CTA buttons (hero + view all) ---- */
+.programs-btn-explore,
+.programs-btn-how,
+.popular-programs-viewall { transition: transform 0.2s ease, background 0.2s, border-color 0.2s; }
+.programs-btn-explore:hover,
+.programs-btn-how:hover,
+.popular-programs-viewall:hover { transform: translateY(-2px); }
+.programs-btn-explore:active,
+.programs-btn-how:active,
+.popular-programs-viewall:active { transform: scale(0.97); }
+.programs-btn-explore svg,
+.popular-programs-viewall svg { transition: transform 0.2s ease; }
+.programs-btn-explore:hover svg,
+.popular-programs-viewall:hover svg { transform: translateX(4px); }
+
+/* ---- statistics ---- */
+.programs-stats-icon { animation: em-float-sm 3.8s ease-in-out infinite; }
+.programs-stats-item:nth-child(2) .programs-stats-icon { animation-delay: -0.7s; }
+.programs-stats-item:nth-child(3) .programs-stats-icon { animation-delay: -1.4s; }
+.programs-stats-item:nth-child(4) .programs-stats-icon { animation-delay: -2.1s; }
+.programs-stats-item:nth-child(5) .programs-stats-icon { animation-delay: -2.8s; }
+
+@keyframes events-cal-bounce { 0% { transform: scale(1); } 35% { transform: scale(1.25) rotate(-6deg); } 70% { transform: scale(0.92); } 100% { transform: scale(1); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .programs-hero-illustration svg,
+  .svg-programs-inline path,
+  .programs-stats-icon,
+  .pcard:hover .pcard-meta-item:first-child .pcard-meta-icon { animation: none !important; }
+  .hiw-step-icon, .programs-btn-explore, .programs-btn-how, .popular-programs-viewall,
+  .programs-btn-explore svg, .popular-programs-viewall svg { transition-duration: 0.01ms !important; }
+}

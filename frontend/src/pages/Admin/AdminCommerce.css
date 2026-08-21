@@ -1,0 +1,233 @@
+.admin-commerce,
+.admin-commerce-detail-page { width: 100%; min-width: 0; }
+
+.admin-commerce-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; margin-bottom: 22px; }
+.admin-commerce-heading h1 { margin: 0; color: #101828; font-size: clamp(26px, 3vw, 32px); letter-spacing: -0.035em; }
+.admin-commerce-heading p { margin: 7px 0 0; color: var(--admin-muted); font-size: 14px; }
+.admin-commerce-back { display: inline-flex; align-items: center; gap: 6px; margin-bottom: 9px; color: var(--admin-blue); font-size: 13px; font-weight: 700; text-decoration: none; }
+
+.admin-commerce-summary { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-bottom: 22px; }
+.admin-commerce-summary > div { min-width: 0; padding: 18px; border: 1px solid var(--admin-border); border-radius: 13px; background: white; box-shadow: 0 5px 18px rgba(15, 23, 42, 0.03); }
+.admin-commerce-summary span,
+.admin-commerce-summary strong { display: block; }
+.admin-commerce-summary span { color: var(--admin-muted); font-size: 13px; font-weight: 700; }
+.admin-commerce-summary strong { overflow: hidden; margin-top: 7px; color: #0f2447; font-size: 25px; text-overflow: ellipsis; white-space: nowrap; }
+
+.admin-commerce-manager,
+.admin-commerce-detail-card,
+.admin-order-hero,
+.admin-enrollment-hero,
+.admin-enrollment-progress-panel { min-width: 0; overflow: hidden; border: 1px solid var(--admin-border); border-radius: 14px; background: white; box-shadow: 0 5px 18px rgba(15, 23, 42, 0.03); }
+
+.admin-commerce-toolbar { display: flex; flex-wrap: wrap; gap: 10px; padding: 17px 18px; border-bottom: 1px solid var(--admin-border); background: #fbfcfe; }
+.admin-commerce-search { display: flex; min-width: 290px; flex: 1 1 380px; align-items: center; gap: 9px; min-height: 43px; padding: 0 12px; border: 1px solid #cbd5e1; border-radius: 9px; background: white; color: #64748b; }
+.admin-commerce-search:focus-within { border-color: var(--admin-blue); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
+.admin-commerce-search input { width: 100%; min-width: 0; border: 0; outline: 0; background: transparent; color: #1e293b; font: inherit; font-size: 14px; }
+.admin-commerce-toolbar select { min-width: 145px; min-height: 43px; padding: 8px 32px 8px 11px; border: 1px solid #cbd5e1; border-radius: 9px; background: white; color: #26344c; font: inherit; font-size: 14px; }
+
+.admin-commerce-manager__heading { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 18px; border-bottom: 1px solid var(--admin-border); }
+.admin-commerce-manager__heading h2 { margin: 0; font-size: 19px; }
+.admin-commerce-manager__heading p { margin: 5px 0 0; color: var(--admin-muted); font-size: 13px; }
+.admin-commerce-manager__heading > button { border: 0; background: transparent; color: var(--admin-blue); font: inherit; font-size: 13px; font-weight: 700; cursor: pointer; }
+
+.admin-commerce-table-wrap { width: 100%; min-width: 0; overflow-x: auto; overscroll-behavior-x: contain; }
+.admin-commerce-table { width: 100%; border-collapse: collapse; color: #334155; font-size: 13px; }
+.admin-order-table { min-width: 1050px; }
+.admin-enrollment-table { min-width: 1180px; }
+.admin-commerce-table th { padding: 12px 14px; background: #f8fafc; color: #64748b; font-size: 12px; font-weight: 800; text-align: left; white-space: nowrap; }
+.admin-commerce-table td { padding: 13px 14px; border-top: 1px solid #e8edf4; vertical-align: middle; }
+.admin-commerce-table tbody tr:hover { background: #fbfdff; }
+.admin-order-number { color: #1d4ed8; white-space: nowrap; }
+
+.admin-commerce-person { display: flex; min-width: 185px; align-items: center; gap: 10px; }
+.admin-commerce-person > span,
+.admin-commerce-person strong,
+.admin-commerce-person small,
+.admin-commerce-course-summary,
+.admin-commerce-course-summary strong,
+.admin-commerce-course-summary small { display: block; }
+.admin-commerce-person strong,
+.admin-commerce-course-summary strong { max-width: 200px; overflow: hidden; color: #172b4d; font-size: 13px; text-overflow: ellipsis; white-space: nowrap; }
+.admin-commerce-person small,
+.admin-commerce-course-summary small { max-width: 210px; overflow: hidden; margin-top: 3px; color: #738096; font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
+.admin-commerce-course-summary { min-width: 145px; }
+.admin-commerce-free { color: #15803d; }
+.admin-payment-method { color: #40506a; font-weight: 700; white-space: nowrap; }
+
+.admin-payment-status,
+.admin-completion-status { display: inline-flex; align-items: center; border-radius: 999px; padding: 5px 9px; font-size: 11px; font-weight: 800; white-space: nowrap; }
+.admin-payment-status--completed,
+.admin-completion-status--completed { background: #eaf8ef; color: #15803d; }
+.admin-payment-status--pending { background: #fff6dd; color: #a15c00; }
+.admin-payment-status--failed { background: #fff0ee; color: #b42318; }
+.admin-payment-status--refunded { background: #eee9ff; color: #6941c6; }
+.admin-completion-status--progress { background: #eaf2ff; color: #2459b8; }
+
+.admin-commerce-view { display: inline-flex; min-height: 32px; align-items: center; justify-content: center; gap: 5px; border: 1px solid #dce3ec; border-radius: 7px; background: white; padding: 6px 9px; color: #40506a; font-size: 11px; font-weight: 700; text-decoration: none; white-space: nowrap; }
+.admin-commerce-view:hover { border-color: #9db8ed; background: #f5f8ff; color: #1d4ed8; }
+
+.admin-progress-cell { display: flex; min-width: 125px; align-items: center; gap: 8px; }
+.admin-progress-cell > span { width: 78px; height: 7px; overflow: hidden; border-radius: 999px; background: #e5eaf1; }
+.admin-progress-cell i { display: block; height: 100%; border-radius: inherit; background: #2563eb; }
+.admin-progress-cell strong { min-width: 33px; color: #344054; font-size: 12px; }
+
+.admin-commerce-loading { display: grid; gap: 1px; padding: 1px 0; background: #edf1f6; }
+.admin-commerce-loading span,
+.admin-commerce-detail-loading span { background: linear-gradient(90deg, #f7f9fc 25%, #fff 50%, #f7f9fc 75%); background-size: 200% 100%; animation: admin-commerce-skeleton 1.4s ease-in-out infinite; }
+.admin-commerce-loading span { min-height: 58px; }
+@keyframes admin-commerce-skeleton { to { background-position: -200% 0; } }
+
+.admin-commerce-state { display: grid; min-height: 320px; place-items: center; align-content: center; padding: 40px 22px; text-align: center; }
+.admin-commerce-state h2,
+.admin-commerce-state h3 { margin: 0; font-size: 20px; }
+.admin-commerce-state p { max-width: 560px; margin: 8px 0 20px; color: var(--admin-muted); font-size: 14px; }
+.admin-commerce-button { display: inline-flex; min-height: 42px; align-items: center; justify-content: center; border: 1px solid transparent; border-radius: 9px; padding: 9px 15px; font: inherit; font-size: 14px; font-weight: 750; cursor: pointer; }
+.admin-commerce-button--primary { background: var(--admin-blue); color: white; }
+.admin-commerce-button--secondary { border-color: #d5deea; background: white; color: #40506a; }
+
+.admin-commerce-pagination { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 15px 18px; border-top: 1px solid var(--admin-border); color: var(--admin-muted); font-size: 13px; }
+.admin-commerce-pagination > div { display: flex; gap: 5px; }
+.admin-commerce-pagination button { min-width: 34px; min-height: 34px; border: 1px solid #dbe3ed; border-radius: 8px; background: white; color: #40506a; font: inherit; font-size: 12px; font-weight: 700; cursor: pointer; }
+.admin-commerce-pagination button.is-active { border-color: var(--admin-blue); background: var(--admin-blue); color: white; }
+.admin-commerce-pagination button:disabled { cursor: not-allowed; opacity: 0.45; }
+
+.admin-order-hero,
+.admin-enrollment-hero { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-bottom: 20px; padding: 22px; }
+.admin-order-hero span,
+.admin-enrollment-identity span { color: var(--admin-muted); font-size: 12px; font-weight: 700; }
+.admin-order-hero h2,
+.admin-enrollment-identity h2 { margin: 5px 0 0; color: #172b4d; font-size: 23px; }
+.admin-order-hero p,
+.admin-enrollment-identity p { margin: 5px 0 0; color: var(--admin-muted); font-size: 13px; }
+.admin-order-hero__badges { display: flex; align-items: center; gap: 8px; }
+
+.admin-commerce-detail-grid { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(270px, 0.8fr); gap: 20px; align-items: start; }
+.admin-commerce-detail-main,
+.admin-commerce-detail-side { display: grid; min-width: 0; gap: 20px; }
+.admin-commerce-detail-side { position: sticky; top: 98px; }
+.admin-commerce-section-heading { padding: 18px 20px; border-bottom: 1px solid var(--admin-border); background: #fbfcfe; }
+.admin-commerce-section-heading h2 { margin: 0; font-size: 18px; }
+.admin-commerce-section-heading p { margin: 5px 0 0; color: var(--admin-muted); font-size: 12px; }
+
+.admin-order-items { display: grid; gap: 0; }
+.admin-order-items article { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 13px 20px; padding: 18px 20px; border-top: 1px solid var(--admin-border); }
+.admin-order-items article:first-child { border-top: 0; }
+.admin-order-items article > div { display: flex; min-width: 0; align-items: flex-start; gap: 11px; }
+.admin-order-item-index { display: grid; width: 31px; height: 31px; flex: 0 0 auto; place-items: center; border-radius: 8px; background: #eaf2ff; color: #1d4ed8; font-size: 12px; font-weight: 800; }
+.admin-order-items h3 { margin: 0; color: #172b4d; font-size: 15px; }
+.admin-order-items p { margin: 5px 0 0; color: var(--admin-muted); font-size: 12px; }
+.admin-order-items dl { display: flex; gap: 18px; margin: 0; }
+.admin-order-items dl > div { text-align: right; }
+.admin-order-items dt { color: var(--admin-muted); font-size: 11px; }
+.admin-order-items dd { margin: 4px 0 0; color: #344054; font-size: 13px; font-weight: 750; }
+.admin-order-items article > a { grid-column: 1 / -1; width: fit-content; color: var(--admin-blue); font-size: 12px; font-weight: 700; text-decoration: none; }
+
+.admin-related-list { display: grid; }
+.admin-related-list > a { display: flex; align-items: center; justify-content: space-between; gap: 15px; padding: 14px 20px; border-top: 1px solid var(--admin-border); color: #344054; text-decoration: none; }
+.admin-related-list > a:first-child { border-top: 0; }
+.admin-related-list span,
+.admin-related-list strong,
+.admin-related-list small { display: block; }
+.admin-related-list small { margin-top: 4px; color: var(--admin-muted); font-size: 11px; }
+.admin-related-list > p { margin: 0; padding: 20px; color: var(--admin-muted); font-size: 13px; }
+
+.admin-order-student__body { display: flex; align-items: center; gap: 12px; padding: 20px; }
+.admin-order-student__body strong,
+.admin-order-student__body span { display: block; overflow-wrap: anywhere; }
+.admin-order-student__body strong { font-size: 14px; }
+.admin-order-student__body span { margin-top: 4px; color: var(--admin-muted); font-size: 12px; }
+.admin-commerce-related-link { display: block; padding: 13px 20px; border-top: 1px solid var(--admin-border); color: var(--admin-blue); font-size: 12px; font-weight: 700; text-decoration: none; }
+
+.admin-financial-summary { margin: 0; padding: 9px 20px 16px; }
+.admin-financial-summary > div { display: flex; justify-content: space-between; gap: 14px; padding: 10px 0; border-bottom: 1px solid var(--admin-border); }
+.admin-financial-summary dt { color: var(--admin-muted); font-size: 12px; }
+.admin-financial-summary dd { margin: 0; color: #344054; font-size: 13px; font-weight: 700; text-align: right; }
+.admin-financial-summary .is-total { margin-top: 4px; border: 0; }
+.admin-financial-summary .is-total dt,
+.admin-financial-summary .is-total dd { color: #172b4d; font-size: 15px; font-weight: 800; }
+
+.admin-enrollment-identity { display: flex; align-items: center; gap: 13px; }
+.admin-enrollment-hero__status { display: flex; align-items: center; gap: 12px; }
+.admin-enrollment-hero__status > strong { color: #1d4ed8; font-size: 25px; }
+.admin-enrollment-progress-panel { margin-bottom: 20px; padding: 18px 20px; }
+.admin-enrollment-progress-panel > div:first-child { display: flex; justify-content: space-between; gap: 15px; color: #344054; font-size: 13px; font-weight: 700; }
+.admin-enrollment-progress-track { height: 10px; overflow: hidden; margin-top: 10px; border-radius: 999px; background: #e5eaf1; }
+.admin-enrollment-progress-track i { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #2563eb, #60a5fa); }
+
+.admin-learning-summary { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; padding: 20px; }
+.admin-learning-summary > div { min-width: 0; padding: 14px; border: 1px solid var(--admin-border); border-radius: 10px; background: #fbfcfe; }
+.admin-learning-summary span,
+.admin-learning-summary strong { display: block; }
+.admin-learning-summary span { color: var(--admin-muted); font-size: 11px; font-weight: 700; }
+.admin-learning-summary strong { margin-top: 7px; color: #172b4d; font-size: 19px; }
+
+.admin-enrollment-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; margin: 0; background: var(--admin-border); }
+.admin-enrollment-fields > div { min-width: 0; padding: 14px 20px; background: white; }
+.admin-enrollment-fields dt { color: var(--admin-muted); font-size: 11px; font-weight: 700; }
+.admin-enrollment-fields dd { overflow-wrap: anywhere; margin: 5px 0 0; color: #344054; font-size: 13px; font-weight: 700; }
+.admin-completed-lessons { display: flex; flex-wrap: wrap; gap: 7px; padding: 20px; }
+.admin-completed-lessons span { max-width: 100%; overflow: hidden; border-radius: 999px; background: #eef4ff; padding: 5px 9px; color: #2459b8; font-size: 11px; font-weight: 700; text-overflow: ellipsis; }
+
+.admin-related-record { padding: 20px; }
+.admin-related-record strong,
+.admin-related-record span { display: block; }
+.admin-related-record strong { color: #172b4d; font-size: 15px; }
+.admin-related-record span { margin-top: 5px; color: var(--admin-muted); font-size: 12px; }
+.admin-related-record a { display: inline-block; margin-top: 13px; color: var(--admin-blue); font-size: 12px; font-weight: 700; text-decoration: none; }
+.admin-related-actions { display: grid; }
+.admin-related-actions a { display: flex; align-items: center; gap: 11px; padding: 14px 20px; border-top: 1px solid var(--admin-border); color: #344054; text-decoration: none; }
+.admin-related-actions a:first-child { border-top: 0; }
+.admin-related-actions span,
+.admin-related-actions strong,
+.admin-related-actions small { display: block; min-width: 0; }
+.admin-related-actions small { overflow: hidden; margin-top: 3px; color: var(--admin-muted); font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
+.admin-commerce-integrity { display: flex; align-items: flex-start; gap: 11px; padding: 17px; border: 1px solid #cfe0ff; border-radius: 12px; background: #f3f7ff; color: #2459b8; }
+.admin-commerce-integrity strong { font-size: 13px; }
+.admin-commerce-integrity p { margin: 4px 0 0; color: #5270a0; font-size: 12px; line-height: 1.45; }
+
+.admin-commerce-detail-loading { display: grid; gap: 18px; }
+.admin-commerce-detail-loading span { min-height: 190px; border-radius: 14px; }
+.admin-commerce-sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+
+@media (max-width: 1150px) {
+  .admin-commerce-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .admin-commerce-detail-grid { grid-template-columns: minmax(0, 1fr); }
+  .admin-commerce-detail-side { position: static; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .admin-commerce-integrity { grid-column: 1 / -1; }
+}
+
+@media (max-width: 767px) {
+  .admin-commerce-toolbar { padding: 14px; }
+  .admin-commerce-search { min-width: 100%; flex-basis: 100%; }
+  .admin-commerce-toolbar select { flex: 1 1 calc(50% - 5px); min-width: 145px; }
+  .admin-commerce-pagination { align-items: flex-start; flex-direction: column; }
+  .admin-commerce-pagination > div { width: 100%; overflow-x: auto; padding-bottom: 2px; }
+  .admin-commerce-detail-side { grid-template-columns: minmax(0, 1fr); }
+  .admin-commerce-integrity { grid-column: auto; }
+  .admin-learning-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 575px) {
+  .admin-commerce-heading { align-items: flex-start; flex-direction: column; }
+  .admin-commerce-summary { gap: 10px; }
+  .admin-commerce-summary > div { padding: 14px; }
+  .admin-commerce-summary strong { font-size: 21px; }
+  .admin-commerce-toolbar select { width: 100%; flex-basis: 100%; }
+  .admin-commerce-manager__heading { align-items: flex-start; }
+  .admin-order-hero,
+  .admin-enrollment-hero { align-items: flex-start; flex-direction: column; }
+  .admin-order-items article { grid-template-columns: minmax(0, 1fr); }
+  .admin-order-items dl { justify-content: space-between; }
+  .admin-order-items dl > div { text-align: left; }
+  .admin-order-items article > a { grid-column: auto; }
+  .admin-enrollment-fields { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 390px) {
+  .admin-learning-summary { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .admin-commerce-loading span,
+  .admin-commerce-detail-loading span { animation: none; }
+}

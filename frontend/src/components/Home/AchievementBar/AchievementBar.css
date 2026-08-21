@@ -1,0 +1,51 @@
+.achievebar {
+  background: var(--bg-light);
+  padding: 30px 0 40px;
+}
+
+.achievebar-card {
+  background: var(--bg-white);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-soft);
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  padding: 32px 20px;
+}
+
+.achievebar-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.achievebar-item.has-divider {
+  border-left: 1px solid #eaeef5;
+}
+
+.achievebar-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.achievebar-copy {
+  display: flex;
+  flex-direction: column;
+}
+
+.achievebar-value {
+  font-size: 23px;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.2;
+}
+
+.achievebar-label {
+  font-size: 14px;
+  color: var(--text-body);
+}

@@ -1,0 +1,631 @@
+.authpanel {
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(150deg, #ffffff 0%, #f6f9ff 45%, #e9f0fc 100%);
+  border-radius: 24px;
+  padding: 34px 40px 36px;
+  min-width: 0;
+  overflow: hidden;
+}
+
+/* ---- brand ---- */
+.authpanel-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  align-self: flex-start;
+}
+
+.authpanel-brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.authpanel-brand-name {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.15;
+}
+
+.authpanel-brand-name span {
+  color: var(--yellow);
+}
+
+.authpanel-brand-tag {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* ---- content + illustration ---- */
+.authpanel-main {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  align-items: center;
+  gap: 6px;
+  padding: 26px 0 22px;
+}
+
+/* the signup heading is longer — give its text column more room
+   and let the two heading lines extend over the illustration's
+   empty top-left area, like the reference */
+.authpage--signup .authpanel-main {
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+}
+
+.authpanel-badge {
+  display: inline-block;
+  align-self: flex-start;
+  background: #d8e6fb;
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 8px 18px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 22px;
+}
+
+.authpanel-content {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.authpanel-title {
+  font-size: 36px;
+  line-height: 1.28;
+  font-weight: 700;
+  color: var(--navy);
+  letter-spacing: -0.01em;
+  margin-bottom: 16px;
+  /* the two heading lines may extend over the illustration's
+     empty top-left area, matching the reference */
+  min-width: max-content;
+}
+
+.authpanel-title .authpanel-hl {
+  color: var(--yellow);
+}
+
+.authpanel-text {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--text-body);
+  max-width: 400px;
+  margin-bottom: 30px;
+}
+
+.authpanel-features {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.authpanel-feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.authpanel-feature-icon {
+  flex: 0 0 auto;
+  width: 50px;
+  height: 50px;
+  border-radius: 13px;
+  display: grid;
+  place-items: center;
+}
+
+.authpanel-feature-body {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding-top: 2px;
+}
+
+.authpanel-feature-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.authpanel-feature-text {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-body);
+  max-width: 240px;
+}
+
+.authpanel-illustration {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 0;
+  /* bleed slightly into the panel padding so the scene
+     renders as large as the reference */
+  margin: 0 -22px 0 -14px;
+}
+
+.authpanel-illustration {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 0;
+
+  /* Variables with defaults */
+  --illustration-scale-x: 1;
+  --illustration-scale-y: 1;
+
+  --illustration-offset-x: 0px;
+  --illustration-offset-y: 0px;
+
+  --illustration-origin-x: 50%;
+  --illustration-origin-y: 0%;
+
+  margin: 0 -22px 0 -14px;
+}
+.authpage--login .authpanel-illustration {
+  --illustration-scale-x: 1.10;
+  --illustration-scale-y: 1.70;
+
+  --illustration-offset-x: 0px;
+  --illustration-offset-y: 0px;
+
+  --illustration-origin-x: 50%;
+  --illustration-origin-y: 40%;
+}
+
+.authpage--signup .authpanel-illustration {
+  --illustration-scale-x: 1.20;
+  --illustration-scale-y: 1.80;
+
+  --illustration-offset-x: 0px;
+  --illustration-offset-y: 0px;
+
+  --illustration-origin-x: 68%;
+  --illustration-origin-y: 30%;
+}
+
+/* the signup panel is taller (four feature rows) — enlarge its
+   illustration more so it reaches the last feature row; growth
+   is biased left/down so the right edge is never clipped */
+.authpanel-illustration .svg-auth-inline {
+  display: block;
+  width: 100%;
+  height: auto;
+
+  transform:
+    translate(
+      var(--illustration-offset-x),
+      var(--illustration-offset-y)
+    )
+    scale(
+      var(--illustration-scale-x),
+      var(--illustration-scale-y)
+    );
+
+  transform-origin:
+    var(--illustration-origin-x)
+    var(--illustration-origin-y);
+}
+
+/* ---- icon tints ---- */
+.tint-blue {
+  background: var(--tint-blue);
+  color: var(--blue);
+}
+
+.tint-green {
+  background: var(--tint-green);
+  color: #16a34a;
+}
+
+.tint-orange {
+  background: var(--tint-orange);
+  color: var(--yellow);
+}
+
+.tint-purple {
+  background: var(--tint-purple);
+  color: var(--purple);
+}
+
+/* ---- statistics card ---- */
+.authpanel-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background: var(--bg-white);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-soft);
+  padding: 24px 10px;
+}
+
+.authpanel-footer {
+  margin-top: auto;
+  padding-top: 24px;
+  color: var(--text-body);
+  font-size: 14px;
+}
+
+/* Admin login is a light, integrated illustration variant of the shared panel. */
+.authpanel--admin {
+  position: relative;
+  isolation: isolate;
+ background:#FFFFFF;
+}
+
+.authpanel--admin .authpanel-brand-name,
+.authpanel--admin .authpanel-title,
+.authpanel--admin .authpanel-feature-title {
+  color: var(--navy);
+}
+
+.authpanel--admin .authpanel-brand-tag,
+.authpanel--admin .authpanel-text,
+.authpanel--admin .authpanel-feature-text,
+.authpanel--admin .authpanel-footer {
+  color: #5d6b88;
+}
+
+.authpanel--admin .authpanel-badge {
+  background: #eff3fd;
+  color: #2563eb;
+}
+
+.authpanel--admin .authpanel-main {
+  grid-template-columns: minmax(285px, 0.78fr) minmax(0, 1.22fr);
+  gap: 0;
+  padding: 28px 0 10px;
+}
+
+.authpanel--admin .authpanel-illustration .svg-admin {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    transform: none;
+}
+
+.authpanel--admin .authpanel-illustration {
+  align-self: stretch;
+}
+
+.admin-illustration-group {
+  position: relative;
+  flex: 0 0 auto;
+  max-width: 90%;
+  overflow: visible;
+  transform: translateY(95px) scale(1.18, 1.1);
+  transform-origin: center center;
+}
+
+.authpanel--admin .authpanel-illustration-float {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+}
+
+.authpanel--admin .authpanel-features {
+  gap: 25px;
+}
+
+.authpanel--admin .authpanel-footer {
+  padding-top: 8px;
+}
+
+.authpanel--admin > :not(.authpanel-admin-orb):not(.authpanel-admin-dots) {
+  position: relative;
+  z-index: 1;
+}
+
+.authpanel-admin-orb {
+  position: absolute;
+  z-index: 0;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 1px solid rgba(220, 226, 238, 0.7);
+  box-shadow: 0 0 0 54px rgba(244, 246, 251, 0.62);
+}
+
+.authpanel-admin-dots {
+  position: absolute;
+  z-index: 0;
+  opacity: 0.62;
+  background-image: radial-gradient(circle, #b8c8ef 1.6px, transparent 1.8px);
+  background-size: 16px 16px;
+  mask-image: linear-gradient(110deg, #000, transparent 82%);
+}
+
+.authpanel-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 4px;
+  padding: 0 12px;
+}
+
+.authpanel-stat + .authpanel-stat {
+  border-left: 1px solid #e8edf6;
+}
+
+.authpanel-stat-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  margin-bottom: 8px;
+}
+
+.authpanel-stat-value {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.authpanel-stat-label {
+  font-size: 13.5px;
+  color: var(--text-body);
+}
+
+/* ---- tablet ---- */
+@media (max-width: 1400px) {
+  .authpanel {
+    padding: 30px 32px 32px;
+  }
+
+  .authpanel-title {
+    font-size: 33px;
+  }
+
+  /* less horizontal room — enlarge the illustration less so it
+     never overlaps the feature list text */
+ .authpage--login .authpanel-illustration {
+  --illustration-scale-x: 1.25;
+  --illustration-scale-y: 1.60;
+}
+
+.authpage--signup .authpanel-illustration {
+  --illustration-scale-x: 1.38;
+  --illustration-scale-y: 1.75;
+}
+
+
+
+.admin-illustration-group {
+    transform: translateY(105px) scale(1.23,1.33);
+}
+}
+
+
+
+@media (min-width: 1500px) {
+
+    .admin-illustration-group {
+        transform: translateY(100px) scale(1.28,1.36);
+    }
+
+}
+
+@media (max-width: 1180px) {
+  .authpanel-title {
+    font-size: 29px;
+  }
+
+  .authpanel-main {
+    gap: 14px;
+  }
+
+  .authpanel-features {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .authpanel-title {
+    font-size: 32px;
+  }
+
+  .authpanel-main {
+    gap: 20px;
+    padding: 24px 0 20px;
+  }
+
+  /* illustration scales down slightly but stays centered */
+  .authpanel-illustration {
+    margin: 0;
+  }
+
+.authpanel-illustration .svg-auth-inline {
+  max-width: 560px;
+}
+
+.authpage--login .authpanel-illustration {
+  --illustration-scale-x: 1.35;
+  --illustration-scale-y: 1.60;
+}
+
+.authpage--signup .authpanel-illustration {
+  --illustration-scale-x: 1.35;
+  --illustration-scale-y: 1.70;
+}
+
+.authpanel--admin .authpanel-illustration {
+  margin: 0;
+}
+
+
+.admin-illustration-group {
+    transform: translateY(105px) scale(1.18,1.28);
+}
+}
+
+@media (max-width: 900px) {
+ .authpage--login .authpanel-illustration {
+  --illustration-scale-x: 1.25;
+  --illustration-scale-y: 1.55;
+}
+
+.authpage--signup .authpanel-illustration {
+  --illustration-scale-x: 1.20;
+  --illustration-scale-y: 1.60;
+}
+
+  .authpanel-illustration .svg-auth-inline {
+    max-width: 500px;
+  }
+
+  .admin-illustration-group {
+    transform: translateY(90px) scale(1.12,1.20);
+  }
+}
+
+/* below 820px two columns squeeze the illustration too much —
+   stack the content and give the illustration full width */
+@media (max-width: 820px) {
+  .authpanel-main,
+  .authpage--signup .authpanel-main,
+  .authpanel--admin .authpanel-main {
+    grid-template-columns: 1fr;
+    gap: 26px;
+  }
+
+  /* single column — let the copy use the full panel width so
+     the right side doesn't sit empty */
+  .authpanel-text {
+    max-width: none;
+  }
+
+  .authpanel-feature-text {
+    max-width: none;
+  }
+
+.authpanel-illustration .svg-auth-inline {
+  max-width: 640px;
+}
+
+.authpage--login .authpanel-illustration,
+.authpage--signup .authpanel-illustration {
+  --illustration-scale-x: 1.20;
+  --illustration-scale-y: 1.10;
+
+  --illustration-offset-x: 2px;
+  --illustration-offset-y: 0px;
+}
+
+  .admin-illustration-group {
+    transform: translateY(35px) scale(1.02);
+  }
+
+}
+
+/* ---- mobile ---- */
+@media (max-width: 640px) {
+  .authpanel {
+    padding: 22px 18px 24px;
+    border-radius: 18px;
+  }
+
+  .authpanel-main,
+  .authpage--signup .authpanel-main,
+  .authpanel--admin .authpanel-main {
+    grid-template-columns: 1fr;
+    gap: 26px;
+    padding: 22px 0 20px;
+  }
+
+  .authpanel-badge {
+    margin-bottom: 18px;
+  }
+
+  .authpanel-title,
+  .authpage--signup .authpanel-title {
+    font-size: 28px;
+    min-width: 0;
+  }
+
+  .authpanel-text {
+    max-width: none;
+    margin-bottom: 24px;
+  }
+
+  .authpanel-features {
+    gap: 18px;
+  }
+
+  .authpanel-feature-text {
+    max-width: none;
+  }
+
+  .authpanel-illustration {
+    margin: 0;
+  }
+
+.authpage--login .authpanel-illustration,
+.authpage--signup .authpanel-illustration {
+  --illustration-scale-x: 1.10;
+  --illustration-scale-y: 1.10;
+}
+
+ .authpanel-admin-orb,
+.authpanel-admin-dots{
+    display:none;
+}
+
+  /* statistics become a 2x2 grid */
+  .authpanel-stats {
+    grid-template-columns: 1fr 1fr;
+    gap: 22px 0;
+    padding: 22px 6px;
+  }
+
+  .authpanel-stat + .authpanel-stat {
+    border-left: none;
+  }
+
+  .authpanel-stat:nth-child(even) {
+    border-left: 1px solid #e8edf6;
+  }
+}
+
+@media (max-width: 480px) {
+  .authpanel {
+    padding: 20px 16px 22px;
+  }
+
+  .authpanel-title {
+    font-size: 25px;
+  }
+
+  .authpanel-feature-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 11px;
+  }
+
+  .authpanel-stat-value {
+    font-size: 18px;
+  }
+
+  .authpanel-stat-label {
+    font-size: 12.5px;
+  }
+
+}
+
+@media (max-width: 374px) {
+  .authpanel-title {
+    font-size: 23px;
+  }
+
+  .authpanel-stat-icon {
+    width: 42px;
+    height: 42px;
+  }
+
+}

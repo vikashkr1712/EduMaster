@@ -1,0 +1,15 @@
+export const PROFILE_STATS = [
+  { id: 'courses', label: 'Enrolled Courses', tint: 'blue', valueKey: 'enrolledCourses' },
+  { id: 'completed', label: 'Completed Courses', tint: 'orange', valueKey: 'completedCourses' },
+  { id: 'certificates', label: 'Certificates', tint: 'green', valueKey: 'certificates' },
+  { id: 'achievements', label: 'Achievements', tint: 'purple', valueKey: 'achievements' },
+  { id: 'hours', label: 'Hours Learned', tint: 'purple', valueKey: 'hoursLearned' },
+  { id: 'quiz-attempts', label: 'Quizzes Attempted', tint: 'blue', valueKey: 'quizzesAttempted' },
+  { id: 'quiz-average', label: 'Average Score', tint: 'orange', valueKey: 'averageQuizScore', suffix: '%' },
+  { id: 'quiz-passed', label: 'Passed Quizzes', tint: 'green', valueKey: 'passedQuizzes' },
+  { id: 'quiz-best', label: 'Best Score', tint: 'purple', valueKey: 'bestQuizScore', suffix: '%' },
+  { id: 'assignments', label: 'Assignments Submitted', tint: 'green', valueKey: 'assignmentsSubmitted' },
+  { id: 'discussions', label: 'Discussion Posts', tint: 'blue', valueKey: 'discussionPosts' },
+  { id: 'notes', label: 'Notes Created', tint: 'orange', valueKey: 'notesCreated' },
+  { id: 'downloads', label: 'Downloads', tint: 'purple', valueKey: 'downloads' },
+]

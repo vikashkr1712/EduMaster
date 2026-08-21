@@ -1,0 +1,176 @@
+/* ============================================
+   My Courses page
+   ============================================ */
+
+.mycourse-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 420px));
+  gap: 24px;
+}
+
+.mycourse-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 500px;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.mycourse-card:hover {
+  box-shadow: var(--shadow-card);
+  transform: translateY(-2px);
+}
+
+.mycourse-art {
+  width: 100%;
+  aspect-ratio: 2 / 1;
+  overflow: hidden;
+}
+
+.mycourse-art svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.mycourse-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 18px;
+  flex: 1;
+}
+
+.mycourse-title {
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--text-heading);
+  margin: 0;
+}
+
+.mycourse-instructor {
+  font-size: 14px;
+  color: var(--text-body);
+  margin: -4px 0 0;
+}
+
+.mycourse-meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.mycourse-meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13.5px;
+  color: var(--text-body);
+}
+
+.mycourse-lms-activity { width: 100%; overflow: hidden; border: 1px solid #e7edf5; border-radius: 10px; background: #f7f9fc; }
+.mycourse-lms-activity summary { min-height: 43px; display: flex; align-items: center; gap: 9px; padding: 9px 11px; color: var(--navy); font-size: 13px; font-weight: 650; cursor: pointer; list-style: none; }
+.mycourse-lms-activity summary::-webkit-details-marker { display: none; }
+.mycourse-lms-activity summary::after { content: '⌄'; margin-left: 1px; color: var(--text-muted); font-size: 16px; line-height: 1; transition: transform .2s; }
+.mycourse-lms-activity[open] summary::after { transform: rotate(180deg); }
+.mycourse-activity-summary-count { min-width: 24px; margin-left: auto; padding: 2px 7px; border-radius: 999px; color: #52637e; background: #e8edf5; text-align: center; }
+.mycourse-activity-details { display: grid; gap: 7px; padding: 10px 11px 11px; border-top: 1px solid #e7edf5; }
+.mycourse-activity-details span { display: flex; align-items: center; justify-content: space-between; gap: 8px; color: var(--text-body); font-size: 12.5px; }
+.mycourse-lms-activity b { min-width: 20px; padding: 2px 6px; border-radius: 999px; color: #52637e; background: #e8edf5; text-align: center; }
+.mycourse-lms-activity .is-pending b { color: #b45309; background: #ffedd5; }
+.mycourse-lms-activity .is-submitted b { color: #15803d; background: #dcfce7; }
+
+.mycourse-progress {
+  width: 100%;
+  margin-top: auto;
+}
+
+.mycourse-progress-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13.5px;
+  color: var(--text-body);
+  margin-bottom: 7px;
+}
+
+.mycourse-progress-value {
+  font-weight: 600;
+  color: var(--text-heading);
+}
+
+.mycourse-progress-fill {
+  height: 100%;
+  border-radius: 999px;
+}
+
+.mycourse-progress-fill--blue {
+  background: var(--blue);
+}
+
+.mycourse-progress-fill--green {
+  background: var(--green);
+}
+
+.mycourse-progress-fill--purple {
+  background: var(--purple);
+}
+
+.mycourse-progress-fill--orange {
+  background: var(--orange);
+}
+
+.mycourse-state {
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  border: 1px solid #e8edf5;
+  border-radius: var(--radius-card);
+  color: var(--text-body);
+  background: #fff;
+  box-shadow: var(--shadow-soft);
+  text-align: center;
+}
+
+.mycourse-state h3 { margin: 0 0 8px; color: var(--navy); font-size: 18px; }
+.mycourse-state p { margin: 0; font-size: 13px; }
+.mycourse-loader {
+  width: 34px;
+  height: 34px;
+  margin-bottom: 13px;
+  border: 3px solid #dfe7f5;
+  border-top-color: var(--blue);
+  border-radius: 50%;
+  animation: mycourse-spin 0.8s linear infinite;
+}
+@keyframes mycourse-spin { to { transform: rotate(360deg); } }
+
+/* responsive: 3 → 2 → 1, never more than 3 */
+
+@media (max-width: 1199px) {
+  .mycourse-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .mycourse-grid { justify-content: start; }
+}
+
+@media (max-width: 640px) {
+  .mycourse-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .mycourse-card { min-height: 0; }
+}

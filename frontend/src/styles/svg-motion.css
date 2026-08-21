@@ -1,0 +1,22 @@
+/* Shared SVG animation keyframes (em- prefix) — the single source for every
+   looping illustration effect. Page motion files (HomeMotion, CoursesMotion,
+   EventsMotion, ServicesMotion, AuthMotion) reference these instead of
+   defining their own duplicates. Transform/opacity only; loops are gentle
+   ease-in-out so they cycle naturally. Reduced-motion is handled by each
+   page's existing media-query block on the consuming selectors. */
+
+@keyframes em-float { 0%, 100% { transform: translate3d(0, 0, 0); } 50% { transform: translate3d(0, -9px, 0); } }
+@keyframes em-float-sm { 0%, 100% { transform: translate3d(0, 0, 0); } 50% { transform: translate3d(0, -4px, 0); } }
+@keyframes em-bob { 0%, 100% { transform: translate3d(0, 0, 0); } 50% { transform: translate3d(0, -6px, 0); } }
+@keyframes em-breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.008); } }
+@keyframes em-sway { 0%, 100% { transform: rotate(-1.2deg); } 50% { transform: rotate(1.2deg); } }
+@keyframes em-glow { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+@keyframes em-glow-soft { 0%, 100% { opacity: 1; } 50% { opacity: 0.68; } }
+@keyframes em-shine { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.55; transform: scale(1.06); } }
+@keyframes em-blink { 0%, 92%, 100% { transform: scaleY(1); } 95% { transform: scaleY(0.12); } }
+@keyframes em-grow { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+@keyframes em-draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes em-sparkle { 0%, 100% { transform: scale(1) rotate(0deg); } 50% { transform: scale(1.25) rotate(8deg); } }
+@keyframes em-pop { 0% { transform: scale(0.75); } 60% { transform: scale(1.12); } 100% { transform: scale(1); } }
+@keyframes em-shake { 0%, 100% { transform: translateX(0); } 20% { transform: translateX(-6px); } 40% { transform: translateX(5px); } 60% { transform: translateX(-4px); } 80% { transform: translateX(3px); } }
+@keyframes em-spin { to { transform: rotate(360deg); } }

@@ -1,0 +1,37 @@
+/* ============================================================
+   Course Details Page — Framer Motion helpers
+   CourseDetailsMotion.css
+   ============================================================ */
+
+/* Hero fade-in handled by framer-motion inline.
+   These classes supplement transition states. */
+
+.cdp-hero-media,
+.cdp-hero-info {
+  will-change: transform, opacity;
+}
+
+.cdp-tab-content {
+  will-change: opacity, transform;
+}
+
+/* Smooth tab indicator */
+.cdp-tab-line {
+  will-change: transform;
+}
+
+/* Accordion panels */
+.cdp-curr-lessons,
+.cdp-faq-a {
+  will-change: height, opacity;
+}
+
+/* Review cards stagger */
+.cdp-review-card {
+  will-change: opacity, transform;
+}
+
+/* Rating bar fill */
+.cdp-rating-bar-fill {
+  will-change: width;
+}

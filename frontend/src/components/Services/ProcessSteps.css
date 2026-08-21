@@ -1,0 +1,133 @@
+.sprocess {
+  background: var(--bg-light);
+  padding: 24px 0 30px;
+}
+
+.sprocess-head {
+  text-align: center;
+  margin-bottom: 22px;
+}
+
+.sprocess-badge {
+  display: inline-block;
+  background: #d8e6ff;
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+}
+
+.sprocess-track {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 18px;
+  background: var(--bg-card);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-soft);
+  padding: 34px 22px 30px;
+}
+
+/* dotted connector line behind the icons */
+.sprocess-track::before {
+  content: '';
+  position: absolute;
+  top: 58px;
+  left: 11%;
+  right: 11%;
+  border-top: 2px dashed #c9d6ec;
+}
+
+.sprocess-step {
+  position: relative;
+  text-align: center;
+  padding: 0 8px;
+}
+
+.sprocess-icon {
+  position: relative;
+  z-index: 1;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  box-shadow: 0 0 0 6px var(--bg-card);
+}
+
+.sprocess-blue {
+  background: var(--tint-blue);
+}
+
+.sprocess-green {
+  background: var(--tint-green);
+}
+
+.sprocess-purple {
+  background: var(--tint-purple);
+}
+
+.sprocess-orange {
+  background: var(--tint-orange);
+}
+
+.sprocess-stepno {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 3px;
+}
+
+.sprocess-steptitle {
+  font-size: 15.5px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 6px;
+}
+
+.sprocess-steptext {
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--text-body);
+}
+
+/* ---- tablet ---- */
+@media (max-width: 1024px) {
+  .sprocess-track {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 10px;
+    padding: 28px 14px 24px;
+  }
+}
+
+/* ---- mobile ---- */
+@media (max-width: 900px) {
+  .sprocess-track {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 28px 20px;
+  }
+
+  .sprocess-track::before {
+    content: none;
+  }
+
+  .sprocess-step {
+    display: grid;
+    grid-template-columns: 50px 1fr;
+    column-gap: 16px;
+    text-align: left;
+  }
+
+  .sprocess-icon {
+    grid-row: 1 / span 3;
+    margin-bottom: 0;
+    box-shadow: none;
+  }
+}

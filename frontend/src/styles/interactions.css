@@ -1,0 +1,145 @@
+/* ============================================================
+   Interaction polish — touch feedback & sticky-hover guards.
+   Everything here is scoped so DESKTOP (hover-capable, fine
+   pointer) rendering is byte-for-byte unchanged.
+   ============================================================ */
+
+/* All devices: kill the grey mobile tap flash and dead-zone
+   double-tap zoom delay on interactive elements. Neither has any
+   visual effect on desktop. */
+a,
+button,
+input,
+select,
+textarea,
+label {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* ------------------------------------------------------------
+   Touch devices only (no real hover): phones + most tablets.
+   ------------------------------------------------------------ */
+@media (hover: none) {
+  /* 1) Sticky-hover guard.
+     On touch, :hover engages on tap and stays until the next tap,
+     leaving cards floating and arrows shifted. Freeze every
+     transform/keyframe hover effect so nothing sticks. */
+  .btn-explore:hover,
+  .btn-demo:hover,
+  .btn-startlearning:hover,
+  .btn-login:hover,
+  .btn-signup:hover,
+  .btn-request:hover,
+  .btn-getstarted:hover,
+  .btn-viewall:hover,
+  .footer-newsletter button:hover,
+  .ahero-btn:hover,
+  .astory-btn:hover,
+  .awhy-card:hover,
+  .cinfo-form-btn:hover,
+  .cmap-btn:hover,
+  .scta-btn:hover,
+  .shero-btn-consult:hover,
+  .splan-btn:hover,
+  .splan:hover,
+  .tcta-btn:hover,
+  .thero-btn-explore:hover,
+  .thero-btn-video:hover,
+  .popular-programs-viewall:hover,
+  .courses-filter-btn:hover,
+  .cpage:hover:not(.active):not(:disabled),
+  .tsection-arrow:hover,
+  .tsection-dot:hover,
+  .tcarousel-arrow:hover,
+  .courses-arrow:hover,
+  .authfield-eye:hover,
+  .authcard-submit:hover,
+  .authcard-social-btn:hover,
+  .ccard-wishlist:hover,
+  .cs-cat:hover,
+  .course-card:hover,
+  .blog-card:hover,
+  .ccard:hover,
+  .pcard:hover,
+  .scard:hover,
+  .tcard:hover,
+  .t-card:hover,
+  .partner-logo:hover,
+  .cinfo-card:hover {
+    transform: none !important;
+  }
+
+  .btn-explore:hover svg,
+  .btn-viewall:hover svg,
+  .btn-startlearning:hover svg,
+  .btn-request:hover svg,
+  .ahero-btn:hover svg,
+  .astory-btn:hover svg,
+  .cinfo-form-btn:hover svg,
+  .scta-btn:hover svg,
+  .shero-btn-explore:hover svg,
+  .scard-link:hover svg,
+  .spop-viewall:hover svg,
+  .blog-viewall:hover svg,
+  .tcta-btn:hover svg,
+  .thero-btn-explore:hover svg,
+  .popular-programs-viewall:hover svg,
+  .cpage-next:hover:not(:disabled) svg,
+  .courses-hero-search-btn:hover svg,
+  .authcard-social-btn:hover svg,
+  .awhy-list li:hover svg,
+  .amission-item:hover .amission-icon,
+  .cinfo-card:hover .cinfo-card-icon,
+  .hiw-step:hover .hiw-step-icon,
+  .scard:hover .scard-icon,
+  .ccard:hover .ccard-cat,
+  .ccard:hover .ccard-media svg,
+  .course-card:hover .course-media svg,
+  .blog-card:hover .blog-media svg,
+  .tcard:hover .tcard-topline > svg:first-child {
+    transform: none !important;
+  }
+
+  .authcard-submit:hover::before,
+  .ccard-wishlist:hover,
+  .ccard:hover .ccard-rating > svg,
+  .tcard:hover .tcard-stars svg,
+  .pcard:hover .pcard-meta-item:first-child .pcard-meta-icon {
+    animation: none !important;
+  }
+
+  /* 2) Pressed feedback.
+     A quick, subtle press-in on tap so every control still feels
+     interactive without hover. Uses transform only (GPU), 150ms
+     ease-out, releases instantly on lift. */
+  button:active:not(:disabled),
+  a:active,
+  .course-card:active,
+  .blog-card:active,
+  .ccard:active,
+  .pcard:active,
+  .scard:active,
+  .splan:active,
+  .tcard:active,
+  .t-card:active,
+  .awhy-card:active,
+  .cinfo-card:active,
+  .partner-logo:active {
+    transform: scale(0.975) !important;
+    transition: transform 0.15s ease-out !important;
+  }
+
+  /* Don't shrink structural / full-width tap targets: nav bar
+     brand, burger, drawer links, accordion headers, form fields. */
+  .navbar-brand:active,
+  .navbar-burger:active,
+  .navbar-menu a:active,
+  .navbar-links a:active,
+  .sfaq-question:active,
+  input:active,
+  textarea:active,
+  select:active {
+    transform: none !important;
+  }
+}

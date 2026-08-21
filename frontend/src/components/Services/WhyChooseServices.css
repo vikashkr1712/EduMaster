@@ -1,0 +1,142 @@
+.swhy {
+  background: var(--bg-light);
+  padding: 26px 0 40px;
+  overflow: hidden;
+}
+
+.swhy-inner {
+  display: grid;
+  grid-template-columns: 0.84fr 1.16fr;
+  align-items: center;
+  gap: 30px;
+}
+
+.swhy-illustration {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 0;
+}
+
+.swhy-illustration .svg-services-inline {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 560px;
+}
+
+.swhy-content {
+  min-width: 0;
+}
+
+.swhy-badge {
+  display: inline-block;
+  background: #d8e6ff;
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 14px;
+}
+
+.swhy-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 26px;
+}
+
+.swhy-title span {
+  color: var(--yellow);
+}
+
+.swhy-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px 16px;
+}
+
+.swhy-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.swhy-item-icon {
+  flex: 0 0 auto;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.swhy-item h3 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 4px;
+}
+
+.swhy-item p {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-body);
+}
+
+/* ---- tablet ---- */
+@media (max-width: 1024px) {
+  .swhy-inner {
+    gap: 24px;
+  }
+
+  .swhy-title {
+    font-size: 25px;
+  }
+
+  .swhy-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* ---- mobile: illustration above content ---- */
+@media (max-width: 900px) {
+  .swhy-inner {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .swhy-illustration {
+    order: 1;
+    width: 92%;
+    margin: 0 auto;
+  }
+
+  .swhy-content {
+    order: 2;
+  }
+
+  .swhy-title {
+    text-align: center;
+  }
+
+  .swhy-badge {
+    display: table;
+    margin: 0 auto 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .swhy-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .swhy-title {
+    font-size: 23px;
+  }
+}

@@ -1,0 +1,114 @@
+import './Blog.css'
+import BlogFrontendIllustration from '../../../assets/svg/home/BlogFrontendIllustration.jsx'
+import BlogIllustration2 from '../../../assets/svg/home/BlogIllustration2.jsx'
+import BlogCloudIllustration from '../../../assets/svg/home/BlogCloudIllustration.jsx'
+import BlogDataScienceIllustration from '../../../assets/svg/home/BlogDataScienceIllustration.jsx'
+import { motion, stagger, useReducedMotion } from '../motion.jsx'
+
+function CalendarIcon() {
+  return (
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none">
+      <rect x="3.5" y="5" width="17" height="15.5" rx="2.5" stroke="#8A97AB" strokeWidth="1.8" />
+      <path d="M3.5 9.5h17M8 3v3.6M16 3v3.6" stroke="#8A97AB" strokeWidth="1.8" strokeLinecap="round" />
+    </svg>
+  )
+}
+
+function ClockSmallIcon() {
+  return (
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="12" r="8.5" stroke="#8A97AB" strokeWidth="1.8" />
+      <path d="M12 8v4l2.8 1.6" stroke="#8A97AB" strokeWidth="1.8" strokeLinecap="round" />
+    </svg>
+  )
+}
+
+const posts = [
+  {
+    illustration: <BlogFrontendIllustration />,
+    category: 'Web Development',
+    title: '10 Tips to Become a Better Frontend Developer',
+    date: 'May 15, 2024',
+    read: '5 min read',
+  },
+  {
+    illustration: <BlogIllustration2 />,
+    category: 'Programming',
+    title: 'JavaScript Roadmap for Beginners in 2024',
+    date: 'May 10, 2024',
+    read: '6 min read',
+  },
+  {
+    illustration: <BlogCloudIllustration />,
+    category: 'Career',
+    title: 'Why Cloud Computing Skills Are in High Demand',
+    date: 'May 5, 2024',
+    read: '4 min read',
+  },
+  {
+    illustration: <BlogDataScienceIllustration />,
+    category: 'Data Science',
+    title: 'Top Data Science Tools You Should Learn in 2024',
+    date: 'Apr 28, 2024',
+    read: '6 min read',
+  },
+]
+
+export default function Blog() {
+  const reducedMotion = useReducedMotion()
+
+  return (
+    <section className="blog">
+      <div className="container">
+        <motion.div className="blog-badge-row" initial={reducedMotion ? false : { opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ amount: 0.3 }} transition={{ duration: 0.5 }}>
+          <span className="section-badge">From Our Blog</span>
+        </motion.div>
+        <motion.div className="blog-head" initial={reducedMotion ? false : { opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ amount: 0.3 }} transition={{ duration: 0.55, delay: 0.08 }}>
+          <h2 className="section-title blog-title">
+            Latest <span className="blog-underline">Articles</span> &amp; Insights
+          </h2>
+          <a
+            href="https://www.freecodecamp.org/news"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="blog-viewall"
+          >
+            View All Articles
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+              <path
+                d="M4 12h16m0 0l-6-6m6 6l-6 6"
+                stroke="currentColor"
+                strokeWidth="2.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </a>
+        </motion.div>
+
+        <motion.div className="blog-grid" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ amount: 0.2 }} variants={stagger(0.09)}>
+          {posts.map((p) => (
+            <motion.article className="blog-card" key={p.title} variants={{ hidden: { opacity: 0, y: 26 }, visible: { opacity: 1, y: 0 } }} transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }} whileHover={reducedMotion ? undefined : { y: -6 }}>
+              <div className="blog-media">{p.illustration}</div>
+              <div className="blog-body">
+                <span className="blog-cat">{p.category}</span>
+                <h3 className="blog-card-title">{p.title}</h3>
+                <div className="blog-meta">
+                  <span>
+                    <CalendarIcon />
+                    {p.date}
+                  </span>
+                  <span className="blog-meta-sep">•</span>
+                  <span>
+                    <ClockSmallIcon />
+                    {p.read}
+                  </span>
+                </div>
+              </div>
+            </motion.article>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  )
+}

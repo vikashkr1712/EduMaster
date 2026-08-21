@@ -1,0 +1,130 @@
+.admin-curriculum { width: 100%; color: var(--admin-ink); }
+.admin-curriculum-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; margin-bottom: 22px; }
+.admin-curriculum-heading a { display: inline-flex; align-items: center; gap: 6px; margin-bottom: 13px; color: var(--admin-blue); font-size: 13px; font-weight: 700; text-decoration: none; }
+.admin-curriculum-heading h1 { margin: 0; font-size: clamp(26px, 3vw, 34px); letter-spacing: -0.035em; }
+.admin-curriculum-heading p { margin: 7px 0 0; color: var(--admin-muted); font-size: 14px; }
+.admin-curriculum-course { display: flex; align-items: center; justify-content: space-between; gap: 25px; margin-bottom: 22px; padding: 23px 25px; border: 1px solid var(--admin-border); border-radius: 15px; background: white; box-shadow: var(--admin-shadow); }
+.admin-curriculum-course h2 { margin: 10px 0 3px; font-size: 21px; }
+.admin-curriculum-course p { margin: 0; color: var(--admin-muted); font-size: 13px; }
+.admin-curriculum-course dl { display: flex; flex: 0 0 auto; gap: 12px; margin: 0; }
+.admin-curriculum-course dl div { min-width: 105px; padding: 13px 18px; border-radius: 11px; background: #f4f7fb; text-align: center; }
+.admin-curriculum-course dt { color: var(--admin-muted); font-size: 12px; font-weight: 700; }
+.admin-curriculum-course dd { margin: 4px 0 0; color: #0f2c5c; font-size: 23px; font-weight: 800; }
+.admin-curriculum-empty,
+.admin-curriculum-state { display: grid; min-height: 340px; place-items: center; align-content: center; padding: 35px; border: 1px dashed #cbd8e9; border-radius: 15px; background: white; color: var(--admin-muted); text-align: center; }
+.admin-curriculum-empty svg,
+.admin-curriculum-state svg { margin-bottom: 12px; color: #7390bb; }
+.admin-curriculum-empty h2,
+.admin-curriculum-state h1 { margin: 0; color: var(--admin-ink); font-size: 21px; }
+.admin-curriculum-empty p,
+.admin-curriculum-state p { margin: 8px 0 19px; font-size: 14px; }
+.admin-module-list { display: grid; gap: 17px; }
+.admin-module-card { overflow: hidden; border: 1px solid var(--admin-border); border-radius: 15px; background: white; box-shadow: 0 6px 22px rgba(28, 48, 82, 0.055); }
+.admin-module-card__header { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 20px 22px; border-bottom: 1px solid var(--admin-border); background: linear-gradient(120deg, #f8fbff, #fff); }
+.admin-module-card__identity > span { color: var(--admin-blue); font-size: 12px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
+.admin-module-card__identity h2 { margin: 5px 0 2px; font-size: 19px; }
+.admin-module-card__identity p { margin: 0; color: var(--admin-muted); font-size: 12px; }
+.admin-module-card__actions,
+.admin-lesson-row__actions { display: flex; align-items: center; flex-wrap: wrap; gap: 7px; }
+.admin-module-card__actions button,
+.admin-lesson-row__actions button,
+.admin-add-lesson,
+.admin-lessons-empty button { display: inline-flex; min-height: 34px; align-items: center; justify-content: center; gap: 5px; border: 1px solid #d6e0ed; border-radius: 8px; background: white; color: #40506a; font: inherit; font-size: 12px; font-weight: 700; cursor: pointer; }
+.admin-module-card__actions button { padding: 7px 10px; }
+.admin-module-card__actions button:hover:not(:disabled),
+.admin-lesson-row__actions button:hover:not(:disabled) { border-color: #a8c3ef; background: #f1f6ff; color: var(--admin-blue); }
+.admin-module-card__actions button.is-danger:hover:not(:disabled),
+.admin-lesson-row__actions button.is-danger:hover:not(:disabled) { border-color: #f2b8b3; background: #fff2f0; color: #b42318; }
+.admin-module-card__actions button:disabled,
+.admin-lesson-row__actions button:disabled,
+.admin-add-lesson:disabled { cursor: not-allowed; opacity: 0.45; }
+.admin-lesson-list { padding: 0 22px 19px; }
+.admin-lesson-row { position: relative; display: grid; grid-template-columns: 58px minmax(220px, 1fr) auto; align-items: center; gap: 15px; min-width: 0; padding: 16px 0; border-bottom: 1px solid #e8edf5; }
+.admin-lesson-row__number { display: grid; width: 43px; height: 43px; place-items: center; border-radius: 10px; background: #eef4ff; color: var(--admin-blue); font-size: 12px; font-weight: 800; }
+.admin-lesson-row__content { min-width: 0; }
+.admin-lesson-row__content h3 { overflow: hidden; margin: 0 0 7px; font-size: 14px; text-overflow: ellipsis; white-space: nowrap; }
+.admin-lesson-row__content p { display: flex; flex-wrap: wrap; gap: 11px; margin: 0; color: var(--admin-muted); font-size: 12px; }
+.admin-lesson-row__content p span { display: inline-flex; align-items: center; gap: 4px; }
+.admin-lesson-row__actions button { width: 34px; padding: 6px; }
+.admin-lesson-row__actions button span { display: none; }
+.admin-lesson-row__saving { position: absolute; right: 0; bottom: 1px; color: var(--admin-blue); font-size: 12px; }
+.admin-add-lesson { margin-top: 17px; padding: 8px 13px; color: var(--admin-blue); }
+.admin-lessons-empty { display: flex; min-height: 115px; align-items: center; justify-content: center; flex-direction: column; gap: 11px; color: var(--admin-muted); }
+.admin-lessons-empty p { margin: 0; font-size: 14px; }
+.admin-lessons-empty button { padding: 8px 12px; color: var(--admin-blue); }
+
+.admin-curriculum-loading { display: grid; gap: 15px; }
+.admin-curriculum-loading span { display: block; height: 145px; border-radius: 15px; background: linear-gradient(90deg, #edf2f8 25%, #f8fafc 45%, #edf2f8 65%); background-size: 240% 100%; animation: curriculum-shimmer 1.35s infinite linear; }
+@keyframes curriculum-shimmer { to { background-position: -240% 0; } }
+
+.admin-curriculum-form-modal { width: min(100%, 780px); max-height: min(88vh, 820px); overflow-y: auto; border: 1px solid var(--admin-border); border-radius: 16px; background: white; box-shadow: 0 25px 75px rgba(15, 23, 42, 0.3); }
+.admin-curriculum-form-modal__header { position: sticky; z-index: 2; top: 0; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 20px 23px; border-bottom: 1px solid var(--admin-border); background: rgba(255, 255, 255, 0.97); }
+.admin-curriculum-form-modal__header span { color: var(--admin-blue); font-size: 12px; font-weight: 800; text-transform: uppercase; }
+.admin-curriculum-form-modal__header h2 { margin: 4px 0 0; font-size: 22px; }
+.admin-curriculum-form-modal__header > button { display: grid; width: 36px; height: 36px; flex: 0 0 auto; place-items: center; border: 1px solid var(--admin-border); border-radius: 9px; background: white; cursor: pointer; }
+.admin-curriculum-fields { display: grid; gap: 18px; padding: 23px; }
+.admin-curriculum-fields label { display: grid; gap: 7px; min-width: 0; color: #34435c; font-size: 13px; font-weight: 700; }
+.admin-curriculum-fields input,
+.admin-curriculum-fields select { width: 100%; min-width: 0; height: 43px; padding: 0 12px; border: 1px solid #ccd7e5; border-radius: 9px; background: white; color: var(--admin-ink); font: inherit; font-size: 14px; outline: none; }
+.admin-curriculum-fields input:focus,
+.admin-curriculum-fields select:focus { border-color: var(--admin-blue); box-shadow: 0 0 0 3px rgba(39, 106, 230, 0.13); }
+.admin-curriculum-fields input[aria-invalid="true"] { border-color: #d92d20; }
+.admin-curriculum-fields label > small,
+.admin-resource-editor > small { color: #b42318; font-size: 12px; }
+.admin-curriculum-fields label > em { color: var(--admin-muted); font-size: 12px; font-style: normal; font-weight: 500; }
+.admin-curriculum-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.admin-resource-editor { min-width: 0; margin: 1px 0 0; padding: 17px; border: 1px solid #dbe4ef; border-radius: 12px; background: #f8fafc; }
+.admin-resource-editor__heading { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+.admin-resource-editor legend { padding: 0; color: var(--admin-ink); font-size: 14px; font-weight: 800; }
+.admin-resource-editor__heading p { margin: 4px 0 0; color: var(--admin-muted); font-size: 12px; }
+.admin-resource-editor__heading button { display: inline-flex; min-height: 35px; align-items: center; gap: 5px; padding: 7px 10px; border: 1px solid #b9cef0; border-radius: 8px; background: white; color: var(--admin-blue); font: inherit; font-size: 12px; font-weight: 700; cursor: pointer; }
+.admin-resource-editor__empty { margin: 17px 0 1px; color: var(--admin-muted); font-size: 13px; text-align: center; }
+.admin-resource-row { display: grid; grid-template-columns: minmax(130px, 1.2fr) 125px minmax(170px, 1.6fr) minmax(110px, 0.8fr) 35px; align-items: end; gap: 9px; margin-top: 14px; padding-top: 14px; border-top: 1px solid #e0e7f0; }
+.admin-resource-row label { font-size: 12px; }
+.admin-resource-row__remove { display: grid; width: 35px; height: 43px; place-items: center; border: 1px solid #f0c0bc; border-radius: 8px; background: white; color: #b42318; cursor: pointer; }
+.admin-curriculum-form-modal__actions { position: sticky; bottom: 0; display: flex; justify-content: flex-end; gap: 9px; padding: 16px 23px; border-top: 1px solid var(--admin-border); background: rgba(255, 255, 255, 0.97); }
+
+@media (max-width: 1024px) {
+  .admin-lesson-row { grid-template-columns: 52px minmax(190px, 1fr); }
+  .admin-lesson-row__actions { grid-column: 2; justify-content: flex-start; }
+  .admin-resource-row { grid-template-columns: 1fr 130px; }
+  .admin-resource-row__url { grid-column: 1 / -1; }
+  .admin-resource-row__remove { grid-column: 2; grid-row: 3; justify-self: end; }
+}
+
+@media (max-width: 700px) {
+  .admin-curriculum-heading { align-items: stretch; flex-direction: column; }
+  .admin-curriculum-heading > .admin-button { width: 100%; }
+  .admin-curriculum-course { align-items: stretch; flex-direction: column; padding: 19px; }
+  .admin-curriculum-course dl { width: 100%; }
+  .admin-curriculum-course dl div { min-width: 0; flex: 1; }
+  .admin-module-card__header { align-items: stretch; flex-direction: column; padding: 18px; }
+  .admin-module-card__actions button { flex: 1 1 calc(50% - 7px); }
+  .admin-lesson-list { padding: 0 17px 17px; }
+  .admin-lesson-row { grid-template-columns: 42px minmax(0, 1fr); gap: 11px; }
+  .admin-lesson-row__number { width: 38px; height: 38px; }
+  .admin-lesson-row__content h3 { overflow: visible; line-height: 1.4; white-space: normal; }
+  .admin-lesson-row__content p { gap: 7px 11px; }
+  .admin-lesson-row__actions { grid-column: 1 / -1; }
+  .admin-lesson-row__actions button { width: auto; flex: 1 1 calc(50% - 7px); }
+  .admin-lesson-row__actions button span { display: inline; }
+  .admin-curriculum-field-row { grid-template-columns: 1fr; }
+  .admin-resource-editor { padding: 14px; }
+  .admin-resource-editor__heading { align-items: stretch; flex-direction: column; }
+  .admin-resource-editor__heading button { justify-content: center; }
+  .admin-resource-row { grid-template-columns: 1fr; }
+  .admin-resource-row__url,
+  .admin-resource-row__remove { grid-column: auto; grid-row: auto; }
+  .admin-resource-row__remove { width: 100%; height: 37px; }
+}
+
+@media (max-width: 480px) {
+  .admin-modal-backdrop { align-items: end; padding: 0; }
+  .admin-curriculum-form-modal { width: 100%; max-height: 94vh; border-radius: 16px 16px 0 0; }
+  .admin-curriculum-form-modal__header,
+  .admin-curriculum-fields { padding: 17px; }
+  .admin-curriculum-form-modal__actions { padding: 14px 17px; }
+  .admin-curriculum-form-modal__actions .admin-button { flex: 1; }
+  .admin-confirm-modal__actions { align-items: stretch; flex-direction: column-reverse; }
+  .admin-confirm-modal__actions .admin-button { width: 100%; }
+}

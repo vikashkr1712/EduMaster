@@ -1,0 +1,1 @@
+export default function SearchNotes({ value, onChange }) { return <label className="lms-notes-search"><span>⌕</span><input type="search" value={value} onChange={(event) => onChange(event.target.value)} placeholder="Search notes by title or content" aria-label="Search notes" /></label> }

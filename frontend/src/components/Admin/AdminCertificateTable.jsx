@@ -1,0 +1,6 @@
+import { Link } from 'react-router-dom'
+import AdminIcon from './AdminIcons.jsx'
+
+export default function AdminCertificateTable({ certificates }) {
+  return <div className="admin-certificate-table-wrap"><table className="admin-certificate-table"><thead><tr><th>Certificate Number</th><th>Student</th><th>Course</th><th>Issued Date</th><th>Verification Code</th><th>Status</th><th><span className="sr-only">Actions</span></th></tr></thead><tbody>{certificates.map((certificate) => <tr key={certificate._id}><td><Link to={`/admin/certificates/${certificate._id}`}>{certificate.certificateNumber}</Link></td><td><strong>{certificate.studentName}</strong><span>{certificate.studentEmail}</span></td><td>{certificate.courseTitle}</td><td><time dateTime={certificate.issueDate}>{new Date(certificate.issueDate).toLocaleDateString()}</time></td><td><code>{certificate.verificationCode}</code></td><td><span className={`admin-certificate-status is-${certificate.status}`}>{certificate.status === 'valid' ? 'Valid' : 'Revoked'}</span></td><td><Link className="admin-row-action" to={`/admin/certificates/${certificate._id}`} aria-label={`View certificate ${certificate.certificateNumber}`}><AdminIcon name="eye" size={17} /></Link></td></tr>)}</tbody></table></div>
+}

@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EduMaster — Learn. Grow. Succeed.</title>
+    <meta name="description" content="Learn in-demand skills with expert-led online courses, assessments, assignments, and verified certificates on EduMaster." />
+    <meta name="theme-color" content="#14213d" />
+    <script>
+      (() => {
+        try {
+          const saved = localStorage.getItem('edumaster:theme')
+          const theme = saved === 'dark' || saved === 'light' ? saved : 'light'
+          document.documentElement.dataset.theme = theme
+          document.documentElement.style.colorScheme = theme
+          document.querySelector('meta[name="theme-color"]').content = theme === 'dark' ? '#081426' : '#14213d'
+        } catch {
+          document.documentElement.dataset.theme = 'light'
+        }
+      })()
+    </script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="EduMaster — Learn. Grow. Succeed." />
+    <meta property="og:description" content="Expert-led online courses with a complete guided learning experience." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="EduMaster — Learn. Grow. Succeed." />
+    <meta name="twitter:description" content="Expert-led online courses with a complete guided learning experience." />
+    <link rel="canonical" href="/" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

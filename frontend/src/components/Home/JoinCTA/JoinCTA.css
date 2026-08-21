@@ -1,0 +1,58 @@
+.joincta {
+  background: var(--bg-white);
+  padding: 20px 0 60px;
+}
+
+.joincta-card {
+  background: #fdf4e0;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  gap: 44px;
+  padding: 36px 56px 36px 44px;
+}
+
+.joincta-trophy {
+  flex-shrink: 0;
+}
+
+.trophy-illustration-svg {
+  width: 200px;
+  height: auto;
+}
+
+.joincta-copy {
+  flex: 1;
+}
+
+.joincta-copy h2 {
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 14px;
+}
+
+.joincta-copy p {
+  font-size: 16.5px;
+  line-height: 1.65;
+  color: var(--text-body);
+  max-width: 480px;
+}
+
+.btn-getstarted {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--blue);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 17px 34px;
+  border-radius: 12px;
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+
+.btn-getstarted:hover {
+  background: #1d4ed8;
+}

@@ -1,0 +1,10 @@
+import { Router } from 'express';
+import * as controller from '../controllers/assignment.controller.js';
+import { authenticate } from '../middleware/authenticate.js';
+import { assignmentUpload } from '../middleware/assignmentUpload.js';
+const router = Router();
+router.use(authenticate);
+router.get('/history', controller.getHistory);
+router.post('/:assignmentId/submit', assignmentUpload.single('solution'), controller.submitAssignment);
+router.get('/:lessonId', controller.getAssignment);
+export default router;

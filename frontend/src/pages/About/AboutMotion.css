@@ -1,0 +1,59 @@
+/* Motion layer for the About page — transform/opacity only.
+   All keyframes come from styles/svg-motion.css (em- prefix).
+   SVG groups are targeted by fill value; the SVG files stay untouched. */
+
+/* ---- hero SVG: float + breathe, laptop glow, decorative dots ---- */
+.ahero-illustration { animation: em-float 6s ease-in-out infinite; }
+.ahero-illustration svg { transform-origin: center; animation: em-breathe 4.5s ease-in-out infinite; }
+.svg-about-hero-inline path { transform-box: fill-box; }
+.svg-about-hero-inline path[fill="#95B7FC"] { animation: em-glow 2.8s ease-in-out infinite; }
+.svg-about-hero-inline path[fill="#95B7FC"]:nth-of-type(odd) { animation-delay: -1.4s; }
+.svg-about-hero-inline path[fill="#134FDD"] { animation: em-glow-soft 2.6s ease-in-out infinite; }
+
+/* ---- story SVG: trophy shine, plant sway, dots ---- */
+.astory-illustration svg { transform-origin: center; animation: em-float 6s ease-in-out infinite; }
+.svg-about-story-inline path { transform-box: fill-box; }
+.svg-about-story-inline path[fill="#FEB405"],
+.svg-about-story-inline path[fill="#EBBC26"] { animation: em-glow 3s ease-in-out infinite; }
+.svg-about-story-inline path[fill="#EBBC26"] { animation-delay: -1.5s; }
+.svg-about-story-inline path[fill="#047B66"],
+.svg-about-story-inline path[fill="#0EA187"] { transform-origin: 50% 100%; animation: em-sway 5.5s ease-in-out infinite; }
+.svg-about-story-inline path[fill="#94BBFD"] { animation: em-glow 2.8s ease-in-out infinite; }
+.svg-about-story-inline path[fill="#94BBFD"]:nth-of-type(odd) { animation-delay: -1.4s; }
+
+/* ---- buttons ---- */
+.ahero-btn,
+.astory-btn { transition: transform 0.2s ease, background 0.2s; }
+.ahero-btn:hover,
+.astory-btn:hover { transform: translateY(-2px); }
+.ahero-btn:active,
+.astory-btn:active { transform: scale(0.97); }
+.ahero-btn svg,
+.astory-btn svg { transition: transform 0.2s ease; }
+.ahero-btn:hover svg,
+.astory-btn:hover svg { transform: translateX(4px); }
+
+/* ---- mission / vision / values ---- */
+.amission-item { will-change: transform; }
+.amission-icon { display: grid; transition: transform 0.22s ease; }
+.amission-item:hover .amission-icon { transform: translateY(-3px) scale(1.08); }
+
+/* ---- why choose us checklist ---- */
+.awhy-list li svg { transition: transform 0.2s ease; }
+.awhy-list li:hover svg { transform: scale(1.15); }
+.awhy-card { will-change: transform; transition: transform 0.25s ease, box-shadow 0.25s ease; }
+.awhy-card:hover { transform: translateY(-4px); }
+
+/* ---- statistics ---- */
+.astats-icon { animation: em-float-sm 3.8s ease-in-out infinite; }
+.astats-item:nth-child(2) .astats-icon { animation-delay: -0.7s; }
+.astats-item:nth-child(3) .astats-icon { animation-delay: -1.4s; }
+.astats-item:nth-child(4) .astats-icon { animation-delay: -2.1s; }
+.astats-item:nth-child(5) .astats-icon { animation-delay: -2.8s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ahero-illustration, .ahero-illustration svg, .svg-about-hero-inline path,
+  .astory-illustration svg, .svg-about-story-inline path, .astats-icon { animation: none !important; }
+  .ahero-btn, .astory-btn, .ahero-btn svg, .astory-btn svg,
+  .amission-icon, .awhy-list li svg, .awhy-card { transition-duration: 0.01ms !important; }
+}
