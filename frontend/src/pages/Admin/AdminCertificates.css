@@ -4,3 +4,9 @@
 @media(max-width:1024px){.admin-certificate-toolbar{grid-template-columns:repeat(2,minmax(0,1fr))}.admin-certificate-toolbar .admin-course-search{grid-column:1/-1}.admin-certificate-detail-grid{grid-template-columns:1fr 1fr}.admin-certificate-actions{align-items:flex-start;flex-direction:column}}
 @media(max-width:768px){.admin-certificate-summary{grid-template-columns:repeat(2,minmax(0,1fr))}.admin-certificate-detail-grid{grid-template-columns:1fr}.admin-certificate-actions .admin-heading-actions{width:100%}}
 @media(max-width:576px){.admin-certificates,.admin-certificate-details{gap:16px}.admin-certificate-manager{padding:16px}.admin-certificate-toolbar{grid-template-columns:1fr}.admin-certificate-toolbar .admin-course-search{grid-column:auto}.admin-certificate-summary{gap:8px}.admin-certificate-summary>div{padding:14px}.admin-certificate-summary strong{font-size:1.08rem}.admin-certificate-identity{grid-template-columns:1fr}.admin-certificate-detail-grid article,.admin-certificate-identity>div,.admin-certificate-actions{padding:15px}.admin-certificate-actions .admin-heading-actions{display:grid;grid-template-columns:1fr}.admin-certificate-actions .admin-button{width:100%}}
+
+/* Final visual QA: keep registry identifiers and metadata comfortably legible. */
+.admin-certificate-table { min-width: 1040px; }
+.admin-certificate-table th { padding: 14px; font-size: .8125rem; line-height: 1.35; }
+.admin-certificate-table td { padding: 17px 14px; font-size: .9rem; line-height: 1.45; }
+.admin-certificate-table td>span { font-size: .8125rem; }

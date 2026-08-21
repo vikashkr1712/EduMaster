@@ -612,6 +612,74 @@
   color: var(--admin-text) !important;
 }
 
+/* Route-split detail screens contain nested light surfaces that load after the
+   shared theme. Keep those surfaces in the same dark panel hierarchy. */
+[data-theme='dark'] .admin-shell :where(
+  .admin-user-detail-section,
+  .admin-enrollment-hero,
+  .admin-question-section,
+  .admin-quiz-detail-questions,
+  .admin-assignment-copy,
+  .admin-certificate-identity > div,
+  .admin-certificate-detail-grid article,
+  .admin-certificate-actions,
+  .admin-certificate-note
+) {
+  border-color: var(--admin-border) !important;
+  background: var(--admin-surface) !important;
+  color: var(--admin-text-soft) !important;
+}
+
+[data-theme='dark'] .admin-shell :where(
+  .admin-user-section-heading,
+  .admin-user-form-actions,
+  .admin-course-details__footer,
+  .admin-course-details dl > div,
+  .admin-enrollment-fields > div,
+  .admin-module-card__header,
+  .admin-curriculum-course dl div,
+  .admin-answer-card__explanation
+) {
+  border-color: var(--admin-border) !important;
+  background: var(--admin-surface-subtle) !important;
+  color: var(--admin-text-soft) !important;
+}
+
+[data-theme='dark'] .admin-shell :where(
+  .admin-user-profile-card dl > div,
+  .admin-module-card__actions button,
+  .admin-lesson-row__actions button,
+  .admin-add-lesson,
+  .admin-lessons-empty button
+) {
+  border-color: var(--admin-border-strong) !important;
+  background: var(--admin-surface-subtle) !important;
+  color: var(--admin-text-soft) !important;
+}
+
+[data-theme='dark'] .admin-shell :where(
+  .admin-course-details dt,
+  .admin-course-details dd,
+  .admin-enrollment-identity span,
+  .admin-enrollment-identity h2,
+  .admin-enrollment-fields dt,
+  .admin-enrollment-fields dd,
+  .admin-certificate-identity code,
+  .admin-certificate-detail-grid p,
+  .admin-assignment-copy p,
+  .admin-answer-card__explanation p
+) {
+  color: var(--admin-text-soft) !important;
+}
+
+[data-theme='dark'] .admin-shell :where(
+  .admin-certificate-detail-grid a,
+  .admin-assignment-copy a,
+  .admin-related-record a
+) {
+  color: var(--admin-blue-dark) !important;
+}
+
 /* Keep every desktop action available without forcing a horizontal pan. */
 @media (min-width: 1025px) and (max-width: 1600px) {
   .admin-course-table { min-width: 1040px; }

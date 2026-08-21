@@ -420,6 +420,13 @@
 .lms-reply small,
 .lms-notes-list h4,
 .lms-notes-list small { font-size: 12px; }
+.lms-loading,
+.learn-note-compose textarea,
+.learn-note textarea,
+.lms-upload textarea,
+.lms-discussion-editor textarea,
+.lms-inline-edit textarea,
+.lms-notes-editor textarea { font-size: 13px; }
 
 @media (max-width: 560px) {
   .learn-breadcrumb { font-size: 12px; }
@@ -559,5 +566,5 @@
   .learn-info-card > div:nth-child(3n) { border-right: 0; border-bottom: 1px solid #e7ecf4; }
   .learn-info-card > div:last-child { border-bottom: 0; }
   .lms-tabs { justify-content: space-between; }
-  .lms-tabs button { padding-inline: 8px; font-size: 11.5px; }
+  .lms-tabs button { padding-inline: 8px; font-size: 13px; }
 }

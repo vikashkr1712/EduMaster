@@ -489,3 +489,16 @@
   .admin-course-table-loading span,
   .admin-course-form-loading span { animation: none; }
 }
+
+/* Final visual QA: secondary catalog copy must remain readable at desktop scale. */
+.admin-course-cell small,
+.admin-course-status,
+.admin-pagination > span,
+.admin-pagination button { font-size: 13px; }
+
+/* Keep long course summaries contained inside the viewport on every screen. */
+.admin-course-details {
+  max-height: calc(100dvh - 26px);
+  overflow-x: hidden;
+  overflow-y: auto;
+}

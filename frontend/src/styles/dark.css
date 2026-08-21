@@ -373,6 +373,7 @@
 [data-theme='dark'] .learn-page { background: var(--bg-primary); }
 [data-theme='dark'] .learn-back-button,
 [data-theme='dark'] .learn-bookmark-button,
+[data-theme='dark'] .learn-overall-progress,
 [data-theme='dark'] .learn-info-card,
 [data-theme='dark'] .learn-sidebar-card,
 [data-theme='dark'] .learn-resources-card,

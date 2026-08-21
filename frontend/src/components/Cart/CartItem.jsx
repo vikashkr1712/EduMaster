@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
+import { forwardRef } from 'react'
 import { useCart } from '../Cart/CartProvider.jsx'
 import { useWishlist } from '../Wishlist/WishlistProvider.jsx'
 import CourseIllustration from '../Courses/CourseIllustrations.jsx'
@@ -30,7 +31,7 @@ function StarIcon() {
   return <svg width="13" height="13" viewBox="0 0 24 24" fill="#F9B233"><path d="M12 2.5l2.9 5.9 6.6 1-4.7 4.6 1.1 6.5L12 17.4l-5.9 3.1 1.1-6.5L2.5 9.4l6.6-1L12 2.5z"/></svg>
 }
 
-export default function CartItem({ item }) {
+const CartItem = forwardRef(function CartItem({ item }, ref) {
   const { removeCourseFromCart, isPending } = useCart()
   const { toggleWishlist, isWishlisted } = useWishlist()
   const inr = (n) => `₹${Number(n).toLocaleString('en-IN')}`
@@ -51,6 +52,7 @@ export default function CartItem({ item }) {
 
   return (
     <motion.div
+      ref={ref}
       className="cart-item"
       layout
       initial={{ opacity: 0, y: 12 }}
@@ -101,4 +103,6 @@ export default function CartItem({ item }) {
       </div>
     </motion.div>
   )
-}
+})
+
+export default CartItem
