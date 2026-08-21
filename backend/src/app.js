@@ -42,6 +42,13 @@ app.use('/api', (req, res, next) => {
 });
 app.use('/api/v1', csrfProtection);
 
+app.get('/', (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: 'EduMaster API is running',
+  });
+});
+
 app.get('/health', (req, res) => {
   res.status(200).json({
     success: true,
