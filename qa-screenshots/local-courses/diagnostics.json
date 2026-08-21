@@ -1,0 +1,1510 @@
+[
+  {
+    "route": "/courses",
+    "theme": "light",
+    "width": 1920,
+    "bodyWidth": 1920,
+    "documentWidth": 1920,
+    "viewportWidth": 1920,
+    "brokenImages": [],
+    "boxes": {
+      ".courses-toolbar-right": {
+        "left": 1341.44,
+        "right": 1581,
+        "width": 239.56,
+        "visible": true
+      },
+      ".courses-filter-btn": {
+        "left": 0,
+        "right": 0,
+        "width": 0,
+        "visible": false
+      },
+      ".courses-sort": {
+        "left": 1341.44,
+        "right": 1581,
+        "width": 239.56,
+        "visible": true
+      },
+      ".ccard": {
+        "left": 635,
+        "right": 1096,
+        "width": 461,
+        "visible": true
+      },
+      ".ccard-meta": {
+        "left": 655,
+        "right": 1076,
+        "width": 421,
+        "visible": true
+      },
+      ".ccard-actions": {
+        "left": 655,
+        "right": 1076,
+        "width": 421,
+        "visible": true
+      },
+      ".cpagination": {
+        "left": 635,
+        "right": 1581,
+        "width": 946,
+        "visible": true
+      }
+    }
+  },
+  {
+    "route": "/courses",
+    "theme": "light",
+    "width": 1440,
+    "bodyWidth": 1440,
+    "documentWidth": 1440,
+    "viewportWidth": 1440,
+    "brokenImages": [],
+    "boxes": {
+      ".courses-toolbar-right": {
+        "left": 1101.44,
+        "right": 1341,
+        "width": 239.56,
+        "visible": true
+      },
+      ".courses-filter-btn": {
+        "left": 0,
+        "right": 0,
+        "width": 0,
+        "visible": false
+      },
+      ".courses-sort": {
+        "left": 1101.44,
+        "right": 1341,
+        "width": 239.56,
+        "visible": true
+      },
+      ".ccard": {
+        "left": 395,
+        "right": 856,
+        "width": 461,
+        "visible": true
+      },
+      ".ccard-meta": {
+        "left": 415,
+        "right": 836,
+        "width": 421,
+        "visible": true
+      },
+      ".ccard-actions": {
+        "left": 415,
+        "right": 836,
+        "width": 421,
+        "visible": true
+      },
+      ".cpagination": {
+        "left": 395,
+        "right": 1341,
+        "width": 946,
+        "visible": true
+      }
+    }
+  },
+  {
+    "route": "/courses",
+    "theme": "light",
+    "width": 1366,
+    "bodyWidth": 1366,
+    "documentWidth": 1366,
+    "viewportWidth": 1366,
+    "brokenImages": [],
+    "boxes": {
+      ".courses-toolbar-right": {
+        "left": 1064.44,
+        "right": 1304,
+        "width": 239.56,
+        "visible": true
+      },
+      ".courses-filter-btn": {
+        "left": 0,
+        "right": 0,
+        "width": 0,
+        "visible": false
+      },
+      ".courses-sort": {
+        "left": 1064.44,
+        "right": 1304,
+        "width": 239.56,
+        "visible": true
+      },
+      ".ccard": {
+        "left": 358,
+        "right": 819,
+        "width": 461,
+        "visible": true
+      },
+      ".ccard-meta": {
+        "left": 378,
+        "right": 799,
+        "width": 421,
+        "visible": true
+      },
+      ".ccard-actions": {
+        "left": 378,
+        "right": 799,
+        "width": 421,
+        "visible": true
+      },
+      ".cpagination": {
+        "left": 358,
+        "right": 1304,
+        "width": 946,
+        "visible": true
+      }
+    }
+  },
+  {
+    "route": "/courses",
+    "theme": "light",
+    "width": 1280,
+    "bodyWidth": 1280,
+    "documentWidth": 1280,
+    "viewportWidth": 1280,
+    "brokenImages": [],
+    "boxes": {
+      ".courses-toolbar-right": {
+        "left": 1016.44,
+        "right": 1256,
+        "width": 239.56,
+        "visible": true
+      },
+      ".courses-filter-btn": {
+        "left": 0,
+        "right": 0,
+        "width": 0,
+        "visible": false
+      },
+      ".courses-sort": {
+        "left": 1016.44,
+        "right": 1256,
+        "width": 239.56,
+        "visible": true
+      },
+      ".ccard": {
+        "left": 320,
+        "right": 776,
+        "width": 456,
+        "visible": true
+      },
+      ".ccard-meta": {
+        "left": 340,
+        "right": 756,
+        "width": 416,
+        "visible": true
+      },
+      ".ccard-actions": {
+        "left": 340,
+        "right": 756,
+        "width": 416,
+        "visible": true
+      },
+      ".cpagination": {
+        "left": 320,
+        "right": 1256,
+        "width": 936,
+        "visible": true
+      }
+    }
+  },
+  {
+    "route": "/courses",
+    "theme": "light",
+    "width": 1024,
+    "bodyWidth": 1024,
+    "documentWidth": 1024,
+    "viewportWidth": 1024,
+    "brokenImages": [],
+    "boxes": {
+      ".courses-toolbar-right": {
+        "left": 760.44,
+        "right": 1000,
+        "width": 239.56,
+        "visible": true
+      },
+      ".courses-filter-btn": {
+        "left": 0,
+        "right": 0,
+        "width": 0,
+        "visible": false
+      },
+      ".courses-sort": {
+        "left": 760.44,
+        "right": 1000,
+        "width": 239.56,
+        "visible": true
+      },
+      ".ccard": {
+        "left": 286,
+        "right": 631,
+        "width": 345,
+        "visible": true
+      },
+      ".ccard-meta": {
+        "left": 306,
+        "right": 611,
+        "width": 305,
+        "visible": true
+      },
+      ".ccard-actions": {
+        "left": 306,
+        "right": 611,
+        "width": 305,
+        "visible": true
+      },
+      ".cpagination": {
+        "left": 286,
+        "right": 1000,
+        "width": 714,
+        "visible": true
+      }
+    }
+  },
+  {
+    "route": "/courses",
+    "theme": "light",
+    "width": 912,
+    "bodyWidth": 912,
+    "documentWidth": 912,
+    "viewportWidth": 912,
+    "brokenImages": [],
+    "boxes": {
+      ".courses-toolbar-right": {
+        "left": 530.66,
+        "right": 888,
+        "width": 357.34,
+        "visible": true
+      },
+      ".courses-filter-btn": {
+        "left": 530.66,
+        "right": 636.44,
+        "width": 105.78,
+        "visible": true
+      },
+      ".courses-sort": {
+        "left": 648.44,
+        "right": 888,
+        "width": 239.56,
+        "visible": true
+      },
+      ".ccard": {
+        "left": 24,
+        "right": 446,
+        "width": 422,
+        "visible": true
+      },
+      ".ccard-meta": {
+        "left": 44,
+        "right": 426,
+        "width": 382,
+        "visible": true
+      },
+      ".ccard-actions": {
+        "left": 44,
+        "right": 426,
+        "width": 382,
+        "visible": true
+      },
+      ".cpagination": {
+        "left": 24,
+        "right": 888,
+        "width": 864,
+        "visible": true
+      }
+    }
+  },
+  {
+    "route": "/courses",
+    "theme": "light",
+    "width": 820,
+    "bodyWidth": 820,
+    "documentWidth": 820,
+    "viewportWidth": 820,
+    "brokenImages": [],
+    "boxes": {
+      ".courses-toolbar-right": {
+        "left": 438.66,
+        "right": 796,
+        "width": 357.34,
+        "visible": true
+      },
+      ".courses-filter-btn": {
+        "left": 438.66,
+        "right": 544.44,
+        "width": 105.78,
+        "visible": true
+      },
+      ".courses-sort": {
+        "left": 556.44,
+        "right": 796,
+        "width": 239.56,
+        "visible": true
+      },
+      ".ccard": {
+        "left": 24,
+        "right": 400,
+        "width": 376,
+        "visible": true
+      },
+      ".ccard-meta": {
+        "left": 44,
+        "right": 380,
+        "width": 336,
+        "visible": true
+      },
+      ".ccard-actions": {
+        "left": 44,
+        "right": 380,
+        "width": 336,
+        "visible": true
+      },
+      ".cpagination": {
+        "left": 24,
+        "right": 796,
+        "width": 772,
+        "visible": true
+      }
+    }
+  },
+  {
+    "route": "/courses",
+    "theme": "light",
+    "width": 768,
+    "bodyWidth": 768,
+    "documentWidth": 768,
+    "viewportWidth": 768,
+    "brokenImages": [],
+    "boxes": {
+      ".courses-toolbar-right": {
+        "left": 386.66,
+        "right": 744,
+        "width": 357.34,
+        "visible": true
+      },
+      ".courses-filter-btn": {
+        "left": 386.66,
+        "right": 492.44,
+        "width": 105.78,
+        "visible": true
+      },
+      ".courses-sort": {
+        "left": 504.44,
+        "right": 744,
+        "width": 239.56,
+        "visible": true
+      },
+      ".ccard": {
+        "left": 24,
+        "right": 374,
+        "width": 350,
+        "visible": true
+      },
+      ".ccard-meta": {
+        "left": 44,
+        "right": 354,
+        "width": 310,
+        "visible": true
+      },
+      ".ccard-actions": {
+        "left": 44,
+        "right": 354,
+        "width": 310,
+        "visible": true
+      },
+      ".cpagination": {
+        "left": 24,
+        "right": 744,
+        "width": 720,
+        "visible": true
+      }
+    }
+  },
+  {
+    "route": "/courses",
+    "theme": "light",
+    "width": 576,
+    "bodyWidth": 576,
+    "documentWidth": 576,
+    "viewportWidth": 576,
+    "brokenImages": [],
+    "boxes": {
+      ".courses-toolbar-right": {
+        "left": 24,
+        "right": 552,
+        "width": 528,
+        "visible": true
+      },
+      ".courses-filter-btn": {
+        "left": 24,
+        "right": 129.78,
+        "width": 105.78,
+        "visible": true
+      },
+      ".courses-sort": {
+        "left": 141.78,
+        "right": 552,
+        "width": 410.22,
+        "visible": true
+      },
+      ".ccard": {
+        "left": 48,
+        "right": 528,
+        "width": 480,
+        "visible": true
+      },
+      ".ccard-meta": {
+        "left": 68,
+        "right": 508,
+        "width": 440,
+        "visible": true
+      },
+      ".ccard-actions": {
+        "left": 68,
+        "right": 508,
+        "width": 440,
+        "visible": true
+      },
+      ".cpagination": {
+        "left": 24,
+        "right": 552,
+        "width": 528,
+        "visible": true
+      }
+    }
+  },
+  {
+    "route": "/courses",
+    "theme": "light",
+    "width": 430,
+    "bodyWidth": 430,
+    "documentWidth": 430,
+    "viewportWidth": 430,
+    "brokenImages": [],
+    "boxes": {
+      ".courses-toolbar-right": {
+        "left": 18,
+        "right": 412,
+        "width": 394,
+        "visible": true
+      },
+      ".courses-filter-btn": {
+        "left": 18,
+        "right": 123.78,
+        "width": 105.78,
+        "visible": true
+      },
+      ".courses-sort": {
+        "left": 135.78,
+        "right": 412,
+        "width": 276.22,
+        "visible": true
+      },
+      ".ccard": {
+        "left": 18,
+        "right": 412,
+        "width": 394,
+        "visible": true
+      },
+      ".ccard-meta": {
+        "left": 38,
+        "right": 392,
+        "width": 354,
+        "visible": true
+      },
+      ".ccard-actions": {
+        "left": 38,
+        "right": 392,
+        "width": 354,
+        "visible": true
+      },
+      ".cpagination": {
+        "left": 18,
+        "right": 412,
+        "width": 394,
+        "visible": true
+      }
+    }
+  },
+  {
+    "route": "/courses",
+    "theme": "light",
+    "width": 390,
+    "bodyWidth": 390,
+    "documentWidth": 390,
+    "viewportWidth": 390,
+    "brokenImages": [],
+    "boxes": {
+      ".courses-toolbar-right": {
+        "left": 18,
+        "right": 372,
+        "width": 354,
+        "visible": true
+      },
+      ".courses-filter-btn": {
+        "left": 18,
+        "right": 123.78,
+        "width": 105.78,
+        "visible": true
+      },
+      ".courses-sort": {
+        "left": 135.78,
+        "right": 372,
+        "width": 236.22,
+        "visible": true
+      },
+      ".ccard": {
+        "left": 18,
+        "right": 372,
+        "width": 354,
+        "visible": true
+      },
+      ".ccard-meta": {
+        "left": 38,
+        "right": 352,
+        "width": 314,
+        "visible": true
+      },
+      ".ccard-actions": {
+        "left": 38,
+        "right": 352,
+        "width": 314,
+        "visible": true
+      },
+      ".cpagination": {
+        "left": 18,
+        "right": 372,
+        "width": 354,
+        "visible": true
+      }
+    }
+  },
+  {
+    "route": "/courses",
+    "theme": "light",
+    "width": 375,
+    "bodyWidth": 375,
+    "documentWidth": 375,
+    "viewportWidth": 375,
+    "brokenImages": [],
+    "boxes": {
+      ".courses-toolbar-right": {
+        "left": 18,
+        "right": 357,
+        "width": 339,
+        "visible": true
+      },
+      ".courses-filter-btn": {
+        "left": 18,
+        "right": 123.78,
+        "width": 105.78,
+        "visible": true
+      },
+      ".courses-sort": {
+        "left": 135.78,
+        "right": 357,
+        "width": 221.22,
+        "visible": true
+      },
+      ".ccard": {
+        "left": 18,
+        "right": 357,
+        "width": 339,
+        "visible": true
+      },
+      ".ccard-meta": {
+        "left": 38,
+        "right": 337,
+        "width": 299,
+        "visible": true
+      },
+      ".ccard-actions": {
+        "left": 38,
+        "right": 337,
+        "width": 299,
+        "visible": true
+      },
+      ".cpagination": {
+        "left": 18,
+        "right": 357,
+        "width": 339,
+        "visible": true
+      }
+    }
+  },
+  {
+    "route": "/courses",
+    "theme": "light",
+    "width": 360,
+    "bodyWidth": 360,
+    "documentWidth": 360,
+    "viewportWidth": 360,
+    "brokenImages": [],
+    "boxes": {
+      ".courses-toolbar-right": {
+        "left": 18,
+        "right": 342,
+        "width": 324,
+        "visible": true
+      },
+      ".courses-filter-btn": {
+        "left": 18,
+        "right": 123.78,
+        "width": 105.78,
+        "visible": true
+      },
+      ".courses-sort": {
+        "left": 135.78,
+        "right": 342,
+        "width": 206.22,
+        "visible": true
+      },
+      ".ccard": {
+        "left": 18,
+        "right": 342,
+        "width": 324,
+        "visible": true
+      },
+      ".ccard-meta": {
+        "left": 38,
+        "right": 322,
+        "width": 284,
+        "visible": true
+      },
+      ".ccard-actions": {
+        "left": 38,
+        "right": 322,
+        "width": 284,
+        "visible": true
+      },
+      ".cpagination": {
+        "left": 18,
+        "right": 342,
+        "width": 324,
+        "visible": true
+      }
+    }
+  },
+  {
+    "route": "/courses",
+    "theme": "light",
+    "width": 320,
+    "bodyWidth": 320,
+    "documentWidth": 320,
+    "viewportWidth": 320,
+    "brokenImages": [],
+    "boxes": {
+      ".courses-toolbar-right": {
+        "left": 18,
+        "right": 302,
+        "width": 284,
+        "visible": true
+      },
+      ".courses-filter-btn": {
+        "left": 18,
+        "right": 123.78,
+        "width": 105.78,
+        "visible": true
+      },
+      ".courses-sort": {
+        "left": 135.78,
+        "right": 302,
+        "width": 166.22,
+        "visible": true
+      },
+      ".ccard": {
+        "left": 18,
+        "right": 302,
+        "width": 284,
+        "visible": true
+      },
+      ".ccard-meta": {
+        "left": 38,
+        "right": 282,
+        "width": 244,
+        "visible": true
+      },
+      ".ccard-actions": {
+        "left": 38,
+        "right": 282,
+        "width": 244,
+        "visible": true
+      },
+      ".cpagination": {
+        "left": 18,
+        "right": 302,
+        "width": 284,
+        "visible": true
+      }
+    }
+  },
+  {
+    "route": "/courses",
+    "theme": "light",
+    "interaction": true,
+    "filterUsable": true,
+    "sortUsable": true,
+    "consoleErrors": [],
+    "reactWarnings": [],
+    "pageErrors": [],
+    "failedRequests": [],
+    "unexpectedResponses": []
+  },
+  {
+    "route": "/courses",
+    "theme": "dark",
+    "width": 1920,
+    "bodyWidth": 1920,
+    "documentWidth": 1920,
+    "viewportWidth": 1920,
+    "brokenImages": [],
+    "boxes": {
+      ".courses-toolbar-right": {
+        "left": 1341.44,
+        "right": 1581,
+        "width": 239.56,
+        "visible": true
+      },
+      ".courses-filter-btn": {
+        "left": 0,
+        "right": 0,
+        "width": 0,
+        "visible": false
+      },
+      ".courses-sort": {
+        "left": 1341.44,
+        "right": 1581,
+        "width": 239.56,
+        "visible": true
+      },
+      ".ccard": {
+        "left": 635,
+        "right": 1096,
+        "width": 461,
+        "visible": true
+      },
+      ".ccard-meta": {
+        "left": 656,
+        "right": 1075,
+        "width": 419,
+        "visible": true
+      },
+      ".ccard-actions": {
+        "left": 656,
+        "right": 1075,
+        "width": 419,
+        "visible": true
+      },
+      ".cpagination": {
+        "left": 635,
+        "right": 1581,
+        "width": 946,
+        "visible": true
+      }
+    }
+  },
+  {
+    "route": "/courses",
+    "theme": "dark",
+    "width": 1440,
+    "bodyWidth": 1440,
+    "documentWidth": 1440,
+    "viewportWidth": 1440,
+    "brokenImages": [],
+    "boxes": {
+      ".courses-toolbar-right": {
+        "left": 1101.44,
+        "right": 1341,
+        "width": 239.56,
+        "visible": true
+      },
+      ".courses-filter-btn": {
+        "left": 0,
+        "right": 0,
+        "width": 0,
+        "visible": false
+      },
+      ".courses-sort": {
+        "left": 1101.44,
+        "right": 1341,
+        "width": 239.56,
+        "visible": true
+      },
+      ".ccard": {
+        "left": 395,
+        "right": 856,
+        "width": 461,
+        "visible": true
+      },
+      ".ccard-meta": {
+        "left": 416,
+        "right": 835,
+        "width": 419,
+        "visible": true
+      },
+      ".ccard-actions": {
+        "left": 416,
+        "right": 835,
+        "width": 419,
+        "visible": true
+      },
+      ".cpagination": {
+        "left": 395,
+        "right": 1341,
+        "width": 946,
+        "visible": true
+      }
+    }
+  },
+  {
+    "route": "/courses",
+    "theme": "dark",
+    "width": 1366,
+    "bodyWidth": 1366,
+    "documentWidth": 1366,
+    "viewportWidth": 1366,
+    "brokenImages": [],
+    "boxes": {
+      ".courses-toolbar-right": {
+        "left": 1064.44,
+        "right": 1304,
+        "width": 239.56,
+        "visible": true
+      },
+      ".courses-filter-btn": {
+        "left": 0,
+        "right": 0,
+        "width": 0,
+        "visible": false
+      },
+      ".courses-sort": {
+        "left": 1064.44,
+        "right": 1304,
+        "width": 239.56,
+        "visible": true
+      },
+      ".ccard": {
+        "left": 358,
+        "right": 819,
+        "width": 461,
+        "visible": true
+      },
+      ".ccard-meta": {
+        "left": 379,
+        "right": 798,
+        "width": 419,
+        "visible": true
+      },
+      ".ccard-actions": {
+        "left": 379,
+        "right": 798,
+        "width": 419,
+        "visible": true
+      },
+      ".cpagination": {
+        "left": 358,
+        "right": 1304,
+        "width": 946,
+        "visible": true
+      }
+    }
+  },
+  {
+    "route": "/courses",
+    "theme": "dark",
+    "width": 1280,
+    "bodyWidth": 1280,
+    "documentWidth": 1280,
+    "viewportWidth": 1280,
+    "brokenImages": [],
+    "boxes": {
+      ".courses-toolbar-right": {
+        "left": 1016.44,
+        "right": 1256,
+        "width": 239.56,
+        "visible": true
+      },
+      ".courses-filter-btn": {
+        "left": 0,
+        "right": 0,
+        "width": 0,
+        "visible": false
+      },
+      ".courses-sort": {
+        "left": 1016.44,
+        "right": 1256,
+        "width": 239.56,
+        "visible": true
+      },
+      ".ccard": {
+        "left": 320,
+        "right": 776,
+        "width": 456,
+        "visible": true
+      },
+      ".ccard-meta": {
+        "left": 341,
+        "right": 755,
+        "width": 414,
+        "visible": true
+      },
+      ".ccard-actions": {
+        "left": 341,
+        "right": 755,
+        "width": 414,
+        "visible": true
+      },
+      ".cpagination": {
+        "left": 320,
+        "right": 1256,
+        "width": 936,
+        "visible": true
+      }
+    }
+  },
+  {
+    "route": "/courses",
+    "theme": "dark",
+    "width": 1024,
+    "bodyWidth": 1024,
+    "documentWidth": 1024,
+    "viewportWidth": 1024,
+    "brokenImages": [],
+    "boxes": {
+      ".courses-toolbar-right": {
+        "left": 760.44,
+        "right": 1000,
+        "width": 239.56,
+        "visible": true
+      },
+      ".courses-filter-btn": {
+        "left": 0,
+        "right": 0,
+        "width": 0,
+        "visible": false
+      },
+      ".courses-sort": {
+        "left": 760.44,
+        "right": 1000,
+        "width": 239.56,
+        "visible": true
+      },
+      ".ccard": {
+        "left": 286,
+        "right": 631,
+        "width": 345,
+        "visible": true
+      },
+      ".ccard-meta": {
+        "left": 307,
+        "right": 610,
+        "width": 303,
+        "visible": true
+      },
+      ".ccard-actions": {
+        "left": 307,
+        "right": 610,
+        "width": 303,
+        "visible": true
+      },
+      ".cpagination": {
+        "left": 286,
+        "right": 1000,
+        "width": 714,
+        "visible": true
+      }
+    }
+  },
+  {
+    "route": "/courses",
+    "theme": "dark",
+    "width": 912,
+    "bodyWidth": 912,
+    "documentWidth": 912,
+    "viewportWidth": 912,
+    "brokenImages": [],
+    "boxes": {
+      ".courses-toolbar-right": {
+        "left": 530.66,
+        "right": 888,
+        "width": 357.34,
+        "visible": true
+      },
+      ".courses-filter-btn": {
+        "left": 530.66,
+        "right": 636.44,
+        "width": 105.78,
+        "visible": true
+      },
+      ".courses-sort": {
+        "left": 648.44,
+        "right": 888,
+        "width": 239.56,
+        "visible": true
+      },
+      ".ccard": {
+        "left": 24,
+        "right": 446,
+        "width": 422,
+        "visible": true
+      },
+      ".ccard-meta": {
+        "left": 45,
+        "right": 425,
+        "width": 380,
+        "visible": true
+      },
+      ".ccard-actions": {
+        "left": 45,
+        "right": 425,
+        "width": 380,
+        "visible": true
+      },
+      ".cpagination": {
+        "left": 24,
+        "right": 888,
+        "width": 864,
+        "visible": true
+      }
+    }
+  },
+  {
+    "route": "/courses",
+    "theme": "dark",
+    "width": 820,
+    "bodyWidth": 820,
+    "documentWidth": 820,
+    "viewportWidth": 820,
+    "brokenImages": [],
+    "boxes": {
+      ".courses-toolbar-right": {
+        "left": 438.66,
+        "right": 796,
+        "width": 357.34,
+        "visible": true
+      },
+      ".courses-filter-btn": {
+        "left": 438.66,
+        "right": 544.44,
+        "width": 105.78,
+        "visible": true
+      },
+      ".courses-sort": {
+        "left": 556.44,
+        "right": 796,
+        "width": 239.56,
+        "visible": true
+      },
+      ".ccard": {
+        "left": 24,
+        "right": 400,
+        "width": 376,
+        "visible": true
+      },
+      ".ccard-meta": {
+        "left": 45,
+        "right": 379,
+        "width": 334,
+        "visible": true
+      },
+      ".ccard-actions": {
+        "left": 45,
+        "right": 379,
+        "width": 334,
+        "visible": true
+      },
+      ".cpagination": {
+        "left": 24,
+        "right": 796,
+        "width": 772,
+        "visible": true
+      }
+    }
+  },
+  {
+    "route": "/courses",
+    "theme": "dark",
+    "width": 768,
+    "bodyWidth": 768,
+    "documentWidth": 768,
+    "viewportWidth": 768,
+    "brokenImages": [],
+    "boxes": {
+      ".courses-toolbar-right": {
+        "left": 386.66,
+        "right": 744,
+        "width": 357.34,
+        "visible": true
+      },
+      ".courses-filter-btn": {
+        "left": 386.66,
+        "right": 492.44,
+        "width": 105.78,
+        "visible": true
+      },
+      ".courses-sort": {
+        "left": 504.44,
+        "right": 744,
+        "width": 239.56,
+        "visible": true
+      },
+      ".ccard": {
+        "left": 24,
+        "right": 374,
+        "width": 350,
+        "visible": true
+      },
+      ".ccard-meta": {
+        "left": 45,
+        "right": 353,
+        "width": 308,
+        "visible": true
+      },
+      ".ccard-actions": {
+        "left": 45,
+        "right": 353,
+        "width": 308,
+        "visible": true
+      },
+      ".cpagination": {
+        "left": 24,
+        "right": 744,
+        "width": 720,
+        "visible": true
+      }
+    }
+  },
+  {
+    "route": "/courses",
+    "theme": "dark",
+    "width": 576,
+    "bodyWidth": 576,
+    "documentWidth": 576,
+    "viewportWidth": 576,
+    "brokenImages": [],
+    "boxes": {
+      ".courses-toolbar-right": {
+        "left": 24,
+        "right": 552,
+        "width": 528,
+        "visible": true
+      },
+      ".courses-filter-btn": {
+        "left": 24,
+        "right": 129.78,
+        "width": 105.78,
+        "visible": true
+      },
+      ".courses-sort": {
+        "left": 141.78,
+        "right": 552,
+        "width": 410.22,
+        "visible": true
+      },
+      ".ccard": {
+        "left": 48,
+        "right": 528,
+        "width": 480,
+        "visible": true
+      },
+      ".ccard-meta": {
+        "left": 69,
+        "right": 507,
+        "width": 438,
+        "visible": true
+      },
+      ".ccard-actions": {
+        "left": 69,
+        "right": 507,
+        "width": 438,
+        "visible": true
+      },
+      ".cpagination": {
+        "left": 24,
+        "right": 552,
+        "width": 528,
+        "visible": true
+      }
+    }
+  },
+  {
+    "route": "/courses",
+    "theme": "dark",
+    "width": 430,
+    "bodyWidth": 430,
+    "documentWidth": 430,
+    "viewportWidth": 430,
+    "brokenImages": [],
+    "boxes": {
+      ".courses-toolbar-right": {
+        "left": 18,
+        "right": 412,
+        "width": 394,
+        "visible": true
+      },
+      ".courses-filter-btn": {
+        "left": 18,
+        "right": 123.78,
+        "width": 105.78,
+        "visible": true
+      },
+      ".courses-sort": {
+        "left": 135.78,
+        "right": 412,
+        "width": 276.22,
+        "visible": true
+      },
+      ".ccard": {
+        "left": 18,
+        "right": 412,
+        "width": 394,
+        "visible": true
+      },
+      ".ccard-meta": {
+        "left": 39,
+        "right": 391,
+        "width": 352,
+        "visible": true
+      },
+      ".ccard-actions": {
+        "left": 39,
+        "right": 391,
+        "width": 352,
+        "visible": true
+      },
+      ".cpagination": {
+        "left": 18,
+        "right": 412,
+        "width": 394,
+        "visible": true
+      }
+    }
+  },
+  {
+    "route": "/courses",
+    "theme": "dark",
+    "width": 390,
+    "bodyWidth": 390,
+    "documentWidth": 390,
+    "viewportWidth": 390,
+    "brokenImages": [],
+    "boxes": {
+      ".courses-toolbar-right": {
+        "left": 18,
+        "right": 372,
+        "width": 354,
+        "visible": true
+      },
+      ".courses-filter-btn": {
+        "left": 18,
+        "right": 123.78,
+        "width": 105.78,
+        "visible": true
+      },
+      ".courses-sort": {
+        "left": 135.78,
+        "right": 372,
+        "width": 236.22,
+        "visible": true
+      },
+      ".ccard": {
+        "left": 18,
+        "right": 372,
+        "width": 354,
+        "visible": true
+      },
+      ".ccard-meta": {
+        "left": 39,
+        "right": 351,
+        "width": 312,
+        "visible": true
+      },
+      ".ccard-actions": {
+        "left": 39,
+        "right": 351,
+        "width": 312,
+        "visible": true
+      },
+      ".cpagination": {
+        "left": 18,
+        "right": 372,
+        "width": 354,
+        "visible": true
+      }
+    }
+  },
+  {
+    "route": "/courses",
+    "theme": "dark",
+    "width": 375,
+    "bodyWidth": 375,
+    "documentWidth": 375,
+    "viewportWidth": 375,
+    "brokenImages": [],
+    "boxes": {
+      ".courses-toolbar-right": {
+        "left": 18,
+        "right": 357,
+        "width": 339,
+        "visible": true
+      },
+      ".courses-filter-btn": {
+        "left": 18,
+        "right": 123.78,
+        "width": 105.78,
+        "visible": true
+      },
+      ".courses-sort": {
+        "left": 135.78,
+        "right": 357,
+        "width": 221.22,
+        "visible": true
+      },
+      ".ccard": {
+        "left": 18,
+        "right": 357,
+        "width": 339,
+        "visible": true
+      },
+      ".ccard-meta": {
+        "left": 39,
+        "right": 336,
+        "width": 297,
+        "visible": true
+      },
+      ".ccard-actions": {
+        "left": 39,
+        "right": 336,
+        "width": 297,
+        "visible": true
+      },
+      ".cpagination": {
+        "left": 18,
+        "right": 357,
+        "width": 339,
+        "visible": true
+      }
+    }
+  },
+  {
+    "route": "/courses",
+    "theme": "dark",
+    "width": 360,
+    "bodyWidth": 360,
+    "documentWidth": 360,
+    "viewportWidth": 360,
+    "brokenImages": [],
+    "boxes": {
+      ".courses-toolbar-right": {
+        "left": 18,
+        "right": 342,
+        "width": 324,
+        "visible": true
+      },
+      ".courses-filter-btn": {
+        "left": 18,
+        "right": 123.78,
+        "width": 105.78,
+        "visible": true
+      },
+      ".courses-sort": {
+        "left": 135.78,
+        "right": 342,
+        "width": 206.22,
+        "visible": true
+      },
+      ".ccard": {
+        "left": 18,
+        "right": 342,
+        "width": 324,
+        "visible": true
+      },
+      ".ccard-meta": {
+        "left": 39,
+        "right": 321,
+        "width": 282,
+        "visible": true
+      },
+      ".ccard-actions": {
+        "left": 39,
+        "right": 321,
+        "width": 282,
+        "visible": true
+      },
+      ".cpagination": {
+        "left": 18,
+        "right": 342,
+        "width": 324,
+        "visible": true
+      }
+    }
+  },
+  {
+    "route": "/courses",
+    "theme": "dark",
+    "width": 320,
+    "bodyWidth": 320,
+    "documentWidth": 320,
+    "viewportWidth": 320,
+    "brokenImages": [],
+    "boxes": {
+      ".courses-toolbar-right": {
+        "left": 18,
+        "right": 302,
+        "width": 284,
+        "visible": true
+      },
+      ".courses-filter-btn": {
+        "left": 18,
+        "right": 123.78,
+        "width": 105.78,
+        "visible": true
+      },
+      ".courses-sort": {
+        "left": 135.78,
+        "right": 302,
+        "width": 166.22,
+        "visible": true
+      },
+      ".ccard": {
+        "left": 18,
+        "right": 302,
+        "width": 284,
+        "visible": true
+      },
+      ".ccard-meta": {
+        "left": 39,
+        "right": 281,
+        "width": 242,
+        "visible": true
+      },
+      ".ccard-actions": {
+        "left": 39,
+        "right": 281,
+        "width": 242,
+        "visible": true
+      },
+      ".cpagination": {
+        "left": 18,
+        "right": 302,
+        "width": 284,
+        "visible": true
+      }
+    }
+  },
+  {
+    "route": "/courses",
+    "theme": "dark",
+    "interaction": true,
+    "filterUsable": true,
+    "sortUsable": true,
+    "consoleErrors": [],
+    "reactWarnings": [],
+    "pageErrors": [],
+    "failedRequests": [],
+    "unexpectedResponses": []
+  }
+]

@@ -662,6 +662,7 @@
   .admin-course-details dd,
   .admin-enrollment-identity span,
   .admin-enrollment-identity h2,
+  .admin-enrollment-progress-panel > div:first-child,
   .admin-enrollment-fields dt,
   .admin-enrollment-fields dd,
   .admin-certificate-identity code,

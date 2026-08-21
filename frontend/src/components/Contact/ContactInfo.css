@@ -10,6 +10,11 @@
   align-items: start;
 }
 
+.cinfo-left,
+.cinfo-form-card {
+  min-width: 0;
+}
+
 .cinfo-title {
   font-size: 30px;
   font-weight: 700;

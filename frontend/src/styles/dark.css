@@ -168,6 +168,11 @@
 [data-theme='dark'] .t-card *,
 [data-theme='dark'] .tc-card *,
 [data-theme='dark'] .blog-card * { border-color: var(--divider); }
+[data-theme='dark'] .t-text,
+[data-theme='dark'] .tc-text { color: var(--text-body); }
+[data-theme='dark'] .home-page :where(.logo-microsoft, .logo-amazon, .logo-deloitte, .logo-accenture) {
+  color: var(--text-body);
+}
 [data-theme='dark'] .subscribe-input,
 [data-theme='dark'] .footer-newsletter input { color: var(--text-primary); background: var(--bg-tertiary); border-color: var(--border-primary); }
 
@@ -217,6 +222,7 @@
   border: 1px solid var(--border-primary);
   box-shadow: var(--shadow-card);
 }
+[data-theme='dark'] .cdp-preview-btn { color: var(--navy-dark); }
 [data-theme='dark'] .cdp-quick-stats,
 [data-theme='dark'] .cdp-ov-info-card,
 [data-theme='dark'] .cdp-curr-module,
@@ -524,6 +530,9 @@
 [data-theme='dark'] .thero-btn-video,
 [data-theme='dark'] .tsection-arrow,
 [data-theme='dark'] .splan-btn { color: var(--text-primary); background: var(--bg-tertiary); border-color: var(--border-secondary); }
+[data-theme='dark'] .programs-btn-how circle { stroke: currentColor; }
+[data-theme='dark'] .programs-btn-how path,
+[data-theme='dark'] .authcard-social-btn svg[fill='#111'] { fill: currentColor; }
 [data-theme='dark'] .cinfo-form input,
 [data-theme='dark'] .cinfo-form select,
 [data-theme='dark'] .cinfo-form textarea { color: var(--text-primary); background: var(--bg-tertiary); border-color: var(--border-primary); }
