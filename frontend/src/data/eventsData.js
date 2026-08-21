@@ -6,25 +6,25 @@ export const eventFeatures = [
     key: 'industry',
     tint: 'var(--tint-blue)',
     title: 'Industry Focused',
-    text: 'Events designed with input from top industry experts.',
+    text: 'Expert-led events built around industry needs.',
   },
   {
     key: 'handson',
     tint: 'var(--tint-green)',
     title: 'Hands-on Learning',
-    text: 'Work on real-world projects and practical assignments.',
+    text: 'Build practical skills through real projects.',
   },
   {
     key: 'career',
     tint: 'var(--tint-orange)',
     title: 'Career Support',
-    text: 'Get resume reviews, interview preparation and job support.',
+    text: 'Get guidance for resumes, interviews and careers.',
   },
   {
     key: 'flexible',
     tint: 'var(--tint-purple)',
     title: 'Flexible Learning',
-    text: 'Learn at your own pace with lifetime access to content.',
+    text: 'Learn at your pace with lasting content access.',
   },
 ]
 

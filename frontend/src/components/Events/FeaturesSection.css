@@ -75,20 +75,25 @@
   }
 
   .programs-features-card {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    padding: 24px 20px;
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 10px 20px;
   }
 
   .programs-feature-item {
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    text-align: center;
-    gap: 12px;
+    text-align: left;
+    gap: 16px;
+    min-width: 0;
+    padding: 18px 0;
   }
 
+  .programs-feature-item + .programs-feature-item,
   .programs-feature-item:nth-child(even) {
-    padding-left: 20px;
+    border-left: 0;
+    border-top: 1px solid #eef1f7;
+    padding-left: 0;
   }
 
   .programs-feature-icon {
@@ -98,9 +103,11 @@
 
   .programs-feature-copy h3 {
     font-size: 15px;
+    margin-bottom: 4px;
   }
 
   .programs-feature-copy p {
     font-size: 13px;
+    line-height: 1.5;
   }
 }

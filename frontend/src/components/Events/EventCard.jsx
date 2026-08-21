@@ -44,7 +44,12 @@ function StarIcon() {
 
 export default function EventCard({ event }) {
   return (
-    <motion.article className="pcard" variants={fadeUp} transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}>
+    <motion.article
+      className="pcard"
+      variants={fadeUp}
+      whileHover={{ y: -6 }}
+      transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+    >
       <div className="pcard-media">
         <CourseIllustration type={event.imageType} />
       </div>
