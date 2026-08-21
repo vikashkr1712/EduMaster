@@ -15,6 +15,7 @@ npm-debug.log*
 
 shots/
 screenshots/
+qa-screenshots/final-production-qa/admin-dark-fixes/
 playwright-report/
 test-results/
 
