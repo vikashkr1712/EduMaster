@@ -579,6 +579,35 @@
   color: var(--admin-heading) !important;
 }
 
+/* Route-level table styles use light-theme link colors. Keep those links and
+   the order-detail totals/actions readable without changing their light mode. */
+[data-theme='dark'] .admin-shell :where(.admin-quiz-table__title, .admin-assignment-table__title) {
+  color: var(--admin-text) !important;
+}
+[data-theme='dark'] .admin-shell :where(.admin-quiz-table__title, .admin-assignment-table__title):where(:hover, :focus-visible) {
+  color: var(--admin-blue-dark) !important;
+}
+[data-theme='dark'] .admin-shell .admin-certificate-table td > a:first-child {
+  color: var(--admin-blue-dark) !important;
+}
+[data-theme='dark'] .admin-shell .admin-certificate-table td > a:first-child:where(:hover, :focus-visible) {
+  color: var(--admin-text) !important;
+  text-decoration: underline;
+}
+[data-theme='dark'] .admin-shell .admin-financial-summary .is-total dd {
+  color: var(--admin-text) !important;
+}
+[data-theme='dark'] .admin-shell .admin-related-list > a {
+  color: var(--admin-text-soft) !important;
+}
+[data-theme='dark'] .admin-shell .admin-related-list > a svg {
+  color: var(--admin-blue-dark) !important;
+}
+[data-theme='dark'] .admin-shell .admin-related-list > a:where(:hover, :focus-visible) {
+  background: var(--admin-surface-hover) !important;
+  color: var(--admin-text) !important;
+}
+
 /* Keep every desktop action available without forcing a horizontal pan. */
 @media (min-width: 1025px) and (max-width: 1600px) {
   .admin-course-table { min-width: 1040px; }
