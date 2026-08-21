@@ -11,6 +11,13 @@ const CAT_ILLUSTRATION = {
   'Personal Development': 'productivity',
 }
 
+const ILLUSTRATION_BACKGROUND = {
+  development: '#E4E9FF', datascience: '#DCF3E4', design: '#FCEBB9',
+  marketing: '#E4E9FF', business: '#FCEBB9', python: '#FBDDE7',
+  react: '#E4E9FF', ai: '#DCF3E4', productivity: '#E4E9FF',
+  js: '#FDEBC8', cloud: '#DCE7FB',
+}
+
 function TrashIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round">
@@ -60,7 +67,12 @@ const CartItem = forwardRef(function CartItem({ item }, ref) {
       exit={{ opacity: 0, x: -40, height: 0, marginBottom: 0, padding: 0 }}
       transition={{ duration: 0.25 }}
     >
-      <Link to={course.slug ? `/courses/${course.slug}` : '#'} className="cart-item-thumb" tabIndex={-1}>
+      <Link
+        to={course.slug ? `/courses/${course.slug}` : '#'}
+        className="cart-item-thumb"
+        style={{ backgroundColor: ILLUSTRATION_BACKGROUND[imageType] || ILLUSTRATION_BACKGROUND.development }}
+        tabIndex={-1}
+      >
         <CourseIllustration type={imageType} />
       </Link>
       <div className="cart-item-body">
