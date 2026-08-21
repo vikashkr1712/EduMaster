@@ -575,6 +575,10 @@
 [data-theme='dark'] .admin-shell .admin-order-student .admin-commerce-related-link {
   background: var(--admin-surface) !important;
 }
+[data-theme='dark'] .admin-shell .admin-order-student {
+  border-color: var(--admin-border) !important;
+  background: var(--admin-surface) !important;
+}
 [data-theme='dark'] .admin-shell .admin-order-student__body strong {
   color: var(--admin-heading) !important;
 }
