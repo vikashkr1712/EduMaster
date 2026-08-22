@@ -1,9 +1,11 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { getCurrentUser, getSession, login as loginRequest, logout as logoutRequest, register as registerRequest } from '../../api/auth.js'
+import { AUTH_SESSION_MISMATCH_EVENT } from '../../api/client.js'
 
 const AuthContext = createContext(null)
 const SESSION_HINT_KEY = 'edumaster:session-active'
+const AUTH_SYNC_KEY = 'edumaster:auth-sync'
 
 const getUserFromResponse = (response) => response?.data?.user ?? response?.user ?? null
 
@@ -32,6 +34,15 @@ export function AuthProvider({ children }) {
       else sessionStorage.removeItem(SESSION_HINT_KEY)
     } catch {
       // Private browsing can deny storage; authentication still works.
+    }
+  }, [])
+
+  const notifyOtherTabs = useCallback(() => {
+    try {
+      localStorage.setItem(AUTH_SYNC_KEY, `${Date.now()}:${Math.random().toString(36).slice(2)}`)
+    } catch {
+      // API permission failures and focus reconciliation remain available when
+      // cross-tab storage is unavailable.
     }
   }, [])
 
@@ -90,6 +101,27 @@ export function AuthProvider({ children }) {
     }
   }, [canCommitAuthState, setSessionHint])
 
+  useEffect(() => {
+    const reconcileSession = () => {
+      loadCurrentUser().catch(() => {})
+    }
+    const onStorage = (event) => {
+      if (event.key === AUTH_SYNC_KEY) reconcileSession()
+    }
+    const onFocus = () => {
+      if (hasSessionHint) reconcileSession()
+    }
+
+    window.addEventListener('storage', onStorage)
+    window.addEventListener('focus', onFocus)
+    window.addEventListener(AUTH_SESSION_MISMATCH_EVENT, reconcileSession)
+    return () => {
+      window.removeEventListener('storage', onStorage)
+      window.removeEventListener('focus', onFocus)
+      window.removeEventListener(AUTH_SESSION_MISMATCH_EVENT, reconcileSession)
+    }
+  }, [hasSessionHint, loadCurrentUser])
+
   const login = useCallback(async (credentials) => {
     const requestId = authRequestId.current + 1
     authRequestId.current = requestId
@@ -104,8 +136,9 @@ export function AuthProvider({ children }) {
     if (!canCommitAuthState(requestId)) return null
     const currentUser = await loadCurrentUser()
     setSessionHint(Boolean(currentUser))
+    notifyOtherTabs()
     return currentUser
-  }, [canCommitAuthState, loadCurrentUser, setSessionHint])
+  }, [canCommitAuthState, loadCurrentUser, notifyOtherTabs, setSessionHint])
 
   const signup = useCallback(async (details) => {
     const requestId = authRequestId.current + 1
@@ -119,12 +152,13 @@ export function AuthProvider({ children }) {
         setSessionHint(Boolean(currentUser))
         setIsLoading(false)
       }
+      notifyOtherTabs()
       return currentUser
     } catch (error) {
       if (canCommitAuthState(requestId)) setIsLoading(false)
       throw error
     }
-  }, [canCommitAuthState, setSessionHint])
+  }, [canCommitAuthState, notifyOtherTabs, setSessionHint])
 
   const logout = useCallback(async (options = {}) => {
     const redirectTo = typeof options?.redirectTo === 'string' ? options.redirectTo : '/login'
@@ -138,8 +172,9 @@ export function AuthProvider({ children }) {
         setSessionHint(false)
         navigate(redirectTo, { replace: true })
       }
+      notifyOtherTabs()
     }
-  }, [navigate, setSessionHint])
+  }, [navigate, notifyOtherTabs, setSessionHint])
 
   // Lets authenticated features update the canonical user record immediately
   // after a successful API mutation (for example, an avatar upload).

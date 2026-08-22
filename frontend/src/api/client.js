@@ -2,6 +2,12 @@ const API_BASE_URL = import.meta.env.VITE_API_URL?.replace(/\/$/, '')
 const REQUEST_TIMEOUT_MS = 10_000
 const MAX_GET_RETRIES = 2
 const inflightGets = new Map()
+export const AUTH_SESSION_MISMATCH_EVENT = 'edumaster:auth-session-mismatch'
+
+const signalAuthSessionMismatch = (status, path) => {
+  if (typeof window === 'undefined') return
+  window.dispatchEvent(new CustomEvent(AUTH_SESSION_MISMATCH_EVENT, { detail: { status, path } }))
+}
 const getCookie = (name) => {
   const prefix = `${name}=`
   return document.cookie.split(';').map((value) => value.trim()).find((value) => value.startsWith(prefix))?.slice(prefix.length) || ''
@@ -115,6 +121,9 @@ async function request(path, { method = 'GET', body, headers, signal: externalSi
   const data = hasJsonResponse ? await response.json() : null
 
   if (!response.ok) {
+    if ((response.status === 401 && !path.startsWith('/auth/')) || (response.status === 403 && path.startsWith('/admin/'))) {
+      signalAuthSessionMismatch(response.status, path)
+    }
     throw new ApiError(getErrorMessage(response.status, data), { status: response.status, code: 'HTTP', details: data?.errors })
   }
 
