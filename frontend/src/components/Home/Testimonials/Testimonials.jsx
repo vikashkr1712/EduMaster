@@ -1,5 +1,5 @@
 import './Testimonials.css'
-import Avatar from '../../../assets/svg/common/Avatar.jsx'
+import ProfileAvatar from '../../common/ProfileAvatar.jsx'
 import { motion, stagger, useReducedMotion } from '../motion.jsx'
 
 function QuoteIcon({ color }) {
@@ -68,9 +68,15 @@ export default function Testimonials() {
           </p>
           <div className="testimonials-avatars">
             <div className="t-avatar-row">
-              {['m1', 'f1', 'm2', 'f2', 'm4'].map((v, i) => (
-                <span className="t-avatar" style={{ zIndex: 10 - i }} key={v}>
-                  <Avatar variant={v} size={40} />
+              {[
+                ['Rohit Sharma', 'm1'],
+                ['Priya Mehta', 'f1'],
+                ['Aman Verma', 'm2'],
+                ['Neha Singh', 'f2'],
+                ['Karan Malhotra', 'm4'],
+              ].map(([name, variant], i) => (
+                <span className="t-avatar" style={{ zIndex: 10 - i }} key={name}>
+                  <ProfileAvatar name={name} variant={variant} size={40} />
                 </span>
               ))}
               <span className="t-avatar t-avatar-plus">+</span>
@@ -88,7 +94,7 @@ export default function Testimonials() {
               <p className="t-text">{t.text}</p>
               <div className="t-footer">
                 <div className="t-person">
-                  <Avatar variant={t.avatar} size={44} />
+                  <ProfileAvatar name={t.name} variant={t.avatar} size={44} />
                   <div>
                     <span className="t-name">{t.name}</span>
                     <span className="t-role">{t.role}</span>

@@ -66,12 +66,26 @@
   height: 46px;
   border-radius: 50%;
   background: #fff;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  color: #1b2b4b;
   box-shadow: var(--shadow-card);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 2;
   transition: transform 0.2s, box-shadow 0.2s;
+}
+
+[data-theme='dark'] .tsection-arrow {
+  background: #1b2940;
+  border-color: #40516d;
+  color: #dce7f8;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.34);
+}
+
+[data-theme='dark'] .tsection-arrow:hover {
+  background: #243653;
+  border-color: #63789c;
 }
 
 .tsection-arrow:hover {
@@ -172,6 +186,16 @@
 .tsection-dot.active {
   background: var(--blue);
   transform: scale(1.15);
+}
+
+[data-theme='dark'] .tsection-dot {
+  background: #5b6980;
+  border: 1px solid #718099;
+}
+
+[data-theme='dark'] .tsection-dot.active {
+  background: #7892ff;
+  border-color: #9aabff;
 }
 
 /* ---------------- tablet: 3 cards ---------------- */

@@ -1,6 +1,6 @@
 import './TestimonialCarousel.css'
 import { useState } from 'react'
-import Avatar from '../../../assets/svg/common/Avatar.jsx'
+import ProfileAvatar from '../../common/ProfileAvatar.jsx'
 import { motion, stagger, useReducedMotion } from '../motion.jsx'
 
 function ChatBadgeIcon() {
@@ -45,7 +45,7 @@ function ArrowNav({ dir }) {
     <svg width="17" height="17" viewBox="0 0 24 24" fill="none">
       <path
         d={dir === 'left' ? 'M15 5l-7 7 7 7' : 'M9 5l7 7-7 7'}
-        stroke="#1B2B4B"
+        stroke="currentColor"
         strokeWidth="2.4"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -126,7 +126,7 @@ export default function TestimonialCarousel() {
                 </div>
                 <p className="tc-text">{r.text}</p>
                 <div className="tc-person">
-                  <Avatar variant={r.avatar} size={44} />
+                  <ProfileAvatar name={r.name} variant={r.avatar} size={44} />
                   <div>
                     <span className="tc-name">{r.name}</span>
                     <span className="tc-role">

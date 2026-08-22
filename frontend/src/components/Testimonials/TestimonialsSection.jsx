@@ -9,7 +9,7 @@ function ArrowNav({ dir }) {
     <svg width="17" height="17" viewBox="0 0 24 24" fill="none">
       <path
         d={dir === 'left' ? 'M15 5l-7 7 7 7' : 'M9 5l7 7-7 7'}
-        stroke="#1B2B4B"
+        stroke="currentColor"
         strokeWidth="2.4"
         strokeLinecap="round"
         strokeLinejoin="round"
