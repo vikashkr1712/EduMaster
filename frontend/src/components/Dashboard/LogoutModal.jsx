@@ -1,5 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react'
 import { useAuth } from '../Auth/AuthProvider.jsx'
+import './LogoutModal.css'
 
 // One shared logout confirmation used by every logout entry point
 // (dashboard sidebar, profile dropdown, mobile nav drawer).

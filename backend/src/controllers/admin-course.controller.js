@@ -1,6 +1,7 @@
 import * as courseService from '../services/course.service.js';
 import { ApiResponse } from '../utils/ApiResponse.js';
 import { asyncHandler } from '../utils/asyncHandler.js';
+import { saveCourseThumbnail } from '../services/course-thumbnail.service.js';
 
 export const getCourses = asyncHandler(async (req, res) => {
   const result = await courseService.getAdminCourses(req.query);
@@ -17,6 +18,12 @@ export const getCourse = asyncHandler(async (req, res) => {
 export const createCourse = asyncHandler(async (req, res) => {
   const course = await courseService.createCourse(req.body);
   const response = new ApiResponse(201, 'Course created successfully', { course });
+  res.status(response.statusCode).json(response);
+});
+
+export const uploadCourseThumbnail = asyncHandler(async (req, res) => {
+  const thumbnail = await saveCourseThumbnail(req.file);
+  const response = new ApiResponse(201, 'Course thumbnail uploaded successfully', { thumbnail });
   res.status(response.statusCode).json(response);
 });
 

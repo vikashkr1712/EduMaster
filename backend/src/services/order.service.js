@@ -10,7 +10,6 @@ import Discussion from '../models/Discussion.js';
 import { buildAssignmentsForCourse } from '../utils/assignmentFactory.js';
 import { ApiError } from '../utils/ApiError.js';
 import { createEvent } from './notification.service.js';
-import { buildCourseCurriculum } from '../utils/courseCurriculum.js';
 import { ensureCompletedCertificates } from './certificate.service.js';
 
 const TAX_RATE = 0.18;
@@ -32,10 +31,6 @@ const resolveCourse = async (value, session) => {
 
   if (!course || !course.isPublished) {
     throw new ApiError(404, 'One or more selected courses are unavailable');
-  }
-  if (!course.modules?.length) {
-    course.modules = buildCourseCurriculum(course);
-    await course.save({ session });
   }
   return course;
 };

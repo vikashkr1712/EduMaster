@@ -3,7 +3,6 @@ import Course from '../models/Course.js';
 import CourseEnrollment from '../models/CourseEnrollment.js';
 import User from '../models/User.js';
 import { ApiError } from '../utils/ApiError.js';
-import { buildCourseCurriculum } from '../utils/courseCurriculum.js';
 import { generateCertificate } from './certificate.service.js';
 import { getLessonQuizMap } from './quiz.service.js';
 
@@ -13,15 +12,11 @@ const findCourse = async (value) => {
   if (!course && Number.isInteger(Number(id))) course = await Course.findOne({ sourceId: Number(id) });
   if (!course || !course.isPublished) throw new ApiError(404, 'Course not found');
 
-  if (!course.modules?.length) {
-    course.modules = buildCourseCurriculum(course);
-    await course.save();
-  }
   return course;
 };
 
-const flattenLessons = (course) => course.modules.flatMap((module) =>
-  module.lessons.map((lesson) => ({ module, lesson }))
+const flattenLessons = (course) => (course.modules || []).flatMap((module) =>
+  (module.lessons || []).map((lesson) => ({ module, lesson }))
 );
 
 const getLesson = (course, lessonId) => {
@@ -69,7 +64,7 @@ const syncUserStats = async (userId) => {
 export const getLearningCourse = async (userId, courseId) => {
   const { course, enrollment } = await getContext(userId, courseId);
   const lessons = flattenLessons(course);
-  if (!lessons.length) throw new ApiError(404, 'This course has no lessons yet');
+  if (!lessons.length) return { course, enrollment, quizzes: {} };
 
   if (!enrollment.currentLesson || !lessons.some(({ lesson }) => lesson.lessonId === enrollment.currentLesson)) {
     enrollment.currentLesson = lessons[0].lesson.lessonId;

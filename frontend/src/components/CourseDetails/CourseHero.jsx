@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import CourseIllustration from '../Courses/CourseIllustrations.jsx'
+import CourseThumbnail from '../Courses/CourseThumbnail.jsx'
 
 const CAT_CLASS = {
   Development: 'ccat-dev',
@@ -9,16 +9,6 @@ const CAT_CLASS = {
   Marketing: 'ccat-marketing',
   'IT & Software': 'ccat-it',
   'Personal Development': 'ccat-personal',
-}
-
-const CAT_ILLUSTRATION = {
-  Development: 'development',
-  'Data Science': 'datascience',
-  Design: 'design',
-  Business: 'business',
-  Marketing: 'marketing',
-  'IT & Software': 'cloud',
-  'Personal Development': 'productivity',
 }
 
 function StarIcon() {
@@ -60,7 +50,6 @@ function InstructorAvatar({ name }) {
 }
 
 export default function CourseHero({ course }) {
-  const imageType = course.imageType || CAT_ILLUSTRATION[course.category] || 'development'
   const rating = Number(course.rating)
   const hasRating = Number.isFinite(rating) && rating > 0
   const studentCount = typeof course.students === 'string'
@@ -84,7 +73,7 @@ export default function CourseHero({ course }) {
         transition={{ duration: 0.45 }}
       >
         <div className="cdp-hero-illustration">
-          <CourseIllustration type={imageType} />
+          <CourseThumbnail course={course} alt={`${course.title} thumbnail`} />
         </div>
         <button className="cdp-preview-btn" aria-label="Preview course" onClick={previewCourse} disabled={!previewLesson}>
           <PlayIcon />

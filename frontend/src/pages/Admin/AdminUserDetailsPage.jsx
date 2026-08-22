@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { deleteAdminUser, getAdminUser, updateAdminUser, updateAdminUserRole, updateAdminUserStatus } from '../../api/admin.js'
+import { deleteAdminUser, getAdminUser, updateAdminUser, updateAdminUserDemoStatus, updateAdminUserRole, updateAdminUserStatus } from '../../api/admin.js'
 import AdminAvatar from '../../components/Admin/AdminAvatar.jsx'
 import AdminConfirmModal from '../../components/Admin/AdminConfirmModal.jsx'
 import AdminIcon from '../../components/Admin/AdminIcons.jsx'
@@ -93,9 +93,13 @@ export default function AdminUserDetailsPage() {
         const response = await updateAdminUserStatus(id, !managedUser.isActive)
         setManagedUser((current) => ({ ...current, ...response?.data?.user }))
         notifications.success(managedUser.isActive ? 'User deactivated.' : 'User activated.')
+      } else if (confirmation === 'demo') {
+        const response = await updateAdminUserDemoStatus(id, !managedUser.isDemo)
+        setManagedUser((current) => ({ ...current, ...response?.data?.user }))
+        notifications.success(managedUser.isDemo ? 'Demo status removed.' : 'Account marked as a demo/test user.')
       } else {
-        await deleteAdminUser(id)
-        notifications.success('User deleted.')
+        await deleteAdminUser(id, managedUser.email)
+        notifications.success('Demo user and related test data deleted.')
         navigate('/admin/users', { replace: true })
       }
       setConfirmation(null)
@@ -114,8 +118,25 @@ export default function AdminUserDetailsPage() {
   const relatedCards = [
     ['Enrollments', related.enrollmentCount], ['Completed Courses', related.completedCourseCount], ['Orders', related.orderCount],
     ['Certificates', related.certificateCount], ['Quiz Attempts', related.quizAttemptCount], ['Assignments', related.assignmentSubmissionCount],
-    ['Discussions', related.discussionCount], ['Notes', related.noteCount], ['Average Progress', `${Number(related.averageProgress) || 0}%`],
+    ['Discussions', related.discussionCount], ['Notes', related.noteCount], ['Notifications', related.notificationCount],
+    ['Activities', related.activityCount], ['Achievements', related.achievementCount], ['Queued Emails', related.emailQueueCount],
+    ['Wishlist Items', related.wishlistCount], ['Cart Items', related.cartCount], ['Average Progress', `${Number(related.averageProgress) || 0}%`],
   ]
+  const linkedData = [
+    ['order', 'orders', related.orderCount],
+    ['enrollment', 'enrollments', related.enrollmentCount],
+    ['certificate', 'certificates', related.certificateCount],
+    ['quiz attempt', 'quiz attempts', related.quizAttemptCount],
+    ['assignment submission', 'assignment submissions', related.assignmentSubmissionCount],
+    ['discussion or reply', 'discussions or replies', related.discussionCount],
+    ['notification', 'notifications', related.notificationCount],
+    ['note', 'notes', related.noteCount],
+    ['activity', 'activities', related.activityCount],
+    ['achievement', 'achievements', related.achievementCount],
+    ['queued email', 'queued emails', related.emailQueueCount],
+    ['wishlist item', 'wishlist items', related.wishlistCount],
+    ['cart item', 'cart items', related.cartCount],
+  ].filter(([, , value]) => Number(value) > 0)
 
   return (
     <div className="admin-user-details-page">
@@ -125,13 +146,14 @@ export default function AdminUserDetailsPage() {
         <aside className="admin-user-profile-card">
           <AdminAvatar user={managedUser} size="large" />
           <h2>{managedUser.name}</h2><p>{managedUser.email}</p>
-          <div className="admin-user-profile-card__badges"><span className={`admin-user-role admin-user-role--${managedUser.role}`}>{managedUser.role === 'admin' ? 'Admin' : 'Student'}</span><span className={`admin-user-status admin-user-status--${managedUser.isActive ? 'active' : 'inactive'}`}><i />{managedUser.isActive ? 'Active' : 'Inactive'}</span></div>
+          <div className="admin-user-profile-card__badges"><span className={`admin-user-role admin-user-role--${managedUser.role}`}>{managedUser.role === 'admin' ? 'Admin' : 'Student'}</span><span className={`admin-user-status admin-user-status--${managedUser.isActive ? 'active' : 'inactive'}`}><i />{managedUser.isActive ? 'Active' : 'Inactive'}</span>{managedUser.isDemo && <span className="admin-user-demo-badge">Demo/Test</span>}</div>
           {isSelf && <small className="admin-user-self-note">This is your signed-in Admin account.</small>}
           <dl><div><dt>Username</dt><dd>{managedUser.username || '—'}</dd></div><div><dt>Joined</dt><dd>{formatDate(managedUser.createdAt)}</dd></div><div><dt>Last login</dt><dd>{formatDate(managedUser.lastLoginAt)}</dd></div></dl>
           <div className="admin-user-account-actions">
             <button type="button" onClick={() => setConfirmation('role')} disabled={isSelf || actionPending}><AdminIcon name="shield" size={17} />{managedUser.role === 'admin' ? 'Change to Student' : 'Promote to Admin'}</button>
             <button type="button" onClick={() => setConfirmation('status')} disabled={isSelf || actionPending}><AdminIcon name="power" size={17} />{managedUser.isActive ? 'Deactivate Account' : 'Activate Account'}</button>
-            <button type="button" className="is-danger" onClick={() => setConfirmation('delete')} disabled={isSelf || actionPending}><AdminIcon name="trash" size={17} />Delete User</button>
+            {managedUser.role === 'user' && <button type="button" onClick={() => setConfirmation('demo')} disabled={isSelf || actionPending || (!managedUser.isDemo && managedUser.isActive)} title={!managedUser.isDemo && managedUser.isActive ? 'Deactivate this account before marking it as demo/test' : undefined}><AdminIcon name="userCheck" size={17} />{managedUser.isDemo ? 'Remove Demo Flag' : 'Mark as Demo/Test'}</button>}
+            {managedUser.isDemo && <button type="button" className="is-danger" onClick={() => setConfirmation('delete')} disabled={isSelf || actionPending || managedUser.isActive} title={managedUser.isActive ? 'Deactivate this demo account before permanent deletion' : undefined}><AdminIcon name="trash" size={17} />{managedUser.isActive ? 'Deactivate Before Delete' : 'Permanently Delete Demo'}</button>}
           </div>
         </aside>
 
@@ -153,15 +175,21 @@ export default function AdminUserDetailsPage() {
 
       <AdminConfirmModal
         open={Boolean(confirmation)}
-        title={confirmation === 'role' ? 'Change Role?' : confirmation === 'status' ? 'Change Account Status?' : 'Delete User?'}
-        confirmLabel={confirmation === 'role' ? 'Confirm role change' : confirmation === 'status' ? (managedUser.isActive ? 'Deactivate user' : 'Activate user') : 'Delete user'}
+        title={confirmation === 'role' ? 'Change Role?' : confirmation === 'status' ? 'Change Account Status?' : confirmation === 'demo' ? (managedUser.isDemo ? 'Remove Demo Status?' : 'Mark as Demo/Test?') : 'Permanently Delete Demo User?'}
+        confirmLabel={confirmation === 'role' ? 'Confirm role change' : confirmation === 'status' ? (managedUser.isActive ? 'Deactivate user' : 'Activate user') : confirmation === 'demo' ? (managedUser.isDemo ? 'Remove demo status' : 'Mark as demo/test') : 'Delete user and related test data'}
         pending={actionPending}
         pendingLabel={confirmation === 'delete' ? 'Deleting…' : 'Saving…'}
-        icon={confirmation === 'role' ? 'shield' : confirmation === 'status' ? 'power' : 'trash'}
+        icon={confirmation === 'role' ? 'shield' : confirmation === 'status' ? 'power' : confirmation === 'demo' ? 'userCheck' : 'trash'}
         tone={confirmation === 'delete' || (confirmation === 'status' && managedUser.isActive) ? 'danger' : 'primary'}
         onCancel={() => setConfirmation(null)}
         onConfirm={executeAction}
-      ><p><strong>{managedUser.name}</strong></p><p>{confirmation === 'role' ? `${managedUser.role === 'admin' ? 'Admin → Student' : 'Student → Admin'}` : confirmation === 'status' ? `${managedUser.isActive ? 'Deactivate' : 'Activate'} this account?` : 'This action cannot be undone. Users with linked learning or order records cannot be deleted.'}</p></AdminConfirmModal>
+      >
+        <p><strong>{managedUser.name}</strong></p>
+        {confirmation === 'role' && <p>{managedUser.role === 'admin' ? 'Admin → Student' : 'Student → Admin'}</p>}
+        {confirmation === 'status' && <><p>{managedUser.isActive ? 'Deactivate' : 'Activate'} this account?</p>{managedUser.isActive && <p>Orders, enrollments, certificates, and learning history will be preserved.</p>}</>}
+        {confirmation === 'demo' && <p>{managedUser.isDemo ? 'Remove the demo/test designation from this account?' : 'Only clearly temporary accounts should be marked as demo/test users.'}</p>}
+        {confirmation === 'delete' && <div className="admin-demo-delete-summary"><p>This user has linked data:</p>{linkedData.length ? <ul>{linkedData.map(([singular, plural, value]) => <li key={plural}><strong>{value}</strong> {Number(value) === 1 ? singular : plural}</li>)}</ul> : <p>No linked data was found.</p>}<p>Permanent deletion will remove related test data. Shared courses and other users&rsquo; records will not be deleted.</p></div>}
+      </AdminConfirmModal>
     </div>
   )
 }

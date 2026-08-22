@@ -1,6 +1,5 @@
 import Course from '../models/Course.js';
 import { ApiError } from '../utils/ApiError.js';
-import { buildCourseCurriculum } from '../utils/courseCurriculum.js';
 import CourseEnrollment from '../models/CourseEnrollment.js';
 import Order from '../models/Order.js';
 import Certificate from '../models/Certificate.js';
@@ -74,7 +73,7 @@ export const createCourse = async (data) => {
   const slug = await generateUniqueSlug(data.title);
 
   try {
-    return await Course.create({ ...data, slug });
+    return await Course.create({ ...data, slug, modules: [] });
   } catch (error) {
     if (isDuplicateSlugError(error)) {
       throw new ApiError(409, 'Course with this slug already exists');
@@ -168,11 +167,6 @@ export const getCourseBySlug = async (slug, { includeUnpublished = false } = {})
 
   if (!course) {
     throw new ApiError(404, 'Course not found');
-  }
-
-  if (!course.modules?.length) {
-    course.modules = buildCourseCurriculum(course);
-    await course.save();
   }
 
   return course;

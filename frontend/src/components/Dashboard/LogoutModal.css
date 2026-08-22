@@ -1,0 +1,85 @@
+.logout-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto;
+  padding: 20px;
+  background: rgba(20, 33, 61, 0.5);
+  animation: logout-overlay-in 0.2s ease;
+}
+
+.logout-modal {
+  width: 100%;
+  max-width: 400px;
+  max-height: calc(100dvh - 40px);
+  overflow-y: auto;
+  border-radius: var(--radius-card);
+  background: var(--bg-white);
+  padding: 32px 28px 28px;
+  box-shadow: 0 24px 60px rgba(20, 33, 61, 0.25);
+  text-align: center;
+  animation: logout-modal-in 0.22s ease;
+}
+
+@keyframes logout-overlay-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes logout-modal-in {
+  from { opacity: 0; transform: translateY(10px) scale(0.97); }
+  to { opacity: 1; transform: none; }
+}
+
+.logout-modal-icon {
+  display: inline-flex;
+  width: 60px;
+  height: 60px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  border-radius: 50%;
+  background: #fdecef;
+  color: #e11d48;
+}
+
+.logout-modal-title { margin: 0 0 8px; color: var(--text-heading); font-size: 19px; font-weight: 600; }
+.logout-modal-text { margin: 0 0 24px; color: var(--text-body); font-size: 14px; line-height: 1.6; }
+.logout-modal-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+
+.logout-modal-cancel,
+.logout-modal-confirm {
+  min-height: 44px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-family: var(--font);
+  font-size: 14.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+}
+
+.logout-modal-cancel { border: 1.5px solid #e2e8f3; background: var(--bg-white); color: var(--text-heading); }
+.logout-modal-cancel:hover:not(:disabled) { border-color: var(--navy); }
+.logout-modal-confirm { border: 0; background: #e11d48; color: #fff; }
+.logout-modal-confirm:hover:not(:disabled) { background: #c0173d; }
+.logout-modal-cancel:disabled,
+.logout-modal-confirm:disabled { cursor: default; opacity: 0.6; }
+.logout-modal-cancel:focus-visible,
+.logout-modal-confirm:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+
+@media (max-width: 390px) {
+  .logout-modal-overlay { padding: 13px; }
+  .logout-modal { padding: 26px 18px 20px; }
+  .logout-modal-actions { gap: 9px; }
+  .logout-modal-cancel,
+  .logout-modal-confirm { padding-inline: 10px; font-size: 14px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logout-modal-overlay,
+  .logout-modal { animation: none; }
+}

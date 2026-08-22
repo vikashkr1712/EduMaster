@@ -20,35 +20,9 @@ function PlayIcon() {
   )
 }
 
-function fallbackCurriculum(course) {
-  const cat = course.category || 'Development'
-  const templates = {
-    Development: [
-      { title: 'Getting Started', lessons: ['Introduction & Overview', 'Setup & Installation', 'Your First Project', 'Understanding the Basics'] },
-      { title: 'Core Concepts', lessons: ['Fundamentals Deep Dive', 'Working with Data', 'Control Flow & Logic', 'Functions & Modules'] },
-      { title: 'Intermediate Skills', lessons: ['Object-Oriented Principles', 'Error Handling', 'File Operations', 'APIs & Libraries'] },
-      { title: 'Advanced Topics', lessons: ['Performance Optimization', 'Testing & Debugging', 'Security Best Practices', 'Deployment'] },
-      { title: 'Final Projects', lessons: ['Project Planning', 'Building the Application', 'Code Review', 'Deploying Live'] },
-    ],
-    'Data Science': [
-      { title: 'Data Foundations', lessons: ['What is Data Science?', 'Python for Data', 'NumPy Basics', 'Pandas Essentials'] },
-      { title: 'Exploratory Analysis', lessons: ['Data Cleaning', 'Visualization with Matplotlib', 'Statistical Concepts', 'Correlation & Patterns'] },
-      { title: 'Machine Learning', lessons: ['Supervised Learning', 'Unsupervised Learning', 'Model Evaluation', 'Hyperparameter Tuning'] },
-      { title: 'Real-World Projects', lessons: ['Dataset Selection', 'End-to-End Pipeline', 'Presentation of Results', 'Deployment with Flask'] },
-    ],
-    Business: [
-      { title: 'Business Fundamentals', lessons: ['Understanding Markets', 'Business Models', 'Value Proposition', 'Customer Personas'] },
-      { title: 'Strategy & Planning', lessons: ['Market Research', 'Competitive Analysis', 'Business Plan Writing', 'Financial Projections'] },
-      { title: 'Operations', lessons: ['Team Building', 'Process Design', 'Funding & Investment', 'Legal Essentials'] },
-      { title: 'Growth & Scale', lessons: ['Marketing Strategy', 'Sales Fundamentals', 'Product-Market Fit', 'Scaling Your Business'] },
-    ],
-  }
-  return templates[cat] || templates.Development
-}
-
 export default function CurriculumTab({ course }) {
-  const modules = course.modules?.length ? course.modules : fallbackCurriculum(course)
-  const totalLessons = modules.reduce((s, m) => s + m.lessons.length, 0)
+  const modules = Array.isArray(course.modules) ? course.modules : []
+  const totalLessons = modules.reduce((s, m) => s + (m.lessons?.length || 0), 0)
   const [openModules, setOpenModules] = useState(() => new Set([0]))
 
   function toggleModule(i) {
@@ -66,6 +40,7 @@ export default function CurriculumTab({ course }) {
         <span className="cdp-curr-summary">{modules.length} modules · {totalLessons} lessons</span>
       </div>
       <div className="cdp-curr-modules">
+        {modules.length === 0 && <p className="cdp-curr-empty">No lessons have been added to this course yet.</p>}
         {modules.map((mod, i) => {
           const isOpen = openModules.has(i)
           return (

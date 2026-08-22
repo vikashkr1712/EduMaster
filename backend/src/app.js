@@ -25,7 +25,7 @@ app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 app.use(cookieParser());
 app.use('/uploads', express.static(path.resolve('uploads'), {
   // The SPA is served from a different development origin, so uploaded
-  // avatars must be allowed as cross-origin image resources.
+  // media must be allowed as cross-origin image resources.
   setHeaders(res) {
     res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
   },

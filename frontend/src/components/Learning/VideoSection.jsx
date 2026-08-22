@@ -31,21 +31,22 @@ export default function VideoSection({ lesson, onWatchProgress }) {
   const progressCallbackRef = useRef(onWatchProgress)
   const [visible, setVisible] = useState(false)
   const [fallback, setFallback] = useState(false)
+  const hasVideo = /^[A-Za-z0-9_-]{11}$/.test(String(lesson?.videoId || '').trim())
 
   useEffect(() => { progressCallbackRef.current = onWatchProgress }, [onWatchProgress])
 
   useEffect(() => {
-    if (!hostRef.current || visible) return
+    if (!hasVideo || !hostRef.current || visible) return
     if (!('IntersectionObserver' in window)) { setVisible(true); return }
     const observer = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting) { setVisible(true); observer.disconnect() }
     }, { rootMargin: '180px' })
     observer.observe(hostRef.current)
     return () => observer.disconnect()
-  }, [visible])
+  }, [hasVideo, visible])
 
   useEffect(() => {
-    if (!visible || !lesson?.videoId || fallback) return
+    if (!hasVideo || !visible || fallback) return
     let cancelled = false
     const clearSaveInterval = () => {
       if (saveIntervalRef.current) window.clearInterval(saveIntervalRef.current)
@@ -90,22 +91,24 @@ export default function VideoSection({ lesson, onWatchProgress }) {
       try { playerRef.current?.destroy?.() } catch { /* YouTube may already have removed the iframe. */ }
       playerRef.current = null
     }
-  }, [fallback, lesson?.title, lesson?.videoId, visible])
+  }, [fallback, hasVideo, lesson?.title, lesson?.videoId, visible])
 
   return (
     <section className="learn-video-card" aria-label={`Video: ${lesson?.title || 'Lesson'}`}>
-      {!visible && <div className="learn-video-loading"><span /> Preparing video…</div>}
-      {fallback ? (
-        <iframe
-          src={`https://www.youtube.com/embed/${lesson.videoId}?rel=0&modestbranding=1`}
-          title={lesson.title}
-          loading="lazy"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowFullScreen
-        />
-      ) : (
-        <div ref={hostRef} className="learn-youtube-host" />
-      )}
+      {!hasVideo ? (
+        <div className="learn-video-empty"><strong>No video has been added to this lesson yet.</strong><span>Please choose another lesson or check back later.</span></div>
+      ) : <>
+        {!visible && <div className="learn-video-loading"><span /> Preparing video…</div>}
+        {fallback ? (
+          <iframe
+            src={`https://www.youtube.com/embed/${lesson.videoId}?rel=0&modestbranding=1`}
+            title={lesson.title}
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+          />
+        ) : <div ref={hostRef} className="learn-youtube-host" />}
+      </>}
     </section>
   )
 }

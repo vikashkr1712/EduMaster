@@ -20,6 +20,11 @@ export const getAdminCourses = (params) => client(`/admin/courses${toQueryString
 export const getAdminCourse = (id) => client(`/admin/courses/${id}`)
 export const createAdminCourse = (payload) => client('/admin/courses', { method: 'POST', body: payload })
 export const updateAdminCourse = (id, payload) => client(`/admin/courses/${id}`, { method: 'PATCH', body: payload })
+export const uploadAdminCourseThumbnail = (file) => {
+  const body = new FormData()
+  body.append('thumbnail', file)
+  return client('/admin/course-thumbnails', { method: 'POST', body })
+}
 export const toggleAdminCoursePublish = (id) => client(`/admin/courses/${id}/publish`, { method: 'PATCH' })
 export const deleteAdminCourse = (id) => client(`/admin/courses/${id}`, { method: 'DELETE' })
 
@@ -38,7 +43,8 @@ export const getAdminUser = (id) => client(`/admin/users/${id}`)
 export const updateAdminUser = (id, payload) => client(`/admin/users/${id}`, { method: 'PATCH', body: payload })
 export const updateAdminUserRole = (id, role) => client(`/admin/users/${id}/role`, { method: 'PATCH', body: { role } })
 export const updateAdminUserStatus = (id, isActive) => client(`/admin/users/${id}/status`, { method: 'PATCH', body: { isActive } })
-export const deleteAdminUser = (id) => client(`/admin/users/${id}`, { method: 'DELETE' })
+export const updateAdminUserDemoStatus = (id, isDemo) => client(`/admin/users/${id}/demo-status`, { method: 'PATCH', body: { isDemo } })
+export const deleteAdminUser = (id, confirmEmail) => client(`/admin/users/${id}`, { method: 'DELETE', body: { confirmEmail } })
 
 export const getAdminOrders = (params) => client(`/admin/orders${toQueryString(params)}`)
 export const getAdminOrder = (id) => client(`/admin/orders/${id}`)

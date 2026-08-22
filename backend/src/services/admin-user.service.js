@@ -7,9 +7,14 @@ import QuizAttempt from '../models/QuizAttempt.js';
 import AssignmentSubmission from '../models/AssignmentSubmission.js';
 import Discussion from '../models/Discussion.js';
 import StudentNote from '../models/StudentNote.js';
+import Notification from '../models/Notification.js';
+import Activity from '../models/Activity.js';
+import Achievement from '../models/Achievement.js';
+import EmailQueue from '../models/EmailQueue.js';
+import PlatformSetting from '../models/PlatformSetting.js';
 import { ApiError } from '../utils/ApiError.js';
 
-const detailFields = '_id name email avatar username phone bio location role isActive lastLoginAt stats createdAt updatedAt';
+const detailFields = '_id name email avatar username phone bio location role isActive isDemo lastLoginAt stats createdAt updatedAt';
 const escapeRegex = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
 const parseId = (value) => {
@@ -85,6 +90,7 @@ export const getAdminUsers = async (query = {}) => {
               avatar: 1,
               role: 1,
               isActive: 1,
+              isDemo: 1,
               createdAt: 1,
               updatedAt: 1,
               enrollmentCount: { $ifNull: [{ $arrayElemAt: ['$enrollmentTotals.value', 0] }, 0] },
@@ -120,8 +126,8 @@ export const getAdminUsers = async (query = {}) => {
 
 export const getAdminUser = async (userId) => {
   const id = parseId(userId);
-  const [user, enrollmentSummary, orderCount, certificateCount, quizAttemptCount, assignmentSubmissionCount, discussionCount, noteCount] = await Promise.all([
-    User.findById(id).select(detailFields).lean(),
+  const [userRecord, enrollmentSummary, orderCount, certificateCount, quizAttemptCount, assignmentSubmissionCount, authoredDiscussionCount, discussionReplySummary, noteCount, notificationCount, activityCount, achievementCount, emailQueueCount] = await Promise.all([
+    User.findById(id).select(`${detailFields} wishlist cart`).lean(),
     CourseEnrollment.aggregate([
       { $match: { user: id } },
       {
@@ -137,12 +143,22 @@ export const getAdminUser = async (userId) => {
     Certificate.countDocuments({ user: id }),
     QuizAttempt.countDocuments({ user: id }),
     AssignmentSubmission.countDocuments({ student: id }),
-    Discussion.countDocuments({ $or: [{ author: id }, { 'replies.author': id }] }),
+    Discussion.countDocuments({ author: id }),
+    Discussion.aggregate([
+      { $unwind: '$replies' },
+      { $match: { 'replies.author': id } },
+      { $count: 'total' },
+    ]),
     StudentNote.countDocuments({ student: id }),
+    Notification.countDocuments({ user: id }),
+    Activity.countDocuments({ user: id }),
+    Achievement.countDocuments({ user: id }),
+    EmailQueue.countDocuments({ user: id }),
   ]);
-  if (!user) throw new ApiError(404, 'User not found');
+  if (!userRecord) throw new ApiError(404, 'User not found');
 
   const enrollments = enrollmentSummary[0] || { total: 0, completed: 0, averageProgress: 0 };
+  const { wishlist = [], cart = [], ...user } = userRecord;
   return {
     ...user,
     related: {
@@ -153,8 +169,14 @@ export const getAdminUser = async (userId) => {
       certificateCount,
       quizAttemptCount,
       assignmentSubmissionCount,
-      discussionCount,
+      discussionCount: authoredDiscussionCount + (discussionReplySummary[0]?.total || 0),
       noteCount,
+      notificationCount,
+      activityCount,
+      achievementCount,
+      emailQueueCount,
+      wishlistCount: wishlist.length,
+      cartCount: cart.length,
     },
   };
 };
@@ -176,6 +198,7 @@ export const updateAdminUserRole = async (userId, role, actingAdminId) => {
   }
   if (user.role === 'admin' && role !== 'admin') await ensureAnotherActiveAdmin(user._id);
   user.role = role;
+  if (role === 'admin') user.isDemo = false;
   await user.save();
   return user;
 };
@@ -191,35 +214,82 @@ export const updateAdminUserStatus = async (userId, isActive, actingAdminId) => 
   return user;
 };
 
-export const deleteAdminUser = async (userId, actingAdminId) => {
+export const updateAdminUserDemoStatus = async (userId, isDemo, actingAdminId) => {
+  const user = await requireUser(userId);
+  if (String(user._id) === String(actingAdminId)) {
+    throw new ApiError(409, 'You cannot mark your own administrator account as a demo account.');
+  }
+  if (isDemo && user.role !== 'user') {
+    throw new ApiError(409, 'Administrator accounts cannot be marked as demo accounts.');
+  }
+  if (isDemo && user.isActive) {
+    throw new ApiError(409, 'Deactivate this account before marking it as a demo account.');
+  }
+  user.isDemo = isDemo;
+  await user.save();
+  return user;
+};
+
+const remainingUserReferences = async (id) => {
+  const references = await Promise.all([
+    CourseEnrollment.exists({ user: id }),
+    Order.exists({ user: id }),
+    Certificate.exists({ user: id }),
+    QuizAttempt.exists({ user: id }),
+    AssignmentSubmission.exists({ student: id }),
+    Discussion.exists({ $or: [{ author: id }, { likes: id }, { 'replies.author': id }, { 'replies.likes': id }] }),
+    StudentNote.exists({ student: id }),
+    Notification.exists({ $or: [{ user: id }, { createdBy: id }] }),
+    Activity.exists({ user: id }),
+    Achievement.exists({ user: id }),
+    EmailQueue.exists({ user: id }),
+    PlatformSetting.exists({ updatedBy: id }),
+  ]);
+  return references.some(Boolean);
+};
+
+export const deleteAdminUser = async (userId, actingAdminId, confirmEmail) => {
   const user = await requireUser(userId);
   if (String(user._id) === String(actingAdminId)) {
     throw new ApiError(409, 'You cannot delete your own administrator account.');
   }
-  if (user.role === 'admin') await ensureAnotherActiveAdmin(user._id);
-
-  const checks = await Promise.all([
-    CourseEnrollment.exists({ user: user._id }),
-    Order.exists({ user: user._id }),
-    Certificate.exists({ user: user._id }),
-    QuizAttempt.exists({ user: user._id }),
-    AssignmentSubmission.exists({ student: user._id }),
-    Discussion.exists({
-      $or: [
-        { author: user._id },
-        { likes: user._id },
-        { 'replies.author': user._id },
-        { 'replies.likes': user._id },
-      ],
-    }),
-    StudentNote.exists({ student: user._id }),
-  ]);
-  const labels = ['enrollments', 'orders', 'certificates', 'quiz attempts', 'assignment submissions', 'discussions', 'notes'];
-  const dependencies = labels.filter((_, index) => Boolean(checks[index]));
-  if (dependencies.length) {
-    throw new ApiError(409, `This user cannot be deleted because they have linked ${dependencies.join(', ')}.`);
+  if (user.role === 'admin') {
+    throw new ApiError(409, 'Administrator accounts cannot be permanently deleted. Deactivate or change the role instead.');
+  }
+  if (!user.isDemo) {
+    throw new ApiError(409, 'Permanent deletion is limited to accounts explicitly marked as demo/test users. Deactivate this user instead.');
+  }
+  if (user.isActive) {
+    throw new ApiError(409, 'Deactivate this demo account before permanently deleting it.');
+  }
+  if (String(confirmEmail || '').trim().toLowerCase() !== user.email.toLowerCase()) {
+    throw new ApiError(409, 'The deletion confirmation does not match this demo user.');
   }
 
+  const preview = await getAdminUser(user._id);
+  await Promise.all([
+    CourseEnrollment.deleteMany({ user: user._id }),
+    Order.deleteMany({ user: user._id }),
+    Certificate.deleteMany({ user: user._id }),
+    QuizAttempt.deleteMany({ user: user._id }),
+    AssignmentSubmission.deleteMany({ student: user._id }),
+    Discussion.deleteMany({ author: user._id }),
+    StudentNote.deleteMany({ student: user._id }),
+    Notification.deleteMany({ user: user._id }),
+    Activity.deleteMany({ user: user._id }),
+    Achievement.deleteMany({ user: user._id }),
+    EmailQueue.deleteMany({ user: user._id }),
+  ]);
+  await Promise.all([
+    Discussion.updateMany({ likes: user._id }, { $pull: { likes: user._id } }),
+    Discussion.updateMany({ 'replies.author': user._id }, { $pull: { replies: { author: user._id } } }),
+    Discussion.updateMany({ 'replies.likes': user._id }, { $pull: { 'replies.$[].likes': user._id } }),
+    Notification.updateMany({ createdBy: user._id }, { $set: { createdBy: null } }),
+    PlatformSetting.updateMany({ updatedBy: user._id }, { $set: { updatedBy: null } }),
+  ]);
+  if (await remainingUserReferences(user._id)) {
+    throw new ApiError(500, 'Demo cleanup stopped because linked records remain. The user account was preserved.');
+  }
   await user.deleteOne();
-  return user;
+  return { user, deleted: preview.related };
 };

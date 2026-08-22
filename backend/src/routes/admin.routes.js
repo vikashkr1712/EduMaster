@@ -7,6 +7,8 @@ import { validate } from '../middleware/validate.js';
 import { createCourseSchema, updateCourseSchema } from '../validations/course.validation.js';
 import * as adminUserController from '../controllers/admin-user.controller.js';
 import {
+  deleteAdminDemoUserSchema,
+  updateAdminUserDemoStatusSchema,
   updateAdminUserRoleSchema,
   updateAdminUserSchema,
   updateAdminUserStatusSchema,
@@ -41,12 +43,14 @@ import * as adminReportController from '../controllers/admin-report.controller.j
 import { adminReportQuerySchema } from '../validations/admin-report.validation.js';
 import * as adminSettingController from '../controllers/admin-setting.controller.js';
 import { updateAdminSettingsSchema } from '../validations/admin-setting.validation.js';
+import { courseThumbnailUpload } from '../middleware/courseThumbnailUpload.js';
 
 const router = Router();
 
 router.use(authenticate, authorize('admin'));
 router.get('/dashboard', adminController.getDashboard);
 router.get('/courses', adminCourseController.getCourses);
+router.post('/course-thumbnails', courseThumbnailUpload, adminCourseController.uploadCourseThumbnail);
 router.post('/courses', validate(createCourseSchema), adminCourseController.createCourse);
 router.get('/courses/:courseId/curriculum', adminCurriculumController.getCurriculum);
 router.post('/courses/:courseId/modules', validate(createAdminModuleSchema), adminCurriculumController.createModule);
@@ -65,8 +69,9 @@ router.get('/users', adminUserController.getUsers);
 router.get('/users/:id', adminUserController.getUser);
 router.patch('/users/:id/role', validate(updateAdminUserRoleSchema), adminUserController.updateUserRole);
 router.patch('/users/:id/status', validate(updateAdminUserStatusSchema), adminUserController.updateUserStatus);
+router.patch('/users/:id/demo-status', validate(updateAdminUserDemoStatusSchema), adminUserController.updateUserDemoStatus);
 router.patch('/users/:id', validate(updateAdminUserSchema), adminUserController.updateUser);
-router.delete('/users/:id', adminUserController.deleteUser);
+router.delete('/users/:id', validate(deleteAdminDemoUserSchema), adminUserController.deleteUser);
 router.get('/orders', adminOrderController.getOrders);
 router.get('/orders/:id', adminOrderController.getOrder);
 router.get('/enrollments', adminOrderController.getEnrollments);

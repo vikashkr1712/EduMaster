@@ -212,7 +212,8 @@
 .admin-user-profile-card .admin-avatar { width: 72px; height: 72px; margin: 0 auto; font-size: 20px; }
 .admin-user-profile-card h2 { margin: 14px 0 0; font-size: 21px; }
 .admin-user-profile-card > p { overflow-wrap: anywhere; margin: 5px 0 0; color: var(--admin-muted); font-size: 13px; }
-.admin-user-profile-card__badges { display: flex; justify-content: center; gap: 7px; margin-top: 14px; }
+.admin-user-profile-card__badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 7px; margin-top: 14px; }
+.admin-user-demo-badge { display: inline-flex; align-items: center; border-radius: 999px; padding: 5px 9px; background: #fff4d6; color: #9a6700; font-size: 11px; font-weight: 800; }
 .admin-user-self-note { display: block; margin-top: 12px; color: #475467; font-size: 12px; }
 .admin-user-profile-card dl { margin: 21px 0 0; border-top: 1px solid var(--admin-border); text-align: left; }
 .admin-user-profile-card dl > div { display: flex; justify-content: space-between; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--admin-border); }
@@ -251,7 +252,7 @@
 .admin-user-detail-loading span { min-height: 180px; border-radius: 14px; background: #e9eef5; animation: admin-user-skeleton 1.4s ease-in-out infinite; }
 
 .admin-modal-backdrop { position: fixed; inset: 0; z-index: 100; display: grid; overflow-y: auto; place-items: center; padding: 22px; background: rgba(15, 23, 42, 0.62); }
-.admin-confirm-modal { width: min(100%, 520px); padding: 25px; border: 1px solid var(--admin-border); border-radius: 15px; background: white; box-shadow: 0 24px 70px rgba(15, 23, 42, 0.28); text-align: center; }
+.admin-confirm-modal { width: min(100%, 520px); max-height: calc(100dvh - 44px); overflow-y: auto; padding: 25px; border: 1px solid var(--admin-border); border-radius: 15px; background: white; box-shadow: 0 24px 70px rgba(15, 23, 42, 0.28); text-align: center; }
 .admin-confirm-modal__icon { display: grid; width: 50px; height: 50px; margin: 0 auto; place-items: center; border-radius: 50%; }
 .admin-confirm-modal__icon--danger { background: #fff0ee; color: #b42318; }
 .admin-confirm-modal__icon--primary { background: #eaf2ff; color: #1d4ed8; }
@@ -260,6 +261,15 @@
 .admin-confirm-modal__copy p { margin: 5px 0; }
 .admin-confirm-modal__copy strong { color: #334155; }
 .admin-confirm-modal__actions { display: flex; justify-content: center; gap: 9px; }
+.admin-confirm-modal__actions > button { min-width: 116px; }
+.admin-demo-delete-summary { text-align: left; }
+.admin-demo-delete-summary > p:first-child { font-weight: 750; }
+.admin-demo-delete-summary ul { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 5px 18px; margin: 10px 0 14px; padding-left: 20px; }
+.admin-demo-delete-summary li { overflow-wrap: anywhere; }
+
+[data-theme='dark'] .admin-shell .admin-user-demo-badge { background: rgba(245, 158, 11, 0.15); color: #f7c768; }
+[data-theme='dark'] .admin-shell .admin-confirm-modal { border-color: var(--admin-border); background: var(--admin-surface); color: var(--admin-text); }
+[data-theme='dark'] .admin-shell .admin-confirm-modal__copy strong { color: var(--admin-text-soft); }
 
 .admin-user-sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
 
@@ -304,6 +314,9 @@
   .admin-user-form-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .admin-modal-backdrop { padding: 13px; }
   .admin-confirm-modal { padding: 21px 17px; }
+  .admin-confirm-modal__actions { display: grid; grid-template-columns: minmax(0, 1fr); }
+  .admin-confirm-modal__actions > button { width: 100%; }
+  .admin-demo-delete-summary ul { grid-template-columns: minmax(0, 1fr); }
 }
 
 @media (max-width: 390px) {

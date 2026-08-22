@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { createAdminCourse, getAdminCourse, updateAdminCourse } from '../../api/admin.js'
+import { createAdminCourse, getAdminCourse, updateAdminCourse, uploadAdminCourseThumbnail } from '../../api/admin.js'
 import AdminIcon from '../../components/Admin/AdminIcons.jsx'
+import CourseThumbnail from '../../components/Courses/CourseThumbnail.jsx'
 import { useNotifications } from '../../components/Notifications/NotificationProvider.jsx'
 import './AdminCourses.css'
 
@@ -11,7 +12,22 @@ const emptyCourse = {
   language: '', hasCertificate: true, isFeatured: false, isPublished: false,
 }
 
-const validateCourse = (values) => {
+const MAX_THUMBNAIL_SIZE = 5 * 1024 * 1024
+const THUMBNAIL_TYPES = new Set(['image/jpeg', 'image/png', 'image/webp'])
+const THUMBNAIL_EXTENSIONS = new Set(['jpg', 'jpeg', 'png', 'webp'])
+const LANGUAGE_OPTIONS = ['English', 'Hindi', 'Spanish']
+
+const isMeaningfulLanguage = (value) => value === '' || /^(?=(?:.*\p{L}){2})[\p{L}\p{M} .()/-]+$/u.test(value)
+const isMeaningfulDuration = (value) => value === ''
+  || /^self[- ]paced$/i.test(value)
+  || (/^[A-Za-z0-9 .-]+$/.test(value) && /[1-9]\d*(?:\.\d+)?\s*(?:minutes?|mins?|m|hours?|hrs?|h|days?|d|weeks?|w|months?|mos?|mo)\b/i.test(value))
+
+const isValidThumbnailUrl = (value) => {
+  if (/^\/uploads\/course-thumbnails\/[A-Za-z0-9._-]+$/.test(value)) return true
+  try { return ['http:', 'https:'].includes(new URL(value).protocol) } catch { return false }
+}
+
+const validateCourse = (values, thumbnailFile) => {
   const errors = {}
   if (values.title.trim().length < 3) errors.title = 'Title must be at least 3 characters.'
   if (values.description.trim().length < 20) errors.description = 'Description must be at least 20 characters.'
@@ -20,13 +36,13 @@ const validateCourse = (values) => {
   if (Number(values.price) < 0 || Number.isNaN(Number(values.price))) errors.price = 'Price must be zero or greater.'
   if (Number(values.discountPrice) < 0 || Number.isNaN(Number(values.discountPrice))) errors.discountPrice = 'Discount price must be zero or greater.'
   if (Number(values.discountPrice) > Number(values.price)) errors.discountPrice = 'Discount price must not exceed price.'
-  if (values.thumbnail.trim()) {
-    try { new URL(values.thumbnail.trim()) } catch { errors.thumbnail = 'Enter a valid thumbnail URL.' }
-  }
+  if (!thumbnailFile && values.thumbnail.trim() && !isValidThumbnailUrl(values.thumbnail.trim())) errors.thumbnail = 'Enter a valid HTTP or HTTPS thumbnail URL.'
+  if (!isMeaningfulDuration(values.duration.trim())) errors.duration = 'Use a duration such as 12 hours, 24h 30m, 6 weeks, or 45 minutes.'
+  if (!isMeaningfulLanguage(values.language.trim())) errors.language = 'Choose a meaningful course language.'
   return errors
 }
 
-const toPayload = (values) => ({
+const toPayload = (values, thumbnail = values.thumbnail.trim()) => ({
   title: values.title.trim(),
   shortDescription: values.shortDescription.trim(),
   description: values.description.trim(),
@@ -35,7 +51,7 @@ const toPayload = (values) => ({
   level: values.level,
   price: Number(values.price),
   discountPrice: Number(values.discountPrice),
-  thumbnail: values.thumbnail.trim(),
+  thumbnail,
   duration: values.duration.trim(),
   language: values.language.trim(),
   hasCertificate: values.hasCertificate,
@@ -54,6 +70,17 @@ export default function AdminCourseFormPage({ mode }) {
   const [loading, setLoading] = useState(editing)
   const [loadError, setLoadError] = useState(null)
   const [saving, setSaving] = useState(false)
+  const [thumbnailFile, setThumbnailFile] = useState(null)
+  const [thumbnailPreview, setThumbnailPreview] = useState('')
+  const thumbnailInputRef = useRef(null)
+  const hasLegacyLanguage = values.language && !LANGUAGE_OPTIONS.includes(values.language)
+
+  useEffect(() => {
+    if (!thumbnailFile) { setThumbnailPreview(''); return undefined }
+    const objectUrl = URL.createObjectURL(thumbnailFile)
+    setThumbnailPreview(objectUrl)
+    return () => URL.revokeObjectURL(objectUrl)
+  }, [thumbnailFile])
 
   useEffect(() => {
     if (!editing) return undefined
@@ -88,23 +115,55 @@ export default function AdminCourseFormPage({ mode }) {
     setErrors((current) => ({ ...current, [name]: undefined }))
   }
 
+  const chooseThumbnail = (file) => {
+    if (!file) return
+    const extension = file.name.split('.').pop()?.toLowerCase() || ''
+    if (!THUMBNAIL_TYPES.has(file.type) || !THUMBNAIL_EXTENSIONS.has(extension)) {
+      setThumbnailFile(null)
+      setErrors((current) => ({ ...current, thumbnailFile: 'Choose a JPG, JPEG, PNG, or WebP image.' }))
+      if (thumbnailInputRef.current) thumbnailInputRef.current.value = ''
+      return
+    }
+    if (file.size > MAX_THUMBNAIL_SIZE) {
+      setThumbnailFile(null)
+      setErrors((current) => ({ ...current, thumbnailFile: 'Course thumbnail must be 5 MB or smaller.' }))
+      if (thumbnailInputRef.current) thumbnailInputRef.current.value = ''
+      return
+    }
+    setThumbnailFile(file)
+    setErrors((current) => ({ ...current, thumbnail: undefined, thumbnailFile: undefined }))
+  }
+
+  const clearThumbnailFile = () => {
+    setThumbnailFile(null)
+    setErrors((current) => ({ ...current, thumbnailFile: undefined }))
+    if (thumbnailInputRef.current) thumbnailInputRef.current.value = ''
+  }
+
   const handleSubmit = async (event) => {
     event.preventDefault()
     if (saving) return
-    const nextErrors = validateCourse(values)
+    const nextErrors = validateCourse(values, thumbnailFile)
     setErrors(nextErrors)
     if (Object.keys(nextErrors).length > 0) return
     setSaving(true)
     try {
+      let finalThumbnail = values.thumbnail.trim()
+      if (thumbnailFile) {
+        const uploadResponse = await uploadAdminCourseThumbnail(thumbnailFile)
+        finalThumbnail = uploadResponse?.data?.thumbnail || ''
+        if (!finalThumbnail) throw new Error('Thumbnail upload did not return an image reference.')
+      }
       if (editing) {
-        await updateAdminCourse(id, toPayload(values))
+        await updateAdminCourse(id, toPayload(values, finalThumbnail))
         notifications.success('Course updated successfully.')
       } else {
-        await createAdminCourse(toPayload(values))
+        await createAdminCourse(toPayload(values, finalThumbnail))
         notifications.success('Course created successfully.')
       }
       navigate('/admin/courses', { replace: true })
     } catch (error) {
+      if (thumbnailFile) setErrors((current) => ({ ...current, thumbnailFile: error?.message || 'Unable to upload this thumbnail.' }))
       notifications.error(error?.message || `Unable to ${editing ? 'update' : 'create'} course.`)
     } finally {
       setSaving(false)
@@ -140,9 +199,25 @@ export default function AdminCourseFormPage({ mode }) {
           <div className="admin-form-section-heading"><h2>Course Details</h2><p>Classification and presentation details.</p></div>
           <div className="admin-form-grid">
             <label className="admin-field"><span>Level *</span><select value={values.level} onChange={(event) => update('level', event.target.value)}><option>Beginner</option><option>Intermediate</option><option>Advanced</option></select></label>
-            <label className="admin-field"><span>Duration</span><input value={values.duration} onChange={(event) => update('duration', event.target.value)} maxLength={60} placeholder="e.g. 12 hours" /></label>
-            <label className="admin-field"><span>Language</span><input value={values.language} onChange={(event) => update('language', event.target.value)} maxLength={40} placeholder="e.g. English" /></label>
-            <label className="admin-field admin-field--full"><span>Thumbnail URL</span><input type="url" value={values.thumbnail} onChange={(event) => update('thumbnail', event.target.value)} aria-invalid={Boolean(errors.thumbnail)} placeholder="https://example.com/course-image.jpg" />{errors.thumbnail && <small role="alert">{errors.thumbnail}</small>}</label>
+            <label className="admin-field"><span>Duration</span><input value={values.duration} onChange={(event) => update('duration', event.target.value)} maxLength={60} placeholder="e.g. 12 hours or 24h 30m" aria-invalid={Boolean(errors.duration)} />{errors.duration && <small role="alert">{errors.duration}</small>}</label>
+            <label className="admin-field"><span>Language</span><select value={values.language} onChange={(event) => update('language', event.target.value)} aria-invalid={Boolean(errors.language)}><option value="">Select language</option>{hasLegacyLanguage && <option value={values.language}>{values.language} (existing)</option>}{LANGUAGE_OPTIONS.map((language) => <option key={language} value={language}>{language}</option>)}</select>{errors.language && <small role="alert">{errors.language}</small>}</label>
+            <div className="admin-thumbnail-editor admin-field--full">
+              <div className="admin-thumbnail-editor__preview">
+                <span>Preview</span>
+                <div><CourseThumbnail course={values} source={thumbnailPreview || values.thumbnail} alt="Course thumbnail preview" /></div>
+              </div>
+              <div className="admin-thumbnail-editor__controls">
+                <span>Course Thumbnail</span>
+                <input ref={thumbnailInputRef} type="file" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" onChange={(event) => chooseThumbnail(event.target.files?.[0])} hidden />
+                <button type="button" className="admin-thumbnail-upload" onClick={() => thumbnailInputRef.current?.click()}><AdminIcon name="camera" size={18} />{thumbnailFile ? 'Change Image' : 'Upload Image'}</button>
+                <small>JPG, JPEG, PNG, or WebP · Maximum 5 MB</small>
+                {thumbnailFile && <div className="admin-thumbnail-selected"><span title={thumbnailFile.name}>{thumbnailFile.name}</span><button type="button" onClick={clearThumbnailFile}>Use URL instead</button></div>}
+                {errors.thumbnailFile && <p className="admin-thumbnail-error" role="alert">{errors.thumbnailFile}</p>}
+                <div className="admin-thumbnail-or"><span>OR</span></div>
+                <label className="admin-field"><span>Thumbnail URL</span><input type="url" value={values.thumbnail} onChange={(event) => update('thumbnail', event.target.value)} aria-invalid={Boolean(errors.thumbnail)} placeholder="https://example.com/course-image.jpg" disabled={Boolean(thumbnailFile)} />{errors.thumbnail && <small role="alert">{errors.thumbnail}</small>}</label>
+                <em>{thumbnailFile ? 'The selected upload will be saved instead of the URL.' : 'Enter an HTTP/HTTPS image URL, or upload an image above.'}</em>
+              </div>
+            </div>
           </div>
         </section>
 

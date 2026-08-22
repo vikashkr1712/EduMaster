@@ -7,6 +7,7 @@ import Discussion from '../models/Discussion.js';
 import Quiz from '../models/Quiz.js';
 import StudentNote from '../models/StudentNote.js';
 import { ApiError } from '../utils/ApiError.js';
+import { normalizeYouTubeVideoId } from '../utils/youtube.js';
 
 const findCourse = async (courseId) => {
   if (!mongoose.isValidObjectId(courseId)) throw new ApiError(404, 'Course not found');
@@ -28,34 +29,6 @@ const findLesson = (courseModule, lessonId) => {
 };
 
 const createStableId = (prefix) => `${prefix}-${randomUUID()}`;
-
-const normalizeYouTubeVideoId = (value) => {
-  const input = String(value ?? '').trim();
-  if (/^[A-Za-z0-9_-]{11}$/.test(input)) return input;
-
-  let parsed;
-  try {
-    parsed = new URL(input);
-  } catch {
-    throw new ApiError(400, 'Enter a valid YouTube URL or 11-character video ID');
-  }
-
-  const host = parsed.hostname.toLowerCase().replace(/^www\./, '');
-  let videoId = '';
-  if (host === 'youtu.be') videoId = parsed.pathname.split('/').filter(Boolean)[0] || '';
-  if (host === 'youtube.com' || host === 'm.youtube.com') {
-    videoId = parsed.searchParams.get('v') || '';
-    if (!videoId) {
-      const parts = parsed.pathname.split('/').filter(Boolean);
-      if (['embed', 'shorts', 'live'].includes(parts[0])) videoId = parts[1] || '';
-    }
-  }
-
-  if (!/^[A-Za-z0-9_-]{11}$/.test(videoId)) {
-    throw new ApiError(400, 'Enter a valid YouTube URL or 11-character video ID');
-  }
-  return videoId;
-};
 
 const serializeCurriculum = (course) => ({
   course: {

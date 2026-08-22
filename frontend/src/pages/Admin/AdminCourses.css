@@ -189,6 +189,8 @@
 }
 
 .admin-course-cell__thumb img { width: 100%; height: 100%; object-fit: cover; }
+.admin-course-cell__thumb .course-thumbnail-fallback,
+.admin-course-cell__thumb .course-thumbnail-fallback svg { display: block; width: 100%; height: 100%; }
 .admin-course-fallback svg { display: block; }
 .admin-course-cell > span { min-width: 0; }
 .admin-course-cell strong,
@@ -357,6 +359,28 @@
 .admin-field small { display: block; margin-top: 6px; color: #b42318; font-size: 13px; }
 .admin-field em { display: block; margin-top: 6px; color: #78869a; font-size: 12px; font-style: normal; }
 
+.admin-thumbnail-editor { display: grid; grid-template-columns: minmax(230px, 0.8fr) minmax(0, 1.2fr); gap: 22px; min-width: 0; padding: 18px; border: 1px solid var(--admin-border); border-radius: 12px; background: #f8fafc; }
+.admin-thumbnail-editor__preview > span,
+.admin-thumbnail-editor__controls > span { display: block; margin-bottom: 8px; color: #334155; font-size: 14px; font-weight: 700; }
+.admin-thumbnail-editor__preview > div { aspect-ratio: 16 / 9; overflow: hidden; border: 1px solid #d8e1ed; border-radius: 11px; background: #eaf1ff; }
+.admin-thumbnail-editor__preview .course-thumbnail-image,
+.admin-thumbnail-editor__preview .course-thumbnail-fallback,
+.admin-thumbnail-editor__preview .course-thumbnail-fallback svg { display: block; width: 100%; height: 100%; }
+.admin-thumbnail-editor__preview .course-thumbnail-image { object-fit: cover; }
+.admin-thumbnail-editor__controls { min-width: 0; }
+.admin-thumbnail-upload { display: inline-flex; min-height: 43px; align-items: center; justify-content: center; gap: 8px; padding: 9px 15px; border: 1px solid #a9c2e8; border-radius: 9px; background: white; color: var(--admin-blue); font: inherit; font-size: 14px; font-weight: 750; cursor: pointer; }
+.admin-thumbnail-upload:hover { border-color: var(--admin-blue); background: #f1f6ff; }
+.admin-thumbnail-editor__controls > small { display: block; margin-top: 7px; color: var(--admin-muted); font-size: 12px; }
+.admin-thumbnail-selected { display: flex; min-width: 0; align-items: center; justify-content: space-between; gap: 10px; margin-top: 10px; padding: 9px 11px; border-radius: 8px; background: #eaf2ff; color: #334155; font-size: 12px; }
+.admin-thumbnail-selected > span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.admin-thumbnail-selected button { flex: 0 0 auto; border: 0; background: transparent; color: var(--admin-blue); font: inherit; font-weight: 750; cursor: pointer; }
+.admin-thumbnail-error { margin: 8px 0 0; color: #b42318; font-size: 13px; }
+.admin-thumbnail-or { display: flex; align-items: center; gap: 9px; margin: 15px 0; color: var(--admin-muted); font-size: 11px; font-weight: 800; }
+.admin-thumbnail-or::before,
+.admin-thumbnail-or::after { height: 1px; flex: 1; background: var(--admin-border); content: ''; }
+.admin-thumbnail-editor__controls > em { display: block; margin-top: 7px; color: var(--admin-muted); font-size: 12px; font-style: normal; }
+.admin-thumbnail-editor input:disabled { cursor: not-allowed; opacity: 0.65; }
+
 .admin-form-checks {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -463,7 +487,15 @@
   .admin-pagination > div { width: 100%; overflow-x: auto; padding-bottom: 2px; }
   .admin-form-grid { grid-template-columns: minmax(0, 1fr); padding: 18px; }
   .admin-field--full { grid-column: auto; }
+  .admin-thumbnail-editor { grid-template-columns: minmax(0, 1fr); }
   .admin-form-checks { grid-template-columns: minmax(0, 1fr); padding: 18px; }
+}
+
+@media (max-width: 430px) {
+  .admin-thumbnail-editor { gap: 17px; padding: 14px; }
+  .admin-thumbnail-upload { width: 100%; }
+  .admin-thumbnail-selected { align-items: stretch; flex-direction: column; }
+  .admin-thumbnail-selected button { align-self: flex-start; padding: 3px 0; }
 }
 
 @media (max-width: 575px) {
@@ -489,6 +521,12 @@
   .admin-course-table-loading span,
   .admin-course-form-loading span { animation: none; }
 }
+
+[data-theme='dark'] .admin-thumbnail-editor { background: var(--admin-surface-subtle); }
+[data-theme='dark'] .admin-thumbnail-editor__preview > div { border-color: var(--admin-border); background: #172a44; }
+[data-theme='dark'] .admin-thumbnail-upload { border-color: var(--admin-border-strong); background: var(--admin-surface); color: #9ab8ff; }
+[data-theme='dark'] .admin-thumbnail-upload:hover { background: var(--admin-surface-hover); }
+[data-theme='dark'] .admin-thumbnail-selected { background: #1f385c; color: var(--admin-text-soft); }
 
 /* Final visual QA: secondary catalog copy must remain readable at desktop scale. */
 .admin-course-cell small,

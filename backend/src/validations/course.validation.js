@@ -1,5 +1,26 @@
 import { z } from 'zod';
 
+const isThumbnailReference = (value) => {
+  if (value === '') return true;
+  if (/^\/uploads\/course-thumbnails\/[A-Za-z0-9._-]+$/.test(value)) return true;
+  try {
+    return ['http:', 'https:'].includes(new URL(value).protocol);
+  } catch {
+    return false;
+  }
+};
+
+const isMeaningfulLanguage = (value) => (
+  value === '' || /^(?=(?:.*\p{L}){2})[\p{L}\p{M} .()/-]+$/u.test(value)
+);
+
+const isMeaningfulDuration = (value) => (
+  value === ''
+  || /^self[- ]paced$/i.test(value)
+  || (/^[A-Za-z0-9 .-]+$/.test(value)
+    && /[1-9]\d*(?:\.\d+)?\s*(?:minutes?|mins?|m|hours?|hrs?|h|days?|d|weeks?|w|months?|mos?|mo)\b/i.test(value))
+);
+
 const courseFields = {
   title: z
     .string()
@@ -28,15 +49,18 @@ const courseFields = {
   thumbnail: z
     .string()
     .trim()
-    .refine((value) => value === '' || z.string().url().safeParse(value).success, 'Thumbnail must be a valid URL'),
+    .max(2048, 'Thumbnail reference must not exceed 2048 characters')
+    .refine(isThumbnailReference, 'Thumbnail must be a valid HTTP/HTTPS URL or uploaded image reference'),
   duration: z
     .string()
     .trim()
-    .max(60, 'Duration must not exceed 60 characters'),
+    .max(60, 'Duration must not exceed 60 characters')
+    .refine(isMeaningfulDuration, 'Use a duration such as 12 hours, 24h 30m, 6 weeks, or 45 minutes'),
   language: z
     .string()
     .trim()
-    .max(40, 'Language must not exceed 40 characters'),
+    .max(40, 'Language must not exceed 40 characters')
+    .refine(isMeaningfulLanguage, 'Language must be a meaningful name such as English, Hindi, or Spanish'),
   instructor: z
     .string()
     .trim()

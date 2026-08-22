@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import CourseIllustration from './CourseIllustrations.jsx'
+import CourseThumbnail from './CourseThumbnail.jsx'
 import { useWishlist } from '../Wishlist/WishlistProvider.jsx'
 import { useCart } from '../Cart/CartProvider.jsx'
 import { useAuth } from '../Auth/AuthProvider.jsx'
@@ -12,16 +12,6 @@ const CAT_CLASS = {
   Marketing: 'ccat-marketing',
   'IT & Software': 'ccat-it',
   'Personal Development': 'ccat-personal',
-}
-
-const CAT_ILLUSTRATION = {
-  Development: 'development',
-  'Data Science': 'datascience',
-  Design: 'design',
-  Business: 'business',
-  Marketing: 'marketing',
-  'IT & Software': 'cloud',
-  'Personal Development': 'productivity',
 }
 
 function HeartIcon({ filled }) {
@@ -97,7 +87,6 @@ export default function CourseCard({ course }) {
   const effectivePrice = discountPrice ?? price
   const isFree = course.priceType === 'Free' || effectivePrice === 0
   const oldPrice = course.oldPrice ?? (discountPrice != null && discountPrice < price ? price : null)
-  const imageType = course.imageType || CAT_ILLUSTRATION[course.category] || 'development'
   const wishlisted = isWishlisted(course)
   const inCart = isInCart(course)
   const detailHref = course.slug ? `/courses/${course.slug}` : null
@@ -110,12 +99,12 @@ export default function CourseCard({ course }) {
       {detailHref ? (
         <Link to={detailHref} className="ccard-media-link" aria-label={`View ${course.title}`} tabIndex={-1}>
           <div className="ccard-media">
-            <CourseIllustration type={imageType} />
+            <CourseThumbnail course={course} alt={`${course.title} thumbnail`} />
           </div>
         </Link>
       ) : (
         <div className="ccard-media">
-          <CourseIllustration type={imageType} />
+          <CourseThumbnail course={course} alt={`${course.title} thumbnail`} />
         </div>
       )}
 

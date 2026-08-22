@@ -31,6 +31,9 @@ const envSchema = z.object({
   AUTH_RATE_LIMIT_MAX: z.coerce.number().int().positive().default(10),
   FORM_RATE_LIMIT_WINDOW_MS: z.coerce.number().int().positive().default(3600000),
   FORM_RATE_LIMIT_MAX: z.coerce.number().int().positive().default(5),
+  CLOUDINARY_CLOUD_NAME: z.string().trim().optional(),
+  CLOUDINARY_API_KEY: z.string().trim().optional(),
+  CLOUDINARY_API_SECRET: z.string().trim().optional(),
 });
 
 const parseResult = envSchema.safeParse(process.env);

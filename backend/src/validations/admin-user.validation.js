@@ -16,3 +16,11 @@ export const updateAdminUserRoleSchema = z.object({
 export const updateAdminUserStatusSchema = z.object({
   isActive: z.boolean(),
 }).strict();
+
+export const updateAdminUserDemoStatusSchema = z.object({
+  isDemo: z.boolean(),
+}).strict();
+
+export const deleteAdminDemoUserSchema = z.object({
+  confirmEmail: z.string().trim().email('Enter the user email to confirm permanent deletion'),
+}).strict();

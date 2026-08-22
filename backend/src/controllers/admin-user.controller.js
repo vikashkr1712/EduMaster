@@ -32,8 +32,14 @@ export const updateUserStatus = asyncHandler(async (req, res) => {
   res.status(response.statusCode).json(response);
 });
 
+export const updateUserDemoStatus = asyncHandler(async (req, res) => {
+  const user = await adminUserService.updateAdminUserDemoStatus(req.params.id, req.body.isDemo, req.user.id);
+  const response = new ApiResponse(200, 'User demo status updated successfully', { user });
+  res.status(response.statusCode).json(response);
+});
+
 export const deleteUser = asyncHandler(async (req, res) => {
-  const user = await adminUserService.deleteAdminUser(req.params.id, req.user.id);
-  const response = new ApiResponse(200, 'User deleted successfully', { user });
+  const result = await adminUserService.deleteAdminUser(req.params.id, req.user.id, req.body.confirmEmail);
+  const response = new ApiResponse(200, 'Demo user and related test data deleted successfully', result);
   res.status(response.statusCode).json(response);
 });

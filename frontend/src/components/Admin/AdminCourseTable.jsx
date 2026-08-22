@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import AdminIcon from './AdminIcons.jsx'
+import CourseThumbnail from '../Courses/CourseThumbnail.jsx'
 
 const currency = new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 2 })
 const dateFormatter = new Intl.DateTimeFormat('en-IN', { day: '2-digit', month: 'short', year: 'numeric' })
@@ -8,25 +8,6 @@ const dateFormatter = new Intl.DateTimeFormat('en-IN', { day: '2-digit', month: 
 const formatDate = (value) => {
   const date = new Date(value)
   return Number.isNaN(date.getTime()) ? '—' : dateFormatter.format(date)
-}
-
-function CourseThumbnail({ course }) {
-  const [failed, setFailed] = useState(false)
-  useEffect(() => setFailed(false), [course.thumbnail])
-
-  if (course.thumbnail && !failed) {
-    return <img src={course.thumbnail} alt="" loading="lazy" onError={() => setFailed(true)} />
-  }
-
-  return (
-    <span className="admin-course-fallback" role="img" aria-label="Course image unavailable">
-      <svg viewBox="0 0 64 48" aria-hidden="true">
-        <path d="M11 10.5c7.8 0 14.5 2.1 21 6.2v24c-6.5-4.1-13.2-6.2-21-6.2Z" fill="currentColor" opacity=".28" />
-        <path d="M53 10.5c-7.8 0-14.5 2.1-21 6.2v24c6.5-4.1 13.2-6.2 21-6.2Z" fill="currentColor" opacity=".48" />
-        <path d="M32 16.7v24M11 10.5c7.8 0 14.5 2.1 21 6.2 6.5-4.1 13.2-6.2 21-6.2v24c-7.8 0-14.5 2.1-21 6.2-6.5-4.1-13.2-6.2-21-6.2Z" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinejoin="round" />
-      </svg>
-    </span>
-  )
 }
 
 export default function AdminCourseTable({ courses, pendingAction, onView, onPublish, onDelete }) {
@@ -54,7 +35,7 @@ export default function AdminCourseTable({ courses, pendingAction, onView, onPub
               <tr key={course._id}>
                 <td>
                   <div className="admin-course-cell">
-                    <div className="admin-course-cell__thumb"><CourseThumbnail course={course} /></div>
+                    <div className="admin-course-cell__thumb"><CourseThumbnail course={course} alt="" /></div>
                     <span>
                       <strong>{course.title}</strong>
                       <small>/{course.slug}</small>

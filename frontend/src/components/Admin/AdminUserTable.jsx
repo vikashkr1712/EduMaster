@@ -8,7 +8,7 @@ const formatDate = (value) => {
   return Number.isNaN(date.getTime()) ? '—' : joinedFormatter.format(date)
 }
 
-export default function AdminUserTable({ users, currentUserId, pendingAction, onRole, onStatus, onDelete }) {
+export default function AdminUserTable({ users, currentUserId, pendingAction, onRole, onStatus }) {
   return (
     <div className="admin-user-table-wrap">
       <table className="admin-user-table">
@@ -19,7 +19,7 @@ export default function AdminUserTable({ users, currentUserId, pendingAction, on
             const busy = pendingAction?.id === user._id
             return (
               <tr key={user._id}>
-                <td><div className="admin-user-table__identity"><AdminAvatar user={user} size="small" /><span><strong>{user.name}</strong>{isSelf && <small>You</small>}</span></div></td>
+                <td><div className="admin-user-table__identity"><AdminAvatar user={user} size="small" /><span><strong>{user.name}</strong>{isSelf && <small>You</small>}{user.isDemo && <small>Demo</small>}</span></div></td>
                 <td>{user.email}</td>
                 <td><span className={`admin-user-role admin-user-role--${user.role}`}>{user.role === 'admin' ? 'Admin' : 'Student'}</span></td>
                 <td>{Number(user.enrollmentCount) || 0}</td>
@@ -32,7 +32,6 @@ export default function AdminUserTable({ users, currentUserId, pendingAction, on
                     <Link to={`/admin/users/${user._id}`} aria-label={`View ${user.name}`}><AdminIcon name="eye" size={16} /><span>View</span></Link>
                     <button type="button" onClick={() => onRole(user)} disabled={busy || isSelf} aria-label={`${user.role === 'admin' ? 'Change to Student' : 'Change to Admin'} ${user.name}`} title={isSelf ? 'You cannot change your own Admin role' : undefined}><AdminIcon name="shield" size={16} /><span>Role</span></button>
                     <button type="button" onClick={() => onStatus(user)} disabled={busy || isSelf} aria-label={`${user.isActive ? 'Deactivate' : 'Activate'} ${user.name}`} title={isSelf ? 'You cannot deactivate yourself' : undefined}><AdminIcon name="power" size={16} /><span>{user.isActive ? 'Deactivate' : 'Activate'}</span></button>
-                    <button type="button" className="is-danger" onClick={() => onDelete(user)} disabled={busy || isSelf} aria-label={`Delete ${user.name}`} title={isSelf ? 'You cannot delete yourself' : undefined}><AdminIcon name="trash" size={16} /><span>Delete</span></button>
                   </div>
                 </td>
               </tr>

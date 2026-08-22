@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { deleteAdminUser, getAdminUsers, updateAdminUserRole, updateAdminUserStatus } from '../../api/admin.js'
+import { getAdminUsers, updateAdminUserRole, updateAdminUserStatus } from '../../api/admin.js'
 import { useAuth } from '../../components/Auth/AuthProvider.jsx'
 import AdminConfirmModal from '../../components/Admin/AdminConfirmModal.jsx'
 import AdminIcon from '../../components/Admin/AdminIcons.jsx'
@@ -97,13 +97,9 @@ export default function AdminUsersPage() {
       } else if (type === 'status') {
         await updateAdminUserStatus(user._id, !user.isActive)
         notifications.success(user.isActive ? 'User deactivated.' : 'User activated.')
-      } else {
-        await deleteAdminUser(user._id)
-        notifications.success('User deleted.')
       }
       setConfirmation(null)
-      if (type === 'delete' && users.length === 1 && page > 1) setPage((current) => current - 1)
-      else await loadUsers({ silent: true })
+      await loadUsers({ silent: true })
     } catch (actionError) {
       notifications.error(errorMessage(actionError))
       setConfirmation(null)
@@ -117,9 +113,7 @@ export default function AdminUsersPage() {
   const end = Math.min(pagination.page * pagination.limit, pagination.total)
   const confirmationCopy = confirmation?.type === 'role'
     ? `${confirmation.user.role === 'admin' ? 'Admin → Student' : 'Student → Admin'}`
-    : confirmation?.type === 'status'
-      ? `${confirmation.user.isActive ? 'Deactivate' : 'Activate'} this account?`
-      : 'This action cannot be undone.'
+    : `${confirmation?.user.isActive ? 'Deactivate' : 'Activate'} this account?`
 
   return (
     <div className="admin-users">
@@ -150,7 +144,7 @@ export default function AdminUsersPage() {
           <div className="admin-user-list-state" role="alert"><h3>Unable to load users</h3><p>{errorMessage(error)}</p><button type="button" className="admin-button admin-button--primary" onClick={() => loadUsers()}>Retry</button></div>
         ) : users.length === 0 ? (
           <div className="admin-user-list-state"><h3>{hasFilters ? 'No users match your search or selected filters.' : 'No users found.'}</h3><p>{hasFilters ? 'Try clearing or changing the current filters.' : 'Registered users will appear here.'}</p>{hasFilters && <button type="button" className="admin-button admin-button--secondary" onClick={clearFilters}>Clear filters</button>}</div>
-        ) : <AdminUserTable users={users} currentUserId={currentUser?._id} pendingAction={pendingAction} onRole={(user) => setConfirmation({ type: 'role', user })} onStatus={(user) => setConfirmation({ type: 'status', user })} onDelete={(user) => setConfirmation({ type: 'delete', user })} />}
+        ) : <AdminUserTable users={users} currentUserId={currentUser?._id} pendingAction={pendingAction} onRole={(user) => setConfirmation({ type: 'role', user })} onStatus={(user) => setConfirmation({ type: 'status', user })} />}
 
         {!loading && !error && pagination.total > 0 && (
           <div className="admin-user-pagination"><span>Showing {start}–{end} of {pagination.total} users</span><div><button type="button" onClick={() => setPage((current) => current - 1)} disabled={page <= 1}>Previous</button>{visiblePages(page, pagination.pages).map((pageNumber) => <button type="button" className={pageNumber === page ? 'is-active' : ''} aria-current={pageNumber === page ? 'page' : undefined} onClick={() => setPage(pageNumber)} key={pageNumber}>{pageNumber}</button>)}<button type="button" onClick={() => setPage((current) => current + 1)} disabled={page >= pagination.pages}>Next</button></div></div>
@@ -159,16 +153,16 @@ export default function AdminUsersPage() {
 
       <AdminConfirmModal
         open={Boolean(confirmation)}
-        title={confirmation?.type === 'role' ? 'Change Role?' : confirmation?.type === 'status' ? 'Change Account Status?' : 'Delete User?'}
-        confirmLabel={confirmation?.type === 'role' ? 'Confirm role change' : confirmation?.type === 'status' ? (confirmation?.user.isActive ? 'Deactivate user' : 'Activate user') : 'Delete user'}
+        title={confirmation?.type === 'role' ? 'Change Role?' : 'Change Account Status?'}
+        confirmLabel={confirmation?.type === 'role' ? 'Confirm role change' : (confirmation?.user.isActive ? 'Deactivate user' : 'Activate user')}
         pending={Boolean(pendingAction)}
-        pendingLabel={confirmation?.type === 'delete' ? 'Deleting…' : 'Saving…'}
-        icon={confirmation?.type === 'role' ? 'shield' : confirmation?.type === 'status' ? 'power' : 'trash'}
-        tone={confirmation?.type === 'delete' || (confirmation?.type === 'status' && confirmation?.user.isActive) ? 'danger' : 'primary'}
+        pendingLabel="Saving…"
+        icon={confirmation?.type === 'role' ? 'shield' : 'power'}
+        tone={confirmation?.type === 'status' && confirmation?.user.isActive ? 'danger' : 'primary'}
         onCancel={() => setConfirmation(null)}
         onConfirm={confirmAction}
       >
-        <p><strong>{confirmation?.user.name}</strong></p><p>{confirmationCopy}</p>{confirmation?.type === 'delete' && <p>Deletion is allowed only when no learning or order records are linked.</p>}
+        <p><strong>{confirmation?.user.name}</strong></p><p>{confirmationCopy}</p>{confirmation?.type === 'status' && confirmation?.user.isActive && <p>Course history and financial records will be preserved.</p>}
       </AdminConfirmModal>
     </div>
   )

@@ -19,7 +19,7 @@ function BookmarkIcon({ filled }) {
   return <svg width="21" height="21" viewBox="0 0 24 24" fill={filled ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M6 3.5h12v17L12 16l-6 4.5v-17Z"/></svg>
 }
 
-export default function CoursePlayer({ initialData }) {
+function CoursePlayerContent({ initialData }) {
   const navigate = useNavigate()
   const { success, error } = useNotifications()
   const { user, updateUser } = useAuth()
@@ -164,4 +164,28 @@ export default function CoursePlayer({ initialData }) {
       <CompletionDialog open={completionOpen} courseTitle={course.title} onClose={() => setCompletionOpen(false)} onMyCourses={() => navigate('/profile/courses')} onViewCertificate={() => navigate('/profile/certificates')} />
     </>
   )
+}
+
+function EmptyCoursePlayer({ course }) {
+  return (
+    <>
+      <nav className="learn-breadcrumb" aria-label="Breadcrumb">
+        <Link to="/profile/courses">My Courses</Link><span>›</span><strong>{course.title}</strong>
+      </nav>
+      <div className="learn-page-state learn-player-empty">
+        <h1>No lessons have been added to this course yet.</h1>
+        <p>The curriculum will appear here after the course author adds lessons.</p>
+        <Link to="/profile/courses">Back to My Courses</Link>
+      </div>
+    </>
+  )
+}
+
+export default function CoursePlayer({ initialData }) {
+  const course = initialData?.course
+  const modules = Array.isArray(course?.modules) ? course.modules : []
+  const lessonCount = modules.reduce((total, courseModule) => total + (courseModule.lessons?.length || 0), 0)
+
+  if (lessonCount === 0) return <EmptyCoursePlayer course={{ ...course, modules }} />
+  return <CoursePlayerContent initialData={{ ...initialData, course: { ...course, modules } }} />
 }
