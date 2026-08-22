@@ -99,12 +99,12 @@ export default function CourseCard({ course }) {
       {detailHref ? (
         <Link to={detailHref} className="ccard-media-link" aria-label={`View ${course.title}`} tabIndex={-1}>
           <div className="ccard-media">
-            <CourseThumbnail course={course} alt={`${course.title} thumbnail`} />
+            <CourseThumbnail course={course} alt={`${course.title} thumbnail`} preferIllustration />
           </div>
         </Link>
       ) : (
         <div className="ccard-media">
-          <CourseThumbnail course={course} alt={`${course.title} thumbnail`} />
+          <CourseThumbnail course={course} alt={`${course.title} thumbnail`} preferIllustration />
         </div>
       )}
 
