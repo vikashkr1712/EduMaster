@@ -20,7 +20,7 @@ export default function CourseGrid({ courses }) {
           key={course._id ?? course.id}
           initial={reducedMotion ? false : 'hidden'}
           whileInView="visible"
-          viewport={{ amount: 0.2 }}
+          viewport={{ amount: 0.2, once: true }}
           variants={fadeUp}
           transition={{ duration: 0.45, delay: (i % 3) * 0.07, ease: [0.22, 1, 0.36, 1] }}
         >

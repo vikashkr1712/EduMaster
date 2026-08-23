@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect } from 'react'
+import { useCallback, useMemo, useState, useEffect } from 'react'
 import Navbar from '../../components/Home/Navbar/Navbar.jsx'
 import Footer from '../../components/Home/Footer/Footer.jsx'
 import CoursesHero from '../../components/Courses/CoursesHero.jsx'
@@ -49,20 +49,23 @@ export default function CoursesPage() {
 
   const [courses, setCourses] = useState([])
   const [pagination, setPagination] = useState(null)
-  const [status, setStatus] = useState('loading') // 'loading' | 'error' | 'success'
+  const [status, setStatus] = useState('loading') // 'loading' | 'refreshing' | 'error' | 'success'
   const [errorMessage, setErrorMessage] = useState('')
   const [retryToken, setRetryToken] = useState(0)
 
   /* --- debounce the search input --- */
   useEffect(() => {
-    const timer = setTimeout(() => setDebouncedSearch(search.trim()), SEARCH_DEBOUNCE_MS)
+    const timer = setTimeout(() => {
+      setPage(1)
+      setDebouncedSearch(search.trim())
+    }, SEARCH_DEBOUNCE_MS)
     return () => clearTimeout(timer)
   }, [search])
 
-  // reset to page 1 whenever filters/search/sort change
-  useEffect(() => {
+  const updateFilters = useCallback((nextFilters) => {
     setPage(1)
-  }, [debouncedSearch, filters, sort])
+    setFilters(nextFilters)
+  }, [])
 
   /* --- backend query params --- */
   const queryParams = useMemo(() => {
@@ -84,7 +87,7 @@ export default function CoursesPage() {
   /* --- fetch courses --- */
   useEffect(() => {
     let ignore = false
-    setStatus('loading')
+    setStatus((current) => current === 'success' || current === 'refreshing' ? 'refreshing' : 'loading')
 
     getCourses(queryParams)
       .then((response) => {
@@ -132,15 +135,15 @@ export default function CoursesPage() {
         <div className="container courses-layout">
           <CoursesSidebar
             filters={filters}
-            setFilters={setFilters}
+            setFilters={updateFilters}
             mobileOpen={sidebarOpen}
             onClose={() => setSidebarOpen(false)}
           />
 
-          <div className="courses-main">
+          <div className="courses-main" aria-busy={status === 'refreshing'}>
             <div className="courses-toolbar">
               <p className="courses-toolbar-count">
-                {status === 'success' ? (
+                {status === 'success' || status === 'refreshing' ? (
                   <>
                     Showing <b>{showingFrom}</b> – <b>{showingTo}</b> of <b>{total}</b> courses
                   </>
@@ -158,7 +161,10 @@ export default function CoursesPage() {
                   <select
                     id="courses-sort-select"
                     value={sort}
-                    onChange={(e) => setSort(e.target.value)}
+                    onChange={(e) => {
+                      setPage(1)
+                      setSort(e.target.value)
+                    }}
                   >
                     {SORT_OPTIONS.map((o) => (
                       <option key={o} value={o}>
@@ -187,7 +193,7 @@ export default function CoursesPage() {
               </div>
             )}
 
-            {status === 'success' && (
+            {(status === 'success' || status === 'refreshing') && (
               <>
                 <CourseGrid courses={courses} />
                 <CoursesPagination page={currentPage} totalPages={totalPages} onPage={handlePage} />
