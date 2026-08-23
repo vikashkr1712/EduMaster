@@ -3,12 +3,13 @@ import * as authController from '../controllers/auth.controller.js';
 import { validate } from '../middleware/validate.js';
 import { authenticate } from '../middleware/authenticate.js';
 import { authLimiter } from '../middleware/rateLimiter.js';
-import { registerSchema, loginSchema } from '../validations/auth.validation.js';
+import { registerSchema, loginSchema, googleLoginSchema } from '../validations/auth.validation.js';
 
 const router = Router();
 
 router.post('/register', authLimiter, validate(registerSchema), authController.register);
 router.post('/login', authLimiter, validate(loginSchema), authController.login);
+router.post('/google', authLimiter, validate(googleLoginSchema), authController.googleLogin);
 router.get('/session', authController.session);
 router.post('/refresh', authLimiter, authController.refresh);
 router.post('/logout', authenticate, authController.logout);

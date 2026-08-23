@@ -21,7 +21,9 @@ const userSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: [true, 'Password is required'],
+      required() {
+        return this.authProvider !== 'google';
+      },
       minlength: [8, 'Password must be at least 8 characters'],
       select: false,
       validate: {
@@ -54,6 +56,17 @@ const userSchema = new mongoose.Schema(
       type: String,
       trim: true,
       default: null,
+    },
+    firebaseUid: {
+      type: String,
+      trim: true,
+      unique: true,
+      sparse: true,
+    },
+    authProvider: {
+      type: String,
+      enum: ['local', 'google'],
+      default: 'local',
     },
     username: { type: String, trim: true, minlength: 3, maxlength: 30 },
     phone: { type: String, trim: true, maxlength: 20, default: '' },
@@ -121,6 +134,7 @@ userSchema.methods.comparePassword = async function (plainPassword) {
 userSchema.methods.toJSON = function () {
   const user = this.toObject();
   delete user.password;
+  delete user.firebaseUid;
   delete user.__v;
   return user;
 };

@@ -21,11 +21,32 @@ export default function LoginCard({
   const navigate = useNavigate()
   const location = useLocation()
   const notifications = useNotifications()
-  const { login } = useAuth()
+  const { googleLogin, login } = useAuth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [remember, setRemember] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [googleLoading, setGoogleLoading] = useState(false)
+
+  const completeLogin = (authenticatedUser, message) => {
+    if (requiredRole && authenticatedUser?.role !== requiredRole) {
+      notifications.error('Admin permission is required to access this area.')
+      navigate('/forbidden', { replace: true })
+      return
+    }
+    notifications.success(message)
+    const redirectTo = location.state?.from
+    const redirectPath = redirectTo
+      ? `${redirectTo.pathname}${redirectTo.search}${redirectTo.hash}`
+      : successRedirect
+    const safeRedirectPath = requiredRole && !redirectPath.startsWith('/admin')
+      ? successRedirect
+      : redirectPath
+    navigate(
+      safeRedirectPath,
+      { replace: true, state: location.state?.purchaseAction ? { purchaseAction: location.state.purchaseAction } : null }
+    )
+  }
 
   const onSubmit = async (e) => {
     e.preventDefault()
@@ -37,27 +58,24 @@ export default function LoginCard({
     setLoading(true)
     try {
       const authenticatedUser = await login({ email, password })
-      if (requiredRole && authenticatedUser?.role !== requiredRole) {
-        notifications.error('Admin permission is required to access this area.')
-        navigate('/forbidden', { replace: true })
-        return
-      }
-      notifications.success('Welcome back! You are now signed in.')
-      const redirectTo = location.state?.from
-      const redirectPath = redirectTo
-        ? `${redirectTo.pathname}${redirectTo.search}${redirectTo.hash}`
-        : successRedirect
-      const safeRedirectPath = requiredRole && !redirectPath.startsWith('/admin')
-        ? successRedirect
-        : redirectPath
-      navigate(
-        safeRedirectPath,
-        { replace: true, state: location.state?.purchaseAction ? { purchaseAction: location.state.purchaseAction } : null }
-      )
+      completeLogin(authenticatedUser, 'Welcome back! You are now signed in.')
     } catch (error) {
       notifications.error(error.message)
     } finally {
       setLoading(false)
+    }
+  }
+
+  const onGoogleLogin = async () => {
+    if (loading || googleLoading) return
+    setGoogleLoading(true)
+    try {
+      const authenticatedUser = await googleLogin()
+      completeLogin(authenticatedUser, 'Welcome! You are now signed in with Google.')
+    } catch (error) {
+      notifications.error(error.message)
+    } finally {
+      setGoogleLoading(false)
     }
   }
 
@@ -107,7 +125,7 @@ export default function LoginCard({
         </Link>
       </div>
 
-      <button type="submit" className={`authcard-submit${loading ? ' is-loading' : ''}`} disabled={loading}>
+      <button type="submit" className={`authcard-submit${loading ? ' is-loading' : ''}`} disabled={loading || googleLoading}>
         {loading ? <span className="authcard-spinner" aria-hidden="true" /> : <LoginArrowIcon />}
         {loading ? 'Logging in…' : submitLabel}
       </button>
@@ -116,7 +134,7 @@ export default function LoginCard({
         <span>or continue with</span>
       </div>
 
-      <SocialButtons />
+      <SocialButtons onGoogleClick={onGoogleLogin} googleLoading={googleLoading} disabled={loading} />
 
       {footer ?? (
         <p className="authcard-switch">

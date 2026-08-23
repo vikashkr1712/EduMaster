@@ -1,13 +1,32 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { getCurrentUser, getSession, login as loginRequest, logout as logoutRequest, register as registerRequest } from '../../api/auth.js'
+import { GoogleAuthProvider, signInWithPopup, signOut as signOutFromFirebase } from 'firebase/auth'
+import { getCurrentUser, getSession, googleLogin as googleLoginRequest, login as loginRequest, logout as logoutRequest, register as registerRequest } from '../../api/auth.js'
 import { AUTH_SESSION_MISMATCH_EVENT } from '../../api/client.js'
+import { firebaseAuth } from '../../config/firebase.js'
 
 const AuthContext = createContext(null)
 const SESSION_HINT_KEY = 'edumaster:session-active'
 const AUTH_SYNC_KEY = 'edumaster:auth-sync'
 
 const getUserFromResponse = (response) => response?.data?.user ?? response?.user ?? null
+const googleProvider = new GoogleAuthProvider()
+googleProvider.setCustomParameters({ prompt: 'select_account' })
+
+const googleAuthMessages = {
+  'auth/popup-closed-by-user': 'Google sign-in was canceled.',
+  'auth/popup-blocked': 'The Google sign-in popup was blocked. Allow popups and try again.',
+  'auth/cancelled-popup-request': 'Google sign-in was canceled. Please try again.',
+  'auth/account-exists-with-different-credential': 'This email is already linked to another sign-in method.',
+  'auth/network-request-failed': 'Unable to reach Google. Check your connection and try again.',
+}
+
+const normalizeGoogleAuthError = (error) => {
+  const message = googleAuthMessages[error?.code]
+  if (message) return new Error(message)
+  if (error instanceof Error && !String(error.code || '').startsWith('auth/')) return error
+  return new Error('Google sign-in could not be completed. Please try again.')
+}
 
 export function AuthProvider({ children }) {
   const navigate = useNavigate()
@@ -140,6 +159,29 @@ export function AuthProvider({ children }) {
     return currentUser
   }, [canCommitAuthState, loadCurrentUser, notifyOtherTabs, setSessionHint])
 
+  const googleLogin = useCallback(async () => {
+    const requestId = authRequestId.current + 1
+    authRequestId.current = requestId
+
+    try {
+      const result = await signInWithPopup(firebaseAuth, googleProvider)
+      const idToken = await result.user.getIdToken()
+      await googleLoginRequest({ idToken })
+    } catch (error) {
+      if (firebaseAuth.currentUser) {
+        await signOutFromFirebase(firebaseAuth).catch(() => {})
+      }
+      if (canCommitAuthState(requestId)) setIsLoading(false)
+      throw normalizeGoogleAuthError(error)
+    }
+
+    if (!canCommitAuthState(requestId)) return null
+    const currentUser = await loadCurrentUser()
+    setSessionHint(Boolean(currentUser))
+    notifyOtherTabs()
+    return currentUser
+  }, [canCommitAuthState, loadCurrentUser, notifyOtherTabs, setSessionHint])
+
   const signup = useCallback(async (details) => {
     const requestId = authRequestId.current + 1
     authRequestId.current = requestId
@@ -166,13 +208,20 @@ export function AuthProvider({ children }) {
     try {
       await logoutRequest()
     } finally {
-      authRequestId.current += 1
-      if (isMounted.current) {
-        setUser(null)
-        setSessionHint(false)
-        navigate(redirectTo, { replace: true })
+      try {
+        if (firebaseAuth.currentUser) await signOutFromFirebase(firebaseAuth)
+      } catch {
+        // The EduMaster cookie session is still cleared even if Firebase is
+        // temporarily unreachable during sign-out.
+      } finally {
+        authRequestId.current += 1
+        if (isMounted.current) {
+          setUser(null)
+          setSessionHint(false)
+          navigate(redirectTo, { replace: true })
+        }
+        notifyOtherTabs()
       }
-      notifyOtherTabs()
     }
   }, [navigate, notifyOtherTabs, setSessionHint])
 
@@ -189,11 +238,12 @@ export function AuthProvider({ children }) {
     isLoading,
     hasSessionHint,
     login,
+    googleLogin,
     signup,
     logout,
     refreshUser: loadCurrentUser,
     updateUser,
-  }), [hasSessionHint, isLoading, loadCurrentUser, login, logout, signup, updateUser, user])
+  }), [googleLogin, hasSessionHint, isLoading, loadCurrentUser, login, logout, signup, updateUser, user])
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }

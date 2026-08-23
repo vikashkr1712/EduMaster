@@ -2,7 +2,7 @@ import { timingSafeEqual } from 'node:crypto';
 import { ApiError } from '../utils/ApiError.js';
 
 const safeMethods = new Set(['GET', 'HEAD', 'OPTIONS']);
-const excludedPaths = new Set(['/auth/register', '/auth/login', '/auth/refresh']);
+const excludedPaths = new Set(['/auth/register', '/auth/login', '/auth/google', '/auth/refresh']);
 
 export const csrfProtection = (req, res, next) => {
   if (safeMethods.has(req.method) || excludedPaths.has(req.path)) return next();

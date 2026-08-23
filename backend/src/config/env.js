@@ -34,6 +34,9 @@ const envSchema = z.object({
   CLOUDINARY_CLOUD_NAME: z.string().trim().optional(),
   CLOUDINARY_API_KEY: z.string().trim().optional(),
   CLOUDINARY_API_SECRET: z.string().trim().optional(),
+  FIREBASE_PROJECT_ID: z.string().trim().optional(),
+  FIREBASE_CLIENT_EMAIL: z.string().trim().email('Invalid FIREBASE_CLIENT_EMAIL').optional(),
+  FIREBASE_PRIVATE_KEY: z.string().min(1).optional(),
 });
 
 const parseResult = envSchema.safeParse(process.env);

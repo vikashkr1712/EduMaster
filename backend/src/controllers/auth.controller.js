@@ -26,6 +26,18 @@ export const login = async (req, res) => {
   });
 };
 
+export const googleLogin = async (req, res) => {
+  const { user, accessToken, refreshToken } = await authService.googleLogin(req.body);
+
+  setAuthCookies(res, accessToken, refreshToken);
+
+  res.status(200).json({
+    success: true,
+    message: 'Google login successful',
+    data: { user },
+  });
+};
+
 export const refresh = async (req, res) => {
   const { user, accessToken, refreshToken } = await authService.refresh(req.cookies?.refreshToken);
 

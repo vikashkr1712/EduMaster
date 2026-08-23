@@ -24,3 +24,9 @@ export const loginSchema = z
     password: z.string().min(1, 'Password is required'),
   })
   .strict();
+
+export const googleLoginSchema = z
+  .object({
+    idToken: z.string().trim().min(1, 'Firebase ID token is required').max(10000, 'Firebase ID token is invalid'),
+  })
+  .strict();

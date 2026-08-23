@@ -10,7 +10,7 @@ import { useAuth } from './AuthProvider.jsx'
 
 export default function SignupCard() {
   const notifications = useNotifications()
-  const { signup } = useAuth()
+  const { googleLogin, signup } = useAuth()
   const location = useLocation()
   const navigate = useNavigate()
   const [fullName, setFullName] = useState('')
@@ -19,6 +19,16 @@ export default function SignupCard() {
   const [confirm, setConfirm] = useState('')
   const [agreed, setAgreed] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [googleLoading, setGoogleLoading] = useState(false)
+
+  const completeAuthentication = (message) => {
+    notifications.success(message)
+    const redirectTo = location.state?.from
+    navigate(
+      redirectTo ? `${redirectTo.pathname}${redirectTo.search}${redirectTo.hash}` : '/',
+      { replace: true, state: location.state?.purchaseAction ? { purchaseAction: location.state.purchaseAction } : null }
+    )
+  }
 
   const onSubmit = async (e) => {
     e.preventDefault()
@@ -30,16 +40,24 @@ export default function SignupCard() {
     setLoading(true)
     try {
       await signup({ name: fullName, email, password, confirmPassword: confirm })
-      notifications.success('Your account has been created successfully.')
-      const redirectTo = location.state?.from
-      navigate(
-        redirectTo ? `${redirectTo.pathname}${redirectTo.search}${redirectTo.hash}` : '/',
-        { replace: true, state: location.state?.purchaseAction ? { purchaseAction: location.state.purchaseAction } : null }
-      )
+      completeAuthentication('Your account has been created successfully.')
     } catch (error) {
       notifications.error(error.message)
     } finally {
       setLoading(false)
+    }
+  }
+
+  const onGoogleLogin = async () => {
+    if (loading || googleLoading) return
+    setGoogleLoading(true)
+    try {
+      await googleLogin()
+      completeAuthentication('Welcome! Your EduMaster account is ready.')
+    } catch (error) {
+      notifications.error(error.message)
+    } finally {
+      setGoogleLoading(false)
     }
   }
 
@@ -112,7 +130,7 @@ export default function SignupCard() {
         </span>
       </label>
 
-      <button type="submit" className={`authcard-submit${loading ? ' is-loading' : ''}`} disabled={loading}>
+      <button type="submit" className={`authcard-submit${loading ? ' is-loading' : ''}`} disabled={loading || googleLoading}>
         {loading ? <span className="authcard-spinner" aria-hidden="true" /> : <UserPlusIcon />}
         {loading ? 'Creating Account…' : 'Create Account'}
       </button>
@@ -121,7 +139,7 @@ export default function SignupCard() {
         <span>or sign up with</span>
       </div>
 
-      <SocialButtons />
+      <SocialButtons onGoogleClick={onGoogleLogin} googleLoading={googleLoading} disabled={loading} />
 
       <p className="authcard-switch">
         Already have an account? <Link to="/login" state={location.state}>Login</Link>

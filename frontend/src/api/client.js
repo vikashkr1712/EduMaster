@@ -77,7 +77,7 @@ async function request(path, { method = 'GET', body, headers, signal: externalSi
   let response
   const isFormData = typeof FormData !== 'undefined' && body instanceof FormData
   const unsafe = !['GET', 'HEAD', 'OPTIONS'].includes(method)
-  const csrfToken = unsafe && !['/auth/login', '/auth/register', '/auth/refresh'].includes(path) ? await getCsrfToken() : ''
+  const csrfToken = unsafe && !['/auth/login', '/auth/register', '/auth/google', '/auth/refresh'].includes(path) ? await getCsrfToken() : ''
   try {
     response = await fetch(`${API_BASE_URL}${path}`, {
       method,
