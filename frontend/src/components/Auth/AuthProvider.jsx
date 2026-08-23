@@ -1,17 +1,22 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { GoogleAuthProvider, signInWithPopup, signOut as signOutFromFirebase } from 'firebase/auth'
 import { getCurrentUser, getSession, googleLogin as googleLoginRequest, login as loginRequest, logout as logoutRequest, register as registerRequest } from '../../api/auth.js'
 import { AUTH_SESSION_MISMATCH_EVENT } from '../../api/client.js'
-import { firebaseAuth } from '../../config/firebase.js'
 
 const AuthContext = createContext(null)
 const SESSION_HINT_KEY = 'edumaster:session-active'
 const AUTH_SYNC_KEY = 'edumaster:auth-sync'
 
 const getUserFromResponse = (response) => response?.data?.user ?? response?.user ?? null
-const googleProvider = new GoogleAuthProvider()
-googleProvider.setCustomParameters({ prompt: 'select_account' })
+let firebaseClientPromise
+
+const getFirebaseClient = () => {
+  if (!firebaseClientPromise) {
+    firebaseClientPromise = import('./firebaseClient.js')
+  }
+
+  return firebaseClientPromise
+}
 
 const googleAuthMessages = {
   'auth/popup-closed-by-user': 'Google sign-in was canceled.',
@@ -162,14 +167,16 @@ export function AuthProvider({ children }) {
   const googleLogin = useCallback(async () => {
     const requestId = authRequestId.current + 1
     authRequestId.current = requestId
+    let firebaseClient
 
     try {
-      const result = await signInWithPopup(firebaseAuth, googleProvider)
+      firebaseClient = await getFirebaseClient()
+      const result = await firebaseClient.signInWithPopup(firebaseClient.firebaseAuth, firebaseClient.googleProvider)
       const idToken = await result.user.getIdToken()
       await googleLoginRequest({ idToken })
     } catch (error) {
-      if (firebaseAuth.currentUser) {
-        await signOutFromFirebase(firebaseAuth).catch(() => {})
+      if (firebaseClient?.firebaseAuth.currentUser) {
+        await firebaseClient.signOutFromFirebase(firebaseClient.firebaseAuth).catch(() => {})
       }
       if (canCommitAuthState(requestId)) setIsLoading(false)
       throw normalizeGoogleAuthError(error)
@@ -209,7 +216,10 @@ export function AuthProvider({ children }) {
       await logoutRequest()
     } finally {
       try {
-        if (firebaseAuth.currentUser) await signOutFromFirebase(firebaseAuth)
+        const firebaseClient = await getFirebaseClient()
+        if (firebaseClient.firebaseAuth.currentUser) {
+          await firebaseClient.signOutFromFirebase(firebaseClient.firebaseAuth)
+        }
       } catch {
         // The EduMaster cookie session is still cleared even if Firebase is
         // temporarily unreachable during sign-out.

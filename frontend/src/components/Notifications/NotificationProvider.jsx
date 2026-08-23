@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useState } from 'react'
+import { createContext, useCallback, useContext, useMemo, useState } from 'react'
 import './NotificationProvider.css'
 
 const NotificationContext = createContext(null)
@@ -15,11 +15,11 @@ export function NotificationProvider({ children }) {
     }, 5000)
   }, [])
 
-  const value = {
+  const value = useMemo(() => ({
     success: (message) => notify('success', message),
     error: (message) => notify('error', message),
     info: (message) => notify('info', message),
-  }
+  }), [notify])
 
   return (
     <NotificationContext.Provider value={value}>

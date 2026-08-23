@@ -52,7 +52,7 @@ export default function CourseThumbnail({ course = {}, source, alt = '', classNa
   useEffect(() => setFailed(false), [resolvedSource])
 
   if (!preferIllustration && resolvedSource && !failed) {
-    return <img className={`course-thumbnail-image ${className}`.trim()} src={resolvedSource} alt={alt} loading="lazy" onError={() => setFailed(true)} />
+    return <img className={`course-thumbnail-image ${className}`.trim()} src={resolvedSource} alt={alt} loading="lazy" decoding="async" onError={() => setFailed(true)} />
   }
 
   const imageType = getCourseIllustrationType(course)
