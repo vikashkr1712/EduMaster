@@ -1,5 +1,4 @@
 import './Courses.css'
-import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import CourseIllustration1 from '../../../assets/svg/home/CourseIllustration1.jsx'
 import CourseIllustration2 from '../../../assets/svg/home/CourseIllustration2.jsx'
@@ -59,20 +58,6 @@ function UsersIcon() {
   )
 }
 
-function ArrowNav({ dir }) {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-      <path
-        d={dir === 'left' ? 'M15 5l-7 7 7 7' : 'M9 5l7 7-7 7'}
-        stroke="currentColor"
-        strokeWidth="2.4"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  )
-}
-
 const courses = [
   {
     id: 1,
@@ -121,11 +106,6 @@ const courses = [
 export default function Courses() {
   const reducedMotion = useReducedMotion()
   const navigate = useNavigate()
-  const [offset, setOffset] = useState(0)
-  const orderedCourses = [...courses.slice(offset), ...courses.slice(0, offset)]
-  const shiftCourses = (direction) => {
-    setOffset((current) => (current + direction + courses.length) % courses.length)
-  }
 
   return (
     <section className="courses">
@@ -140,14 +120,10 @@ export default function Courses() {
           </p>
         </motion.div>
 
-        <div className="courses-slider">
-          <button type="button" className="courses-arrow courses-arrow-left" aria-label="Previous courses" onClick={() => shiftCourses(-1)}>
-            <ArrowNav dir="left" />
-          </button>
-
-          <motion.div className="courses-grid" aria-live="polite" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ amount: 0.2 }} variants={stagger(0.1)}>
-            {orderedCourses.map((c) => (
-              <motion.article className="course-card" key={c.title} variants={{ hidden: { opacity: 0, y: 26 }, visible: { opacity: 1, y: 0 } }} transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }} whileHover={reducedMotion ? undefined : { y: -7 }}>
+        <div className="courses-showcase">
+          <motion.div className="courses-grid" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ amount: 0.18, once: true }} variants={stagger(0.13)}>
+            {courses.map((c) => (
+              <motion.article className="course-card" key={c.title} variants={{ hidden: { opacity: 0, y: 34, scale: 0.97 }, visible: { opacity: 1, y: 0, scale: 1 } }} transition={{ duration: 0.62, ease: [0.22, 1, 0.36, 1] }} whileHover={reducedMotion ? undefined : { y: -7 }}>
                 <div className="course-media">{c.illustration}</div>
                 <div className="course-body">
                   <div className="course-topline">
@@ -178,10 +154,6 @@ export default function Courses() {
               </motion.article>
             ))}
           </motion.div>
-
-          <button type="button" className="courses-arrow courses-arrow-right" aria-label="Next courses" onClick={() => shiftCourses(1)}>
-            <ArrowNav dir="right" />
-          </button>
         </div>
 
         <div className="courses-viewall">

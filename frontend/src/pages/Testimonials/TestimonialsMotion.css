@@ -40,10 +40,9 @@
 .tcard:hover .tcard-stars svg:nth-child(4) { animation-delay: 0.18s; }
 .tcard:hover .tcard-stars svg:nth-child(5) { animation-delay: 0.24s; }
 
-/* ---- carousel controls (track transition exists in TestimonialsSection.css) ---- */
-.tsection-arrow { transition: transform 0.2s ease, background 0.2s, border-color 0.2s, box-shadow 0.2s; }
-.tsection-arrow:hover { transform: translateY(-2px); }
-.tsection-arrow:active { transform: scale(0.92); }
+/* ---- carousel controls (preserve the -50% centering in every state) ---- */
+.tsection-arrow:hover { transform: translateY(-50%) scale(1.06); }
+.tsection-arrow:active { transform: translateY(-50%) scale(0.92); }
 .tsection-dot { transition: transform 0.25s ease, background 0.25s ease; }
 .tsection-dot:hover { transform: scale(1.25); }
 .tsection-dot.active { animation: em-pop 0.3s ease; }

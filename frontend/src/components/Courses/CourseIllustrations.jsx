@@ -6,11 +6,11 @@ function useSvgId(prefix) {
   return `${prefix}-${useId().replace(/:/g, '')}`
 }
 
-function ArtworkSvg({ label, children }) {
+function ArtworkSvg({ label, children, preserveAspectRatio = 'xMidYMid slice' }) {
   return (
     <svg
       viewBox="0 0 320 160"
-      preserveAspectRatio="xMidYMid slice"
+      preserveAspectRatio={preserveAspectRatio}
       xmlns="http://www.w3.org/2000/svg"
       role="img"
       aria-label={label}
@@ -20,10 +20,10 @@ function ArtworkSvg({ label, children }) {
   )
 }
 
-export function BusinessIllustration() {
+export function BusinessIllustration({ preserveAspectRatio } = {}) {
   const id = useSvgId('business')
   return (
-    <ArtworkSvg label="Business growth dashboard on a laptop">
+    <ArtworkSvg label="Business growth dashboard on a laptop" preserveAspectRatio={preserveAspectRatio}>
       <defs>
         <linearGradient id={`${id}-bg`} x1="20" y1="5" x2="296" y2="155" gradientUnits="userSpaceOnUse">
           <stop stopColor="#FFE7A3" />
@@ -63,10 +63,10 @@ export function BusinessIllustration() {
   )
 }
 
-export function DevelopmentIllustration() {
+export function DevelopmentIllustration({ preserveAspectRatio } = {}) {
   const id = useSvgId('development')
   return (
-    <ArtworkSvg label="Code editor on a laptop in a dark workspace">
+    <ArtworkSvg label="Code editor on a laptop in a dark workspace" preserveAspectRatio={preserveAspectRatio}>
       <defs>
         <linearGradient id={`${id}-bg`} x1="24" y1="0" x2="296" y2="160" gradientUnits="userSpaceOnUse">
           <stop stopColor="#03142E" />
@@ -102,10 +102,10 @@ export function DevelopmentIllustration() {
   )
 }
 
-export function DataScienceIllustration() {
+export function DataScienceIllustration({ preserveAspectRatio } = {}) {
   const id = useSvgId('data-science')
   return (
-    <ArtworkSvg label="Purple analytics dashboard with rising charts">
+    <ArtworkSvg label="Purple analytics dashboard with rising charts" preserveAspectRatio={preserveAspectRatio}>
       <defs>
         <linearGradient id={`${id}-bg`} x1="20" y1="4" x2="302" y2="153" gradientUnits="userSpaceOnUse">
           <stop stopColor="#1D0C55" />
@@ -147,10 +147,10 @@ export function DataScienceIllustration() {
   )
 }
 
-export function DesignIllustration() {
+export function DesignIllustration({ preserveAspectRatio } = {}) {
   const id = useSvgId('design')
   return (
-    <ArtworkSvg label="Green UI and UX design workspace">
+    <ArtworkSvg label="Green UI and UX design workspace" preserveAspectRatio={preserveAspectRatio}>
       <defs>
         <linearGradient id={`${id}-bg`} x1="10" y1="0" x2="306" y2="160" gradientUnits="userSpaceOnUse">
           <stop stopColor="#269D7B" />
@@ -194,10 +194,10 @@ export function DesignIllustration() {
   )
 }
 
-export function MarketingIllustration() {
+export function MarketingIllustration({ preserveAspectRatio } = {}) {
   const id = useSvgId('marketing')
   return (
-    <ArtworkSvg label="Purple megaphone with social media engagement icons">
+    <ArtworkSvg label="Purple megaphone with social media engagement icons" preserveAspectRatio={preserveAspectRatio}>
       <defs>
         <linearGradient id={`${id}-bg`} x1="8" y1="8" x2="310" y2="151" gradientUnits="userSpaceOnUse">
           <stop stopColor="#371078" />
@@ -237,10 +237,10 @@ export function MarketingIllustration() {
   )
 }
 
-export function AiIllustration() {
+export function AiIllustration({ preserveAspectRatio } = {}) {
   const id = useSvgId('ai')
   return (
-    <ArtworkSvg label="Glowing artificial intelligence brain and circuitry">
+    <ArtworkSvg label="Glowing artificial intelligence brain and circuitry" preserveAspectRatio={preserveAspectRatio}>
       <defs>
         <radialGradient id={`${id}-bg`} cx="0" cy="0" r="1" gradientTransform="translate(160 80) rotate(90) scale(103 190)" gradientUnits="userSpaceOnUse">
           <stop stopColor="#063C91" />
@@ -278,10 +278,10 @@ export function AiIllustration() {
   )
 }
 
-export function PersonalDevelopmentIllustration() {
+export function PersonalDevelopmentIllustration({ preserveAspectRatio } = {}) {
   const id = useSvgId('personal-development')
   return (
-    <ArtworkSvg label="Two people climbing steps together toward a success flag">
+    <ArtworkSvg label="Two people climbing steps together toward a success flag" preserveAspectRatio={preserveAspectRatio}>
       <defs>
         <radialGradient id={`${id}-bg`} cx="0" cy="0" r="1" gradientTransform="translate(160 77) rotate(90) scale(103 190)" gradientUnits="userSpaceOnUse">
           <stop stopColor="#48D6E1" />
@@ -316,10 +316,10 @@ export function PersonalDevelopmentIllustration() {
   )
 }
 
-export function FinanceIllustration() {
+export function FinanceIllustration({ preserveAspectRatio } = {}) {
   const id = useSvgId('finance')
   return (
-    <ArtworkSvg label="Rupee coins and an upward finance chart">
+    <ArtworkSvg label="Rupee coins and an upward finance chart" preserveAspectRatio={preserveAspectRatio}>
       <defs>
         <linearGradient id={`${id}-bg`} x1="14" y1="3" x2="305" y2="157" gradientUnits="userSpaceOnUse">
           <stop stopColor="#F4510B" />
@@ -381,8 +381,8 @@ const TYPE_ALIASES = {
   personal: 'personalDevelopment',
 }
 
-export default function CourseIllustration({ type = 'development' }) {
+export default function CourseIllustration({ type = 'development', preserveAspectRatio }) {
   const normalizedType = TYPE_ALIASES[type] || type
   const Illustration = ILLUSTRATIONS[normalizedType] || DevelopmentIllustration
-  return <Illustration />
+  return <Illustration preserveAspectRatio={preserveAspectRatio} />
 }

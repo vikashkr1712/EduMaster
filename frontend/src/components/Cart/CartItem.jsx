@@ -73,7 +73,7 @@ const CartItem = forwardRef(function CartItem({ item }, ref) {
         style={{ backgroundColor: ILLUSTRATION_BACKGROUND[imageType] || ILLUSTRATION_BACKGROUND.development }}
         tabIndex={-1}
       >
-        <CourseIllustration type={imageType} />
+        <CourseIllustration type={imageType} preserveAspectRatio="none" />
       </Link>
       <div className="cart-item-body">
         <Link to={course.slug ? `/courses/${course.slug}` : '#'} className="cart-item-title-link">

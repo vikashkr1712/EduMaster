@@ -43,8 +43,7 @@ body {
   .home-page .testimonials-cards { width: 100% !important; margin-inline: 0 !important; }
   .home-page .tcarousel-grid { grid-template-columns: minmax(0, 1fr) !important; padding-inline: 24px !important; }
   .home-page .tcarousel-grid .tc-card:not(:first-child) { display: none; }
-  .home-page .courses-grid { grid-template-columns: minmax(0, 1fr) !important; padding-inline: 24px !important; }
-  .home-page .courses-grid .course-card:not(:first-child),
+  .home-page .courses-grid { grid-template-columns: minmax(0, 1fr) !important; padding-inline: 0 !important; }
   .home-page .testimonials-cards .t-card:not(:first-child) { display: none; }
   .home-page .testimonials-cards .t-card { min-width: 0; }
   .home-page .t-footer { flex-wrap: wrap; }
