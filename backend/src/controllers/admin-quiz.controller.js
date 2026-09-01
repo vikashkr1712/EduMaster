@@ -12,7 +12,10 @@ export const getQuizOptions = asyncHandler(async (req, res) => send(res, 200, 'Q
 export const getQuiz = asyncHandler(async (req, res) => send(res, 200, 'Admin quiz fetched successfully', { quiz: await quizService.getAdminQuiz(req.params.id) }));
 export const createQuiz = asyncHandler(async (req, res) => send(res, 201, 'Quiz created successfully', { quiz: await quizService.createAdminQuiz(req.body) }));
 export const updateQuiz = asyncHandler(async (req, res) => send(res, 200, 'Quiz updated successfully', { quiz: await quizService.updateAdminQuiz(req.params.id, req.body) }));
-export const deleteQuiz = asyncHandler(async (req, res) => { await quizService.deleteAdminQuiz(req.params.id); send(res, 200, 'Quiz deleted successfully'); });
+export const deleteQuiz = asyncHandler(async (req, res) => {
+  const result = await quizService.deleteAdminQuiz(req.params.id);
+  send(res, 200, result.archived ? 'Quiz archived successfully' : 'Quiz deleted successfully', result);
+});
 export const createQuestion = asyncHandler(async (req, res) => send(res, 201, 'Question created successfully', { question: await quizService.createAdminQuizQuestion(req.params.id, req.body) }));
 export const updateQuestion = asyncHandler(async (req, res) => send(res, 200, 'Question updated successfully', { question: await quizService.updateAdminQuizQuestion(req.params.id, req.params.questionId, req.body) }));
 export const deleteQuestion = asyncHandler(async (req, res) => { await quizService.deleteAdminQuizQuestion(req.params.id, req.params.questionId); send(res, 200, 'Question deleted successfully'); });

@@ -31,6 +31,35 @@ const assertAttachment = async (courseId, moduleId, lessonId) => {
 
 const duplicateAttachment = (error) => error?.code === 11000 && (error?.keyPattern?.lessonId || error?.keyValue?.lessonId);
 const hasAttempts = (quizId) => QuizAttempt.exists({ quiz: quizId });
+const preserveLegacyAttempts = async (quiz) => {
+  await QuizAttempt.updateMany(
+    { quiz: quiz._id },
+    [{
+      $set: {
+        quizTitle: { $ifNull: ['$quizTitle', quiz.title] },
+        moduleId: { $ifNull: ['$moduleId', quiz.moduleId] },
+        lessonId: { $ifNull: ['$lessonId', quiz.lessonId] },
+        passingMarks: { $ifNull: ['$passingMarks', quiz.passingMarks] },
+        timeLimit: { $ifNull: ['$timeLimit', quiz.timeLimit] },
+        totalQuestions: { $ifNull: ['$totalQuestions', { $add: ['$correctAnswers', '$wrongAnswers'] }] },
+        percentage: { $ifNull: ['$percentage', '$score'] },
+      },
+    }],
+    { updatePipeline: true }
+  );
+  const questionSnapshot = quiz.questions.map((question) => ({
+    question: question._id,
+    questionText: question.question,
+    options: [...question.options],
+    correctAnswer: question.correctAnswer,
+    explanation: question.explanation,
+    difficulty: question.difficulty,
+  }));
+  await QuizAttempt.updateMany(
+    { quiz: quiz._id, status: 'in_progress', 'questionSnapshot.0': { $exists: false } },
+    { $set: { questionSnapshot } }
+  );
+};
 
 const relationStages = [
   { $lookup: { from: Course.collection.name, localField: 'course', foreignField: '_id', as: 'courseDoc' } },
@@ -168,16 +197,12 @@ export const updateAdminQuiz = async (id, data) => {
   assertId(id);
   const quiz = await Quiz.findById(id);
   if (!quiz) throw new ApiError(404, 'Quiz not found');
+  await preserveLegacyAttempts(quiz);
   const relation = {
     course: data.course ?? quiz.course.toString(),
     moduleId: data.moduleId ?? quiz.moduleId,
     lessonId: data.lessonId ?? quiz.lessonId,
   };
-  const protectedChange = ['course', 'moduleId', 'lessonId', 'passingMarks', 'timeLimit'].some((field) =>
-    data[field] !== undefined && String(data[field]) !== String(quiz[field]));
-  if (protectedChange && await hasAttempts(quiz._id)) {
-    throw new ApiError(409, 'Quiz attachment, passing score, and time limit cannot change after attempts exist');
-  }
   if (data.isPublished === true && quiz.questions.length === 0) {
     throw new ApiError(409, 'Add at least one question before publishing this quiz');
   }
@@ -199,15 +224,21 @@ export const deleteAdminQuiz = async (id) => {
   assertId(id);
   const quiz = await Quiz.findById(id);
   if (!quiz) throw new ApiError(404, 'Quiz not found');
-  if (await hasAttempts(quiz._id)) throw new ApiError(409, 'Quiz cannot be deleted because learner attempts exist');
+  await preserveLegacyAttempts(quiz);
+  if (await hasAttempts(quiz._id)) {
+    quiz.isPublished = false;
+    await quiz.save();
+    return { archived: true, quiz };
+  }
   await quiz.deleteOne();
+  return { archived: false, quiz };
 };
 
 export const createAdminQuizQuestion = async (id, data) => {
   assertId(id);
   const quiz = await Quiz.findById(id);
   if (!quiz) throw new ApiError(404, 'Quiz not found');
-  if (await hasAttempts(quiz._id)) throw new ApiError(409, 'Questions cannot be added after learner attempts exist');
+  await preserveLegacyAttempts(quiz);
   quiz.questions.push(data);
   await quiz.save();
   return quiz.questions.at(-1);
@@ -218,11 +249,9 @@ export const updateAdminQuizQuestion = async (id, questionId, data) => {
   assertId(questionId, 'Question');
   const quiz = await Quiz.findById(id);
   if (!quiz) throw new ApiError(404, 'Quiz not found');
+  await preserveLegacyAttempts(quiz);
   const question = quiz.questions.id(questionId);
   if (!question) throw new ApiError(404, 'Question not found');
-  if ((data.options !== undefined || data.correctAnswer !== undefined) && await hasAttempts(quiz._id)) {
-    throw new ApiError(409, 'Question options and correct answers cannot change after learner attempts exist');
-  }
   Object.assign(question, data);
   await quiz.save();
   return question;
@@ -233,10 +262,10 @@ export const deleteAdminQuizQuestion = async (id, questionId) => {
   assertId(questionId, 'Question');
   const quiz = await Quiz.findById(id);
   if (!quiz) throw new ApiError(404, 'Quiz not found');
+  await preserveLegacyAttempts(quiz);
   const question = quiz.questions.id(questionId);
   if (!question) throw new ApiError(404, 'Question not found');
-  if (await hasAttempts(quiz._id)) throw new ApiError(409, 'Questions cannot be deleted after learner attempts exist');
-  if (quiz.isPublished && quiz.questions.length === 1) throw new ApiError(409, 'A published quiz must keep at least one question');
+  if (quiz.isPublished && quiz.questions.length === 1) quiz.isPublished = false;
   question.deleteOne();
   await quiz.save();
 };
@@ -245,7 +274,7 @@ export const reorderAdminQuizQuestions = async (id, ids) => {
   assertId(id);
   const quiz = await Quiz.findById(id);
   if (!quiz) throw new ApiError(404, 'Quiz not found');
-  if (await hasAttempts(quiz._id)) throw new ApiError(409, 'Questions cannot be reordered after learner attempts exist');
+  await preserveLegacyAttempts(quiz);
   const currentIds = quiz.questions.map((question) => question._id.toString());
   if (ids.length !== currentIds.length || new Set(ids).size !== ids.length || ids.some((questionId) => !currentIds.includes(questionId))) {
     throw new ApiError(400, 'Question order must contain every question exactly once');

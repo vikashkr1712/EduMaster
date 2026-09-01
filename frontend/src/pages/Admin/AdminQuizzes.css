@@ -17,3 +17,11 @@
 .admin-status-pill { font-size: .75rem!important; }
 .admin-table-actions { align-items: center; gap: 8px; }
 .admin-table-actions a,.admin-table-actions button { width: 36px; height: 36px; }
+.admin-field .admin-field-help { color: #667085; font-size: .78rem; line-height: 1.4; }
+[data-theme='dark'] .admin-shell .admin-field .admin-field-help { color: var(--admin-muted); }
+[data-theme='dark'] .admin-shell .admin-question-card__actions button,
+[data-theme='dark'] .admin-shell .admin-question-card__footer .admin-button--secondary {
+  border-color: var(--admin-border-strong);
+  background: var(--admin-surface-subtle);
+  color: var(--admin-text-soft);
+}
