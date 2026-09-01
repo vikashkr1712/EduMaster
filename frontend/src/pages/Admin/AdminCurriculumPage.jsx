@@ -13,7 +13,7 @@ import './AdminCurriculum.css'
 
 const errorCopy = (error) => {
   if (error?.status === 401) return 'Your Admin session has expired. Please sign in again.'
-  if (error?.status === 403) return 'Administrator permission is required to manage curriculum.'
+  if (error?.code === 'ROLE_FORBIDDEN') return 'Administrator permission is required to manage curriculum.'
   if (error?.status === 404) return error.message || 'The requested course or curriculum item was not found.'
   if (error?.status === 409) return error.message || 'This item is linked to learner data and cannot be deleted.'
   if (error?.code === 'NETWORK' || error?.code === 'OFFLINE') return 'Unable to reach the server. Check your connection and retry.'

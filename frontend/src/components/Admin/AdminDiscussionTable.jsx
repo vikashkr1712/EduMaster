@@ -33,7 +33,7 @@ export default function AdminDiscussionTable({ discussions }) {
               <td>{discussion.replyCount}</td>
               <td>{discussion.likeCount}</td>
               <td><time dateTime={discussion.createdAt}>{new Date(discussion.createdAt).toLocaleDateString()}</time></td>
-              <td><Link className="admin-row-action" to={`/admin/discussions/${discussion._id}`} aria-label={`View discussion by ${discussion.author?.name || 'learner'}`}><AdminIcon name="eye" size={17} /></Link></td>
+              <td><Link className="admin-row-action" to={`/admin/discussions/${discussion._id}`} aria-label={`View discussion by ${discussion.author?.name || 'learner'}`} title="View discussion"><AdminIcon name="eye" size={17} /></Link></td>
             </tr>
           ))}
         </tbody>

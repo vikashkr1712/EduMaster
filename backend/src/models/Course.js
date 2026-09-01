@@ -14,6 +14,7 @@ const lessonSchema = new mongoose.Schema({
   duration: { type: String, trim: true },
   videoId: { type: String, required: true, trim: true },
   videoProvider: { type: String, trim: true },
+  thumbnail: { type: String, trim: true },
   publishedAt: { type: Date },
   resources: { type: [resourceSchema], default: [] },
 }, { _id: false });

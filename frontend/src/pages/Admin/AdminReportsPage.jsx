@@ -20,7 +20,7 @@ const overviewCards = [
 const errorCopy = (error) => {
   if (error?.status === 400) return 'The selected report range is invalid. Choose one of the available ranges.'
   if (error?.status === 401) return 'Your Admin session has expired. Please sign in again.'
-  if (error?.status === 403) return 'Your account does not have permission to view analytics.'
+  if (error?.code === 'ROLE_FORBIDDEN') return 'Your account does not have permission to view analytics.'
   if (error?.code === 'NETWORK' || error?.code === 'OFFLINE' || error?.code === 'TIMEOUT') return 'Unable to reach the analytics service. Check your connection and retry.'
   return error?.message || 'The analytics query could not be completed.'
 }

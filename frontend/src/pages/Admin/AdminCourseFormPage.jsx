@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { createAdminCourse, getAdminCourse, updateAdminCourse, uploadAdminCourseThumbnail } from '../../api/admin.js'
+import { createAdminCourse, getAdminCourse, getAdminCourseCategories, updateAdminCourse, uploadAdminCourseThumbnail } from '../../api/admin.js'
 import AdminIcon from '../../components/Admin/AdminIcons.jsx'
 import CourseThumbnail from '../../components/Courses/CourseThumbnail.jsx'
 import { useNotifications } from '../../components/Notifications/NotificationProvider.jsx'
@@ -67,13 +67,16 @@ export default function AdminCourseFormPage({ mode }) {
   const [values, setValues] = useState(emptyCourse)
   const [currentSlug, setCurrentSlug] = useState('')
   const [errors, setErrors] = useState({})
-  const [loading, setLoading] = useState(editing)
+  const [loading, setLoading] = useState(true)
   const [loadError, setLoadError] = useState(null)
+  const [categories, setCategories] = useState([])
+  const [retryKey, setRetryKey] = useState(0)
   const [saving, setSaving] = useState(false)
   const [thumbnailFile, setThumbnailFile] = useState(null)
   const [thumbnailPreview, setThumbnailPreview] = useState('')
   const thumbnailInputRef = useRef(null)
   const hasLegacyLanguage = values.language && !LANGUAGE_OPTIONS.includes(values.language)
+  const hasLegacyCategory = values.category && !categories.includes(values.category)
 
   useEffect(() => {
     if (!thumbnailFile) { setThumbnailPreview(''); return undefined }
@@ -83,32 +86,40 @@ export default function AdminCourseFormPage({ mode }) {
   }, [thumbnailFile])
 
   useEffect(() => {
-    if (!editing) return undefined
     let active = true
-    const loadCourse = async () => {
+    const loadForm = async () => {
       setLoading(true)
       setLoadError(null)
       try {
-        const response = await getAdminCourse(id)
-        const course = response?.data?.course
-        if (!active || !course) return
-        setValues({
-          title: course.title ?? '', shortDescription: course.shortDescription ?? '', description: course.description ?? '',
-          category: course.category ?? '', instructor: course.instructor ?? '', level: course.level ?? 'Beginner',
-          price: String(course.price ?? 0), discountPrice: String(course.discountPrice ?? 0), thumbnail: course.thumbnail ?? '',
-          duration: course.duration ?? '', language: course.language ?? '', hasCertificate: course.hasCertificate !== false,
-          isFeatured: Boolean(course.isFeatured), isPublished: Boolean(course.isPublished),
-        })
-        setCurrentSlug(course.slug ?? '')
+        const [categoryResponse, courseResponse] = await Promise.all([
+          getAdminCourseCategories(),
+          editing ? getAdminCourse(id) : Promise.resolve(null),
+        ])
+        if (!active) return
+        const categoryOptions = categoryResponse?.data?.categories
+        if (!Array.isArray(categoryOptions) || categoryOptions.length === 0) throw new Error('Course categories could not be loaded.')
+        setCategories(categoryOptions)
+        if (editing) {
+          const course = courseResponse?.data?.course
+          if (!course) throw new Error('Course could not be loaded.')
+          setValues({
+            title: course.title ?? '', shortDescription: course.shortDescription ?? '', description: course.description ?? '',
+            category: course.category ?? '', instructor: course.instructor ?? '', level: course.level ?? 'Beginner',
+            price: String(course.price ?? 0), discountPrice: String(course.discountPrice ?? 0), thumbnail: course.thumbnail ?? '',
+            duration: course.duration ?? '', language: course.language ?? '', hasCertificate: course.hasCertificate !== false,
+            isFeatured: Boolean(course.isFeatured), isPublished: Boolean(course.isPublished),
+          })
+          setCurrentSlug(course.slug ?? '')
+        }
       } catch (error) {
         if (active) setLoadError(error)
       } finally {
         if (active) setLoading(false)
       }
     }
-    loadCourse()
+    loadForm()
     return () => { active = false }
-  }, [editing, id])
+  }, [editing, id, retryKey])
 
   const update = (name, value) => {
     setValues((current) => ({ ...current, [name]: value }))
@@ -171,7 +182,7 @@ export default function AdminCourseFormPage({ mode }) {
   }
 
   if (loading) return <div className="admin-course-form-loading" aria-busy="true" aria-label="Loading course"><span /><span /><span /></div>
-  if (loadError) return <div className="admin-course-list-state" role="alert"><h2>Unable to load course</h2><p>{loadError.message}</p><button type="button" className="admin-button admin-button--primary" onClick={() => window.location.reload()}>Retry</button></div>
+  if (loadError) return <div className="admin-course-list-state" role="alert"><h2>Unable to load course editor</h2><p>{loadError.message}</p><button type="button" className="admin-button admin-button--primary" onClick={() => setRetryKey((value) => value + 1)}>Retry</button></div>
 
   return (
     <div className="admin-course-form-page">
@@ -190,7 +201,7 @@ export default function AdminCourseFormPage({ mode }) {
             <label className="admin-field admin-field--full"><span>Course title *</span><input value={values.title} onChange={(event) => update('title', event.target.value)} maxLength={120} aria-invalid={Boolean(errors.title)} />{errors.title && <small role="alert">{errors.title}</small>}{editing && currentSlug && <em>Current URL: /courses/{currentSlug}. Changing the title updates the slug.</em>}</label>
             <label className="admin-field admin-field--full"><span>Short description</span><textarea rows="3" value={values.shortDescription} onChange={(event) => update('shortDescription', event.target.value)} maxLength={300} /><em>{values.shortDescription.length}/300</em></label>
             <label className="admin-field admin-field--full"><span>Description *</span><textarea rows="7" value={values.description} onChange={(event) => update('description', event.target.value)} maxLength={5000} aria-invalid={Boolean(errors.description)} />{errors.description && <small role="alert">{errors.description}</small>}</label>
-            <label className="admin-field"><span>Category *</span><input value={values.category} onChange={(event) => update('category', event.target.value)} maxLength={60} aria-invalid={Boolean(errors.category)} />{errors.category && <small role="alert">{errors.category}</small>}</label>
+            <label className="admin-field"><span>Category *</span><select value={values.category} onChange={(event) => update('category', event.target.value)} aria-invalid={Boolean(errors.category)}><option value="">Select category</option>{hasLegacyCategory && <option value={values.category}>{values.category} (existing)</option>}{categories.map((category) => <option key={category} value={category}>{category}</option>)}</select>{errors.category && <small role="alert">{errors.category}</small>}</label>
             <label className="admin-field"><span>Instructor *</span><input value={values.instructor} onChange={(event) => update('instructor', event.target.value)} maxLength={60} aria-invalid={Boolean(errors.instructor)} />{errors.instructor && <small role="alert">{errors.instructor}</small>}</label>
           </div>
         </section>

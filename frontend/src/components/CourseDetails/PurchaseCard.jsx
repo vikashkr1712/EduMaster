@@ -3,9 +3,8 @@ import { useWishlist } from '../Wishlist/WishlistProvider.jsx'
 import { useCart } from '../Cart/CartProvider.jsx'
 import { useAuth } from '../Auth/AuthProvider.jsx'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { createOrder } from '../../api/order.js'
+import { createOrder, quoteOrder } from '../../api/order.js'
 import { useNotifications } from '../Notifications/NotificationProvider.jsx'
-import { calculateCoupon } from '../../utils/coupons.js'
 
 function CheckIcon() {
   return (
@@ -68,12 +67,17 @@ export default function PurchaseCard({ course, autoResume = false }) {
   const { error } = useNotifications()
   const navigate = useNavigate()
   const location = useLocation()
-  const [coupon, setCoupon] = useState('')
+  const [coupon, setCoupon] = useState(() => {
+    try { return sessionStorage.getItem('edumaster:course-coupon') || '' } catch { return '' }
+  })
   const [couponApplied, setCouponApplied] = useState(false)
+  const [couponPricing, setCouponPricing] = useState(null)
+  const [couponChecking, setCouponChecking] = useState(false)
   const [couponError, setCouponError] = useState('')
   const [enrolling, setEnrolling] = useState(false)
   const enrollingRef = useRef(false)
   const resumedPurchase = useRef(false)
+  const restoredCoupon = useRef(false)
   const wishlisted = isWishlisted(course)
   const inCart = isInCart(course)
   const courseId = String(course._id ?? course.id ?? course.sourceId ?? '')
@@ -99,6 +103,31 @@ export default function PurchaseCard({ course, autoResume = false }) {
     navigate(location.pathname, { replace: true, state: null })
     handleBuyNow()
   }, [autoResume, location.pathname, location.state, navigate, ownsCourse, user])
+
+  useEffect(() => {
+    if (!user || !coupon.trim() || !courseId || restoredCoupon.current) return undefined
+    restoredCoupon.current = true
+    let active = true
+    setCouponChecking(true)
+    quoteOrder({ courseIds: [courseId], couponCode: coupon.trim().toUpperCase() })
+      .then((response) => {
+        if (!active) return
+        const nextPricing = response?.data?.pricing
+        if (!nextPricing) return
+        setCoupon(nextPricing.couponCode || '')
+        setCouponPricing(nextPricing)
+        setCouponApplied(Boolean(nextPricing.couponCode))
+      })
+      .catch((requestError) => {
+        if (!active) return
+        setCouponApplied(false)
+        setCouponPricing(null)
+        setCouponError(requestError.message || 'This coupon is no longer valid.')
+        try { sessionStorage.removeItem('edumaster:course-coupon') } catch { /* storage unavailable */ }
+      })
+      .finally(() => { if (active) setCouponChecking(false) })
+    return () => { active = false }
+  }, [courseId, user])
 
   async function handleBuyNow() {
     if (ownsCourse) {
@@ -162,18 +191,33 @@ export default function PurchaseCard({ course, autoResume = false }) {
     toggleWishlist(course)
   }
 
-  function handleCoupon() {
-    const applied = calculateCoupon(effectivePrice, coupon)
-    if (!applied) {
+  async function handleCoupon() {
+    if (couponApplied) {
       setCouponApplied(false)
-      setCouponError('Enter a valid coupon code.')
-      sessionStorage.removeItem('edumaster:course-coupon')
+      setCouponPricing(null)
+      setCoupon('')
+      setCouponError('')
+      try { sessionStorage.removeItem('edumaster:course-coupon') } catch { /* storage unavailable */ }
       return
     }
-    setCoupon(applied.code)
-    setCouponApplied(true)
-    setCouponError('')
-    sessionStorage.setItem('edumaster:course-coupon', applied.code)
+    const code = coupon.trim().toUpperCase()
+    if (!code) { setCouponError('Enter a coupon code.'); return }
+    setCouponChecking(true)
+    try {
+      const response = await quoteOrder({ courseIds: [courseId], couponCode: code })
+      const nextPricing = response?.data?.pricing
+      if (!nextPricing?.couponCode) throw new Error('This coupon could not be applied.')
+      setCoupon(nextPricing.couponCode)
+      setCouponPricing(nextPricing)
+      setCouponApplied(true)
+      setCouponError('')
+      try { sessionStorage.setItem('edumaster:course-coupon', nextPricing.couponCode) } catch { /* storage unavailable */ }
+    } catch (requestError) {
+      setCouponApplied(false)
+      setCouponPricing(null)
+      setCouponError(requestError.message || 'Enter a valid coupon code.')
+      try { sessionStorage.removeItem('edumaster:course-coupon') } catch { /* storage unavailable */ }
+    } finally { setCouponChecking(false) }
   }
 
   return (
@@ -250,14 +294,14 @@ export default function PurchaseCard({ course, autoResume = false }) {
             placeholder="Enter coupon code"
             value={coupon}
             onChange={(e) => { setCoupon(e.target.value); setCouponError('') }}
-            disabled={couponApplied}
+            disabled={couponApplied || couponChecking}
           />
-          <button className="cdp-coupon-btn" onClick={handleCoupon} disabled={couponApplied || !coupon.trim()}>
-            {couponApplied ? 'Applied' : 'Apply'}
+          <button type="button" className="cdp-coupon-btn" onClick={handleCoupon} disabled={couponChecking || (!couponApplied && !coupon.trim())}>
+            {couponChecking ? 'Checking…' : couponApplied ? 'Remove' : 'Apply'}
           </button>
         </div>
         {couponError && <span className="cdp-coupon-error" role="status">{couponError}</span>}
-        {couponApplied && <span className="cdp-coupon-success" role="status">Coupon will be applied at checkout.</span>}
+        {couponApplied && <span className="cdp-coupon-success" role="status">Coupon {couponPricing?.couponCode}: −{inr(couponPricing?.couponDiscount || 0)} · Final with GST: {inr(couponPricing?.finalPrice || 0)}</span>}
       </div>
 
       <div className="cdp-pc-guarantee">

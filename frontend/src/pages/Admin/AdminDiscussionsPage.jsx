@@ -9,7 +9,7 @@ const errorCopy = (error) => error?.status === 400
   ? 'One or more discussion filters are invalid.'
   : error?.status === 401
     ? 'Your Admin session has expired.'
-    : error?.status === 403
+    : error?.code === 'ROLE_FORBIDDEN'
       ? 'Administrator permission is required.'
       : error?.code === 'NETWORK' || error?.code === 'OFFLINE'
         ? 'Unable to reach the server. Check your connection and retry.'

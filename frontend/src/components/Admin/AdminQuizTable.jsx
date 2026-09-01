@@ -13,7 +13,7 @@ export default function AdminQuizTable({ quizzes, deletingId, onDelete }) {
               <td>{quiz.courseTitle}</td>
               <td><strong>{quiz.moduleTitle}</strong><span>{quiz.lessonTitle}</span></td>
               <td>{quiz.questionCount}</td><td>{quiz.passingMarks}%</td><td>{quiz.timeLimit} min</td><td>{quiz.attemptCount}</td>
-              <td><div className="admin-table-actions"><Link to={`/admin/quizzes/${quiz._id}`} aria-label={`View ${quiz.title}`}><AdminIcon name="eye" size={17} /></Link><Link to={`/admin/quizzes/${quiz._id}/edit`} aria-label={`Edit ${quiz.title}`}><AdminIcon name="edit" size={17} /></Link><button type="button" disabled={deletingId === quiz._id} onClick={() => onDelete(quiz)} aria-label={`Delete ${quiz.title}`}><AdminIcon name="trash" size={17} /></button></div></td>
+              <td><div className="admin-table-actions"><Link to={`/admin/quizzes/${quiz._id}`} aria-label={`View ${quiz.title}`} title="View quiz"><AdminIcon name="eye" size={17} /></Link><Link to={`/admin/quizzes/${quiz._id}/edit`} aria-label={`Edit ${quiz.title}`} title="Edit quiz"><AdminIcon name="edit" size={17} /></Link><button type="button" disabled={deletingId === quiz._id} onClick={() => onDelete(quiz)} aria-label={`Delete ${quiz.title}`} title="Delete quiz"><AdminIcon name="trash" size={17} /></button></div></td>
             </tr>
           ))}
         </tbody>

@@ -21,7 +21,7 @@ export default function AdminEnrollmentTable({ enrollments }) {
           <td>{enrollment.currentLesson || '—'}</td>
           <td><span className={`admin-completion-status admin-completion-status--${enrollment.isCompleted ? 'completed' : 'progress'}`}>{enrollment.isCompleted ? 'Completed' : 'In progress'}</span></td>
           <td>{formatDate(enrollment.enrolledAt)}</td>
-          <td><Link className="admin-commerce-view" to={`/admin/enrollments/${enrollment._id}`} aria-label={`View enrollment for ${enrollment.student?.name || 'user'}`}><AdminIcon name="eye" size={16} /><span>View</span></Link></td>
+          <td><Link className="admin-commerce-view" to={`/admin/enrollments/${enrollment._id}`} aria-label={`View enrollment for ${enrollment.student?.name || 'user'}`} title="View enrollment"><AdminIcon name="eye" size={16} /><span>View</span></Link></td>
         </tr>)}</tbody>
       </table>
     </div>

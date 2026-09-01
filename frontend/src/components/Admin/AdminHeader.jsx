@@ -81,6 +81,7 @@ export default function AdminHeader({ navigationOpen, onOpenNavigation }) {
           className="admin-header__menu"
           onClick={onOpenNavigation}
           aria-label="Open Admin navigation"
+          title="Open Admin navigation"
           aria-controls="admin-navigation"
           aria-expanded={navigationOpen}
         >
@@ -108,6 +109,8 @@ export default function AdminHeader({ navigationOpen, onOpenNavigation }) {
           type="button"
           className="admin-profile-trigger"
           onClick={() => setProfileOpen((current) => !current)}
+          aria-label="Open Admin profile menu"
+          title="Open Admin profile menu"
           aria-expanded={profileOpen}
           aria-haspopup="menu"
           aria-controls="admin-profile-menu"

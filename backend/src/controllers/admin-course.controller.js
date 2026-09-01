@@ -15,6 +15,12 @@ export const getCourse = asyncHandler(async (req, res) => {
   res.status(response.statusCode).json(response);
 });
 
+export const getCourseCategories = asyncHandler(async (req, res) => {
+  const data = await courseService.getAdminCourseCategories();
+  const response = new ApiResponse(200, 'Course categories fetched successfully', data);
+  res.status(response.statusCode).json(response);
+});
+
 export const createCourse = asyncHandler(async (req, res) => {
   const course = await courseService.createCourse(req.body);
   const response = new ApiResponse(201, 'Course created successfully', { course });

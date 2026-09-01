@@ -11,6 +11,7 @@ import Discussion from '../models/Discussion.js';
 import StudentNote from '../models/StudentNote.js';
 import Achievement from '../models/Achievement.js';
 import User from '../models/User.js';
+import { canonicalizeCourseCategory, COURSE_CATEGORIES } from '../utils/courseCategories.js';
 
 const MAX_LIMIT = 50;
 const DEFAULT_LIMIT = 10;
@@ -69,11 +70,13 @@ const isDuplicateSlugError = (error) =>
 
 export const createCourse = async (data) => {
   assertValidPricing(data.price, data.discountPrice);
+  const category = canonicalizeCourseCategory(data.category);
+  if (!category) throw new ApiError(400, 'Select a valid existing course category');
 
   const slug = await generateUniqueSlug(data.title);
 
   try {
-    return await Course.create({ ...data, slug, modules: [] });
+    return await Course.create({ ...data, category, slug, modules: [] });
   } catch (error) {
     if (isDuplicateSlugError(error)) {
       throw new ApiError(409, 'Course with this slug already exists');
@@ -247,6 +250,15 @@ export const getAdminCourseById = async (id) => {
   return course;
 };
 
+export const getAdminCourseCategories = async () => {
+  const existing = await Course.distinct('category', { category: { $type: 'string', $ne: '' } });
+  const legacyCategories = existing
+    .map((category) => String(category).trim())
+    .filter((category) => category && !canonicalizeCourseCategory(category))
+    .sort((left, right) => left.localeCompare(right));
+  return { categories: COURSE_CATEGORIES, legacyCategories };
+};
+
 export const updateCourse = async (id, data) => {
   const course = await Course.findById(id);
 
@@ -255,6 +267,15 @@ export const updateCourse = async (id, data) => {
   }
 
   assertValidPricing(data.price ?? course.price, data.discountPrice ?? course.discountPrice);
+
+  if (data.category !== undefined) {
+    const requestedCategory = String(data.category).trim();
+    const category = canonicalizeCourseCategory(requestedCategory);
+    if (category) data.category = category;
+    else if (requestedCategory !== course.category) {
+      throw new ApiError(400, 'Select a valid existing course category');
+    }
+  }
 
   if (data.title && data.title !== course.title) {
     course.slug = await generateUniqueSlug(data.title, course._id);

@@ -12,7 +12,7 @@ const pagesAround = (current, total) => {
 }
 const errorCopy = (error) => {
   if (error?.status === 401) return 'Your Admin session has expired. Please sign in again.'
-  if (error?.status === 403) return 'Administrator permission is required to inspect enrollments.'
+  if (error?.code === 'ROLE_FORBIDDEN') return 'Administrator permission is required to inspect enrollments.'
   if (error?.code === 'NETWORK' || error?.code === 'OFFLINE') return 'Unable to reach the server. Check your connection and retry.'
   return error?.message || 'Unable to load enrollments.'
 }

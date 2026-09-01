@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef } from 'react'
+import { useState, useCallback, useEffect, useMemo, useRef } from 'react'
 import { useNavigate, Link, useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import Navbar from '../../components/Home/Navbar/Navbar.jsx'
@@ -6,15 +6,12 @@ import Footer from '../../components/Home/Footer/Footer.jsx'
 import { useCart } from '../../components/Cart/CartProvider.jsx'
 import { useAuth } from '../../components/Auth/AuthProvider.jsx'
 import { useNotifications } from '../../components/Notifications/NotificationProvider.jsx'
-import { createOrder } from '../../api/order.js'
+import { createOrder, quoteOrder } from '../../api/order.js'
 import PaymentSelector from '../../components/Checkout/PaymentSelector.jsx'
 import BillingForm from '../../components/Checkout/BillingForm.jsx'
 import OrderSummary from '../../components/Checkout/OrderSummary.jsx'
 import CouponSection from '../../components/Checkout/CouponSection.jsx'
 import './CheckoutPage.css'
-import { calculateCoupon } from '../../utils/coupons.js'
-
-const TAX_RATE = 0.18
 
 function validateBilling(data) {
   const errs = {}
@@ -73,7 +70,7 @@ function ShieldIcon() {
 export default function CheckoutPage() {
   const navigate = useNavigate()
   const location = useLocation()
-  const { items, subtotal, discount, count, refreshCart } = useCart()
+  const { items, refreshCart, clearCoupon } = useCart()
   const { user, updateUser } = useAuth()
   const { error: notifyError } = useNotifications()
 
@@ -97,24 +94,80 @@ export default function CheckoutPage() {
     if (location.state?.directCourse) return location.state.directCourse
     try { return JSON.parse(sessionStorage.getItem('edumaster:direct-checkout-course')) || null } catch { return null }
   })
-  const [initialCouponCode] = useState(() => sessionStorage.getItem('edumaster:course-coupon') || '')
-  const directItem = directCourse ? {
+  const [initialCouponCode] = useState(() => {
+    try { return sessionStorage.getItem('edumaster:course-coupon') || '' } catch { return '' }
+  })
+  const directItem = useMemo(() => directCourse ? {
     _id: `direct-${directCourse._id ?? directCourse.id ?? directCourse.sourceId}`,
     course: directCourse,
     price: Number(directCourse.price) || 0,
     discountPrice: Number(directCourse.discountPrice) || 0,
-  } : null
-  const checkoutItems = directItem ? [directItem] : items
+  } : null, [directCourse])
+  const checkoutItems = useMemo(() => directItem ? [directItem] : items, [directItem, items])
   const checkoutCount = checkoutItems.length
-  const checkoutSubtotal = checkoutItems.reduce((sum, item) => sum + (Number(item.discountPrice) > 0 ? Number(item.discountPrice) : Number(item.price) || 0), 0)
-  const checkoutOriginalTotal = checkoutItems.reduce((sum, item) => {
-    const course = item.course || {}
-    const current = Number(item.discountPrice) > 0 ? Number(item.discountPrice) : Number(item.price) || 0
-    const oldPrice = Number(course.oldPrice)
-    return sum + (Number.isFinite(oldPrice) && oldPrice > current ? oldPrice : Number(item.price) || current)
-  }, 0)
-  const checkoutDiscount = Math.max(0, checkoutOriginalTotal - checkoutSubtotal)
-  const [coupon, setCoupon] = useState(() => calculateCoupon(checkoutSubtotal, initialCouponCode))
+  const checkoutCourseIds = useMemo(() => checkoutItems.map((item) => String(item?.course?._id ?? item?.course?.id ?? item?.course?.sourceId ?? '')).filter(Boolean), [checkoutItems])
+  const [couponCode, setCouponCode] = useState(initialCouponCode)
+  const couponCodeRef = useRef(initialCouponCode)
+  const [pricing, setPricing] = useState(null)
+  const [pricingLoading, setPricingLoading] = useState(checkoutCount > 0)
+
+  const requestPricing = useCallback(async (code = '') => {
+    if (checkoutCourseIds.length === 0) return null
+    const response = await quoteOrder({ courseIds: checkoutCourseIds, ...(code ? { couponCode: code } : {}) })
+    const nextPricing = response?.data?.pricing
+    if (!nextPricing) throw new Error('Pricing could not be loaded.')
+    setPricing(nextPricing)
+    return nextPricing
+  }, [checkoutCourseIds])
+
+  useEffect(() => {
+    if (checkoutCourseIds.length === 0) { setPricing(null); setPricingLoading(false); return undefined }
+    let active = true
+    setPricingLoading(true)
+    const load = async () => {
+      try {
+        const activeCouponCode = couponCodeRef.current
+        const response = await quoteOrder({ courseIds: checkoutCourseIds, ...(activeCouponCode ? { couponCode: activeCouponCode } : {}) })
+        if (active) setPricing(response?.data?.pricing || null)
+      } catch (requestError) {
+        if (!active) return
+        if (couponCodeRef.current && requestError?.code === 'COUPON_INVALID') {
+          setCouponCode('')
+          couponCodeRef.current = ''
+          try { sessionStorage.removeItem('edumaster:course-coupon') } catch { /* storage unavailable */ }
+          notifyError(requestError.message || 'This coupon is no longer valid and was removed.')
+          try {
+            const response = await quoteOrder({ courseIds: checkoutCourseIds })
+            if (active) setPricing(response?.data?.pricing || null)
+          } catch (fallbackError) { if (active) notifyError(fallbackError.message || 'Pricing could not be loaded.') }
+        } else notifyError(requestError.message || 'Pricing could not be loaded.')
+      } finally { if (active) setPricingLoading(false) }
+    }
+    load()
+    return () => { active = false }
+  }, [checkoutCourseIds, notifyError])
+
+  const applyCheckoutCoupon = useCallback(async (code) => {
+    setPricingLoading(true)
+    try {
+      const nextPricing = await requestPricing(code)
+      setCouponCode(code)
+      couponCodeRef.current = code
+      try { sessionStorage.setItem('edumaster:course-coupon', code) } catch { /* storage unavailable */ }
+      return nextPricing
+    } finally { setPricingLoading(false) }
+  }, [requestPricing])
+
+  const removeCheckoutCoupon = useCallback(async () => {
+    setPricingLoading(true)
+    try {
+      const nextPricing = await requestPricing('')
+      setCouponCode('')
+      couponCodeRef.current = ''
+      try { sessionStorage.removeItem('edumaster:course-coupon') } catch { /* storage unavailable */ }
+      return nextPricing
+    } finally { setPricingLoading(false) }
+  }, [requestPricing])
 
   const onBillingChange = useCallback((name, value) => {
     setBilling(prev => ({ ...prev, [name]: value }))
@@ -140,10 +193,7 @@ export default function CheckoutPage() {
     setWalletError('')
   }, [])
 
-  const couponDiscount = coupon?.discount || 0
-  const afterCoupon = Math.max(0, checkoutSubtotal - couponDiscount)
-  const tax = Math.round(afterCoupon * TAX_RATE)
-  const total = afterCoupon + tax
+  const total = Number(pricing?.finalPrice) || 0
 
   async function handlePay() {
     if (submittingRef.current) return
@@ -157,7 +207,9 @@ export default function CheckoutPage() {
       upiError: uErr,
       bankError: bErr,
       walletError: wErr,
-    } = validatePayment(method, cardData, upiValue, bankValue, walletValue)
+    } = total === 0
+      ? { cardErrors: {}, upiError: '', bankError: '', walletError: '' }
+      : validatePayment(method, cardData, upiValue, bankValue, walletValue)
     setCardErrors(pErrors)
     setUpiError(uErr)
     setBankError(bErr)
@@ -168,7 +220,8 @@ export default function CheckoutPage() {
     submittingRef.current = true
     setSubmitting(true)
     try {
-      const paymentDetails = method === 'card'
+      const effectiveMethod = total === 0 ? 'free' : method
+      const paymentDetails = effectiveMethod === 'free' ? '' : method === 'card'
         ? `•••• ${cardData.cardNumber.replace(/\s/g, '').slice(-4)}`
         : method === 'upi'
           ? upiValue.trim()
@@ -177,8 +230,8 @@ export default function CheckoutPage() {
             : walletValue
       const response = await createOrder({
         ...(directCourse ? { courseIds: [String(directCourse._id ?? directCourse.id ?? directCourse.sourceId)] } : {}),
-        couponCode: coupon?.code,
-        paymentMethod: method,
+        couponCode: couponCode || undefined,
+        paymentMethod: effectiveMethod,
         paymentDetails,
         billing,
       })
@@ -189,6 +242,7 @@ export default function CheckoutPage() {
       sessionStorage.setItem('edumaster:last-order-id', order._id)
       sessionStorage.removeItem('edumaster:direct-checkout-course')
       sessionStorage.removeItem('edumaster:course-coupon')
+      clearCoupon()
       await refreshCart()
       navigate('/order-success', {
         state: { order, enrollments: response.data.enrollments },
@@ -278,7 +332,7 @@ export default function CheckoutPage() {
                   type="button"
                   className="chk-pay-button"
                   onClick={handlePay}
-                  disabled={submitting}
+                  disabled={submitting || pricingLoading || !pricing}
                   aria-busy={submitting}
                 >
                   {submitting ? (
@@ -307,14 +361,8 @@ export default function CheckoutPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: 0.12 }}
               >
-                <OrderSummary
-                  items={checkoutItems}
-                  subtotal={checkoutSubtotal}
-                  discount={checkoutDiscount}
-                  couponDiscount={couponDiscount}
-                  couponCode={coupon?.code}
-                />
-                <CouponSection subtotal={checkoutSubtotal} onCouponApply={setCoupon} initialCode={initialCouponCode} />
+                <OrderSummary items={checkoutItems} pricing={pricing} />
+                <CouponSection appliedCode={couponCode} couponDiscount={pricing?.couponDiscount || 0} onApply={applyCheckoutCoupon} onRemove={removeCheckoutCoupon} pending={pricingLoading} initialCode={initialCouponCode} />
                 <div className="chk-guarantee-card">
                   <ShieldIcon />
                   <div>

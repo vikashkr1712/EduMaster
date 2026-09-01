@@ -19,3 +19,8 @@ export const createOrderSchema = z.object({
     address2: optionalText(180),
   }).strict().optional(),
 }).strict();
+
+export const quoteOrderSchema = z.object({
+  courseIds: z.array(z.string().trim().min(1)).min(1).max(50).optional(),
+  couponCode: z.string().trim().max(30).optional(),
+}).strict();

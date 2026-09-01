@@ -8,7 +8,7 @@ const emptyForm = { platformName: '', platformDescription: '', supportEmail: '',
 const errorCopy = (error) => {
   if (error?.status === 400) return error?.details?.[0]?.message || 'Review the highlighted settings and try again.'
   if (error?.status === 401) return 'Your Admin session has expired. Please sign in again.'
-  if (error?.status === 403) return 'Your account does not have permission to manage platform settings.'
+  if (error?.code === 'ROLE_FORBIDDEN') return 'Your account does not have permission to manage platform settings.'
   if (error?.code === 'NETWORK' || error?.code === 'OFFLINE' || error?.code === 'TIMEOUT') return 'Unable to reach the settings service. Check your connection and retry.'
   return error?.message || 'Unable to load or save platform settings.'
 }

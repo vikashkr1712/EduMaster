@@ -7,7 +7,7 @@ export const authorize = (...allowedRoles) => {
     }
 
     if (!allowedRoles.includes(req.user.role)) {
-      throw new ApiError(403, 'Insufficient permissions');
+      throw new ApiError(403, 'Insufficient permissions', [], 'ROLE_FORBIDDEN');
     }
 
     next();

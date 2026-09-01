@@ -2,8 +2,6 @@ import { useNavigate } from 'react-router-dom'
 import { useCart } from './CartProvider.jsx'
 import CouponBox from './CouponBox.jsx'
 
-const TAX_RATE = 0.18
-
 function ShieldIcon() {
   return (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
@@ -24,17 +22,14 @@ function LockIcon() {
 
 export default function CartSummary() {
   const navigate = useNavigate()
-  const { items, subtotal, originalTotal, discount, count } = useCart()
+  const { pricing, pricingLoading, count } = useCart()
   const inr = (n) => `₹${Math.round(n).toLocaleString('en-IN')}`
-
-  const tax = Math.round(subtotal * TAX_RATE)
-  const total = subtotal + tax
+  const { originalPrice, courseDiscount, subtotal, couponCode, couponDiscount, tax, finalPrice } = pricing
 
   if (count === 0) return null
 
   const proceedToCheckout = () => {
     sessionStorage.removeItem('edumaster:direct-checkout-course')
-    sessionStorage.removeItem('edumaster:course-coupon')
     navigate('/checkout')
   }
 
@@ -45,18 +40,24 @@ export default function CartSummary() {
       <div className="cart-summary-rows">
         <div className="cart-summary-row">
           <span>Original Price</span>
-          <span>{inr(originalTotal)}</span>
+          <span>{inr(originalPrice)}</span>
         </div>
-        {discount > 0 && (
+        {courseDiscount > 0 && (
           <div className="cart-summary-row discount">
-            <span>Discount</span>
-            <span>− {inr(discount)}</span>
+            <span>Course Discount</span>
+            <span>− {inr(courseDiscount)}</span>
           </div>
         )}
         <div className="cart-summary-row">
           <span>Subtotal</span>
           <span>{inr(subtotal)}</span>
         </div>
+        {couponDiscount > 0 && (
+          <div className="cart-summary-row discount">
+            <span>Coupon ({couponCode})</span>
+            <span>− {inr(couponDiscount)}</span>
+          </div>
+        )}
         <div className="cart-summary-row">
           <span>GST (18%)</span>
           <span>{inr(tax)}</span>
@@ -65,11 +66,11 @@ export default function CartSummary() {
 
       <div className="cart-summary-total">
         <span>Total</span>
-        <span>{inr(total)}</span>
+        <span>{inr(finalPrice)}</span>
       </div>
 
-      {discount > 0 && (
-        <p className="cart-summary-savings">🎉 You save {inr(discount)} on this order!</p>
+      {(courseDiscount > 0 || couponDiscount > 0) && (
+        <p className="cart-summary-savings">🎉 You save {inr(courseDiscount + couponDiscount)} on this order!</p>
       )}
 
       <CouponBox />
@@ -77,6 +78,7 @@ export default function CartSummary() {
       <button
         className="cart-checkout-btn"
         onClick={proceedToCheckout}
+        disabled={pricingLoading}
       >
         <LockIcon />
         Proceed to Checkout

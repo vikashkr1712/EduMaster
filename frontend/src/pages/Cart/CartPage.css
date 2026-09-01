@@ -139,6 +139,7 @@
 .cart-coupon-code { font-weight: 700; color: #16a34a; font-size: 14px; }
 .cart-coupon-saved { font-size: 13px; color: #16a34a; }
 .cart-coupon-remove { margin-left: auto; background: none; border: none; color: #16a34a; cursor: pointer; font-size: 16px; }
+.cart-coupon .chk-error { display: block; margin-top: 7px; color: #b42318; font-size: 12px; }
 
 /* ── Cart Empty ──────────────────────────────────── */
 .cart-empty {

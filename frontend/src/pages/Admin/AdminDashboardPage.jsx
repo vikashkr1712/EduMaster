@@ -27,7 +27,7 @@ const cards = [
 
 const getErrorCopy = (error) => {
   if (error?.status === 401) return 'Your Admin session has expired. Please sign in again.'
-  if (error?.status === 403) return 'Your account does not have permission to view Admin data.'
+  if (error?.code === 'ROLE_FORBIDDEN') return 'Your account does not have permission to view Admin data.'
   if (error?.code === 'NETWORK' || error?.code === 'OFFLINE') return 'Unable to reach the server. Check your connection and retry.'
   return error?.message || 'Unable to load dashboard data.'
 }

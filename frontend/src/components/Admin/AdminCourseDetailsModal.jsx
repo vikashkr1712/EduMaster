@@ -49,7 +49,7 @@ export default function AdminCourseDetailsModal({ course, onClose }) {
             <h2 id="admin-course-details-title">{course.title}</h2>
             <p>/{course.slug}</p>
           </div>
-          <button ref={closeRef} type="button" onClick={onClose} aria-label="Close course details"><AdminIcon name="close" /></button>
+          <button ref={closeRef} type="button" onClick={onClose} aria-label="Close course details" title="Close course details"><AdminIcon name="close" /></button>
         </div>
         <div className="admin-course-details__body">
           <p className="admin-course-details__description">{course.description}</p>

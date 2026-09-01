@@ -7,7 +7,7 @@ import './AdminNotifications.css'
 
 const initialFilters = { audience: '', type: '', course: '', sort: 'newest' }
 const TYPES = ['course', 'certificate', 'assignment', 'quiz', 'order', 'payment', 'system', 'promotion']
-const errorCopy = (error) => error?.status === 400 ? 'One or more notification filters are invalid.' : error?.status === 401 ? 'Your Admin session has expired.' : error?.status === 403 ? 'Administrator permission is required.' : error?.code === 'NETWORK' || error?.code === 'OFFLINE' ? 'Unable to reach the server. Check your connection and retry.' : error?.message || 'Unable to load notifications.'
+const errorCopy = (error) => error?.status === 400 ? 'One or more notification filters are invalid.' : error?.status === 401 ? 'Your Admin session has expired.' : error?.code === 'ROLE_FORBIDDEN' ? 'Administrator permission is required.' : error?.code === 'NETWORK' || error?.code === 'OFFLINE' ? 'Unable to reach the server. Check your connection and retry.' : error?.message || 'Unable to load notifications.'
 
 export default function AdminNotificationsPage() {
   const requestId = useRef(0)

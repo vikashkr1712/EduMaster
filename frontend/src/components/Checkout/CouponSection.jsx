@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { calculateCoupon } from '../../utils/coupons.js'
 
 function TagIcon() {
   return (
@@ -10,37 +9,35 @@ function TagIcon() {
   )
 }
 
-export default function CouponSection({ subtotal, onCouponApply, initialCode = '' }) {
+export default function CouponSection({ appliedCode = '', couponDiscount = 0, onApply, onRemove, pending = false, initialCode = '' }) {
   const [code, setCode] = useState(initialCode)
-  const [applied, setApplied] = useState(() => calculateCoupon(subtotal, initialCode))
   const [error, setError] = useState('')
 
-  function handleApply() {
+  async function handleApply() {
     const upper = code.trim().toUpperCase()
     if (!upper) { setError('Enter a coupon code.'); return }
-    const coupon = calculateCoupon(subtotal, upper)
-    if (!coupon) { setError('Invalid coupon code.'); return }
-    setApplied(coupon)
     setError('')
-    onCouponApply(coupon)
+    try { await onApply(upper) }
+    catch (requestError) { setError(requestError.message || 'This coupon could not be applied.') }
   }
 
-  function handleRemove() {
-    setApplied(null)
-    setCode('')
+  async function handleRemove() {
     setError('')
-    onCouponApply(null)
+    try {
+      await onRemove()
+      setCode('')
+    } catch (requestError) { setError(requestError.message || 'This coupon could not be removed.') }
   }
 
   return (
     <div className="chk-coupon">
       <p className="chk-coupon-title">Have a coupon?</p>
-      {applied ? (
+      {appliedCode ? (
         <div className="chk-coupon-applied">
           <TagIcon />
-          <span className="chk-coupon-code">{applied.code}</span>
-          <span className="chk-coupon-savings">− ₹{applied.discount.toLocaleString('en-IN')} applied</span>
-          <button className="chk-coupon-remove" onClick={handleRemove}>✕ Remove</button>
+          <span className="chk-coupon-code">{appliedCode}</span>
+          <span className="chk-coupon-savings">− ₹{Number(couponDiscount).toLocaleString('en-IN')} applied</span>
+          <button type="button" className="chk-coupon-remove" onClick={handleRemove} disabled={pending}>✕ Remove</button>
         </div>
       ) : (
         <>
@@ -53,8 +50,8 @@ export default function CouponSection({ subtotal, onCouponApply, initialCode = '
               onChange={e => { setCode(e.target.value); setError('') }}
               onKeyDown={e => e.key === 'Enter' && handleApply()}
             />
-            <button className="chk-coupon-btn" onClick={handleApply} disabled={!code.trim()}>
-              Apply
+            <button type="button" className="chk-coupon-btn" onClick={handleApply} disabled={!code.trim() || pending}>
+              {pending ? 'Checking…' : 'Apply'}
             </button>
           </div>
           {error && <span className="chk-error" style={{ marginTop: 6, display: 'block' }}>{error}</span>}

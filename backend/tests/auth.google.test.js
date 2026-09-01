@@ -4,6 +4,8 @@ import mongoose from 'mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import User from '../src/models/User.js';
 import { login, loginWithGoogleIdentity, register, restoreSession } from '../src/services/auth.service.js';
+import { authenticate } from '../src/middleware/authenticate.js';
+import { signAccessToken } from '../src/utils/token.js';
 
 let mongoServer;
 
@@ -149,4 +151,34 @@ test('preserves email/password signup, login, and EduMaster session restoration'
   assert.equal(registered.user._id.toString(), loggedIn.user._id.toString());
   assert.equal(restored.user._id.toString(), registered.user._id.toString());
   assert.equal(restored.user.role, 'user');
+});
+
+test('Admin middleware authentication uses the current active MongoDB role, not a stale token role', async () => {
+  const user = await User.create({
+    name: 'Promoted Admin',
+    email: 'promoted@example.com',
+    password: 'Password123',
+    role: 'user',
+  });
+  const staleAccessToken = signAccessToken(user._id.toString(), 'user');
+  await User.findByIdAndUpdate(user._id, { role: 'admin' });
+
+  const req = { cookies: { accessToken: staleAccessToken }, headers: {} };
+  let middlewareError;
+  await new Promise((resolve) => authenticate(req, {}, (error) => {
+    middlewareError = error;
+    resolve();
+  }));
+
+  assert.equal(middlewareError, undefined);
+  assert.equal(req.user.id, user._id.toString());
+  assert.equal(req.user.role, 'admin');
+
+  await User.findByIdAndUpdate(user._id, { isActive: false });
+  await new Promise((resolve) => authenticate(
+    { cookies: { accessToken: staleAccessToken }, headers: {} },
+    {},
+    (error) => { middlewareError = error; resolve(); }
+  ));
+  assert.equal(middlewareError.statusCode, 401);
 });

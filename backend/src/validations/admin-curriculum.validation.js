@@ -11,6 +11,16 @@ const webUrl = z.string().trim().url('Resource URL must be valid').refine(
   'Resource URL must use HTTP or HTTPS'
 );
 
+const lessonThumbnail = z.string().trim().max(2000, 'Thumbnail URL is too long').refine(
+  (value) => {
+    if (!value) return true;
+    if (/^\/uploads\/course-thumbnails\/[A-Za-z0-9._-]+$/.test(value)) return true;
+    try { return ['http:', 'https:'].includes(new URL(value).protocol); }
+    catch { return false; }
+  },
+  'Thumbnail must be an HTTP/HTTPS URL or an uploaded EduMaster image'
+);
+
 const resourceSchema = z.object({
   resourceId: z.string().trim().max(120).optional(),
   title,
@@ -28,6 +38,7 @@ const lessonFields = {
   duration,
   videoId: z.string().trim().min(1, 'YouTube video is required').max(250, 'YouTube value is too long'),
   videoProvider: z.string().trim().max(100, 'Video provider must not exceed 100 characters').optional(),
+  thumbnail: lessonThumbnail.optional(),
   resources: z.array(resourceSchema).max(20, 'A lesson can contain at most 20 resources').optional(),
 };
 

@@ -154,6 +154,7 @@ export const createLesson = async (courseId, moduleId, data) => {
     duration: data.duration,
     videoId: normalizeYouTubeVideoId(data.videoId),
     videoProvider: data.videoProvider || 'YouTube',
+    thumbnail: data.thumbnail || undefined,
     publishedAt: new Date(),
     resources: normalizeResources(data.resources),
   };
@@ -170,6 +171,7 @@ export const updateLesson = async (courseId, moduleId, lessonId, data) => {
   if (data.duration !== undefined) lesson.duration = data.duration;
   if (data.videoId !== undefined) lesson.videoId = normalizeYouTubeVideoId(data.videoId);
   if (data.videoProvider !== undefined) lesson.videoProvider = data.videoProvider || 'YouTube';
+  if (data.thumbnail !== undefined) lesson.thumbnail = data.thumbnail || undefined;
   if (data.resources !== undefined) lesson.resources = normalizeResources(data.resources, lesson.resources);
   await saveCurriculum(course);
   return { lesson, curriculum: serializeCurriculum(course) };

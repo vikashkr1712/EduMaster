@@ -23,7 +23,7 @@ export default function AdminOrderTable({ orders }) {
           <td><span className="admin-payment-method">{label(order.paymentMethod)}</span></td>
           <td><span className={`admin-payment-status admin-payment-status--${order.paymentStatus}`}>{label(order.paymentStatus)}</span></td>
           <td>{formatDate(order.createdAt)}</td>
-          <td><Link className="admin-commerce-view" to={`/admin/orders/${order._id}`} aria-label={`View order ${order.orderNumber}`}><AdminIcon name="eye" size={16} />View</Link></td>
+          <td><Link className="admin-commerce-view" to={`/admin/orders/${order._id}`} aria-label={`View order ${order.orderNumber}`} title="View order"><AdminIcon name="eye" size={16} />View</Link></td>
         </tr>)}</tbody>
       </table>
     </div>

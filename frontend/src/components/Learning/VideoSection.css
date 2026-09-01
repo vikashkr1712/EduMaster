@@ -1,0 +1,39 @@
+.learn-video-card {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 14px;
+  background: #071b39;
+  box-shadow: 0 12px 28px rgba(9, 30, 66, 0.16);
+}
+
+.learn-video-card iframe,
+.learn-youtube-host,
+.learn-youtube-host iframe { width: 100%; height: 100%; border: 0; }
+
+.learn-video-loading { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 10px; color: #dce7f8; font-size: 12px; }
+.learn-video-empty { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 8px; padding: 24px; color: #fff; text-align: center; }
+.learn-video-empty strong { font-size: clamp(15px, 2vw, 20px); }
+.learn-video-empty span { color: #cbd7e9; font-size: 13px; }
+.learn-video-loading span { width: 25px; height: 25px; border: 2.5px solid rgba(255,255,255,0.24); border-top-color: #fff; border-radius: 50%; animation: learn-spin 0.8s linear infinite; }
+@keyframes learn-spin { to { transform: rotate(360deg); } }
+
+.learn-video-poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border: 0;
+  background: #071b39;
+  cursor: pointer;
+}
+.learn-video-poster .lesson-thumbnail-image,
+.learn-video-poster .lesson-thumbnail-fallback { width: 100%; height: 100%; object-fit: cover; }
+.learn-video-poster .lesson-thumbnail-fallback { display: grid; place-items: center; background: linear-gradient(135deg, #092650, #07162d); color: #dce7f8; font-size: 42px; }
+.learn-video-poster::after { position: absolute; inset: 0; content: ''; background: linear-gradient(180deg, transparent 45%, rgba(3, 12, 28, 0.5)); }
+.learn-video-poster__play { position: absolute; z-index: 1; top: 50%; left: 50%; display: grid; width: 58px; height: 58px; place-items: center; border: 2px solid rgba(255,255,255,0.85); border-radius: 50%; background: rgba(7, 27, 57, 0.78); color: white; font-size: 21px; line-height: 1; transform: translate(-50%, -50%); transition: transform 0.2s, background 0.2s; }
+.learn-video-poster:hover .learn-video-poster__play,
+.learn-video-poster:focus-visible .learn-video-poster__play { background: #276ae6; transform: translate(-50%, -50%) scale(1.06); }
+.learn-video-poster:focus-visible { outline: 3px solid #78a6ff; outline-offset: -3px; }

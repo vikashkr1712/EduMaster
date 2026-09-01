@@ -8,6 +8,12 @@ export const createOrder = asyncHandler(async (req, res) => {
   res.status(response.statusCode).json(response);
 });
 
+export const quoteOrder = asyncHandler(async (req, res) => {
+  const pricing = await orderService.quoteOrder(req.user.id, req.body);
+  const response = new ApiResponse(200, 'Authoritative pricing retrieved successfully', { pricing });
+  res.status(response.statusCode).json(response);
+});
+
 export const getOrder = asyncHandler(async (req, res) => {
   const order = await orderService.getOrder(req.user.id, req.params.id);
   const response = new ApiResponse(200, 'Order retrieved successfully', { order });

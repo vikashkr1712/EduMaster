@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useCart } from './CartProvider.jsx'
 
 function TagIcon() {
   return (
@@ -10,34 +10,37 @@ function TagIcon() {
   )
 }
 
-export default function CouponBox({ onApply }) {
-  const [code, setCode] = useState('')
-  const [applied, setApplied] = useState(false)
-  const [appliedCode, setAppliedCode] = useState('')
+export default function CouponBox() {
+  const { couponCode, pricing, pricingLoading, applyCoupon, removeCoupon } = useCart()
+  const [code, setCode] = useState(couponCode)
+  const [error, setError] = useState('')
 
-  function handleApply() {
+  async function handleApply() {
     if (!code.trim()) return
-    setApplied(true)
-    setAppliedCode(code.trim())
-    if (onApply) onApply(code.trim())
+    setError('')
+    try { await applyCoupon(code) }
+    catch (requestError) { setError(requestError.message || 'This coupon could not be applied.') }
   }
 
-  function handleRemove() {
-    setApplied(false)
-    setCode('')
-    setAppliedCode('')
-    if (onApply) onApply(null)
+  async function handleRemove() {
+    setError('')
+    try {
+      await removeCoupon()
+      setCode('')
+    } catch (requestError) {
+      setError(requestError.message || 'This coupon could not be removed.')
+    }
   }
 
   return (
     <div className="cart-coupon">
       <p className="cart-coupon-title">Have a coupon?</p>
-      {applied ? (
+      {couponCode ? (
         <div className="cart-coupon-applied">
           <TagIcon />
-          <span className="cart-coupon-code">{appliedCode}</span>
-          <span className="cart-coupon-saved">applied</span>
-          <button className="cart-coupon-remove" onClick={handleRemove}>✕</button>
+          <span className="cart-coupon-code">{couponCode}</span>
+          <span className="cart-coupon-saved">− ₹{Number(pricing.couponDiscount || 0).toLocaleString('en-IN')} applied</span>
+          <button type="button" className="cart-coupon-remove" onClick={handleRemove} disabled={pricingLoading} aria-label={`Remove coupon ${couponCode}`}>✕</button>
         </div>
       ) : (
         <div className="cart-coupon-row">
@@ -48,16 +51,19 @@ export default function CouponBox({ onApply }) {
             value={code}
             onChange={(e) => setCode(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleApply()}
+            aria-invalid={Boolean(error)}
           />
           <button
+            type="button"
             className="cart-coupon-btn"
             onClick={handleApply}
-            disabled={!code.trim()}
+            disabled={!code.trim() || pricingLoading}
           >
-            Apply
+            {pricingLoading ? 'Checking…' : 'Apply'}
           </button>
         </div>
       )}
+      {error && <span className="chk-error" role="alert">{error}</span>}
     </div>
   )
 }

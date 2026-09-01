@@ -51,13 +51,13 @@ export default function AdminCourseTable({ courses, pendingAction, onView, onPub
                 <td>{formatDate(course.updatedAt)}</td>
                 <td>
                   <div className="admin-course-actions">
-                    <button type="button" onClick={() => onView(course)} aria-label={`View ${course.title}`}><AdminIcon name="eye" size={16} /><span>View</span></button>
-                    <Link to={`/admin/courses/${course._id}/curriculum`} aria-label={`Manage curriculum for ${course.title}`}><AdminIcon name="curriculum" size={16} /><span>Curriculum</span></Link>
-                    <Link to={`/admin/courses/${course._id}/edit`} aria-label={`Edit ${course.title}`}><AdminIcon name="edit" size={16} /><span>Edit</span></Link>
-                    <button type="button" onClick={() => onPublish(course)} disabled={publishing || deleting} aria-label={`${course.isPublished ? 'Unpublish' : 'Publish'} ${course.title}`}>
+                    <button type="button" onClick={() => onView(course)} aria-label={`View ${course.title}`} title="View course"><AdminIcon name="eye" size={16} /><span>View</span></button>
+                    <Link to={`/admin/courses/${course._id}/curriculum`} aria-label={`Manage curriculum for ${course.title}`} title="Manage curriculum"><AdminIcon name="curriculum" size={16} /><span>Curriculum</span></Link>
+                    <Link to={`/admin/courses/${course._id}/edit`} aria-label={`Edit ${course.title}`} title="Edit course"><AdminIcon name="edit" size={16} /><span>Edit</span></Link>
+                    <button type="button" onClick={() => onPublish(course)} disabled={publishing || deleting} aria-label={`${course.isPublished ? 'Unpublish' : 'Publish'} ${course.title}`} title={`${course.isPublished ? 'Unpublish' : 'Publish'} course`}>
                       <AdminIcon name="publish" size={16} /><span>{publishing ? 'Saving…' : course.isPublished ? 'Unpublish' : 'Publish'}</span>
                     </button>
-                    <button type="button" className="is-danger" onClick={() => onDelete(course)} disabled={publishing || deleting} aria-label={`Delete ${course.title}`}><AdminIcon name="trash" size={16} /><span>Delete</span></button>
+                    <button type="button" className="is-danger" onClick={() => onDelete(course)} disabled={publishing || deleting} aria-label={`Delete ${course.title}`} title="Delete course"><AdminIcon name="trash" size={16} /><span>Delete</span></button>
                   </div>
                 </td>
               </tr>

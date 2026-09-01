@@ -8,9 +8,9 @@ export const csrfProtection = (req, res, next) => {
   if (safeMethods.has(req.method) || excludedPaths.has(req.path)) return next();
   const cookieToken = req.cookies?.csrfToken;
   const headerToken = req.get('X-CSRF-Token');
-  if (!cookieToken || !headerToken) return next(new ApiError(403, 'Security token is missing. Refresh the page and try again.'));
+  if (!cookieToken || !headerToken) return next(new ApiError(403, 'Security token is missing. Refresh the page and try again.', [], 'CSRF_MISSING'));
   const cookieBuffer = Buffer.from(cookieToken);
   const headerBuffer = Buffer.from(headerToken);
-  if (cookieBuffer.length !== headerBuffer.length || !timingSafeEqual(cookieBuffer, headerBuffer)) return next(new ApiError(403, 'Security token is invalid. Refresh the page and try again.'));
+  if (cookieBuffer.length !== headerBuffer.length || !timingSafeEqual(cookieBuffer, headerBuffer)) return next(new ApiError(403, 'Security token is invalid. Refresh the page and try again.', [], 'CSRF_INVALID'));
   return next();
 };

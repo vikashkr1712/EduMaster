@@ -11,29 +11,7 @@ import { buildAssignmentsForCourse } from '../utils/assignmentFactory.js';
 import { ApiError } from '../utils/ApiError.js';
 import { createEvent } from './notification.service.js';
 import { ensureCompletedCertificates } from './certificate.service.js';
-
-const TAX_RATE = 0.18;
-const COUPONS = {
-  WELCOME20: 20,
-  EDU10: 10,
-  FIRST50: 50,
-};
-
-const resolveCourse = async (value, session) => {
-  const id = String(value ?? '').trim();
-  let course = mongoose.isValidObjectId(id)
-    ? await Course.findById(id).session(session)
-    : null;
-
-  if (!course && Number.isInteger(Number(id))) {
-    course = await Course.findOne({ sourceId: Number(id) }).session(session);
-  }
-
-  if (!course || !course.isPublished) {
-    throw new ApiError(404, 'One or more selected courses are unavailable');
-  }
-  return course;
-};
+import { getAuthoritativePricing } from './pricing.service.js';
 
 const nextOrderNumber = async (session) => {
   const year = new Date().getFullYear();
@@ -45,13 +23,14 @@ const nextOrderNumber = async (session) => {
   return `EDU-${year}-${String(counter.sequence).padStart(6, '0')}`;
 };
 
-const getPricing = (course) => {
-  const listedPrice = Number(course.price) || 0;
-  const rawDiscount = Number(course.discountPrice);
-  const price = Number.isFinite(rawDiscount) && rawDiscount > 0 ? rawDiscount : listedPrice;
-  const oldPrice = Number(course.oldPrice);
-  const originalPrice = Number.isFinite(oldPrice) && oldPrice > price ? oldPrice : listedPrice;
-  return { price, originalPrice };
+
+export const quoteOrder = async (userId, input) => {
+  const { pricing } = await getAuthoritativePricing({
+    userId,
+    courseIds: input.courseIds,
+    couponCode: input.couponCode,
+  });
+  return pricing;
 };
 
 export const createOrder = async (userId, input) => {
@@ -63,13 +42,12 @@ export const createOrder = async (userId, input) => {
       const user = await User.findById(userId).session(session);
       if (!user) throw new ApiError(404, 'User not found');
 
-      const requestedIds = input.courseIds?.length
-        ? input.courseIds
-        : user.cart.map((item) => String(item.course));
-      if (requestedIds.length === 0) throw new ApiError(400, 'Your cart is empty');
-
-      const courses = await Promise.all(requestedIds.map((id) => resolveCourse(id, session)));
-      const uniqueCourses = [...new Map(courses.map((course) => [String(course._id), course])).values()];
+      const { courses: uniqueCourses, pricing } = await getAuthoritativePricing({
+        userId,
+        courseIds: input.courseIds,
+        couponCode: input.couponCode,
+        session,
+      });
       const courseIds = uniqueCourses.map((course) => course._id);
 
       const existingEnrollment = await CourseEnrollment.findOne({
@@ -78,29 +56,7 @@ export const createOrder = async (userId, input) => {
       }).session(session);
       if (existingEnrollment) throw new ApiError(409, 'You are already enrolled in one of these courses');
 
-      const items = uniqueCourses.map((course) => {
-        const { price, originalPrice } = getPricing(course);
-        return {
-          course: course._id,
-          title: course.title,
-          instructor: course.instructor,
-          category: course.category,
-          imageType: course.imageType,
-          rating: course.rating,
-          originalPrice,
-          price,
-        };
-      });
-
-      const originalSubtotal = items.reduce((sum, item) => sum + item.originalPrice, 0);
-      const subtotal = items.reduce((sum, item) => sum + item.price, 0);
-      const courseDiscount = Math.max(0, originalSubtotal - subtotal);
-      const couponCode = input.couponCode?.trim().toUpperCase() || '';
-      if (couponCode && !COUPONS[couponCode]) throw new ApiError(400, 'Invalid coupon code');
-      const couponDiscount = couponCode ? Math.round(subtotal * COUPONS[couponCode] / 100) : 0;
-      const taxableAmount = Math.max(0, subtotal - couponDiscount);
-      const tax = Math.round(taxableAmount * TAX_RATE);
-      const amount = taxableAmount + tax;
+      const { items, subtotal, courseDiscount, couponCode, couponDiscount, tax, finalPrice: amount } = pricing;
 
       if (amount > 0 && input.paymentMethod === 'free') {
         throw new ApiError(400, 'A payment method is required for paid courses');

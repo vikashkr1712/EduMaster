@@ -16,7 +16,7 @@ export default function AdminNotificationTable({ notifications }) {
             <td><strong>{notification.readCount}</strong><span>{notification.unreadCount} unread</span></td>
             <td><time dateTime={notification.createdAt}>{new Date(notification.createdAt).toLocaleDateString()}</time></td>
             <td><strong>{notification.createdBy?.name || 'Admin unavailable'}</strong><span>{notification.createdBy?.email}</span></td>
-            <td><Link className="admin-row-action" to={`/admin/notifications/${notification._id}`} aria-label={`View notification ${notification.title}`}><AdminIcon name="eye" size={17} /></Link></td>
+            <td><Link className="admin-row-action" to={`/admin/notifications/${notification._id}`} aria-label={`View notification ${notification.title}`} title="View notification"><AdminIcon name="eye" size={17} /></Link></td>
           </tr>
         ))}</tbody>
       </table>

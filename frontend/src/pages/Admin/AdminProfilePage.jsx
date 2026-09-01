@@ -97,7 +97,7 @@ export default function AdminProfilePage() {
           <div className="admin-profile-photo">
             <div className="admin-profile-photo__frame">
               <AdminAvatar user={user} size="profile" />
-              <button type="button" onClick={() => fileRef.current?.click()} disabled={uploading} aria-label="Change profile photo"><AdminIcon name="camera" size={21} /></button>
+              <button type="button" onClick={() => fileRef.current?.click()} disabled={uploading} aria-label="Change profile photo" title="Change profile photo"><AdminIcon name="camera" size={21} /></button>
             </div>
             <input ref={fileRef} hidden type="file" accept={AVATAR_ALLOWED_TYPES.join(',')} onChange={selectPhoto} />
             <button className="admin-profile-photo__button" type="button" onClick={() => fileRef.current?.click()} disabled={uploading}><AdminIcon name="camera" size={19} />{uploading ? 'Uploading…' : 'Change Photo'}</button>

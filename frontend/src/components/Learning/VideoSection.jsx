@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
+import LessonThumbnail from './LessonThumbnail.jsx'
+import './VideoSection.css'
 
 let youtubeApiPromise
 
@@ -32,21 +34,24 @@ export default function VideoSection({ lesson, onWatchProgress }) {
   const [visible, setVisible] = useState(false)
   const [fallback, setFallback] = useState(false)
   const hasVideo = /^[A-Za-z0-9_-]{11}$/.test(String(lesson?.videoId || '').trim())
+  const hasCustomThumbnail = Boolean(String(lesson?.thumbnail || '').trim())
+  const [started, setStarted] = useState(!hasCustomThumbnail)
 
   useEffect(() => { progressCallbackRef.current = onWatchProgress }, [onWatchProgress])
+  useEffect(() => { setStarted(!hasCustomThumbnail); setFallback(false); setVisible(false) }, [hasCustomThumbnail, lesson?.thumbnail, lesson?.videoId])
 
   useEffect(() => {
-    if (!hasVideo || !hostRef.current || visible) return
+    if (!started || !hasVideo || !hostRef.current || visible) return
     if (!('IntersectionObserver' in window)) { setVisible(true); return }
     const observer = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting) { setVisible(true); observer.disconnect() }
     }, { rootMargin: '180px' })
     observer.observe(hostRef.current)
     return () => observer.disconnect()
-  }, [hasVideo, visible])
+  }, [hasVideo, started, visible])
 
   useEffect(() => {
-    if (!hasVideo || !visible || fallback) return
+    if (!started || !hasVideo || !visible || fallback) return
     let cancelled = false
     const clearSaveInterval = () => {
       if (saveIntervalRef.current) window.clearInterval(saveIntervalRef.current)
@@ -91,12 +96,17 @@ export default function VideoSection({ lesson, onWatchProgress }) {
       try { playerRef.current?.destroy?.() } catch { /* YouTube may already have removed the iframe. */ }
       playerRef.current = null
     }
-  }, [fallback, hasVideo, lesson?.title, lesson?.videoId, visible])
+  }, [fallback, hasVideo, lesson?.title, lesson?.videoId, started, visible])
 
   return (
     <section className="learn-video-card" aria-label={`Video: ${lesson?.title || 'Lesson'}`}>
       {!hasVideo ? (
         <div className="learn-video-empty"><strong>No video has been added to this lesson yet.</strong><span>Please choose another lesson or check back later.</span></div>
+      ) : hasCustomThumbnail && !started ? (
+        <button type="button" className="learn-video-poster" onClick={() => setStarted(true)} aria-label={`Play ${lesson.title}`}>
+          <LessonThumbnail lesson={lesson} eager />
+          <span className="learn-video-poster__play" aria-hidden="true">▶</span>
+        </button>
       ) : <>
         {!visible && <div className="learn-video-loading"><span /> Preparing video…</div>}
         {fallback ? (

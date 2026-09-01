@@ -17,6 +17,7 @@ const toQueryString = (params = {}) => {
 }
 
 export const getAdminCourses = (params) => client(`/admin/courses${toQueryString(params)}`)
+export const getAdminCourseCategories = () => client('/admin/course-categories')
 export const getAdminCourse = (id) => client(`/admin/courses/${id}`)
 export const createAdminCourse = (payload) => client('/admin/courses', { method: 'POST', body: payload })
 export const updateAdminCourse = (id, payload) => client(`/admin/courses/${id}`, { method: 'PATCH', body: payload })

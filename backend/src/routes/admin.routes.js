@@ -50,6 +50,7 @@ const router = Router();
 router.use(authenticate, authorize('admin'));
 router.get('/dashboard', adminController.getDashboard);
 router.get('/courses', adminCourseController.getCourses);
+router.get('/course-categories', adminCourseController.getCourseCategories);
 router.post('/course-thumbnails', courseThumbnailUpload, adminCourseController.uploadCourseThumbnail);
 router.post('/courses', validate(createCourseSchema), adminCourseController.createCourse);
 router.get('/courses/:courseId/curriculum', adminCurriculumController.getCurriculum);

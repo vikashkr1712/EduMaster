@@ -13,7 +13,8 @@ const getCookie = (name) => {
   return document.cookie.split(';').map((value) => value.trim()).find((value) => value.startsWith(prefix))?.slice(prefix.length) || ''
 }
 let csrfTokenCache = ''
-async function getCsrfToken() {
+async function getCsrfToken(forceRefresh = false) {
+  if (forceRefresh) csrfTokenCache = ''
   const cookieToken = getCookie('csrfToken')
   if (cookieToken) return decodeURIComponent(cookieToken)
   if (csrfTokenCache) return csrfTokenCache
@@ -62,7 +63,7 @@ function refreshTokens() {
   return refreshPromise
 }
 
-async function request(path, { method = 'GET', body, headers, signal: externalSignal, _isRetry = false, _attempt = 0, ...options } = {}) {
+async function request(path, { method = 'GET', body, headers, signal: externalSignal, _isRetry = false, _csrfRetry = false, _attempt = 0, ...options } = {}) {
   if (!API_BASE_URL) {
     throw new ApiError('The API is not configured. Set VITE_API_URL and try again.', {
       code: 'CONFIGURATION',
@@ -99,7 +100,7 @@ async function request(path, { method = 'GET', body, headers, signal: externalSi
 
     if (method === 'GET' && _attempt < MAX_GET_RETRIES) {
       await new Promise((resolve) => window.setTimeout(resolve, 250 * (2 ** _attempt)))
-      return request(path, { method, body, headers, signal: externalSignal, _isRetry, _attempt: _attempt + 1, ...options })
+      return request(path, { method, body, headers, signal: externalSignal, _isRetry, _csrfRetry, _attempt: _attempt + 1, ...options })
     }
     if (typeof navigator !== 'undefined' && !navigator.onLine) throw new ApiError('You are offline. Reconnect and try again.', { code: 'OFFLINE' })
     throw new ApiError('Unable to connect to the server. Please try again.', { code: 'NETWORK' })
@@ -113,7 +114,7 @@ async function request(path, { method = 'GET', body, headers, signal: externalSi
   if (response.status === 401 && !_isRetry && !path.startsWith('/auth/')) {
     const refreshed = await refreshTokens()
     if (refreshed) {
-      return request(path, { method, body, headers, signal: externalSignal, _isRetry: true, _attempt, ...options })
+      return request(path, { method, body, headers, signal: externalSignal, _isRetry: true, _csrfRetry, _attempt, ...options })
     }
   }
 
@@ -121,11 +122,20 @@ async function request(path, { method = 'GET', body, headers, signal: externalSi
   const data = hasJsonResponse ? await response.json() : null
 
   if (!response.ok) {
-    if ((response.status === 401 && !path.startsWith('/auth/')) || (response.status === 403 && path.startsWith('/admin/'))) {
+    const csrfFailure = response.status === 403 && ['CSRF_MISSING', 'CSRF_INVALID'].includes(data?.code)
+    if (unsafe && csrfFailure && !_csrfRetry) {
+      const renewedToken = await getCsrfToken(true)
+      if (renewedToken) {
+        return request(path, { method, body, headers, signal: externalSignal, _isRetry, _csrfRetry: true, _attempt, ...options })
+      }
+    }
+    if ((response.status === 401 && !path.startsWith('/auth/')) || (response.status === 403 && data?.code === 'ROLE_FORBIDDEN')) {
       signalAuthSessionMismatch(response.status, path)
     }
-    throw new ApiError(getErrorMessage(response.status, data), { status: response.status, code: 'HTTP', details: data?.errors })
+    throw new ApiError(getErrorMessage(response.status, data), { status: response.status, code: data?.code || 'HTTP', details: data?.errors })
   }
+
+  if (['/auth/login', '/auth/register', '/auth/google', '/auth/refresh'].includes(path)) csrfTokenCache = ''
 
   return data
 }

@@ -9,7 +9,7 @@ import './AdminQuizzes.css'
 
 const PAGE_SIZE = 10
 const initialFilters = { course: '', status: '', difficulty: '', attempts: '', sort: 'newest' }
-const errorCopy = (error) => error?.status === 409 ? error.message : error?.status === 403 ? 'Administrator permission is required to manage quizzes.' : error?.status === 401 ? 'Your Admin session has expired. Please sign in again.' : error?.code === 'NETWORK' || error?.code === 'OFFLINE' ? 'Unable to reach the server. Check your connection and retry.' : error?.message || 'Unable to load quizzes.'
+const errorCopy = (error) => error?.status === 409 ? error.message : error?.code === 'ROLE_FORBIDDEN' ? 'Administrator permission is required to manage quizzes.' : error?.status === 401 ? 'Your Admin session has expired. Please sign in again.' : error?.code === 'NETWORK' || error?.code === 'OFFLINE' ? 'Unable to reach the server. Check your connection and retry.' : error?.message || 'Unable to load quizzes.'
 
 export default function AdminQuizzesPage() {
   const notifications = useNotifications()

@@ -26,7 +26,7 @@ export default function AdminSidebar({ open, onClose }) {
             <strong>EduMaster</strong>
             <span>Admin Panel</span>
           </div>
-          <button className="admin-sidebar__close" type="button" onClick={onClose} aria-label="Close Admin navigation">
+          <button className="admin-sidebar__close" type="button" onClick={onClose} aria-label="Close Admin navigation" title="Close Admin navigation">
             <AdminIcon name="close" />
           </button>
         </div>
@@ -56,6 +56,7 @@ export default function AdminSidebar({ open, onClose }) {
         className={`admin-sidebar-backdrop${open ? ' is-visible' : ''}`}
         onClick={onClose}
         aria-label="Close Admin navigation"
+        title="Close Admin navigation"
         tabIndex={open ? 0 : -1}
       />
     </>

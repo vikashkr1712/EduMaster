@@ -16,11 +16,11 @@ function CheckIcon() {
 
 const INCLUDES = ['12 hours on-demand video', '48 lessons', 'Full lifetime access', 'Access on mobile and TV', 'Certificate of completion']
 
-export default function OrderSummary({ items, subtotal, discount, couponDiscount, couponCode }) {
-  const TAX_RATE = 0.18
-  const afterCoupon = Math.max(0, subtotal - (couponDiscount || 0))
-  const tax = Math.round(afterCoupon * TAX_RATE)
-  const total = afterCoupon + tax
+export default function OrderSummary({ items, pricing }) {
+  const {
+    originalPrice = 0, courseDiscount = 0, subtotal = 0,
+    couponDiscount = 0, couponCode, tax = 0, finalPrice = 0,
+  } = pricing || {}
   const inr = (n) => `₹${Math.round(n).toLocaleString('en-IN')}`
 
   const firstItem = items?.[0]
@@ -69,14 +69,15 @@ export default function OrderSummary({ items, subtotal, discount, couponDiscount
         <h4 className="chk-os-breakdown-title">Order Summary</h4>
         <div className="chk-os-row">
           <span>Course Price</span>
-          <span>{inr(subtotal + discount)}</span>
+          <span>{inr(originalPrice)}</span>
         </div>
-        {discount > 0 && (
+        {courseDiscount > 0 && (
           <div className="chk-os-row chk-os-discount">
-            <span>Discount</span>
-            <span>− {inr(discount)}</span>
+            <span>Course Discount</span>
+            <span>− {inr(courseDiscount)}</span>
           </div>
         )}
+        <div className="chk-os-row"><span>Subtotal</span><span>{inr(subtotal)}</span></div>
         {couponDiscount > 0 && (
           <div className="chk-os-row chk-os-discount">
             <span>Coupon ({couponCode})</span>
@@ -89,11 +90,11 @@ export default function OrderSummary({ items, subtotal, discount, couponDiscount
         </div>
         <div className="chk-os-total">
           <span>Total Amount</span>
-          <span>{inr(total)}</span>
+          <span>{inr(finalPrice)}</span>
         </div>
-        {(discount > 0 || couponDiscount > 0) && (
+        {(courseDiscount > 0 || couponDiscount > 0) && (
           <p className="chk-os-savings">
-            🎉 You save {inr(discount + (couponDiscount || 0))} on this order!
+            🎉 You save {inr(courseDiscount + (couponDiscount || 0))} on this order!
           </p>
         )}
       </div>

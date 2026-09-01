@@ -29,9 +29,9 @@ export default function AdminUserTable({ users, currentUserId, pendingAction, on
                 <td><span className={`admin-user-status admin-user-status--${user.isActive ? 'active' : 'inactive'}`}><i />{user.isActive ? 'Active' : 'Inactive'}</span></td>
                 <td>
                   <div className="admin-user-actions">
-                    <Link to={`/admin/users/${user._id}`} aria-label={`View ${user.name}`}><AdminIcon name="eye" size={16} /><span>View</span></Link>
-                    <button type="button" onClick={() => onRole(user)} disabled={busy || isSelf} aria-label={`${user.role === 'admin' ? 'Change to Student' : 'Change to Admin'} ${user.name}`} title={isSelf ? 'You cannot change your own Admin role' : undefined}><AdminIcon name="shield" size={16} /><span>Role</span></button>
-                    <button type="button" onClick={() => onStatus(user)} disabled={busy || isSelf} aria-label={`${user.isActive ? 'Deactivate' : 'Activate'} ${user.name}`} title={isSelf ? 'You cannot deactivate yourself' : undefined}><AdminIcon name="power" size={16} /><span>{user.isActive ? 'Deactivate' : 'Activate'}</span></button>
+                    <Link to={`/admin/users/${user._id}`} aria-label={`View ${user.name}`} title="View user"><AdminIcon name="eye" size={16} /><span>View</span></Link>
+                    <button type="button" onClick={() => onRole(user)} disabled={busy || isSelf} aria-label={`${user.role === 'admin' ? 'Change to Student' : 'Change to Admin'} ${user.name}`} title={isSelf ? 'You cannot change your own Admin role' : 'Change role'}><AdminIcon name="shield" size={16} /><span>Role</span></button>
+                    <button type="button" onClick={() => onStatus(user)} disabled={busy || isSelf} aria-label={`${user.isActive ? 'Deactivate' : 'Activate'} ${user.name}`} title={isSelf ? 'You cannot deactivate yourself' : `${user.isActive ? 'Deactivate' : 'Activate'} user`}><AdminIcon name="power" size={16} /><span>{user.isActive ? 'Deactivate' : 'Activate'}</span></button>
                   </div>
                 </td>
               </tr>
