@@ -30,6 +30,8 @@ export default function AdminAvatar({ user, size = 'medium', className = '' }) {
         className={`admin-avatar admin-avatar--${size} ${className}`.trim()}
         src={source}
         alt={`${user.name || 'Admin'} avatar`}
+        loading="lazy"
+        decoding="async"
         onError={() => setImageFailed(true)}
       />
     )

@@ -13,6 +13,7 @@ import Achievement from '../models/Achievement.js';
 import EmailQueue from '../models/EmailQueue.js';
 import PlatformSetting from '../models/PlatformSetting.js';
 import { ApiError } from '../utils/ApiError.js';
+import { avatarReferenceExpression, toAvatarReference } from '../utils/avatar.js';
 
 const detailFields = '_id name email avatar username phone bio location role isActive isDemo lastLoginAt stats createdAt updatedAt';
 const escapeRegex = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -73,6 +74,9 @@ export const getAdminUsers = async (query = {}) => {
   const sort = sorts[query.sort] || sorts.newest;
 
   const [result] = await User.aggregate([
+    // Avatars can be multi-megabyte data URLs. None of the list aggregation
+    // stages need them, so discard them before the facet copies each document.
+    { $project: { name: 1, email: 1, role: 1, isActive: 1, isDemo: 1, createdAt: 1, updatedAt: 1, avatar: avatarReferenceExpression() } },
     {
       $facet: {
         users: [
@@ -158,7 +162,8 @@ export const getAdminUser = async (userId) => {
   if (!userRecord) throw new ApiError(404, 'User not found');
 
   const enrollments = enrollmentSummary[0] || { total: 0, completed: 0, averageProgress: 0 };
-  const { wishlist = [], cart = [], ...user } = userRecord;
+  const { wishlist = [], cart = [], ...rawUser } = userRecord;
+  const user = toAvatarReference(rawUser);
   return {
     ...user,
     related: {

@@ -81,6 +81,8 @@ const orderSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+orderSchema.index({ createdAt: -1 });
+
 orderSchema.methods.toJSON = function () {
   const order = this.toObject();
   delete order.__v;

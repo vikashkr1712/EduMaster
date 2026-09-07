@@ -1,4 +1,5 @@
 import User from '../models/User.js';
+import mongoose from 'mongoose';
 import { ApiError } from '../utils/ApiError.js';
 import { signAccessToken, signRefreshToken, verifyToken } from '../utils/token.js';
 import { createEvent } from './notification.service.js';
@@ -10,6 +11,46 @@ const createSession = (user) => ({
   accessToken: signAccessToken(user._id.toString(), user.role),
   refreshToken: signRefreshToken(user._id.toString()),
 });
+
+const getSessionUser = async (userId) => {
+  const [user] = await User.aggregate([
+    { $match: { _id: new mongoose.Types.ObjectId(String(userId)) } },
+    {
+      $project: {
+        name: 1,
+        email: 1,
+        username: 1,
+        phone: 1,
+        bio: 1,
+        location: 1,
+        role: 1,
+        isActive: 1,
+        isDemo: 1,
+        lastLoginAt: 1,
+        preferences: 1,
+        enrolledCourses: 1,
+        stats: 1,
+        createdAt: 1,
+        updatedAt: 1,
+        avatar: {
+          $cond: [
+            { $regexMatch: { input: { $ifNull: ['$avatar', ''] }, regex: /^data:image\//i } },
+            {
+              $concat: [
+                '/api/v1/users/',
+                { $toString: '$_id' },
+                '/avatar?v=',
+                { $toString: { $ifNull: [{ $toLong: '$updatedAt' }, 0] } },
+              ],
+            },
+            '$avatar',
+          ],
+        },
+      },
+    },
+  ]);
+  return user ?? null;
+};
 
 const getGoogleProfileName = (name, email) => {
   const providedName = typeof name === 'string' ? name.trim() : '';
@@ -54,7 +95,7 @@ export const register = async ({ name, email, password }) => {
 };
 
 export const login = async ({ email, password }) => {
-  const user = await User.findOne({ email }).select('+password');
+  const user = await User.findOne({ email }).select('+password -avatar -cart -wishlist -learningActivityDates');
 
   if (!user?.password) {
     throw new ApiError(401, 'Invalid email or password');
@@ -73,7 +114,7 @@ export const login = async ({ email, password }) => {
   user.lastLoginAt = new Date();
   await user.save({ validateBeforeSave: false });
 
-  return createSession(user);
+  return createSession(await getSessionUser(user._id));
 };
 
 export const loginWithGoogleIdentity = async (identity) => {
@@ -184,7 +225,7 @@ export const refresh = async (token) => {
     throw new ApiError(401, 'Invalid token', [], 'TOKEN_INVALID');
   }
 
-  const user = await User.findById(decoded.sub);
+  const user = await getSessionUser(decoded.sub);
 
   if (!user || !user.isActive) {
     throw new ApiError(401, 'Invalid token', [], 'TOKEN_INVALID');
@@ -200,7 +241,7 @@ export const restoreSession = async ({ accessToken, refreshToken }) => {
   if (accessToken) {
     try {
       const decoded = verifyToken(accessToken, 'access');
-      const user = decoded.sub ? await User.findById(decoded.sub) : null;
+      const user = decoded.sub ? await getSessionUser(decoded.sub) : null;
 
       if (user?.isActive) {
         return { user, accessToken: null, refreshToken: null };

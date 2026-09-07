@@ -40,13 +40,14 @@ export default function AdminDashboardPage() {
   const [refreshing, setRefreshing] = useState(false)
   const requestId = useRef(0)
   const recentRequestId = useRef({ orders: 0, users: 0 })
+  const recentPage = useRef({ orders: 1, users: 1 })
   const [orderPage, setOrderPage] = useState(1)
   const [userPage, setUserPage] = useState(1)
   const [recentOrders, setRecentOrders] = useState([])
   const [recentUsers, setRecentUsers] = useState([])
   const [orderPagination, setOrderPagination] = useState(emptyPagination)
   const [userPagination, setUserPagination] = useState(emptyPagination)
-  const [recentLoading, setRecentLoading] = useState({ orders: true, users: true })
+  const [recentLoading, setRecentLoading] = useState({ orders: false, users: false })
   const [recentErrors, setRecentErrors] = useState({ orders: '', users: '' })
 
   const loadDashboard = useCallback(async ({ refresh = false } = {}) => {
@@ -58,7 +59,20 @@ export default function AdminDashboardPage() {
 
     try {
       const response = await getAdminDashboard()
-      if (requestId.current === currentRequest) setDashboard(response?.data ?? null)
+      if (requestId.current === currentRequest) {
+        const data = response?.data ?? null
+        setDashboard(data)
+        if (recentPage.current.orders === 1) {
+          setRecentOrders(Array.isArray(data?.recentOrders) ? data.recentOrders : [])
+          const total = Number(data?.stats?.orders) || 0
+          setOrderPagination({ total, page: 1, pages: Math.max(1, Math.ceil(total / PAGE_SIZE)), limit: PAGE_SIZE })
+        }
+        if (recentPage.current.users === 1) {
+          setRecentUsers(Array.isArray(data?.recentUsers) ? data.recentUsers : [])
+          const total = Number(data?.stats?.users) || 0
+          setUserPagination({ total, page: 1, pages: Math.max(1, Math.ceil(total / PAGE_SIZE)), limit: PAGE_SIZE })
+        }
+      }
     } catch (requestError) {
       if (requestId.current === currentRequest) setError(requestError)
     } finally {
@@ -103,13 +117,17 @@ export default function AdminDashboardPage() {
     }
   }, [])
 
-  useEffect(() => { loadRecent('orders', orderPage) }, [loadRecent, orderPage])
-  useEffect(() => { loadRecent('users', userPage) }, [loadRecent, userPage])
+  const changeRecentPage = (type, page) => {
+    recentPage.current[type] = page
+    if (type === 'orders') setOrderPage(page)
+    else setUserPage(page)
+    loadRecent(type, page)
+  }
 
   const refreshAll = () => {
     loadDashboard({ refresh: true })
-    loadRecent('orders', orderPage)
-    loadRecent('users', userPage)
+    if (orderPage > 1) loadRecent('orders', orderPage)
+    if (userPage > 1) loadRecent('users', userPage)
   }
 
   const stats = dashboard?.stats ?? {}
@@ -163,8 +181,8 @@ export default function AdminDashboardPage() {
           </section>
 
           <div className="admin-recent-grid">
-            <AdminRecentOrders orders={recentOrders} pagination={orderPagination} loading={recentLoading.orders} error={recentErrors.orders} onPageChange={setOrderPage} onRetry={() => loadRecent('orders', orderPage)} />
-            <AdminRecentUsers users={recentUsers} pagination={userPagination} loading={recentLoading.users} error={recentErrors.users} onPageChange={setUserPage} onRetry={() => loadRecent('users', userPage)} />
+            <AdminRecentOrders orders={recentOrders} pagination={orderPagination} loading={recentLoading.orders} error={recentErrors.orders} onPageChange={(page) => changeRecentPage('orders', page)} onRetry={() => loadRecent('orders', orderPage)} />
+            <AdminRecentUsers users={recentUsers} pagination={userPagination} loading={recentLoading.users} error={recentErrors.users} onPageChange={(page) => changeRecentPage('users', page)} onRetry={() => loadRecent('users', userPage)} />
           </div>
         </>
       )}

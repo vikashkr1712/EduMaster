@@ -32,6 +32,15 @@ export const uploadAvatar = async (req, res) => {
   });
 };
 
+export const getAvatar = asyncHandler(async (req, res) => {
+  const { mimeType, image } = await userService.getAvatar(req.params.userId);
+  res.setHeader('Content-Type', mimeType);
+  res.setHeader('Content-Length', image.length);
+  res.setHeader('Cache-Control', 'private, max-age=86400, immutable');
+  res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
+  res.status(200).send(image);
+});
+
 export const changePassword = asyncHandler(async (req, res) => {
   await userService.changePassword(req.user.id, req.body.currentPassword, req.body.newPassword);
   res.status(200).json(new ApiResponse(200, 'Password changed successfully'));

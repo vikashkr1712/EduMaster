@@ -1,6 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { getCurrentUser, getSession, googleLogin as googleLoginRequest, login as loginRequest, logout as logoutRequest, register as registerRequest } from '../../api/auth.js'
+import { getSession, googleLogin as googleLoginRequest, login as loginRequest, logout as logoutRequest, register as registerRequest } from '../../api/auth.js'
 import { AUTH_SESSION_MISMATCH_EVENT } from '../../api/client.js'
 
 const AuthContext = createContext(null)
@@ -77,7 +77,7 @@ export function AuthProvider({ children }) {
     let currentUser = null
 
     try {
-      const response = await getCurrentUser()
+      const response = await getSession()
       currentUser = getUserFromResponse(response)
     } catch (error) {
       if (canCommitAuthState(requestId)) {
@@ -151,18 +151,19 @@ export function AuthProvider({ children }) {
     authRequestId.current = requestId
 
     try {
-      await loginRequest(credentials)
+      const response = await loginRequest(credentials)
+      const currentUser = getUserFromResponse(response)
+      if (!canCommitAuthState(requestId)) return null
+      setUser(currentUser)
+      setSessionHint(Boolean(currentUser))
+      setIsLoading(false)
+      notifyOtherTabs()
+      return currentUser
     } catch (error) {
       if (canCommitAuthState(requestId)) setIsLoading(false)
       throw error
     }
-
-    if (!canCommitAuthState(requestId)) return null
-    const currentUser = await loadCurrentUser()
-    setSessionHint(Boolean(currentUser))
-    notifyOtherTabs()
-    return currentUser
-  }, [canCommitAuthState, loadCurrentUser, notifyOtherTabs, setSessionHint])
+  }, [canCommitAuthState, notifyOtherTabs, setSessionHint])
 
   const googleLogin = useCallback(async () => {
     const requestId = authRequestId.current + 1
@@ -173,7 +174,14 @@ export function AuthProvider({ children }) {
       firebaseClient = await getFirebaseClient()
       const result = await firebaseClient.signInWithPopup(firebaseClient.firebaseAuth, firebaseClient.googleProvider)
       const idToken = await result.user.getIdToken()
-      await googleLoginRequest({ idToken })
+      const response = await googleLoginRequest({ idToken })
+      const currentUser = getUserFromResponse(response)
+      if (!canCommitAuthState(requestId)) return null
+      setUser(currentUser)
+      setSessionHint(Boolean(currentUser))
+      setIsLoading(false)
+      notifyOtherTabs()
+      return currentUser
     } catch (error) {
       if (firebaseClient?.firebaseAuth.currentUser) {
         await firebaseClient.signOutFromFirebase(firebaseClient.firebaseAuth).catch(() => {})
@@ -182,12 +190,7 @@ export function AuthProvider({ children }) {
       throw normalizeGoogleAuthError(error)
     }
 
-    if (!canCommitAuthState(requestId)) return null
-    const currentUser = await loadCurrentUser()
-    setSessionHint(Boolean(currentUser))
-    notifyOtherTabs()
-    return currentUser
-  }, [canCommitAuthState, loadCurrentUser, notifyOtherTabs, setSessionHint])
+  }, [canCommitAuthState, notifyOtherTabs, setSessionHint])
 
   const signup = useCallback(async (details) => {
     const requestId = authRequestId.current + 1

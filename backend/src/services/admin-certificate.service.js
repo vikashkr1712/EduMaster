@@ -10,8 +10,8 @@ const escapeRegex = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 const assertId = (id) => { if (!mongoose.isValidObjectId(id)) throw new ApiError(400, 'Invalid certificate ID'); };
 
 const relationStages = [
-  { $lookup: { from: User.collection.name, localField: 'user', foreignField: '_id', as: 'studentDoc' } },
-  { $lookup: { from: Course.collection.name, localField: 'course', foreignField: '_id', as: 'courseDoc' } },
+  { $lookup: { from: User.collection.name, localField: 'user', foreignField: '_id', pipeline: [{ $project: { name: 1, email: 1 } }], as: 'studentDoc' } },
+  { $lookup: { from: Course.collection.name, localField: 'course', foreignField: '_id', pipeline: [{ $project: { title: 1 } }], as: 'courseDoc' } },
   { $set: { studentDoc: { $arrayElemAt: ['$studentDoc', 0] }, courseDoc: { $arrayElemAt: ['$courseDoc', 0] } } },
   { $set: { studentName: { $ifNull: ['$studentDoc.name', 'Student unavailable'] }, studentEmail: { $ifNull: ['$studentDoc.email', 'Email unavailable'] }, courseTitle: { $ifNull: ['$courseDoc.title', 'Course unavailable'] } } },
 ];

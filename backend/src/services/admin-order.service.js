@@ -4,6 +4,7 @@ import CourseEnrollment from '../models/CourseEnrollment.js';
 import User from '../models/User.js';
 import Course from '../models/Course.js';
 import { ApiError } from '../utils/ApiError.js';
+import { avatarReferenceExpression, toAvatarReference } from '../utils/avatar.js';
 
 const escapeRegex = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 const objectId = (value, message) => {
@@ -42,10 +43,21 @@ export const getAdminOrders = async (query = {}) => {
     amountAsc: { amount: 1, createdAt: -1 },
   };
   const sort = sorts[query.sort] || sorts.newest;
+  const studentStages = [
+    {
+      $lookup: {
+        from: User.collection.name,
+        localField: 'user',
+        foreignField: '_id',
+        pipeline: [{ $project: { name: 1, email: 1, avatar: avatarReferenceExpression() } }],
+        as: 'student',
+      },
+    },
+    { $unwind: { path: '$student', preserveNullAndEmptyArrays: true } },
+  ];
 
   const [result] = await Order.aggregate([
-    { $lookup: { from: User.collection.name, localField: 'user', foreignField: '_id', as: 'student' } },
-    { $unwind: { path: '$student', preserveNullAndEmptyArrays: true } },
+    ...(search ? studentStages : []),
     {
       $facet: {
         orders: [
@@ -53,6 +65,7 @@ export const getAdminOrders = async (query = {}) => {
           { $sort: sort },
           { $skip: (page - 1) * limit },
           { $limit: limit },
+          ...(!search ? studentStages : []),
           {
             $lookup: {
               from: CourseEnrollment.collection.name,
@@ -109,10 +122,11 @@ export const getAdminOrder = async (value) => {
   const filter = mongoose.isValidObjectId(identifier) ? { _id: identifier } : { orderNumber: identifier };
   const order = await Order.findOne(filter)
     .select('_id user courses items orderNumber subtotal courseDiscount coupon tax amount paymentMethod paymentStatus createdAt updatedAt')
-    .populate('user', '_id name email avatar')
+    .populate('user', '_id name email avatar updatedAt')
     .populate('courses', '_id title slug instructor thumbnail')
     .lean();
   if (!order) throw new ApiError(404, 'Order not found');
+  order.user = toAvatarReference(order.user);
   const enrollments = await CourseEnrollment.find({ order: order._id })
     .select('_id course progress percentageCompleted completedAt enrolledAt')
     .populate('course', '_id title slug')
@@ -145,14 +159,45 @@ export const getAdminEnrollments = async (query = {}) => {
   };
   const sort = sorts[query.sort] || sorts.newest;
 
+  const studentLookup = {
+    $lookup: {
+      from: User.collection.name,
+      localField: 'user',
+      foreignField: '_id',
+      pipeline: [{ $project: { name: 1, email: 1, avatar: avatarReferenceExpression() } }],
+      as: 'student',
+    },
+  };
+  const courseLookup = {
+    $lookup: {
+      from: Course.collection.name,
+      localField: 'course',
+      foreignField: '_id',
+      pipeline: [{ $project: { title: 1, slug: 1, instructor: 1 } }],
+      as: 'course',
+    },
+  };
+  const orderLookup = {
+    $lookup: {
+      from: Order.collection.name,
+      localField: 'order',
+      foreignField: '_id',
+      pipeline: [{ $project: { orderNumber: 1 } }],
+      as: 'order',
+    },
+  };
+  const relationStages = [
+    studentLookup,
+    { $unwind: { path: '$student', preserveNullAndEmptyArrays: true } },
+    courseLookup,
+    { $unwind: { path: '$course', preserveNullAndEmptyArrays: true } },
+    orderLookup,
+    { $unwind: { path: '$order', preserveNullAndEmptyArrays: true } },
+  ];
+
   const [result] = await CourseEnrollment.aggregate([
     { $addFields: { progressValue: progressExpression } },
-    { $lookup: { from: User.collection.name, localField: 'user', foreignField: '_id', as: 'student' } },
-    { $unwind: { path: '$student', preserveNullAndEmptyArrays: true } },
-    { $lookup: { from: Course.collection.name, localField: 'course', foreignField: '_id', as: 'course' } },
-    { $unwind: { path: '$course', preserveNullAndEmptyArrays: true } },
-    { $lookup: { from: Order.collection.name, localField: 'order', foreignField: '_id', as: 'order' } },
-    { $unwind: { path: '$order', preserveNullAndEmptyArrays: true } },
+    ...(search ? relationStages : []),
     {
       $facet: {
         enrollments: [
@@ -160,6 +205,7 @@ export const getAdminEnrollments = async (query = {}) => {
           { $sort: sort },
           { $skip: (page - 1) * limit },
           { $limit: limit },
+          ...(!search ? relationStages : []),
           {
             $project: {
               student: { _id: '$student._id', name: '$student.name', email: '$student.email', avatar: '$student.avatar' },
@@ -199,11 +245,12 @@ export const getAdminEnrollment = async (value) => {
   const id = objectId(value, 'Enrollment not found');
   const enrollment = await CourseEnrollment.findById(id)
     .select('_id user course order progress percentageCompleted currentLesson currentModule completedLessons completedModules watchTime bookmarks quizReadyLessons enrolledAt completedAt lastWatched lastWatchedAt createdAt updatedAt')
-    .populate('user', '_id name email avatar')
+    .populate('user', '_id name email avatar updatedAt')
     .populate('course', '_id title slug instructor thumbnail modules.moduleId modules.lessons.lessonId')
     .populate('order', '_id orderNumber paymentStatus paymentMethod amount')
     .lean();
   if (!enrollment) throw new ApiError(404, 'Enrollment not found');
+  enrollment.user = toAvatarReference(enrollment.user);
 
   const course = enrollment.course;
   const totalLessons = course?.modules?.reduce((total, module) => total + (module.lessons?.length || 0), 0) || 0;

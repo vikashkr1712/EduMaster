@@ -9,6 +9,7 @@ const router = Router();
 router.get('/profile', authenticate, userController.getProfile);
 router.patch('/profile', authenticate, validate(updateProfileSchema), userController.updateProfile);
 router.patch('/profile/avatar', authenticate, validate(uploadAvatarSchema), userController.uploadAvatar);
+router.get('/:userId/avatar', authenticate, userController.getAvatar);
 router.patch('/password', authenticate, validate(changePasswordSchema), userController.changePassword);
 router.get('/wishlist', authenticate, userController.getWishlist);
 router.post('/wishlist', authenticate, userController.addToWishlist);

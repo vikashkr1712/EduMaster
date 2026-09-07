@@ -133,11 +133,20 @@ userSchema.methods.comparePassword = async function (plainPassword) {
 
 userSchema.methods.toJSON = function () {
   const user = this.toObject();
+  // Keep large database-backed avatars out of JSON responses. The versioned
+  // image endpoint lets profile photos load independently and be browser-cached
+  // instead of blocking session restoration with a megabyte-sized payload.
+  if (typeof user.avatar === 'string' && user.avatar.startsWith('data:image/')) {
+    const version = user.updatedAt instanceof Date ? `?v=${user.updatedAt.getTime()}` : '';
+    user.avatar = `/api/v1/users/${user._id}/avatar${version}`;
+  }
   delete user.password;
   delete user.firebaseUid;
   delete user.__v;
   return user;
 };
+
+userSchema.index({ createdAt: -1 });
 
 const User = mongoose.model('User', userSchema);
 

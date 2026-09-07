@@ -114,6 +114,19 @@ export const uploadAvatar = async (userId, dataUrl) => {
   return user;
 };
 
+export const getAvatar = async (userId) => {
+  if (!mongoose.isValidObjectId(userId)) throw new ApiError(404, 'Profile photo not found');
+
+  const user = await User.findById(userId).select('avatar').lean();
+  const match = avatarDataUrlPattern.exec(user?.avatar || '');
+  if (!match) throw new ApiError(404, 'Profile photo not found');
+
+  return {
+    mimeType: match[1].toLowerCase(),
+    image: Buffer.from(match[2], 'base64'),
+  };
+};
+
 const populateWishlist = (query) => query.populate('wishlist');
 
 const getWishlistUser = async (userId) => {

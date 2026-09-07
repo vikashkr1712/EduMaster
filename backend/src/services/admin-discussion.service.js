@@ -3,6 +3,7 @@ import Course from '../models/Course.js';
 import Discussion from '../models/Discussion.js';
 import User from '../models/User.js';
 import { ApiError } from '../utils/ApiError.js';
+import { avatarReferenceExpression, toAvatarReference } from '../utils/avatar.js';
 
 const SORTS = {
   newest: { createdAt: -1, _id: -1 },
@@ -17,7 +18,7 @@ const assertId = (id, label = 'discussion') => {
 };
 
 const relationStages = [
-  { $lookup: { from: User.collection.name, localField: 'author', foreignField: '_id', as: 'authorDoc' } },
+  { $lookup: { from: User.collection.name, localField: 'author', foreignField: '_id', pipeline: [{ $project: { name: 1, email: 1, avatar: avatarReferenceExpression() } }], as: 'authorDoc' } },
   { $lookup: { from: Course.collection.name, localField: 'course', foreignField: '_id', as: 'courseDoc' } },
   {
     $set: {
@@ -161,8 +162,8 @@ export const getDiscussions = async (query = {}) => {
 export const getDiscussion = async (id) => {
   assertId(id);
   const discussion = await Discussion.findById(id)
-    .populate('author', 'name email avatar')
-    .populate('replies.author', 'name email avatar')
+    .populate('author', 'name email avatar updatedAt')
+    .populate('replies.author', 'name email avatar updatedAt')
     .populate('course', 'title slug modules')
     .lean();
   if (!discussion) throw new ApiError(404, 'Discussion not found');
@@ -174,7 +175,7 @@ export const getDiscussion = async (id) => {
     _id: discussion._id,
     question: discussion.question,
     lessonId: discussion.lessonId,
-    author: discussion.author,
+    author: toAvatarReference(discussion.author),
     course: course ? { _id: course._id, title: course.title, slug: course.slug } : null,
     lesson: {
       lessonId: discussion.lessonId,
@@ -185,7 +186,7 @@ export const getDiscussion = async (id) => {
     likesCount: discussion.likes?.length ?? 0,
     replies: (discussion.replies ?? []).map((reply) => ({
       _id: reply._id,
-      author: reply.author,
+      author: toAvatarReference(reply.author),
       message: reply.message,
       likesCount: reply.likes?.length ?? 0,
       createdAt: reply.createdAt,

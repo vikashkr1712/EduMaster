@@ -46,6 +46,8 @@ const courseEnrollmentSchema = new mongoose.Schema(
 );
 
 courseEnrollmentSchema.index({ user: 1, course: 1 }, { unique: true });
+courseEnrollmentSchema.index({ order: 1 });
+courseEnrollmentSchema.index({ enrolledAt: -1 });
 
 courseEnrollmentSchema.methods.toJSON = function () {
   const enrollment = this.toObject();

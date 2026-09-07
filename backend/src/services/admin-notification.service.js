@@ -4,6 +4,7 @@ import CourseEnrollment from '../models/CourseEnrollment.js';
 import Notification from '../models/Notification.js';
 import User from '../models/User.js';
 import { ApiError } from '../utils/ApiError.js';
+import { avatarReferenceExpression } from '../utils/avatar.js';
 
 const SORTS = { newest: { createdAt: -1, _id: -1 }, oldest: { createdAt: 1, _id: 1 }, titleAsc: { title: 1, _id: 1 } };
 const escapeRegex = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -69,7 +70,15 @@ export const getAdminNotification = async (id, query = {}) => {
   const [notification, counts, recipients, recipientTotal] = await Promise.all([
     Notification.findOne({ campaign }).populate('createdBy', 'name email').populate('course', 'title').lean(),
     Notification.aggregate([{ $match: { campaign } }, { $group: { _id: null, recipientCount: { $sum: 1 }, readCount: { $sum: { $cond: ['$read', 1, 0] } }, unreadCount: { $sum: { $cond: ['$read', 0, 1] } } } }, { $project: { _id: 0 } }]),
-    Notification.find({ campaign }).select('user read readAt archived createdAt').populate('user', 'name email avatar').sort({ createdAt: 1, _id: 1 }).skip((recipientPage - 1) * recipientLimit).limit(recipientLimit).lean(),
+    Notification.aggregate([
+      { $match: { campaign } },
+      { $sort: { createdAt: 1, _id: 1 } },
+      { $skip: (recipientPage - 1) * recipientLimit },
+      { $limit: recipientLimit },
+      { $lookup: { from: User.collection.name, localField: 'user', foreignField: '_id', pipeline: [{ $project: { name: 1, email: 1, avatar: avatarReferenceExpression() } }], as: 'user' } },
+      { $set: { user: { $arrayElemAt: ['$user', 0] } } },
+      { $project: { user: 1, read: 1, readAt: 1, archived: 1, createdAt: 1 } },
+    ]),
     Notification.countDocuments({ campaign }),
   ]);
   if (!notification) throw new ApiError(404, 'Notification not found');
@@ -119,7 +128,12 @@ export const getAdminNotificationOptions = async (query = {}) => {
   if (search) { const pattern = new RegExp(escapeRegex(search), 'i'); studentMatch.$or = [{ name: pattern }, { email: pattern }]; }
   const [courses, students] = await Promise.all([
     Course.find({}).select('title').sort({ title: 1 }).lean(),
-    User.find(studentMatch).select('name email avatar').sort({ name: 1 }).limit(10).lean(),
+    User.aggregate([
+      { $match: studentMatch },
+      { $sort: { name: 1, _id: 1 } },
+      { $limit: 10 },
+      { $project: { name: 1, email: 1, avatar: avatarReferenceExpression() } },
+    ]),
   ]);
   return { courses, students };
 };
