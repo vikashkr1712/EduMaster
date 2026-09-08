@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
+import { clearAdminCache } from '../../api/admin.js'
 import AdminHeader from './AdminHeader.jsx'
 import AdminSidebar from './AdminSidebar.jsx'
 import '../../pages/Admin/AdminDashboard.css'
@@ -8,6 +9,8 @@ import './AdminTheme.css'
 export default function AdminLayout() {
   const [navigationOpen, setNavigationOpen] = useState(false)
   const location = useLocation()
+
+  useEffect(() => () => clearAdminCache(), [])
 
   useEffect(() => setNavigationOpen(false), [location.pathname])
 

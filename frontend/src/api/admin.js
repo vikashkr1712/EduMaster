@@ -1,8 +1,46 @@
-import { client } from './client.js'
+import { client as request } from './client.js'
 
 const API_BASE_URL = import.meta.env.VITE_API_URL?.replace(/\/$/, '') || ''
+const ADMIN_CACHE_TTL_MS = 5 * 60 * 1000
+const ADMIN_CACHE_MAX_ENTRIES = 100
+const adminResponseCache = new Map()
+let adminCacheGeneration = 0
 
-export const getAdminDashboard = () => client('/admin/dashboard')
+export const clearAdminCache = () => {
+  adminResponseCache.clear()
+  adminCacheGeneration += 1
+}
+
+const cacheResponse = (key, response) => {
+  if (adminResponseCache.size >= ADMIN_CACHE_MAX_ENTRIES && !adminResponseCache.has(key)) {
+    adminResponseCache.delete(adminResponseCache.keys().next().value)
+  }
+  adminResponseCache.set(key, { response, expiresAt: Date.now() + ADMIN_CACHE_TTL_MS })
+  return response
+}
+
+const client = (path, options = {}) => {
+  const { forceRefresh = false, ...requestOptions } = options
+  const method = (requestOptions.method || 'GET').toUpperCase()
+
+  if (method !== 'GET') {
+    return request(path, requestOptions).then((response) => {
+      clearAdminCache()
+      return response
+    })
+  }
+
+  const cached = adminResponseCache.get(path)
+  if (!forceRefresh && cached?.expiresAt > Date.now()) return Promise.resolve(cached.response)
+  if (cached) adminResponseCache.delete(path)
+
+  const requestGeneration = adminCacheGeneration
+  return request(path, requestOptions).then((response) => (
+    requestGeneration === adminCacheGeneration ? cacheResponse(path, response) : response
+  ))
+}
+
+export const getAdminDashboard = (options) => client('/admin/dashboard', options)
 export const getAdminReport = (params) => client(`/admin/reports${toQueryString(params)}`)
 export const getAdminSettings = () => client('/admin/settings')
 export const updateAdminSettings = (payload) => client('/admin/settings', { method: 'PATCH', body: payload })

@@ -58,7 +58,7 @@ export default function AdminDashboardPage() {
     setError(null)
 
     try {
-      const response = await getAdminDashboard()
+      const response = await getAdminDashboard({ forceRefresh: refresh })
       if (requestId.current === currentRequest) {
         const data = response?.data ?? null
         setDashboard(data)
