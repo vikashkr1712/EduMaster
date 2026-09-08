@@ -1,5 +1,4 @@
 // Inline SVG hero illustration for the Courses page.
-// Auto-converted from src/svg/svg_course_imng_bg_removed.svg (background removed).
 // Do not edit paths by hand.
 
 export default function SVGCourse() {

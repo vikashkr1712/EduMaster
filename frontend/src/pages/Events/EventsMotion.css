@@ -1,5 +1,5 @@
 /* Motion layer for the Events page — transform/opacity only, layered after component CSS.
-   Hero SVG paths are targeted by nth-of-type index into EventsHero.jsx (auto-converted, no groups);
+   Hero SVG paths are targeted by nth-of-type index into EventsHero.jsx (no groups);
    regenerate these indexes if the SVG is re-exported. */
 
 /* ---- hero SVG ---- */

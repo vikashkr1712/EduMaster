@@ -1,5 +1,4 @@
 // Inline SVG hero illustration for the Contact page.
-// Auto-converted from src/svg/svg_contact_us.svg
 // The traced full-canvas background path was removed so the
 // illustration blends with the hero section background.
 // Do not edit paths by hand.

@@ -1,6 +1,5 @@
 // Inline SVG illustration for the About Us page.
 // Hero illustration for the About Us page.
-// Auto-converted from src/svg/svg_about_us_img_new.svg
 // Do not edit paths by hand.
 
 export default function AboutHeroIllustration({

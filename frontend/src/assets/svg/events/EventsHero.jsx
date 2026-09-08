@@ -1,5 +1,4 @@
 // Inline SVG hero illustration for the Events page.
-// Auto-converted from src/svg/svg_programs.svg
 // Do not edit paths by hand.
 
 export default function EventsHero() {

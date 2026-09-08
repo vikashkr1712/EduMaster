@@ -1,6 +1,5 @@
 // Inline SVG illustration for the About Us page.
 // Our Story illustration for the About Us page.
-// Auto-converted from src/svg/svg_earth.svg
 // Do not edit paths by hand.
 
 export default function AboutStoryIllustration({

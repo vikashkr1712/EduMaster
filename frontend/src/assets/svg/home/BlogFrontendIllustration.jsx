@@ -1,6 +1,5 @@
 // Inline SVG illustration for the Home page.
 // Blog card illustration (frontend article) for the Home page.
-// Auto-converted from src/svg/svg_latest_article_insights_left.svg
 // Do not edit paths by hand.
 
 export default function BlogFrontendIllustration({

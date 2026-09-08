@@ -1,13 +1,13 @@
 # EduMaster
 
-> Modern, responsive EdTech platform built with React and Vite.
+> Full-stack learning platform built with React, Vite, Express, and MongoDB.
 
 ![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-5-646CFF?logo=vite&logoColor=white)
 ![Framer Motion](https://img.shields.io/badge/Framer%20Motion-Configured-0055FF)
-![Status](https://img.shields.io/badge/Status-Frontend%20Complete-success)
+![Status](https://img.shields.io/badge/Status-Full%20Stack-success)
 
-EduMaster is an educational-platform frontend for presenting courses, events, services, learner stories, and account entry screens. Its main objective is to provide a polished, navigable learning-platform experience with local content and interactive course discovery.
+EduMaster is a full-stack educational platform for course discovery, enrolment, learning, quizzes, assignments, certificates, events, notifications, and administration.
 
 ## Table of Contents
 
@@ -47,19 +47,18 @@ Pages available for screenshots (images are not embedded in this README):
 - Services page with service cards, pricing, process, statistics, and an expandable FAQ
 - Home-page sections for featured courses, learner testimonials, partners, articles, calls to action, and newsletter signup UI
 - Dedicated testimonials, about, and contact pages
-- Login and signup form UI, including social sign-in buttons and password visibility controls
+- Email/password and Google authentication with protected learner and administrator routes
+- Backend APIs for courses, enrolments, learning progress, quizzes, assignments, orders, certificates, and notifications
 - Local SVG illustrations and inline SVG icons
 - Framer Motion and CSS animations with reduced-motion support
-
-> Authentication, newsletter submission, and social sign-in are UI-only; this project does not include a backend integration.
 
 ## Tech Stack
 
 | Area | Technology |
 | --- | --- |
 | Frontend | React 18 |
-| Backend | Not included |
-| Database | Not included |
+| Backend | Node.js and Express |
+| Database | MongoDB with Mongoose |
 | Routing | React Router DOM |
 | Animation | Framer Motion (already configured) and CSS animations |
 | Icons | Project-local inline SVG icons and React SVG components |
@@ -107,12 +106,12 @@ frontend/src/
 │   ├── Services/
 │   └── Testimonials/
 ├── styles/
-├── svg/
+├── utils/
 ├── App.jsx
 └── main.jsx
 ```
 
-The project does not currently contain `hooks/` or `utils/` directories. See [PROJECT_STRUCTURE.md](PROJECT_STRUCTURE.md) for a contributor-focused architecture guide.
+Backend controllers, routes, services, models, validation, middleware, and utilities are organized under `backend/src/`.
 
 ## Project Structure Explanation
 
@@ -123,7 +122,8 @@ The project does not currently contain `hooks/` or `utils/` directories. See [PR
 | `frontend/src/data/` | Local data used for courses, services, events, testimonials, contact, about, and auth content. |
 | `frontend/src/pages/` | Route-level page compositions. The Events route is implemented in `frontend/src/pages/Events/`. |
 | `frontend/src/styles/` | Global styles, CSS variables, and shared responsive rules. |
-| `frontend/src/svg/` | Standalone SVG illustration files. |
+| `frontend/src/utils/` | Shared frontend helpers for quizzes, reports, motion, and video URLs. |
+| `backend/src/` | Express API implementation, data models, validation, middleware, and services. |
 | `frontend/src/App.jsx` | Browser-router and route definitions. |
 | `frontend/src/main.jsx` | React application entry point and global-style imports. |
 
@@ -132,9 +132,19 @@ The project does not currently contain `hooks/` or `utils/` directories. See [PR
 ```bash
 git clone https://github.com/vikashkr1712/EduMaster.git
 cd EduMaster
-cd frontend
 npm install
-npm run dev
+npm --prefix frontend install
+npm --prefix backend install
+```
+
+Start the application in two terminals:
+
+```bash
+npm run dev:frontend
+```
+
+```bash
+npm run dev:backend
 ```
 
 Create a production build:
@@ -151,15 +161,16 @@ npm run preview
 
 ## Environment Variables
 
-No environment variables are required or referenced by the current project.
+Environment configuration is stored in `frontend/.env` and `backend/.env`. Review the values for the target environment before starting the application.
 
 ## Available Scripts
 
 | Command | Description |
 | --- | --- |
-| `npm run dev` | Starts the Vite development server. |
+| `npm run dev:frontend` | Starts the frontend development server. |
+| `npm run dev:backend` | Starts the backend development server. |
 | `npm run build` | Creates an optimized production build in `frontend/dist/`. |
-| `npm run preview` | Serves the production build locally for previewing. |
+| `npm --prefix backend test` | Runs the backend test suite. |
 
 ## Routes
 
@@ -201,7 +212,7 @@ Layouts adapt for desktop, tablet, and mobile screens through CSS media queries 
 
 ## SVG Assets
 
-Illustrations are organized in `frontend/src/assets/svg/` by page area (`about`, `auth`, `contact`, `courses`, `events`, `home`, `services`, and `testimonials`). Additional standalone SVG files are kept in `frontend/src/svg/`.
+Illustrations are organized as React SVG components in `frontend/src/assets/svg/` by page area (`about`, `auth`, `contact`, `courses`, `events`, `home`, `services`, and `testimonials`).
 
 ## Development Workflow
 
@@ -227,14 +238,13 @@ As a Vite static frontend, EduMaster can be deployed to platforms such as [Verce
 
 ## Future Improvements
 
-- Connect authentication, social sign-in, and newsletter forms to real services.
-- Load courses, services, events, and testimonials from an API or CMS.
-- Add detail pages and enrolment flows for individual courses.
-- Add automated tests and deployment configuration.
+- Expand browser-level end-to-end coverage.
+- Add deployment automation for the frontend and backend.
+- Add more reporting and course-authoring workflows.
 
 ## Performance Notes
 
-- Route-level lazy loading is not currently implemented; routes are eagerly imported by `App.jsx`.
+- Route-level lazy loading is configured in `App.jsx`.
 - Course filtering and sorting are memoized, and only the current paginated course slice is rendered.
 - The interface uses local SVG assets, avoiding image-network requests for its illustrations.
 - Animations include reduced-motion handling through CSS and Framer Motion hooks.

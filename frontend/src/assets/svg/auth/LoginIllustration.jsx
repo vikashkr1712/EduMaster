@@ -1,5 +1,4 @@
 // Inline SVG illustration for the authentication pages.
-// Auto-converted from src/svg/svg_new_login.svg
 // The traced full-canvas background was removed and the viewBox
 // cropped to the artwork so it blends with the panel background.
 // Do not edit paths by hand.

@@ -1,6 +1,5 @@
 // Inline SVG illustration for the Home page.
 // Hero section illustration for the Home page.
-// Auto-converted from src/svg/svg_hero.svg
 // Do not edit paths by hand.
 
 export default function HeroIllustration({

@@ -1,5 +1,4 @@
 // Inline SVG illustration for the Services page.
-// Auto-converted from src/svg/svg_services_middle_left.svg
 // The traced full-canvas background path was removed so the
 // illustration blends with the section background.
 // Do not edit paths by hand.

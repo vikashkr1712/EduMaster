@@ -1,6 +1,5 @@
 // Inline SVG illustration for the Home page.
 // Why Choose Us section illustration for the Home page.
-// Auto-converted from src/svg/svg_why_choose_us_hero_section.svg
 // Do not edit paths by hand.
 
 export default function WhyChooseIllustration({

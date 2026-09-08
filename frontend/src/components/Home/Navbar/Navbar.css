@@ -164,7 +164,6 @@
   object-fit: cover;
 }
 
-/* SvgMan is inline JSX rather than a second image request. */
 .profile-avatar-image > .svg-man-fallback {
   position: absolute;
   inset: 0;

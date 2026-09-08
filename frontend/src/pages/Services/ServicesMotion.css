@@ -1,5 +1,5 @@
 /* Motion layer for the Services page — transform/opacity only, layered after component CSS.
-   Hero SVG elements are targeted by fill value (auto-converted SVG, no groups):
+   Hero SVG elements are targeted by fill value (inline SVG, no groups):
    greens = plant, golds = certificate/medal, deep blues = chart data. */
 
 /* ---- hero SVG: floating wrapper + breathing artwork ---- */
