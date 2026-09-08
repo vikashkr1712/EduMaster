@@ -18,6 +18,8 @@ screenshots/
 qa-screenshots/final-production-qa/admin-dark-fixes/
 playwright-report/
 test-results/
+*.zip
+frontend/src/ChatGPT Image*.png
 
 **/_*-diagnostic.mjs
 **/_*smoke*.mjs
