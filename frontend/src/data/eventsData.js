@@ -31,6 +31,7 @@ export const eventFeatures = [
 export const popularEvents = [
   {
     id: 1,
+    thumbnail: 'event-development',
     imageType: 'development',
     title: 'Full Stack Web Development Bootcamp',
     description:
@@ -42,6 +43,7 @@ export const popularEvents = [
   },
   {
     id: 2,
+    thumbnail: 'event-data-science',
     imageType: 'datascience',
     title: 'Data Science & Machine Learning Summit',
     description: 'Learn data analysis, machine learning and AI to solve real-world problems.',
@@ -52,6 +54,7 @@ export const popularEvents = [
   },
   {
     id: 3,
+    thumbnail: 'event-design',
     imageType: 'design',
     title: 'UI/UX Design Masterclass',
     description: 'Design beautiful user experiences and interfaces with industry-standard tools.',
@@ -62,6 +65,7 @@ export const popularEvents = [
   },
   {
     id: 4,
+    thumbnail: 'event-marketing',
     imageType: 'marketing',
     title: 'Digital Marketing Workshop',
     description: 'Learn SEO, social media, paid ads and content marketing to grow businesses.',
@@ -72,6 +76,7 @@ export const popularEvents = [
   },
   {
     id: 5,
+    thumbnail: 'event-business',
     imageType: 'business',
     title: 'Business Analytics Workshop',
     description: 'Make data-driven business decisions and drive growth with analytics.',
@@ -82,6 +87,7 @@ export const popularEvents = [
   },
   {
     id: 6,
+    thumbnail: 'event-python',
     imageType: 'python',
     title: 'Python Programming Bootcamp',
     description: 'Learn Python from basics to advanced and build powerful applications.',

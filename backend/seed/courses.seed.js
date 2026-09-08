@@ -24,6 +24,20 @@ const TARGET_FREE = 18
 
 let freeKept = 0
 
+export const courseThumbnailKey = (course) => {
+  const topic = `${course.title || ''} ${course.category || ''}`.toLowerCase()
+
+  if (/natural language processing|\bnlp\b|transformers?/.test(topic)) return 'course-nlp'
+  if (/mobile app|react native|flutter|android|ios/.test(topic)) return 'course-mobile'
+  if (/deep learning|neural|computer vision|pytorch|mlops|machine learning a[–-]z/.test(topic)) return 'course-deep-learning'
+  if (/data science|data analysis|data visualization|statistics|pandas|numpy|tableau|power bi|\bsql\b|\bpython\b/.test(topic)) return 'course-data-science'
+  if (/design|\bui\b|\bux\b|figma|typography|creative|prototyp/.test(topic)) return 'course-design'
+  if (/marketing|seo|social media|copywriting|advertising|branding|campaign/.test(topic)) return 'course-marketing'
+  if (/productivity|time management|personal development|habits?|mindfulness|public speaking|deep work|career/.test(topic)) return 'course-productivity'
+  if (/business|finance|financial|startup|entrepreneur|management|strategy|leadership|valuation|agile|scrum/.test(topic)) return 'course-business'
+  return 'course-development'
+}
+
 export const courseSeeds = courses.map((course, index) => {
   let { price, oldPrice, priceType } = course
 
@@ -57,7 +71,7 @@ export const courseSeeds = courses.map((course, index) => {
     language: index % 6 === 5 ? 'Hindi' : 'English',
     hasCertificate: priceType === 'Paid' || index % 3 === 0,
     isFeatured: course.rating >= 4.8 && index % 5 === 0,
-    thumbnail: course.imageType,
+    thumbnail: courseThumbnailKey(course),
     imageType: course.imageType,
     isPublished: true,
   }

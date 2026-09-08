@@ -1,5 +1,7 @@
 import './CoursesHero.css'
+import { useState } from 'react'
 import SVGCourse from '../../assets/svg/courses/svg_course.jsx'
+import { coursesHeroPhoto } from '../../data/pageImages.js'
 import CoursesStats from './CoursesStats.jsx'
 import { fadeUp, motion, stagger, useReducedMotion } from '../Home/motion.jsx'
 
@@ -14,6 +16,7 @@ function SearchIcon() {
 
 export default function CoursesHero({ search, onSearch }) {
   const reducedMotion = useReducedMotion()
+  const [photoFailed, setPhotoFailed] = useState(false)
 
   return (
     <section className="courses-hero">
@@ -61,7 +64,18 @@ export default function CoursesHero({ search, onSearch }) {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
         >
-          <SVGCourse />
+          {photoFailed ? (
+            <SVGCourse />
+          ) : (
+            <img
+              className="svg-course-inline"
+              src={coursesHeroPhoto}
+              alt="Student learning online with a laptop"
+              decoding="async"
+              style={{ objectFit: 'contain' }}
+              onError={() => setPhotoFailed(true)}
+            />
+          )}
         </motion.div>
       </div>
     </section>

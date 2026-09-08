@@ -1,6 +1,8 @@
 import './HeroSection.css'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import EventsHero from '../../assets/svg/events/EventsHero.jsx'
+import { eventsHeroPhoto } from '../../data/pageImages.js'
 import { fadeUp, motion, stagger, useReducedMotion } from '../Home/motion.jsx'
 
 function ArrowIcon() {
@@ -29,6 +31,7 @@ function PlayCircleIcon() {
 export default function HeroSection() {
   const reducedMotion = useReducedMotion()
   const navigate = useNavigate()
+  const [photoFailed, setPhotoFailed] = useState(false)
 
   return (
     <section className="programs-hero">
@@ -63,7 +66,18 @@ export default function HeroSection() {
         </motion.div>
 
         <motion.div className="programs-hero-illustration" initial={reducedMotion ? false : { opacity: 0, x: 28 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}>
-          <EventsHero />
+          {photoFailed ? (
+            <EventsHero />
+          ) : (
+            <img
+              className="svg-programs-inline"
+              src={eventsHeroPhoto}
+              alt="Student attending an online learning event"
+              decoding="async"
+              style={{ objectFit: 'contain' }}
+              onError={() => setPhotoFailed(true)}
+            />
+          )}
         </motion.div>
       </div>
     </section>

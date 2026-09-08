@@ -1,4 +1,6 @@
+import { useEffect, useState } from 'react'
 import CourseIllustration from '../Courses/CourseIllustrations.jsx'
+import { resolveEventPageImage } from '../../data/pageImages.js'
 import { fadeUp, motion } from '../Home/motion.jsx'
 
 function CalendarIcon() {
@@ -42,6 +44,28 @@ function StarIcon() {
   )
 }
 
+function EventMedia({ event }) {
+  const source = resolveEventPageImage(event)
+  const [failed, setFailed] = useState(false)
+
+  useEffect(() => setFailed(false), [source])
+
+  if (source && !failed) {
+    return (
+      <img
+        src={source}
+        alt={`${event.title} event`}
+        loading="lazy"
+        decoding="async"
+        style={{ display: 'block', width: '100%', height: '100%', objectFit: 'contain' }}
+        onError={() => setFailed(true)}
+      />
+    )
+  }
+
+  return <CourseIllustration type={event.imageType} />
+}
+
 export default function EventCard({ event }) {
   return (
     <motion.article
@@ -51,7 +75,7 @@ export default function EventCard({ event }) {
       transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
     >
       <div className="pcard-media">
-        <CourseIllustration type={event.imageType} />
+        <EventMedia event={event} />
       </div>
 
       <div className="pcard-body">

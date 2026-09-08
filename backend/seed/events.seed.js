@@ -26,7 +26,7 @@ export const eventSeeds = popularEvents.map((event, index) => ({
   category: CATEGORY_BY_IMAGE_TYPE[event.imageType] ?? 'General',
   mode: 'Online',
   speaker: 'EduMaster Team',
-  thumbnail: event.imageType,
+  thumbnail: event.thumbnail,
   imageType: event.imageType,
   duration: event.duration,
   courses: event.courses,

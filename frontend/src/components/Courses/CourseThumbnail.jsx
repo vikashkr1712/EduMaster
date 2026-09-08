@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import CourseIllustration from './CourseIllustrations.jsx'
+import { resolveCoursePageImage } from '../../data/pageImages.js'
 
 const API_BASE_URL = import.meta.env.VITE_API_URL?.replace(/\/$/, '') || ''
 
@@ -44,15 +45,19 @@ export const resolveCourseThumbnailUrl = (value) => {
   try { return new URL(source, `${API_BASE_URL}/`).toString() } catch { return source }
 }
 
-export default function CourseThumbnail({ course = {}, source, alt = '', className = '', preferIllustration = false }) {
+export default function CourseThumbnail({ course = {}, source, alt = '', className = '', preferIllustration = false, preferPageImage = false, objectFit, preserveImageRatio = false }) {
   const thumbnail = source ?? course.thumbnail
-  const resolvedSource = resolveCourseThumbnailUrl(thumbnail)
+  const pageImage = preferPageImage ? resolveCoursePageImage(course, thumbnail, true) : ''
+  const resolvedSource = pageImage || resolveCourseThumbnailUrl(thumbnail)
   const [failed, setFailed] = useState(false)
 
   useEffect(() => setFailed(false), [resolvedSource])
 
   if (!preferIllustration && resolvedSource && !failed) {
-    return <img className={`course-thumbnail-image ${className}`.trim()} src={resolvedSource} alt={alt} loading="lazy" decoding="async" onError={() => setFailed(true)} />
+    const imageStyle = preserveImageRatio
+      ? { width: '100%', aspectRatio: '3 / 2', objectFit: 'fill' }
+      : objectFit ? { objectFit } : undefined
+    return <img className={`course-thumbnail-image ${className}`.trim()} src={resolvedSource} alt={alt} loading="lazy" decoding="async" style={imageStyle} onError={() => setFailed(true)} />
   }
 
   const imageType = getCourseIllustrationType(course)
