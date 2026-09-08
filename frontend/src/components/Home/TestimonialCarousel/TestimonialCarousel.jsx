@@ -1,6 +1,6 @@
 import './TestimonialCarousel.css'
 import { useState } from 'react'
-import ProfileAvatar from '../../common/ProfileAvatar.jsx'
+import HomeAvatar, { homeFaces } from '../HomeAvatar.jsx'
 import { motion, stagger, useReducedMotion } from '../motion.jsx'
 
 function ChatBadgeIcon() {
@@ -60,28 +60,28 @@ const reviews = [
     name: 'Rahul Verma',
     role: 'Software Developer,',
     company: 'TCS',
-    avatar: 'm2',
+    avatar: homeFaces.rohit,
   },
   {
     text: 'The hands-on projects and doubt support helped me master Full Stack Development. Highly recommended!',
     name: 'Priya Mehta',
     role: 'Full Stack Developer,',
     company: 'Infosys',
-    avatar: 'f1',
+    avatar: homeFaces.priya,
   },
   {
     text: 'Great platform for upskilling! The content is practical and very industry-relevant.',
     name: 'Aman Singh',
     role: 'Frontend Developer,',
     company: 'Wipro',
-    avatar: 'm4',
+    avatar: homeFaces.aman,
   },
   {
     text: 'I transitioned from a non-tech background to a Data Analyst. Thank you for the amazing support!',
     name: 'Neha Sharma',
     role: 'Data Analyst,',
     company: 'Accenture',
-    avatar: 'f2',
+    avatar: homeFaces.neha,
   },
 ]
 
@@ -126,7 +126,7 @@ export default function TestimonialCarousel() {
                 </div>
                 <p className="tc-text">{r.text}</p>
                 <div className="tc-person">
-                  <ProfileAvatar name={r.name} variant={r.avatar} size={44} />
+                  <HomeAvatar name={r.name} src={r.avatar} size={44} />
                   <div>
                     <span className="tc-name">{r.name}</span>
                     <span className="tc-role">

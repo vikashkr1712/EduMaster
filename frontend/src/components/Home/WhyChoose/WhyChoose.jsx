@@ -1,5 +1,5 @@
 import './WhyChoose.css'
-import WhyChooseIllustration from '../../../assets/svg/home/WhyChooseIllustration.jsx'
+import whyChoosePhoto from '../../../assets/images/home/why-choose-online-learning.webp'
 import { motion, stagger, useReducedMotion } from '../motion.jsx'
 
 function StarBadgeIcon() {
@@ -152,7 +152,7 @@ export default function WhyChoose() {
         </motion.div>
 
         <motion.div className="whychoose-illustration" initial={reducedMotion ? false : { opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ amount: 0.25 }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
-          <WhyChooseIllustration className="whychoose-illustration-svg" />
+          <img className="whychoose-illustration-svg home-photo" src={whyChoosePhoto} alt="Student studying at her own pace with online learning" width="1403" height="1121" loading="lazy" decoding="async" />
         </motion.div>
       </div>
     </section>

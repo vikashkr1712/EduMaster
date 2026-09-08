@@ -58,9 +58,13 @@
   box-shadow: var(--shadow-card-hover);
 }
 
+.course-media img,
 .course-media svg {
+  display: block;
   width: 100%;
-  height: auto;
+  aspect-ratio: 2 / 1;
+  object-fit: cover;
+  object-position: center;
 }
 
 .course-body {

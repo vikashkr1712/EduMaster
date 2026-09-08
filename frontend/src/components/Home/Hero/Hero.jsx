@@ -1,6 +1,6 @@
 import './Hero.css'
 import { useNavigate } from 'react-router-dom'
-import HeroIllustration from '../../../assets/svg/home/HeroIllustration.jsx'
+import heroPhoto from '../../../assets/images/home/hero-online-learning.webp'
 import { CountUp, MagneticButton, motion, stagger, useReducedMotion } from '../motion.jsx'
 
 export const DEMO_VIDEO_URL = 'https://www.youtube.com/watch?v=zJSY8tbf_ys'
@@ -131,7 +131,7 @@ export default function Hero() {
         </motion.div>
 
         <motion.div className="hero-illustration" initial={reducedMotion ? false : { opacity: 0, x: 28 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}>
-          <HeroIllustration className="hero-illustration-svg" />
+          <img className="hero-illustration-svg home-photo" src={heroPhoto} alt="Student learning online with a laptop" width="1489" height="1056" decoding="async" fetchPriority="high" />
         </motion.div>
       </div>
     </section>

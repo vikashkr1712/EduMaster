@@ -88,6 +88,11 @@
   object-fit: contain;
 }
 
+.blog-media img {
+  object-fit: cover;
+  object-position: center;
+}
+
 .blog-body {
   padding: 18px 22px 22px;
 }

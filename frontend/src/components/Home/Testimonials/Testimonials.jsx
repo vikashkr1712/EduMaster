@@ -1,5 +1,5 @@
 import './Testimonials.css'
-import ProfileAvatar from '../../common/ProfileAvatar.jsx'
+import HomeAvatar, { homeFaces } from '../HomeAvatar.jsx'
 import { motion, stagger, useReducedMotion } from '../motion.jsx'
 
 function QuoteIcon({ color }) {
@@ -32,7 +32,7 @@ const testimonials = [
     text: 'The Full Stack course helped me go from beginner to getting hired by a top product company. The content and projects are amazing!',
     name: 'Rohit Sharma',
     role: 'Full Stack Developer',
-    avatar: 'm1',
+    avatar: homeFaces.rohit,
   },
   {
     quoteTint: '#DCF7E5',
@@ -40,7 +40,7 @@ const testimonials = [
     text: 'The instructors explain complex topics in such a simple way. I got certified and landed my dream job in just 3 months!',
     name: 'Priya Mehta',
     role: 'Data Analyst',
-    avatar: 'f1',
+    avatar: homeFaces.priya,
   },
   {
     quoteTint: '#EDE9FE',
@@ -48,7 +48,7 @@ const testimonials = [
     text: 'Great platform for learning new skills at your own pace. Highly recommended for anyone serious about their career.',
     name: 'Aman Verma',
     role: 'UI/UX Designer',
-    avatar: 'm3',
+    avatar: homeFaces.aman,
   },
 ]
 
@@ -69,14 +69,14 @@ export default function Testimonials() {
           <div className="testimonials-avatars">
             <div className="t-avatar-row">
               {[
-                ['Rohit Sharma', 'm1'],
-                ['Priya Mehta', 'f1'],
-                ['Aman Verma', 'm2'],
-                ['Neha Singh', 'f2'],
-                ['Karan Malhotra', 'm4'],
-              ].map(([name, variant], i) => (
+                ['Rohit Sharma', homeFaces.rohit],
+                ['Priya Mehta', homeFaces.priya],
+                ['Aman Verma', homeFaces.aman],
+                ['Neha Singh', homeFaces.neha],
+                ['Karan Malhotra', homeFaces.karan],
+              ].map(([name, photo], i) => (
                 <span className="t-avatar" style={{ zIndex: 10 - i }} key={name}>
-                  <ProfileAvatar name={name} variant={variant} size={40} />
+                  <HomeAvatar name={name} src={photo} size={40} />
                 </span>
               ))}
               <span className="t-avatar t-avatar-plus">+</span>
@@ -94,7 +94,7 @@ export default function Testimonials() {
               <p className="t-text">{t.text}</p>
               <div className="t-footer">
                 <div className="t-person">
-                  <ProfileAvatar name={t.name} variant={t.avatar} size={44} />
+                  <HomeAvatar name={t.name} src={t.avatar} size={44} />
                   <div>
                     <span className="t-name">{t.name}</span>
                     <span className="t-role">{t.role}</span>

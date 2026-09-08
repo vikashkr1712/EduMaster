@@ -1,8 +1,8 @@
 import './Blog.css'
-import BlogFrontendIllustration from '../../../assets/svg/home/BlogFrontendIllustration.jsx'
-import BlogIllustration2 from '../../../assets/svg/home/BlogIllustration2.jsx'
-import BlogCloudIllustration from '../../../assets/svg/home/BlogCloudIllustration.jsx'
-import BlogDataScienceIllustration from '../../../assets/svg/home/BlogDataScienceIllustration.jsx'
+import frontendPhoto from '../../../assets/images/home/blog-frontend-development.webp'
+import javascriptPhoto from '../../../assets/images/home/blog-javascript-roadmap.webp'
+import cloudPhoto from '../../../assets/images/home/blog-cloud-computing.webp'
+import dataSciencePhoto from '../../../assets/images/home/blog-data-science-tools.webp'
 import { motion, stagger, useReducedMotion } from '../motion.jsx'
 
 function CalendarIcon() {
@@ -25,28 +25,32 @@ function ClockSmallIcon() {
 
 const posts = [
   {
-    illustration: <BlogFrontendIllustration />,
+    image: frontendPhoto,
+    imageAlt: 'Frontend developer coding on a laptop',
     category: 'Web Development',
     title: '10 Tips to Become a Better Frontend Developer',
     date: 'May 15, 2024',
     read: '5 min read',
   },
   {
-    illustration: <BlogIllustration2 />,
+    image: javascriptPhoto,
+    imageAlt: 'Learning roadmap represented by books, graduation cap and laptop',
     category: 'Programming',
     title: 'JavaScript Roadmap for Beginners in 2024',
     date: 'May 10, 2024',
     read: '6 min read',
   },
   {
-    illustration: <BlogCloudIllustration />,
+    image: cloudPhoto,
+    imageAlt: 'Cloud computing architecture displayed on a laptop',
     category: 'Career',
     title: 'Why Cloud Computing Skills Are in High Demand',
     date: 'May 5, 2024',
     read: '4 min read',
   },
   {
-    illustration: <BlogDataScienceIllustration />,
+    image: dataSciencePhoto,
+    imageAlt: 'Students collaborating around a laptop',
     category: 'Data Science',
     title: 'Top Data Science Tools You Should Learn in 2024',
     date: 'Apr 28, 2024',
@@ -89,7 +93,7 @@ export default function Blog() {
         <motion.div className="blog-grid" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ amount: 0.2 }} variants={stagger(0.09)}>
           {posts.map((p) => (
             <motion.article className="blog-card" key={p.title} variants={{ hidden: { opacity: 0, y: 26 }, visible: { opacity: 1, y: 0 } }} transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }} whileHover={reducedMotion ? undefined : { y: -6 }}>
-              <div className="blog-media">{p.illustration}</div>
+              <div className="blog-media"><img className="home-photo" src={p.image} alt={p.imageAlt} width="300" height="130" loading="lazy" decoding="async" /></div>
               <div className="blog-body">
                 <span className="blog-cat">{p.category}</span>
                 <h3 className="blog-card-title">{p.title}</h3>

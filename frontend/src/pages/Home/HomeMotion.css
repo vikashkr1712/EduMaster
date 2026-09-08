@@ -68,8 +68,10 @@
 .home-page .course-card { will-change: transform; }
 .home-page .course-card:hover { transform: translateY(-7px); }
 .home-page .course-media, .home-page .blog-media { overflow: hidden; }
-.home-page .course-media svg, .home-page .blog-media svg { transition: transform .45s cubic-bezier(.22, 1, .36, 1); }
-.home-page .course-card:hover .course-media svg, .home-page .blog-card:hover .blog-media svg { transform: scale(1.06); }
+.home-page .course-media img, .home-page .course-media svg,
+.home-page .blog-media img, .home-page .blog-media svg { transition: transform .45s cubic-bezier(.22, 1, .36, 1); }
+.home-page .course-card:hover .course-media img, .home-page .course-card:hover .course-media svg,
+.home-page .blog-card:hover .blog-media img, .home-page .blog-card:hover .blog-media svg { transform: scale(1.06); }
 .home-page .blog-card, .home-page .tc-card, .home-page .wc-feature { will-change: transform; }
 .home-page .t-card { will-change: transform; }
 .home-page .t-card:hover { transform: translateY(-5px); }
@@ -80,7 +82,8 @@
 .home-page .t-avatar:nth-child(4) { animation-delay: -1.8s; }
 .home-page .t-avatar:nth-child(5) { animation-delay: -2.4s; }
 .home-page .t-avatar:nth-child(6) { animation-delay: -3s; }
-.home-page .t-person svg, .home-page .tc-person > svg { animation: em-float-sm 4.2s ease-in-out infinite; }
+.home-page .t-person > img, .home-page .t-person > svg,
+.home-page .tc-person > img, .home-page .tc-person > svg { animation: em-float-sm 4.2s ease-in-out infinite; }
 
 .home-page .btn-startlearning { transition: transform .2s ease; }
 .home-page .btn-startlearning:hover { transform: translateY(-2px) scale(1.02); }

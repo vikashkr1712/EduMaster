@@ -1,9 +1,9 @@
 import './Courses.css'
 import { useNavigate } from 'react-router-dom'
-import CourseIllustration1 from '../../../assets/svg/home/CourseIllustration1.jsx'
-import CourseIllustration2 from '../../../assets/svg/home/CourseIllustration2.jsx'
-import CourseIllustration3 from '../../../assets/svg/home/CourseIllustration3.jsx'
-import ProfileAvatar from '../../common/ProfileAvatar.jsx'
+import fullStackPhoto from '../../../assets/images/home/course-full-stack-development.webp'
+import dataSciencePhoto from '../../../assets/images/home/course-data-science.webp'
+import uiUxPhoto from '../../../assets/images/home/course-ui-ux-design.webp'
+import HomeAvatar, { homeFaces } from '../HomeAvatar.jsx'
 import { motion, stagger, useReducedMotion } from '../motion.jsx'
 import { useWishlist } from '../../Wishlist/WishlistProvider.jsx'
 
@@ -61,12 +61,13 @@ function UsersIcon() {
 const courses = [
   {
     id: 1,
-    illustration: <CourseIllustration1 />,
+    image: fullStackPhoto,
+    imageAlt: 'Full stack development workspace with code on a laptop',
     category: 'Development',
     categoryClass: 'cat-dev',
     title: 'Full Stack Web Development Bootcamp',
     instructor: 'John Doe',
-    avatar: 'm1',
+    avatar: homeFaces.rohit,
     rating: '4.8',
     reviews: '(2.4K)',
     students: '12,500+ Students',
@@ -75,12 +76,13 @@ const courses = [
   },
   {
     id: 13,
-    illustration: <CourseIllustration2 />,
+    image: dataSciencePhoto,
+    imageAlt: 'Python data science dashboard on a laptop',
     category: 'Data Science',
     categoryClass: 'cat-data',
     title: 'Data Science & Machine Learning with Python',
     instructor: 'Jane Smith',
-    avatar: 'f1',
+    avatar: homeFaces.priya,
     rating: '4.7',
     reviews: '(1.8K)',
     students: '8,750+ Students',
@@ -89,12 +91,13 @@ const courses = [
   },
   {
     id: 25,
-    illustration: <CourseIllustration3 />,
+    image: uiUxPhoto,
+    imageAlt: 'UI and UX designer sketching a mobile product flow',
     category: 'Design',
     categoryClass: 'cat-design',
     title: 'UI/UX Design Masterclass for Beginners',
     instructor: 'Mike Johnson',
-    avatar: 'm2',
+    avatar: homeFaces.karan,
     rating: '4.9',
     reviews: '(1.2K)',
     students: '6,300+ Students',
@@ -124,7 +127,7 @@ export default function Courses() {
           <motion.div className="courses-grid" initial={reducedMotion ? false : 'hidden'} whileInView="visible" viewport={{ amount: 0.18, once: true }} variants={stagger(0.13)}>
             {courses.map((c) => (
               <motion.article className="course-card" key={c.title} variants={{ hidden: { opacity: 0, y: 34, scale: 0.97 }, visible: { opacity: 1, y: 0, scale: 1 } }} transition={{ duration: 0.62, ease: [0.22, 1, 0.36, 1] }} whileHover={reducedMotion ? undefined : { y: -7 }}>
-                <div className="course-media">{c.illustration}</div>
+                <div className="course-media"><img className="home-photo" src={c.image} alt={c.imageAlt} width="380" height="190" loading="lazy" decoding="async" /></div>
                 <div className="course-body">
                   <div className="course-topline">
                     <span className={`course-cat ${c.categoryClass}`}>{c.category}</span>
@@ -132,7 +135,7 @@ export default function Courses() {
                   </div>
                   <h3 className="course-title">{c.title}</h3>
                   <div className="course-instructor">
-                    <ProfileAvatar name={c.instructor} variant={c.avatar} size={32} />
+                    <HomeAvatar name={c.instructor} src={c.avatar} size={32} />
                     <span>{c.instructor}</span>
                   </div>
                   <div className="course-meta">
