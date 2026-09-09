@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import './TestimonialsSection.css'
 import TestimonialCard from './TestimonialCard.jsx'
 import { getTestimonials } from '../../api/testimonial.js'
+import { homeFaces } from '../Home/HomeAvatar.jsx'
 import { motion, useReducedMotion } from '../Home/motion.jsx'
 
 function ArrowNav({ dir }) {
@@ -36,13 +37,18 @@ function usePerPage() {
 const DOT_COUNT = 3
 const TESTIMONIALS_LIMIT = 12
 
-// Backend avatars aren't local SVG variants; cycle variants so faces look distinct
-const AVATAR_VARIANTS = ['m1', 'f1', 'm2', 'f2', 'm3', 'f3', 'm4']
+const TESTIMONIAL_PHOTOS = [
+  homeFaces.rohit,
+  homeFaces.priya,
+  homeFaces.aman,
+  homeFaces.neha,
+  homeFaces.karan,
+]
 
 const toCard = (t, index) => ({
   ...t,
   name: t.studentName ?? t.name,
-  avatar: AVATAR_VARIANTS.includes(t.avatar) ? t.avatar : AVATAR_VARIANTS[index % AVATAR_VARIANTS.length],
+  avatarPhoto: TESTIMONIAL_PHOTOS[index % TESTIMONIAL_PHOTOS.length],
 })
 
 export default function TestimonialsSection() {

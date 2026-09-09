@@ -1,5 +1,7 @@
 import './WhyChooseServices.css'
+import { useState } from 'react'
 import ServicesStudentSvg from '../../assets/svg/services/ServicesStudentSvg.jsx'
+import learnerSuccessImage from '../../assets/images/services/learner-success.webp'
 import { whyChooseFeatures } from '../../data/servicesData.js'
 
 const ICONS = {
@@ -51,11 +53,26 @@ const TINT_BG = {
 }
 
 export default function WhyChooseServices() {
+  const [imageFailed, setImageFailed] = useState(false)
+
   return (
     <section className="swhy">
       <div className="container swhy-inner">
         <div className="swhy-illustration">
-          <ServicesStudentSvg />
+          {imageFailed ? (
+            <ServicesStudentSvg />
+          ) : (
+            <img
+              className="svg-services-inline"
+              src={learnerSuccessImage}
+              alt="A learner building job-ready skills online"
+              width="1448"
+              height="1086"
+              loading="lazy"
+              decoding="async"
+              onError={() => setImageFailed(true)}
+            />
+          )}
         </div>
 
         <div className="swhy-content">

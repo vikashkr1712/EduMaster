@@ -1,4 +1,6 @@
+import { useState } from 'react'
 import AboutHeroIllustration from '../../assets/svg/about/AboutHeroIllustration.jsx'
+import aboutHeroImage from '../../assets/images/about/learning-community-hero.webp'
 import { fadeUp, motion, stagger, useReducedMotion } from '../Home/motion.jsx'
 
 function ArrowIcon() {
@@ -17,6 +19,7 @@ function ArrowIcon() {
 
 export default function AboutHero() {
   const reducedMotion = useReducedMotion()
+  const [imageFailed, setImageFailed] = useState(false)
 
   return (
     <section className="ahero">
@@ -43,7 +46,20 @@ export default function AboutHero() {
         </motion.div>
 
         <motion.div className="ahero-illustration" variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0 } }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}>
-          <AboutHeroIllustration className="svg-about-hero-inline" />
+          {imageFailed ? (
+            <AboutHeroIllustration className="svg-about-hero-inline" />
+          ) : (
+            <img
+              className="svg-about-hero-inline"
+              src={aboutHeroImage}
+              alt="An instructor helping two EduMaster learners"
+              width="1448"
+              height="1086"
+              decoding="async"
+              fetchPriority="high"
+              onError={() => setImageFailed(true)}
+            />
+          )}
         </motion.div>
       </motion.div>
     </section>

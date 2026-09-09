@@ -1,6 +1,8 @@
 import './TestimonialsHero.css'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import TestimonialsHeroIllustration from '../../assets/svg/testimonials/TestimonialsHeroIllustration.jsx'
+import testimonialsHeroImage from '../../assets/images/testimonials/learner-hero.webp'
 import { fadeUp, motion, stagger, useReducedMotion } from '../Home/motion.jsx'
 
 function ArrowIcon() {
@@ -29,6 +31,7 @@ function PlayCircleIcon() {
 export default function TestimonialsHero() {
   const reducedMotion = useReducedMotion()
   const navigate = useNavigate()
+  const [imageFailed, setImageFailed] = useState(false)
 
   return (
     <section className="thero">
@@ -61,7 +64,20 @@ export default function TestimonialsHero() {
         </motion.div>
 
         <motion.div className="thero-illustration" variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0 } }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}>
-          <TestimonialsHeroIllustration />
+          {imageFailed ? (
+            <TestimonialsHeroIllustration />
+          ) : (
+            <img
+              className="svg-testimonials-inline"
+              src={testimonialsHeroImage}
+              alt="An EduMaster learner studying online at her laptop"
+              width="1448"
+              height="1086"
+              decoding="async"
+              fetchPriority="high"
+              onError={() => setImageFailed(true)}
+            />
+          )}
         </motion.div>
       </motion.div>
     </section>

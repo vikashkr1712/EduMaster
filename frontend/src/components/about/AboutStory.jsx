@@ -1,4 +1,6 @@
+import { useState } from 'react'
 import AboutStoryIllustration from '../../assets/svg/about/AboutStoryIllustration.jsx'
+import globalLearningImage from '../../assets/images/about/global-learning-story.webp'
 import WhyChooseUs from './WhyChooseUs.jsx'
 import { fadeUp, motion, stagger, useReducedMotion } from '../Home/motion.jsx'
 
@@ -18,6 +20,7 @@ function ArrowIcon() {
 
 export default function AboutStory() {
   const reducedMotion = useReducedMotion()
+  const [imageFailed, setImageFailed] = useState(false)
 
   return (
     <section className="astory">
@@ -49,7 +52,20 @@ export default function AboutStory() {
 
         <div className="astory-details">
           <motion.div className="astory-illustration" initial={reducedMotion ? false : { opacity: 0, x: 28 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ amount: 0.25 }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
-            <AboutStoryIllustration className="svg-about-story-inline" />
+            {imageFailed ? (
+              <AboutStoryIllustration className="svg-about-story-inline" />
+            ) : (
+              <img
+                className="svg-about-story-inline"
+                src={globalLearningImage}
+                alt="A globe surrounded by education and achievement symbols"
+                width="1448"
+                height="1086"
+                loading="lazy"
+                decoding="async"
+                onError={() => setImageFailed(true)}
+              />
+            )}
           </motion.div>
 
           <WhyChooseUs />

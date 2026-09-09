@@ -1,4 +1,4 @@
-import ProfileAvatar from '../common/ProfileAvatar.jsx'
+import HomeAvatar from '../Home/HomeAvatar.jsx'
 import { motion, useReducedMotion } from '../Home/motion.jsx'
 
 function QuoteIcon() {
@@ -41,7 +41,7 @@ export default function TestimonialCard({ testimonial, index = 0 }) {
       </div>
       <p className="tcard-text">{t.review}</p>
       <div className="tcard-person">
-        <ProfileAvatar name={t.name} variant={t.avatar} size={44} />
+        <HomeAvatar name={t.name} src={t.avatarPhoto} size={44} />
         <div className="tcard-person-copy">
           <span className="tcard-name">{t.name}</span>
           {t.designation && <span className="tcard-role">{t.designation}</span>}

@@ -1,5 +1,7 @@
 import './ContactHero.css'
+import { useState } from 'react'
 import ContactHeroSvgNew from '../../assets/svg/contact/ContactHeroSvgNew.jsx'
+import contactHeroImage from '../../assets/images/contact/support-hero.webp'
 import { heroFeatures } from '../../data/contactData.js'
 import { fadeUp, motion, stagger, useReducedMotion } from '../Home/motion.jsx'
 
@@ -21,6 +23,7 @@ function CheckIcon() {
 
 export default function ContactHero() {
   const reducedMotion = useReducedMotion()
+  const [imageFailed, setImageFailed] = useState(false)
 
   return (
     <section className="chero">
@@ -50,7 +53,20 @@ export default function ContactHero() {
         </motion.div>
 
         <motion.div className="chero-illustration" initial={reducedMotion ? false : { opacity: 0, x: 28 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}>
-          <ContactHeroSvgNew />
+          {imageFailed ? (
+            <ContactHeroSvgNew />
+          ) : (
+            <img
+              className="svg-contact-hero"
+              src={contactHeroImage}
+              alt="An EduMaster support specialist helping a learner"
+              width="1448"
+              height="1086"
+              decoding="async"
+              fetchPriority="high"
+              onError={() => setImageFailed(true)}
+            />
+          )}
         </motion.div>
       </div>
     </section>

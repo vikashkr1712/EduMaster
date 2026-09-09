@@ -1,6 +1,8 @@
 import './ServicesHero.css'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import ServicesHeroSvg from '../../assets/svg/services/ServicesHeroSvg.jsx'
+import servicesHeroImage from '../../assets/images/services/online-learning-hero.webp'
 import { fadeUp, motion, stagger, useReducedMotion } from '../Home/motion.jsx'
 
 function ArrowIcon() {
@@ -30,6 +32,7 @@ function CalendarIcon() {
 export default function ServicesHero() {
   const reducedMotion = useReducedMotion()
   const navigate = useNavigate()
+  const [imageFailed, setImageFailed] = useState(false)
 
   return (
     <section className="shero">
@@ -79,7 +82,20 @@ export default function ServicesHero() {
         </motion.div>
 
         <motion.div className="shero-illustration" initial={reducedMotion ? false : { opacity: 0, x: 28 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}>
-          <ServicesHeroSvg />
+          {imageFailed ? (
+            <ServicesHeroSvg />
+          ) : (
+            <img
+              className="svg-services-inline"
+              src={servicesHeroImage}
+              alt="A learner attending a live online class"
+              width="1448"
+              height="1086"
+              decoding="async"
+              fetchPriority="high"
+              onError={() => setImageFailed(true)}
+            />
+          )}
         </motion.div>
       </div>
     </section>
