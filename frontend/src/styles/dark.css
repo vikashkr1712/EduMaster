@@ -743,14 +743,6 @@
 [data-theme='dark'] .authpanel--admin .authpanel-text,
 [data-theme='dark'] .authpanel--admin .authpanel-feature-text,
 [data-theme='dark'] .authpanel--admin .authpanel-footer { color: var(--text-body); }
-[data-theme='dark'] .authpanel-admin-orb {
-  border-color: var(--border-primary);
-  box-shadow: 0 0 0 54px rgba(20, 34, 56, 0.52);
-}
-[data-theme='dark'] .authpanel-admin-dots {
-  opacity: 0.4;
-  background-image: radial-gradient(circle, var(--border-secondary) 1.6px, transparent 1.8px);
-}
 [data-theme='dark'] .authpanel-stat + .authpanel-stat { border-color: var(--border-primary); }
 [data-theme='dark'] .authcard { color: var(--text-body); background: var(--surface-primary); border-color: var(--border-primary); box-shadow: var(--shadow-card); }
 [data-theme='dark'] .authfield-box,
@@ -758,50 +750,6 @@
 [data-theme='dark'] .authcard-social-btn { color: var(--text-primary); background: var(--bg-tertiary); border-color: var(--border-primary); }
 [data-theme='dark'] .authcard-divider::after { background: var(--divider); }
 [data-theme='dark'] .authcard-divider span { background: var(--surface-primary); }
-
-/* Auth artwork cards. The person, clothing, plants and book colors stay
-   untouched; only the original paper/card surfaces are theme-mapped. */
-[data-theme='dark'] .authpage--login .svg-auth-inline > path:nth-of-type(3),
-[data-theme='dark'] .authpage--login .svg-auth-inline > path:nth-of-type(4),
-[data-theme='dark'] .authpage--login .svg-auth-inline > path:nth-of-type(5),
-[data-theme='dark'] .authpage--login .svg-auth-inline > path:nth-of-type(16),
-[data-theme='dark'] .authpage--login .svg-auth-inline > path:nth-of-type(19),
-[data-theme='dark'] .authpage--login .svg-auth-inline > path:nth-of-type(21),
-[data-theme='dark'] .authpage--login .svg-auth-inline > path:nth-of-type(22),
-[data-theme='dark'] .authpage--login .svg-auth-inline > path:nth-of-type(23),
-[data-theme='dark'] .authpage--login .svg-auth-inline > path:nth-of-type(25),
-[data-theme='dark'] .authpage--login .svg-auth-inline > path:nth-of-type(26),
-[data-theme='dark'] .authpage--login .svg-auth-inline > path:nth-of-type(28),
-[data-theme='dark'] .authpage--login .svg-auth-inline > path:nth-of-type(255),
-[data-theme='dark'] .authpage--login .svg-auth-inline > path:nth-of-type(256),
-[data-theme='dark'] .authpage--login .svg-auth-inline > path:nth-of-type(285),
-[data-theme='dark'] .authpage--signup .svg-auth-inline > path:nth-of-type(3),
-[data-theme='dark'] .authpage--signup .svg-auth-inline > path:nth-of-type(4),
-[data-theme='dark'] .authpage--signup .svg-auth-inline > path:nth-of-type(5),
-[data-theme='dark'] .authpage--signup .svg-auth-inline > path:nth-of-type(20),
-[data-theme='dark'] .authpage--signup .svg-auth-inline > path:nth-of-type(30),
-[data-theme='dark'] .authpage--signup .svg-auth-inline > path:nth-of-type(31) {
-  fill: var(--surface-elevated);
-}
-[data-theme='dark'] .authpage--admin .svg-admin > path:nth-of-type(1) { fill: transparent; }
-
-/* Admin illustration: theme-map the monitor casing and dashboard panels. The
-   keyboard, books, plant and graph colours remain authored artwork. */
-[data-theme='dark'] .authpage--admin .svg-admin > path:nth-of-type(148) {
-  fill: var(--surface-elevated);
-}
-[data-theme='dark'] .authpage--admin .svg-admin > path:nth-of-type(573),
-[data-theme='dark'] .authpage--admin .svg-admin > path:nth-of-type(576),
-[data-theme='dark'] .authpage--admin .svg-admin > path:nth-of-type(577),
-[data-theme='dark'] .authpage--admin .svg-admin > path:nth-of-type(578) {
-  fill: var(--bg-tertiary);
-}
-[data-theme='dark'] .authpage--admin .svg-admin > path:nth-of-type(875),
-[data-theme='dark'] .authpage--admin .svg-admin > path:nth-of-type(876),
-[data-theme='dark'] .authpage--admin .svg-admin > path:nth-of-type(882),
-[data-theme='dark'] .authpage--admin .svg-admin > path:nth-of-type(883) {
-  fill: var(--surface-secondary);
-}
 
 @media (max-width: 1080px) {
   [data-theme='dark'] .dash-sidebar { background: var(--bg-primary); box-shadow: 20px 0 50px rgba(0,0,0,.35); }

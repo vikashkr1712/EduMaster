@@ -1,7 +1,9 @@
 import '../../components/Auth/AuthLayout.css'
 import AuthLeftPanel from '../../components/Auth/AuthLeftPanel.jsx'
+import AuthScene from '../../components/Auth/AuthScene.jsx'
 import LoginCard from '../../components/Auth/LoginCard.jsx'
-import LoginIllustration from '../../assets/svg/auth/LoginIllustration.jsx'
+import loginLightImage from '../../assets/images/auth/login-learner-light.webp'
+import loginDarkImage from '../../assets/images/auth/login-learner-dark.webp'
 import { loginFeatures } from '../../data/authData.js'
 
 export default function LoginPage() {
@@ -19,7 +21,13 @@ export default function LoginPage() {
           }
           description="Login to continue your learning journey and achieve your goals."
           features={loginFeatures}
-          illustration={<LoginIllustration />}
+          illustration={(
+            <AuthScene
+              lightSrc={loginLightImage}
+              darkSrc={loginDarkImage}
+              alt="A student learning online at his laptop"
+            />
+          )}
         />
 
         <div className="authpage-card-col">

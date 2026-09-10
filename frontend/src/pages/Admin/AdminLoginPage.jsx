@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom'
 import AuthLeftPanel from '../../components/Auth/AuthLeftPanel.jsx'
+import AuthScene from '../../components/Auth/AuthScene.jsx'
 import LoginCard from '../../components/Auth/LoginCard.jsx'
 import { AdminLoginIcon } from '../../components/Auth/AuthIcons.jsx'
 import '../../components/Auth/AuthLayout.css'
-import SvgAdmin from '../../assets/svg/SvgAdmin.jsx'
-import { adminIllustration } from '../../config/adminIllustration.config.js'
+import adminLightImage from '../../assets/images/auth/admin-dashboard-light.webp'
+import adminDarkImage from '../../assets/images/auth/admin-dashboard-dark.webp'
 
 const adminFeatures = [
   { id: 'secure', icon: 'shield', tint: 'blue', title: 'Secure Access', text: 'Protected admin area with role-based access' },
@@ -14,17 +15,6 @@ const adminFeatures = [
 ]
 
 export default function AdminLoginPage() {
-  const illustrationStyle = {
-    width: adminIllustration.illustration.width,
-    height: adminIllustration.illustration.height,
-    left: adminIllustration.illustration.x,
-    top: adminIllustration.illustration.y,
-  }
-  const illustrationGroupStyle = {
-    ...illustrationStyle,
-    margin: adminIllustration.illustration.margin,
-  }
-
   return (
     <main className="authpage authpage--admin">
       <div className="authpage-inner">
@@ -35,13 +25,12 @@ export default function AdminLoginPage() {
           description="Sign in to access your dashboard and manage the platform effortlessly."
           features={adminFeatures}
           illustration={
-            <SvgAdmin
-              width={adminIllustration.illustration.width}
-              height={adminIllustration.illustration.height}
+            <AuthScene
+              lightSrc={adminLightImage}
+              darkSrc={adminDarkImage}
+              alt="An EduMaster administration dashboard on a desktop computer"
             />
           }
-          illustrationConfig={adminIllustration}
-          illustrationGroupStyle={illustrationGroupStyle}
           showStats={false}
           footer=""
         />

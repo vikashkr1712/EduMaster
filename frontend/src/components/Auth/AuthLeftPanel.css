@@ -1,4 +1,6 @@
 .authpanel {
+  position: relative;
+  isolation: isolate;
   display: flex;
   flex-direction: column;
   background: linear-gradient(150deg, #ffffff 0%, #f6f9ff 45%, #e9f0fc 100%);
@@ -69,6 +71,8 @@
 }
 
 .authpanel-content {
+  position: relative;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   min-width: 0;
@@ -143,73 +147,37 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  align-self: stretch;
   min-width: 0;
-  /* bleed slightly into the panel padding so the scene
-     renders as large as the reference */
-  margin: 0 -22px 0 -14px;
+  min-height: 520px;
+  margin: -10px -40px -10px -28px;
+  overflow: hidden;
+  border-radius: 24px;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 28%, #000 100%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 28%, #000 100%);
 }
 
-.authpanel-illustration {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-width: 0;
-
-  /* Variables with defaults */
-  --illustration-scale-x: 1;
-  --illustration-scale-y: 1;
-
-  --illustration-offset-x: 0px;
-  --illustration-offset-y: 0px;
-
-  --illustration-origin-x: 50%;
-  --illustration-origin-y: 0%;
-
-  margin: 0 -22px 0 -14px;
-}
-.authpage--login .authpanel-illustration {
-  --illustration-scale-x: 1.10;
-  --illustration-scale-y: 1.70;
-
-  --illustration-offset-x: 0px;
-  --illustration-offset-y: 0px;
-
-  --illustration-origin-x: 50%;
-  --illustration-origin-y: 40%;
+.authpanel-illustration-float {
+  width: 100%;
+  min-height: inherit;
 }
 
-.authpage--signup .authpanel-illustration {
-  --illustration-scale-x: 1.20;
-  --illustration-scale-y: 1.80;
-
-  --illustration-offset-x: 0px;
-  --illustration-offset-y: 0px;
-
-  --illustration-origin-x: 68%;
-  --illustration-origin-y: 30%;
-}
-
-/* the signup panel is taller (four feature rows) — enlarge its
-   illustration more so it reaches the last feature row; growth
-   is biased left/down so the right edge is never clipped */
-.authpanel-illustration .svg-auth-inline {
+.authpanel-photo {
   display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
+  min-height: inherit;
+  border-radius: inherit;
+  object-fit: cover;
+  object-position: 50% center;
+}
 
-  transform:
-    translate(
-      var(--illustration-offset-x),
-      var(--illustration-offset-y)
-    )
-    scale(
-      var(--illustration-scale-x),
-      var(--illustration-scale-y)
-    );
+.authpage--login .authpanel-photo {
+  object-position: 52% center;
+}
 
-  transform-origin:
-    var(--illustration-origin-x)
-    var(--illustration-origin-y);
+.authpage--signup .authpanel-photo {
+  object-position: 50% center;
 }
 
 /* ---- icon tints ---- */
@@ -252,9 +220,7 @@
 
 /* Admin login is a light, integrated illustration variant of the shared panel. */
 .authpanel--admin {
-  position: relative;
-  isolation: isolate;
- background:#FFFFFF;
+  background: #fff;
 }
 
 .authpanel--admin .authpanel-brand-name,
@@ -281,32 +247,8 @@
   padding: 28px 0 10px;
 }
 
-.authpanel--admin .authpanel-illustration .svg-admin {
-    width: 100%;
-    height: 100%;
-    max-width: none;
-    transform: none;
-}
-
 .authpanel--admin .authpanel-illustration {
-  align-self: stretch;
-}
-
-.admin-illustration-group {
-  position: relative;
-  flex: 0 0 auto;
-  max-width: 90%;
-  overflow: visible;
-  transform: translateY(95px) scale(1.18, 1.1);
-  transform-origin: center center;
-}
-
-.authpanel--admin .authpanel-illustration-float {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: visible;
+  min-height: 560px;
 }
 
 .authpanel--admin .authpanel-features {
@@ -315,29 +257,6 @@
 
 .authpanel--admin .authpanel-footer {
   padding-top: 8px;
-}
-
-.authpanel--admin > :not(.authpanel-admin-orb):not(.authpanel-admin-dots) {
-  position: relative;
-  z-index: 1;
-}
-
-.authpanel-admin-orb {
-  position: absolute;
-  z-index: 0;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  border: 1px solid rgba(220, 226, 238, 0.7);
-  box-shadow: 0 0 0 54px rgba(244, 246, 251, 0.62);
-}
-
-.authpanel-admin-dots {
-  position: absolute;
-  z-index: 0;
-  opacity: 0.62;
-  background-image: radial-gradient(circle, #b8c8ef 1.6px, transparent 1.8px);
-  background-size: 16px 16px;
-  mask-image: linear-gradient(110deg, #000, transparent 82%);
 }
 
 .authpanel-stat {
@@ -383,33 +302,6 @@
     font-size: 33px;
   }
 
-  /* less horizontal room — enlarge the illustration less so it
-     never overlaps the feature list text */
- .authpage--login .authpanel-illustration {
-  --illustration-scale-x: 1.25;
-  --illustration-scale-y: 1.60;
-}
-
-.authpage--signup .authpanel-illustration {
-  --illustration-scale-x: 1.38;
-  --illustration-scale-y: 1.75;
-}
-
-
-
-.admin-illustration-group {
-    transform: translateY(105px) scale(1.23,1.33);
-}
-}
-
-
-
-@media (min-width: 1500px) {
-
-    .admin-illustration-group {
-        transform: translateY(100px) scale(1.28,1.36);
-    }
-
 }
 
 @media (max-width: 1180px) {
@@ -436,52 +328,9 @@
     padding: 24px 0 20px;
   }
 
-  /* illustration scales down slightly but stays centered */
   .authpanel-illustration {
-    margin: 0;
-  }
-
-.authpanel-illustration .svg-auth-inline {
-  max-width: 560px;
-}
-
-.authpage--login .authpanel-illustration {
-  --illustration-scale-x: 1.35;
-  --illustration-scale-y: 1.60;
-}
-
-.authpage--signup .authpanel-illustration {
-  --illustration-scale-x: 1.35;
-  --illustration-scale-y: 1.70;
-}
-
-.authpanel--admin .authpanel-illustration {
-  margin: 0;
-}
-
-
-.admin-illustration-group {
-    transform: translateY(105px) scale(1.18,1.28);
-}
-}
-
-@media (max-width: 900px) {
- .authpage--login .authpanel-illustration {
-  --illustration-scale-x: 1.25;
-  --illustration-scale-y: 1.55;
-}
-
-.authpage--signup .authpanel-illustration {
-  --illustration-scale-x: 1.20;
-  --illustration-scale-y: 1.60;
-}
-
-  .authpanel-illustration .svg-auth-inline {
-    max-width: 500px;
-  }
-
-  .admin-illustration-group {
-    transform: translateY(90px) scale(1.12,1.20);
+    min-height: 500px;
+    margin-inline: -20px -28px;
   }
 }
 
@@ -495,8 +344,6 @@
     gap: 26px;
   }
 
-  /* single column — let the copy use the full panel width so
-     the right side doesn't sit empty */
   .authpanel-text {
     max-width: none;
   }
@@ -505,23 +352,23 @@
     max-width: none;
   }
 
-.authpanel-illustration .svg-auth-inline {
-  max-width: 640px;
-}
-
-.authpage--login .authpanel-illustration,
-.authpage--signup .authpanel-illustration {
-  --illustration-scale-x: 1.20;
-  --illustration-scale-y: 1.10;
-
-  --illustration-offset-x: 2px;
-  --illustration-offset-y: 0px;
-}
-
-  .admin-illustration-group {
-    transform: translateY(35px) scale(1.02);
+  .authpanel-illustration,
+  .authpanel--admin .authpanel-illustration {
+    min-height: 0;
+    margin: 0;
+    border-radius: 18px;
+    -webkit-mask-image: none;
+    mask-image: none;
   }
 
+  .authpanel-illustration-float {
+    min-height: 0;
+    aspect-ratio: 16 / 10;
+  }
+
+  .authpanel-photo {
+    min-height: 0;
+  }
 }
 
 /* ---- mobile ---- */
@@ -561,21 +408,6 @@
   .authpanel-feature-text {
     max-width: none;
   }
-
-  .authpanel-illustration {
-    margin: 0;
-  }
-
-.authpage--login .authpanel-illustration,
-.authpage--signup .authpanel-illustration {
-  --illustration-scale-x: 1.10;
-  --illustration-scale-y: 1.10;
-}
-
- .authpanel-admin-orb,
-.authpanel-admin-dots{
-    display:none;
-}
 
   /* statistics become a 2x2 grid */
   .authpanel-stats {

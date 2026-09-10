@@ -85,6 +85,20 @@
   }
 }
 
+/* Signup has one more feature row and a taller form. At intermediate
+   desktop widths, stacking prevents its copy from being squeezed below
+   the photo while preserving the two-column layout on wider screens. */
+@media (max-width: 1280px) {
+  .authpage--signup .authpage-inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 26px;
+  }
+
+  .authpage--signup .authpage-card-col {
+    padding: 8px 0 0;
+  }
+}
+
 @media (max-width: 1180px) {
   .authpage-inner {
     grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);

@@ -15,13 +15,6 @@
 .authpanel-feature:nth-child(5) { animation-delay: 0.6s; }
 
 .authpanel-illustration { animation: auth-fade 0.8s ease 0.25s backwards; }
-.authpanel-illustration-float {
-  animation: em-float 6s ease-in-out infinite;
-}
-
-.authpanel-illustration svg {
-  transform-origin: center;
-}
 
 .authpanel-stat { animation: auth-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) backwards; }
 .authpanel-stat:nth-child(1) { animation-delay: 0.45s; }
@@ -96,21 +89,6 @@
   animation: auth-spin 0.7s linear infinite;
 }
 
-/* ---- illustration groups (targeted by fill; SVG files untouched) ----
-   greens = plants sway, golds = lamp/certificate shine,
-   light-blue decorative dots twinkle in two phases */
-.svg-auth-inline path { transform-box: fill-box; }
-.svg-auth-inline path[fill="#04B97C"],
-.svg-auth-inline path[fill="#05B678"],
-.svg-auth-inline path[fill="#03B372"] { transform-origin: 50% 100%; animation: em-sway 5.5s ease-in-out infinite; }
-.svg-auth-inline path[fill="#FCB405"],
-.svg-auth-inline path[fill="#FB9D04"],
-.svg-auth-inline path[fill="#FDB308"] { animation: em-glow 3s ease-in-out infinite; }
-.svg-auth-inline path[fill="#AEC2FC"],
-.svg-auth-inline path[fill="#A2B9FD"] { animation: em-glow 2.8s ease-in-out infinite; }
-.svg-auth-inline path[fill="#AEC2FC"]:nth-of-type(odd),
-.svg-auth-inline path[fill="#A2B9FD"]:nth-of-type(odd) { animation-delay: -1.4s; }
-
 @keyframes auth-up { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
 @keyframes auth-drop { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: none; } }
 @keyframes auth-fade { from { opacity: 0; } to { opacity: 1; } }
@@ -129,11 +107,10 @@
 
 @media (prefers-reduced-motion: reduce) {
   .authpanel-brand, .authpanel-badge, .authpanel-title, .authpanel-text,
-  .authpanel-feature, .authpanel-illustration, .authpanel-illustration svg,
+  .authpanel-feature, .authpanel-illustration,
   .authpanel-stat, .authpanel-stat-icon,
   .authcard-submit:hover::before,
   .authcard, .authcard > *, .authfield-eye svg, .authcard-check input:checked,
-  .svg-auth-inline path,
   .authfield-box.is-error, .authfield-box.is-success { animation: none !important; }
   .authcard-spinner { animation-duration: 1.5s !important; }
   .authcard-social-btn svg, .authfield-eye,

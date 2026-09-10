@@ -25,36 +25,11 @@ export default function AuthLeftPanel({
   features,
   illustration,
   variant,
-  illustrationConfig,
-  illustrationGroupStyle,
   showStats = true,
   footer,
 }) {
   return (
     <section className={`authpanel${variant ? ` authpanel--${variant}` : ''}`}>
-      {variant === 'admin' && (
-        <>
-          <span
-            className="authpanel-admin-orb"
-            style={{
-              left: illustrationConfig.circles.x,
-              top: illustrationConfig.circles.y,
-              width: illustrationConfig.circles.size,
-            }}
-            aria-hidden="true"
-          />
-          <span
-            className="authpanel-admin-dots"
-            style={{
-              left: illustrationConfig.dots.x,
-              top: illustrationConfig.dots.y,
-              width: illustrationConfig.dots.width,
-              height: illustrationConfig.dots.height,
-            }}
-            aria-hidden="true"
-          />
-        </>
-      )}
       <Link to="/" className="authpanel-brand" aria-label="EduMaster home">
         <LogoMark />
         <span className="authpanel-brand-text">
@@ -90,11 +65,7 @@ export default function AuthLeftPanel({
 
         <div className="authpanel-illustration">
           <div className="authpanel-illustration-float">
-            {variant === 'admin' ? (
-              <div className="admin-illustration-group" style={illustrationGroupStyle}>
-                {illustration}
-              </div>
-            ) : illustration}
+            {illustration}
           </div>
         </div>
       </div>
